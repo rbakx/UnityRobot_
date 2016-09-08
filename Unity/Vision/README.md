@@ -1,4 +1,10 @@
 # Vision project
+- [Installation](#installation)
+  - [Requirements](#requirements)
+  - [Walkthrough](#walkthrough)
+- [Running](#running)
+- [Troubleshooting](#troubleshooting)
+
 ## Installation
 This small tutorial will guide you through the installation of all required software and libraries in order to run the project.
 #### Requirements
