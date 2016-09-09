@@ -3,6 +3,8 @@ set(CMAKE_CXX_COMPILER g++)
 
 cmake_minimum_required(VERSION 3.3)
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
+
 project(Assignment)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")

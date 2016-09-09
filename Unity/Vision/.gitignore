@@ -1,3 +1,6 @@
+# Build specific
+build
+
 # Prerequisites
 *.d
 
@@ -31,7 +34,7 @@
 *.out
 *.app
 
-#CMake specific
+# CMake specific
 CMakeCache.txt
 CMakeFiles
 CMakeScripts
