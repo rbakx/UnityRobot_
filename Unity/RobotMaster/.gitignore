@@ -30,5 +30,8 @@ obj/
 ehthumbs.db
 Thumbs.db
 
+# Ignore generated code
+Assets/scripts/generated/*
+
 # Exceptions
 !Assets/protobuf-net.dll
