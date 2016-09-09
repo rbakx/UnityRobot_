@@ -20,6 +20,7 @@ When the ProtoGen tool is in your PATH it can be used to generate C# code from .
 protogen -i:input.proto -o:output.cs
 ```
 Now output.cs can be used inside the Unity project
+The `generate_for_unity.bat` script can also be used. This script will automatically generate the C# code inside the Unity folder.
 
 ## C++ Code
 ### C++ Setup
