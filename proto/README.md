@@ -1,7 +1,9 @@
 # Google Protocol Buffers
 Google's protocol buffers are used in this project for serialization of data. Protocol buffers are used because they work in multiple languages, and have binary compatibilty between the different languages. Syntax version 2 of the protocol buffer protocol will be used for compatibility with the Unity Game Engine.
 
-## Unity game engine
+- [Unity](#Unity)
+
+## Unity
 Unity uses the mono framework for C# scripting. The used version does not contain all the .NET features used in the C# version of protocol buffers. This is why [protobuf-net](https://github.com/mgravell/protobuf-net) (version r668) is used.
 
 ### Setup
