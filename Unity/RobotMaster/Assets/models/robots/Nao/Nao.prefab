@@ -9,6 +9,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 452274}
   - 65: {fileID: 6510952}
+  - 114: {fileID: 11430816}
+  - 114: {fileID: 11458400}
   m_Layer: 9
   m_Name: Nao
   m_TagString: Unit
@@ -174,7 +176,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 107974}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 66.1999969, y: 82.5, z: 56.0999985}
+  m_LocalPosition: {x: 66.1999969, y: 80.6999969, z: 56.0999985}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 436508}
@@ -335,11 +337,36 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 107974}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 50, y: 120, z: 50}
-  m_Center: {x: 0, y: -20, z: 0}
+  m_Size: {x: 70, y: 120, z: 70}
+  m_Center: {x: 0, y: -17, z: 0}
+--- !u!114 &11430816
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 107974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b54f736794171b34b8daf18e2c6c649a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  particleActive: 0
+  particle: {fileID: 100008, guid: 01603b7302bd34f379cc7d1ef6b55a15, type: 2}
+--- !u!114 &11458400
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 107974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b47088b8aa7c3548b3669aaa0600b29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
