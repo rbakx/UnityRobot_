@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <opencv2/opencv.hpp>
-#include "filters.h"
 
 using namespace cv;
 using namespace std;
