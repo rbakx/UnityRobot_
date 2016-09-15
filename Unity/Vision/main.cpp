@@ -5,45 +5,42 @@
 using namespace cv;
 using namespace std;
 
-/** Global variables */
-static String imageFile = "./resources/edge_detection.jpg";
-
-static int data_laplacian[3][3] =   {
-                                        {0, -1, 0},
-                                        {-1, 4, -1},
-                                        {0, -1, 0}
-                                    };
-
-static int data_gradient[3][3] =   {
-                                        {-1, 0, 1},
-                                        {-1, 0, 1},
-                                        {-1, 0, 1}
-                                    };
-
-/*
- * Swap 'data_laplacian' by 'data_gradient' in order to see different kernels at work
- */
-Mat kernel(3, 3, CV_8SC4, data_laplacian);
-
 int main()
 {
-    Mat image;
-    image = imread(imageFile, CV_LOAD_IMAGE_GRAYSCALE);
+    VideoCapture cap(1); // open the external camera
 
-    if(!image.data)
-    {
-        cout <<  "Could not open or find the image" << endl;
+    if(!cap.isOpened())  // check if we succeeded
         return -1;
-    }
 
-    imshow("Original", image); //show original
+    Mat bufferFrame;
+    Mat currentFrame;
 
-    Mat res = filters::convolute(image, kernel);
-    imshow("Laplacian", res);
+    while(true)
+    {
+        if(!currentFrame.empty())
+            bufferFrame = currentFrame.clone();
+
+        cap >> currentFrame;
+
+        if(!currentFrame.data)
+        {
+          cout << "Missed a frame" << endl;
+          continue;
+        }
+
+        imshow("Original", currentFrame); //show original
+
+        if(!bufferFrame.empty())
+        {
+            Mat diffImage;
+            //diffImage = Mat::zeros(currentFrame.size(), currentFrame.type());
+            absdiff(bufferFrame, currentFrame, diffImage);
+
+            imshow("Difference", diffImage);
+        }
 
 
-    while(true) {
-        if (waitKey(30) == 27) //Display images in 30fps and when ASCII key 27 (ESC) is pressed, quit application
+        if (waitKey(24) == 27) //Display images in 30fps and when ASCII key 27 (ESC) is pressed, quit application
             break;
     }
 
