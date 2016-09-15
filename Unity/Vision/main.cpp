@@ -4,12 +4,26 @@
 using namespace cv;
 using namespace std;
 
+const String CAMERA_FILE_PATH = "resources/result2.avi";
+
 int main()
 {
-    VideoCapture cap(1); // open the external camera
+    /*
+     * Initialize windows
+     */
+    cvNamedWindow("Original", WINDOW_NORMAL);
+    cvNamedWindow("Differences", WINDOW_NORMAL);
+
+    resizeWindow("Original", 640, 350);
+    resizeWindow("Differences", 640, 350);
+
+    VideoCapture cap(CAMERA_FILE_PATH); // open the demo video
 
     if(!cap.isOpened())  // check if we succeeded
+    {
+        cout << "Cannot find file" << endl;
         return -1;
+    }
 
     Mat bufferFrame;
     Mat currentFrame;
@@ -23,9 +37,10 @@ int main()
 
         if(!currentFrame.data)
         {
-          cout << "Missed a frame" << endl;
-          continue;
+            cout << "Reached end of file, stopping!" << endl;
+            break;
         }
+
 
         imshow("Original", currentFrame); //show original
 
@@ -35,7 +50,7 @@ int main()
             //diffImage = Mat::zeros(currentFrame.size(), currentFrame.type());
             absdiff(bufferFrame, currentFrame, diffImage);
 
-            imshow("Difference", diffImage);
+            imshow("Differences", diffImage);
         }
 
 

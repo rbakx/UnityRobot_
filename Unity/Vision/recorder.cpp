@@ -16,9 +16,12 @@ int main()
     VideoCapture cap(1); // open the external camera
 
     if(!cap.isOpened())  // check if we succeeded
+    {
+        cout << "Camera failed to open!" << endl;
         return -1;
+    }
 
-    //Set video source to FullHD@30fps
+    //Set video source to FullHD@24fps
     cap.set(CV_CAP_PROP_FOURCC, CODEC);
     cap.set(CV_CAP_PROP_FRAME_WIDTH, WIDTH);
     cap.set(CV_CAP_PROP_FRAME_HEIGHT, HEIGHT);
@@ -29,7 +32,7 @@ int main()
     if (!writer.isOpened())
     {
         cout << "Could not open the output video for write" << endl;
-       return -1;
+        return -1;
     }
 
     Mat frame;
