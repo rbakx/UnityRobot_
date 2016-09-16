@@ -12,6 +12,10 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 find_package( OpenCV REQUIRED )
 
-set(SOURCE_FILES main.cpp)
+set (SOURCE_FILES   main.cpp
+                    src/Robot.h
+                    src/RobotDetection/RobotDetection.cpp
+                    src/RobotDetection/RobotDetection.h
+    )
 add_executable(Assignment ${SOURCE_FILES})
 target_link_libraries( Assignment ${OpenCV_LIBS} )

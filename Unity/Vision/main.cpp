@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <opencv2/opencv.hpp>
 
+#include "src/RobotDetection/RobotDetection.h"
+
 using namespace cv;
 using namespace std;
 
@@ -25,34 +27,21 @@ int main()
         return -1;
     }
 
-    Mat bufferFrame;
-    Mat currentFrame;
+    RobotDetection rd;
+    Mat frame;
 
     while(true)
     {
-        if(!currentFrame.empty())
-            bufferFrame = currentFrame.clone();
+        cap >> frame;
 
-        cap >> currentFrame;
-
-        if(!currentFrame.data)
+        if(!frame.data)
         {
             cout << "Reached end of file, stopping!" << endl;
             break;
         }
 
-
-        imshow("Original", currentFrame); //show original
-
-        if(!bufferFrame.empty())
-        {
-            Mat diffImage;
-            //diffImage = Mat::zeros(currentFrame.size(), currentFrame.type());
-            absdiff(bufferFrame, currentFrame, diffImage);
-
-            imshow("Differences", diffImage);
-        }
-
+        imshow("Original", frame); //show original
+        rd.passNewFrame(frame);
 
         if (waitKey(24) == 27) //Display images in 30fps and when ASCII key 27 (ESC) is pressed, quit application
             break;
