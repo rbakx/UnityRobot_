@@ -15,9 +15,13 @@ int main()
      */
     cvNamedWindow("Original", WINDOW_NORMAL);
     cvNamedWindow("Differences", WINDOW_NORMAL);
+    cvNamedWindow("Filtered", WINDOW_NORMAL);
+    cvNamedWindow("Result", WINDOW_NORMAL);
 
     resizeWindow("Original", 640, 350);
     resizeWindow("Differences", 640, 350);
+    resizeWindow("Filtered", 640, 350);
+	resizeWindow("Result", 640, 350);
 
     VideoCapture cap(CAMERA_FILE_PATH); // open the demo video
 
