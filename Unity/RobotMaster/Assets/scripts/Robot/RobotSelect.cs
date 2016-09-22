@@ -4,7 +4,7 @@ using System.Collections;
 public class RobotSelect : MonoBehaviour {
 
     public bool isSelected;
-    public bool particleActive;
+    private bool particleActive;
 
     public GameObject particle;
     private GameObject particleObject;
@@ -19,10 +19,9 @@ public class RobotSelect : MonoBehaviour {
 	void Update () {
 	    if (isSelected && !particleActive)
 	    {
-	        Debug.Log("kaasstengel");
-	        
 	        {
 	            particleObject = (GameObject)Instantiate(particle, this.transform.position, this.transform.rotation);
+	            particleObject.transform.parent = this.gameObject.transform;
 	            particleActive = true;
 	        }
 	    }
