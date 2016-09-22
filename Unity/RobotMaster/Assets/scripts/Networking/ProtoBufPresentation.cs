@@ -27,7 +27,14 @@ namespace Networking
 
         public Message BinaryDataToMessage(byte[] data)
         {
+            Int32 processedBytes;
+            return BinaryDataToMessage(data, out processedBytes);
+        }
+
+        public Message BinaryDataToMessage(byte[] data, out Int32 processedBytes)
+        {
             Message result = null;
+            processedBytes = 0;
 
             if (data.Length > sizeof(Int32))
             {
@@ -37,11 +44,10 @@ namespace Networking
 
                 if (dataLength >= messageSize)
                 {
-                    MemoryStream dataStream = new MemoryStream(data, sizeof(Int32), dataLength);
+                    MemoryStream dataStream = new MemoryStream(data, sizeof(Int32), messageSize);
                     result = Serializer.Deserialize<Message>(dataStream);
 
-                    // Remove the deserialized data from the incoming data
-                    _incomingData.RemoveRange(0, sizeof(Int32) + dataLength);
+                    processedBytes = messageSize + sizeof(Int32);
                 }
             }
 
@@ -52,12 +58,21 @@ namespace Networking
         {
             _incomingData.AddRange(data);
 
-            Message message = BinaryDataToMessage(_incomingData.ToArray());
-
-            if (message != null)
+            Int32 processedBytes;
+            do
             {
-                _messageReceiver.IncomingMessage(message);
+
+                Message message = BinaryDataToMessage(_incomingData.ToArray(), out processedBytes);
+
+                if (message != null)
+                {
+                    _messageReceiver.IncomingMessage(message);
+
+                    // Remove the deserialized data from the incoming data
+                    _incomingData.RemoveRange(0, processedBytes);
+                }
             }
+            while (processedBytes != 0);
         }
 
         public byte[] MessageToBinaryData(Message message)
