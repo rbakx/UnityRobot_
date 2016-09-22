@@ -1,15 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class IPresentationProtocol : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
+public interface IPresentationProtocol
+{
 	
-	}
 	
-	// Update is called once per frame
-	void Update () {
+	void IncomingData(string data);
 	
-	}
+	string MessageToBinaryData(messsage : Message);
+	
+	Message BinaryDataToMessage(string data);
 }
+ 

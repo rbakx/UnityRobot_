@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Message : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
+public class Message
+{
+	public Message()
+	{
+		
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
+	~Message()
+	{
+		
 	}
 }
