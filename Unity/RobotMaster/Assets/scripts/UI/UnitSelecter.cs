@@ -25,6 +25,16 @@ public class UnitSelecter : MonoBehaviour
         {
             LookforTarget();
         }
+        if (selected && Input.GetKeyDown(KeyCode.Escape))
+        {
+            selected = false;
+            SelectedUnit.GetComponent<RobotSelect>().isSelected = false;
+            if (SelectedUnit.GetComponent<Robot>().GetMoving())
+            {
+                MoveUnit(SelectedUnit, SelectedUnit.gameObject.transform.position);
+            }
+            SelectedUnit = null;
+        }
     }
 
     void LookforTarget()
@@ -46,11 +56,9 @@ public class UnitSelecter : MonoBehaviour
         {
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, terrainLayer))
             {
-                Debug.Log("nothing selected");
-                // Vector3 point = ray.origin + (ray.direction * 500);
                 Vector3 point = hit.point;
                 Debug.Log("World point " + point);
-                StartCoroutine(Mover(point,0.2f));
+                MoveUnit(SelectedUnit, point);
                 selected = false;
                 SelectedUnit.GetComponent<RobotSelect>().isSelected = false;
                 SelectedUnit = null;
@@ -59,13 +67,8 @@ public class UnitSelecter : MonoBehaviour
         Debug.DrawRay(ray.origin, ray.direction, Color.black);
     }
 
-    IEnumerator Mover(Vector3 p, float step)
+    void MoveUnit(GameObject unit, Vector3 p)
     {
-        while (SelectedUnit.transform.position != p)
-        {
-            SelectedUnit.transform.position = Vector3.MoveTowards(SelectedUnit.transform.position, p,
-                step*Time.deltaTime);
-        }
-        yield return new WaitForSeconds(0f);
+        unit.gameObject.GetComponent<Robot>().MoveMe(p);
     }
 }
