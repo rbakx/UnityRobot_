@@ -1,15 +1,15 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public class Message
+﻿namespace Networking
 {
-	public Message()
-	{
-		
-	}
-	
-	~Message()
-	{
-		
-	}
+    public class Message
+    {
+        public Message()
+        {
+
+        }
+
+        ~Message()
+        {
+
+        }
+    }
 }

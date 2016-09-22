@@ -1,14 +1,12 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public interface IPresentationProtocol
+﻿namespace Networking
 {
-	
-	
-	void IncomingData(string data);
-	
-	string MessageToBinaryData(messsage : Message);
-	
-	Message BinaryDataToMessage(string data);
+    public interface IPresentationProtocol
+    {
+        void IncomingData(string data);
+
+        string MessageToBinaryData(Message messsage);
+
+        Message BinaryDataToMessage(string data);
+    }
 }
  

@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public interface IMessageSender
+﻿namespace Networking
 {
-	bool SendCommand(Message message);
+    public interface IMessageSender
+    {
+        bool SendCommand(Message message);
+    }
 }
