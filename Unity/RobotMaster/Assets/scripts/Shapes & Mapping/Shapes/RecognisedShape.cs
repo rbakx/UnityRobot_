@@ -2,37 +2,27 @@
 using System.Collections;
 using UnityEditorInternal;
 
+[RequireComponent(typeof(MeshFilter))]
 public class RecognisedShape : MonoBehaviour
 {
-
-    private Vector3 axisRotation;
-    private Vector3 position;
-    private float maxWidth;
-    private float maxHeight;
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public float maxWidth;
+    public float maxHeight;
 
     public RecognisedShape(ShapeData picture)
     {
-        //;
+        MeshFilter _mr = GetComponent<MeshFilter>();
+        if (_mr == null) { throw new MissingComponentException("cannot find mesh renderer");}
+        _mr.mesh = picture._mesh;
     }
 
-    public Vector3 GetAxisRotation()
+    public Quaternion GetAxisRotation()
     {
-        return axisRotation;
+        return this.transform.rotation;
     }
 
     public Vector3 GetPosition()
     {
-        return position;
+        return this.transform.position;
     }
 
     public float GetMaxWidth()
@@ -47,11 +37,11 @@ public class RecognisedShape : MonoBehaviour
 
     public void SetPosition(Vector3 pos)
     {
-        position = pos;
+        this.transform.position = pos;
     }
 
-    public void SetAxisRotation(Vector3 rot)
+    public void SetAxisRotation(Quaternion rot)
     {
-        axisRotation = rot;
+        this.transform.rotation = rot;
     }
 }

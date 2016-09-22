@@ -1,15 +1,18 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
-public class ShapeData : MonoBehaviour {
+public class ShapeData
+{
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public Mesh _mesh;
+
+    public ShapeData(Mesh mesh)
+    {
+        if (mesh == null || mesh.vertices.Length <= 0)
+        {
+            throw new ArgumentException("shapedata not allowed to be empty", "mesh");
+        }
+        _mesh = mesh;
+    }
 }

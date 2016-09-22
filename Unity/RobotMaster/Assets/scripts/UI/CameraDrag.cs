@@ -19,6 +19,7 @@ public class CameraDrag : MonoBehaviour
     void Start ()
 	{
 	    rotatable = true;
+        staticCam.GetComponent<Camera>().orthographic = true;
 	}
 	
 	// Update is called once per frame
