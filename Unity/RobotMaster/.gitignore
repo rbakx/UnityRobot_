@@ -34,4 +34,4 @@ Thumbs.db
 Assets/scripts/generated/*
 
 # Exceptions
-!Assets/protobuf-net.dll
+!Assets/libs/protobuf-net.dll

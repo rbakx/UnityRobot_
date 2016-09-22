@@ -36,8 +36,7 @@ public class SocketTest : MonoBehaviour
         }
         #endregion
 
-        listener =
-            new TcpListener(IPAddress.Parse("145.93.69.247"), 1234);
+        listener = new TcpListener(IPAddress.Parse("145.93.69.247"), 1234);
         listener.Start();
 
         //using (TcpClient socket = listener.AcceptTcpClient())
@@ -64,6 +63,7 @@ public class SocketTest : MonoBehaviour
     private void HandleAsyncConnection(IAsyncResult res)
     {
         StartAccept();
+
         TcpClient client = listener.EndAcceptTcpClient(res);
         var stream = client.GetStream();
 
