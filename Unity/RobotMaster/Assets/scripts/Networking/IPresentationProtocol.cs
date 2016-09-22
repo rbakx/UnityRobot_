@@ -1,12 +1,14 @@
-﻿namespace Networking
+﻿using Communication;
+
+namespace Networking
 {
     public interface IPresentationProtocol
     {
-        void IncomingData(string data);
+        void IncomingData(byte[] data);
 
-        string MessageToBinaryData(Message messsage);
+        byte[] MessageToBinaryData(Message messsage);
 
-        Message BinaryDataToMessage(string data);
+        Message BinaryDataToMessage(byte[] data);
     }
 }
  

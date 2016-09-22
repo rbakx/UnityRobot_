@@ -1,5 +1,4 @@
 ﻿
-
 namespace Networking
 {
     public interface IDataStreamReceiver

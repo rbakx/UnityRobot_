@@ -1,4 +1,6 @@
-﻿namespace Networking
+﻿using Communication;
+
+namespace Networking
 {
     public interface IMessageReceiver
     {

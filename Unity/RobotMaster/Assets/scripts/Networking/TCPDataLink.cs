@@ -88,7 +88,8 @@ namespace Networking
 
                         while (datalink._stream.DataAvailable)
                         {
-                            int result = datalink._stream.Read(bytebuffer, 0, bytebuffer.Length);
+                            // TODO: maybe check byte receive count
+                            datalink._stream.Read(bytebuffer, 0, bytebuffer.Length);
                             buffer.Add(bytebuffer[0]);
                         }
 

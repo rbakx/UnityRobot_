@@ -13,9 +13,6 @@ public class SocketTest : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
-        IPAddress ipAddress = null;
-
         #region Get ip4 from hostname
         string name = Dns.GetHostName();
 
@@ -26,7 +23,6 @@ public class SocketTest : MonoBehaviour
                 if (addr.AddressFamily == AddressFamily.InterNetwork)
                 {
                     Debug.Log(string.Format("{0}/{1}", name, addr));
-                    ipAddress = addr;
                 }
             }
         }
