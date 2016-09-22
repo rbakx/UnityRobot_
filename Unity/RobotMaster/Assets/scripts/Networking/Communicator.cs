@@ -1,14 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Communication;
 
 namespace Networking
 {
-    public class Communication : MonoBehaviour, IMessageSender
+    public class Communicator : MonoBehaviour, IMessageSender
     {
         private IPresentationProtocol _pp;
         private IDataLink _datalink;
 
-        public Communication(IDataLink dataLink, IPresentationProtocol pP)
+        public Communicator(IDataLink dataLink, IPresentationProtocol pP)
         {
             if (pP == null)
             {

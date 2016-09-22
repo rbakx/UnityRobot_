@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Networking;
 
 public class Robot : MonoBehaviour
 {
@@ -31,9 +32,9 @@ public class Robot : MonoBehaviour
 
 	}
 
-    public Robot(Communication com)
+    public Robot(Communicator com)
     {
-        ;
+        
     }
 
     public void SetName(string name)
