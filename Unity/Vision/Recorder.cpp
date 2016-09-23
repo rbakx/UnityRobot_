@@ -1,29 +1,23 @@
-#include <stdio.h>
-#include <opencv2/opencv.hpp>
-#include "libuvc/libuvc.h"
+#include "Recorder.h"
+
+#ifdef __linux__
+
+#include <sys/stat.h>
+#include "libusb-1.0/libusb.h"
+
+#endif
+
 
 using namespace cv;
 using namespace std;
 
-const string DESTINATION = "result.avi";
-
-//Opens the Logitech C930e which is assumed to be the second connected camera
-//(as most laptops have a webcam as first camera)
-const int DEVICE_NR = 1;
-const int VID = 0x046d;
-const int PID = 0x0843;
-
-const int WIDTH = 1920;
-const int HEIGHT = 1080;
-const double FPS = 24;
-const int CODEC = CV_FOURCC('M', 'J', 'P', 'G');
-
-void setAutoFocus();
-
-int main()
+Recorder::Recorder()
 {
     setAutoFocus();
+}
 
+int Recorder::run()
+{
     VideoCapture cap(DEVICE_NR); // open the external camera
 
     if(!cap.isOpened())  // check if we succeeded
@@ -33,7 +27,7 @@ int main()
     }
 
     //Set video source to FullHD@24fps
-    cap.set(CV_CAP_PROP_FOURCC, CODEC);
+    //cap.set(CV_CAP_PROP_FOURCC, CODEC);
     cap.set(CV_CAP_PROP_FRAME_WIDTH, WIDTH);
     cap.set(CV_CAP_PROP_FRAME_HEIGHT, HEIGHT);
     //cap.set(CV_CAP_PROP_FPS, FPS); //Warning: This doesn't work for at least the Logitech C930e
@@ -62,11 +56,12 @@ int main()
             break;
     }
 
+    cout << "Wrote recording to " << DESTINATION << endl;
     return 0;
 }
 
 
-void setAutoFocus()
+void Recorder::setAutoFocus()
 {
     uvc_context_t *ctx;
     uvc_device_handle_t *devh;
@@ -110,3 +105,42 @@ void setAutoFocus()
     * and it closes the libusb context if one was not provided. */
     uvc_exit(ctx);
 }
+
+/*void Recorder::setWritePermission()
+{
+    libusb_context *context;
+    libusb_device_handle *dev_handle;
+    libusb_device *dev;
+
+    int result = libusb_init(&context);
+
+    if(result != 0) {
+        cout << "Unable to initialize libusb" << endl;
+        return;
+    }
+
+
+    dev_handle = libusb_open_device_with_vid_pid(context, VID, PID);
+
+    if(dev_handle == NULL) {
+        cout << "Unable to get a device handle for device " << hex << VID << ":" << hex << PID << endl;
+        return;
+    }
+
+    dev = libusb_get_device(dev_handle);
+
+    int busNumber = libusb_get_bus_number(dev);
+    int portNumber = libusb_get_port_number(dev);
+
+    //Done getting the bus and port number, so we can close the handles
+    libusb_close(dev_handle);
+
+    ostringstream filePathStream;
+    filePathStream << "/dev/bus/usb/" << busNumber << "/" << portNumber;
+
+    int chmod_status = chmod(filePathStream.str().c_str(), S_IWOTH);
+    if(chmod_status < 0) {
+        cout << "Granting writing permissions failed." << endl;
+        return;
+    }
+}*/

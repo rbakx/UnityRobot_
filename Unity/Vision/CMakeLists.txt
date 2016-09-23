@@ -14,10 +14,17 @@ find_package( OpenCV REQUIRED )
 find_package( libuvc REQUIRED )
 #include_directories(${libuvc_INCLUDE_DIRS})
 
+find_package(PkgConfig REQUIRED)
+pkg_search_module(LIBUSB1 REQUIRED libusb-1.0)
+include_directories(SYSTEM ${LIBUSB1_INCLUDE_DIRS})
+
 set (SOURCE_FILES   main.cpp
                     src/Robot.h
                     src/RobotDetection/RobotDetection.cpp
                     src/RobotDetection/RobotDetection.h
-    )
+                    Recorder.cpp
+                    Recorder.h
+                    Display.cpp
+                    Display.h)
 add_executable(Assignment ${SOURCE_FILES})
-target_link_libraries( Assignment ${OpenCV_LIBS} uvc)
+target_link_libraries( Assignment ${OpenCV_LIBS} uvc usb-1.0)

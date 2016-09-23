@@ -9,6 +9,7 @@ private:
     cv::Mat bufferFrame, currentFrame;
     std::vector<Robot> robots;
 
+    void processImage();
     void updateRobotPosition(int x, int y);
 
 public:
