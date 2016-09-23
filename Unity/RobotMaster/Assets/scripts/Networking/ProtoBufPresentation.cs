@@ -6,87 +6,93 @@ using System.IO;
 
 namespace Networking
 {
-    public class ProtoBufPresentation : IPresentationProtocol
-    {
-        private IMessageReceiver _messageReceiver;
-        private List<byte> _incomingData;
+	public class ProtoBufPresentation : IPresentationProtocol, IDataStreamReceiver
+	{
+		private IMessageReceiver _messageReceiver;
+		private List<byte> _incomingData;
 
-        public ProtoBufPresentation(IMessageReceiver receiver)
-        {
-            if (receiver == null)
-            {
-                throw new ArgumentNullException("receiver");
-            }
+		public ProtoBufPresentation()
+		{
+			_incomingData = new List<byte>();
+		}
 
-            _messageReceiver = receiver;
-            _incomingData = new List<byte>();
-        }
+		public void SetReceiver(IMessageReceiver receiver)
+		{
+			if(receiver == null)
+			{
+				throw new ArgumentNullException("receiver");
+			}
 
-        public Message BinaryDataToMessage(byte[] data)
-        {
-            Int32 processedBytes;
-            return BinaryDataToMessage(data, out processedBytes);
-        }
+			_messageReceiver = receiver;
+		}
 
-        public Message BinaryDataToMessage(byte[] data, out Int32 processedBytes)
-        {
-            Message result = null;
-            processedBytes = 0;
+		public Message BinaryDataToMessage(byte[] data)
+		{
+			Int32 processedBytes;
+			return BinaryDataToMessage(data, out processedBytes);
+		}
 
-            if (data.Length > sizeof(Int32))
-            {
-                Int32 messageSize = BitConverter.ToInt32(data, 0);
+		public Message BinaryDataToMessage(byte[] data, out Int32 processedBytes)
+		{
+			Message result = null;
+			processedBytes = 0;
 
-                Int32 dataLength = data.Length - sizeof(Int32);
+			if(data.Length > sizeof(Int32))
+			{
+				Int32 messageSize = BitConverter.ToInt32(data, 0);
 
-                if (dataLength >= messageSize)
-                {
-                    MemoryStream dataStream = new MemoryStream(data, sizeof(Int32), messageSize);
-                    result = Serializer.Deserialize<Message>(dataStream);
+				Int32 dataLength = data.Length - sizeof(Int32);
 
-                    processedBytes = messageSize + sizeof(Int32);
-                }
-            }
+				if(dataLength >= messageSize)
+				{
+					MemoryStream dataStream = new MemoryStream(data, sizeof(Int32), messageSize);
+					result = Serializer.Deserialize<Message>(dataStream);
 
-            return result;
-        }
+					processedBytes = messageSize + sizeof(Int32);
+				}
+			}
 
-        public void IncomingData(byte[] data)
-        {
-            _incomingData.AddRange(data);
+			return result;
+		}
 
-            Int32 processedBytes;
-            do
-            {
-                Message message = BinaryDataToMessage(_incomingData.ToArray(), out processedBytes);
+		public void IncomingData(byte[] data)
+		{
+			_incomingData.AddRange(data);
 
-                if (message != null)
-                {
-                    _messageReceiver.IncomingMessage(message);
+			Int32 processedBytes;
+			do
+			{
+				Message message = BinaryDataToMessage(_incomingData.ToArray(), out processedBytes);
 
-                    // Remove the deserialized data from the incoming data
-                    _incomingData.RemoveRange(0, processedBytes);
-                }
-            }
-            while (processedBytes != 0);
-        }
+				if(message != null)
+				{
+					if(_messageReceiver != null)
+					{
+						_messageReceiver.IncomingMessage(message);
+					}
 
-        public byte[] MessageToBinaryData(Message message)
-        {
-            List<byte> result = new List<byte>();
+					// Remove the deserialized data from the incoming data
+					_incomingData.RemoveRange(0, processedBytes);
+				}
+			} while (processedBytes != 0);
+		}
 
-            MemoryStream messageStream = new MemoryStream();
-            Serializer.Serialize<Message>(messageStream, message);
+		public byte[] MessageToBinaryData(Message message)
+		{
+			List<byte> result = new List<byte>();
 
-            byte[] messageData = messageStream.ToArray();
+			MemoryStream messageStream = new MemoryStream();
+			Serializer.Serialize<Message>(messageStream, message);
 
-            // Insert size
-            result.AddRange(BitConverter.GetBytes((Int32)messageData.Length));
+			byte[] messageData = messageStream.ToArray();
 
-            // Insert data
-            result.AddRange(messageData);
+			// Insert size
+			result.AddRange(BitConverter.GetBytes((Int32)messageData.Length));
 
-            return result.ToArray();
-        }
-    }
+			// Insert data
+			result.AddRange(messageData);
+
+			return result.ToArray();
+		}
+	}
 }

@@ -5,6 +5,8 @@ namespace Networking
     {
         bool SendData(byte[] data);
         bool Connected();
+
+		void SetReceiver(IDataStreamReceiver receiver);
     }
 
 }

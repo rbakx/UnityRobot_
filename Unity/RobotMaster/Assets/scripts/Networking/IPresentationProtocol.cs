@@ -1,14 +1,13 @@
 ﻿using Communication;
+using System;
 
 namespace Networking
 {
-    public interface IPresentationProtocol
-    {
-        void IncomingData(byte[] data);
-
-        byte[] MessageToBinaryData(Message messsage);
-
-        Message BinaryDataToMessage(byte[] data);
-    }
+	public interface IPresentationProtocol : IPresentationProtocolSerializer
+	{
+		void SetReceiver(IMessageReceiver receiver);
+		byte[] MessageToBinaryData(Message message);
+		Message BinaryDataToMessage(byte[] data, out Int32 countedProcessedBytes);
+		void IncomingData(byte[] data);
+	}
 }
- 

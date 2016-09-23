@@ -9,20 +9,13 @@ using System.IO;
 [TestFixture]
 public class TEST_ProtoBufPresentation
 {
-
-    [Test]
-    [ExpectedException(typeof(ArgumentNullException))]
-    public void ConstructorWithNullParam()
-    {
-        new ProtoBufPresentation(null);
-    }
-
-    [Test]
+	[Test]
     public void BinaryDataToMessage()
     {
         // Setup
-        IMessageReceiver receiver = NSubstitute.Substitute.For<IMessageReceiver>();
-        ProtoBufPresentation pbPres = new ProtoBufPresentation(receiver);
+        ProtoBufPresentation pbPres = new ProtoBufPresentation();
+		IMessageReceiver receiver = NSubstitute.Substitute.For<IMessageReceiver>();
+		pbPres.SetReceiver(receiver);
 
         int messageTarget = 1;
         string messageData = "Test message data";
@@ -51,8 +44,9 @@ public class TEST_ProtoBufPresentation
     public void MessageToBinaryData()
     {
         // Setup
-        IMessageReceiver receiver = NSubstitute.Substitute.For<IMessageReceiver>();
-        ProtoBufPresentation pbPres = new ProtoBufPresentation(receiver);
+        ProtoBufPresentation pbPres = new ProtoBufPresentation();
+		IMessageReceiver receiver = NSubstitute.Substitute.For<IMessageReceiver>();
+		pbPres.SetReceiver(receiver);
 
         int messageTarget = 1;
         string messageData = "Test message data";
@@ -86,8 +80,9 @@ public class TEST_ProtoBufPresentation
         Message expectedMessage = new Message { target = messageTarget, data = messageData };
         Message sourceMessage = new Message { target = messageTarget, data = messageData };
 
-        DummyMessageReceiver receiver = new DummyMessageReceiver(expectedMessage);
-        ProtoBufPresentation pbPres = new ProtoBufPresentation(receiver);
+        ProtoBufPresentation pbPres = new ProtoBufPresentation();
+		DummyMessageReceiver receiver = new DummyMessageReceiver(expectedMessage);
+		pbPres.SetReceiver(receiver);
 
         byte[] binaryMessage = pbPres.MessageToBinaryData(sourceMessage);
 

@@ -45,7 +45,8 @@ public class UnitTest_TCPDataLink
 
         unnitTest_DataReceiver receiver = new unnitTest_DataReceiver();
 
-        test = new TCPDataLink(clientReader, receiver);
+        test = new TCPDataLink(clientReader);
+		test.SetReceiver (receiver);
 
         receiver.expectedResult = Encoding.ASCII.GetBytes("Hello there");
 
