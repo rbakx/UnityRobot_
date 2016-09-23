@@ -6,7 +6,7 @@ namespace UnityRobot {
 
 void RobotLogger::init()
 {
-	std::string logPath("logs/" + UnityRobot::LogFileCreator::createLogFile());
+	std::string logPath("logs/" + UnityRobot::LogFileCreator::createLogFileName());
 	m_logger = spdlog::basic_logger_mt("basic_logger", logPath);
 	setPattern("[%l][%Y%b%d %H:%M:%S.%e][ThreadID:%t]\n%v");
 }

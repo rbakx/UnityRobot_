@@ -21,7 +21,7 @@
     <ClInclude Include="RobotLogger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RobotSocket.h">
+    <ClInclude Include="TCPSocketDataLink.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -32,7 +32,10 @@
     <ClCompile Include="RobotLogger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RobotSocket.cpp">
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TCPSocketDataLink.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

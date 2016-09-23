@@ -38,7 +38,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -84,7 +84,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalOptions>/D_WIN32_WINNT=0x0501 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\asio1.10.6\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\asio1.10.6\include;src\Networking;</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -120,12 +120,13 @@
   <ItemGroup>
     <ClInclude Include="LogFileCreator.h" />
     <ClInclude Include="RobotLogger.h" />
-    <ClInclude Include="RobotSocket.h" />
+    <ClInclude Include="TCPSocketDataLink.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LogFileCreator.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="RobotLogger.cpp" />
-    <ClCompile Include="RobotSocket.cpp" />
+    <ClCompile Include="TCPSocketDataLink.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

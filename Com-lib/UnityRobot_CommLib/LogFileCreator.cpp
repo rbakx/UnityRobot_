@@ -2,11 +2,12 @@
 #include <chrono>
 
 namespace UnityRobot {
+
 using clock = std::chrono::system_clock;
 const std::string logPrefix("Log_");
 const std::string logPostfix(".txt");
 
-std::string LogFileCreator::createLogFile()
+std::string LogFileCreator::createLogFileName()
 {
 	return logPrefix + createFileNameByDatetime() + logPostfix;
 }
