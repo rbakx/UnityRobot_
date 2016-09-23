@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using Communication;
+﻿using Communication;
+using UnityEngine;
 
 namespace Networking
 {

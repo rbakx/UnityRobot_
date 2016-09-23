@@ -1,11 +1,8 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
-
-using Communication;
+﻿using Communication;
 using ProtoBuf;
-using System.IO;
+using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Networking
 {
@@ -61,7 +58,6 @@ namespace Networking
             Int32 processedBytes;
             do
             {
-
                 Message message = BinaryDataToMessage(_incomingData.ToArray(), out processedBytes);
 
                 if (message != null)
