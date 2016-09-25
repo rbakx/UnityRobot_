@@ -1,7 +1,8 @@
-﻿
+﻿using System;
+
 namespace Networking
 {
-    public interface IDataLink
+    public interface IDataLink : IDisposable
     {
         bool SendData(byte[] data);
         bool Connected();

@@ -9,6 +9,8 @@ namespace Networking
 		where T : IPresentationProtocol, new()
 
 	{
+        public const int NO_CONNECTION_PENDING_TIMEOUT = 10; // (ms)
+
 		private TcpListener _listener;
 		private Thread _listenerThread;
 		private bool _listening;
@@ -35,6 +37,7 @@ namespace Networking
 			try
 			{
 				_listener = new TcpListener(IPAddress.Parse(address), (int)port);
+                _listener.Start();
 
 				_listenerThread = new Thread(Listen);
 				_listening = true;
@@ -72,6 +75,10 @@ namespace Networking
 
 					listener._subscriber.IncomingNewDataLink(newDataLink, pp);
 				}
+                else
+                {
+                    Thread.Sleep(NO_CONNECTION_PENDING_TIMEOUT);
+                }
 			}
 		}
 

@@ -7,7 +7,7 @@ using System.Threading;
 namespace Networking
 {
 
-	public class TCPDataLink : IDataLink, IDisposable
+    public class TCPDataLink : IDataLink
 	{
 		private TcpClient _client;
 		private NetworkStream _stream;
@@ -114,8 +114,11 @@ namespace Networking
 				_reading = false;
 
 				_client.Close ();
-				_readerThread.Join ();
 
+                if (_readerThread != null)
+                {
+                    _readerThread.Join();
+                }
 			}
 		}
 	}

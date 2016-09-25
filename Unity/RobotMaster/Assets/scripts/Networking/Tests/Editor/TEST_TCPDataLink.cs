@@ -1,11 +1,10 @@
-﻿using UnityEngine;
+﻿using Networking;
 using NUnit.Framework;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading;
-
-using Networking;
 using System.Text;
+using System.Threading;
+using UnityEngine;
 
 public class unnitTest_DataReceiver : IDataStreamReceiver
 {
@@ -18,7 +17,8 @@ public class unnitTest_DataReceiver : IDataStreamReceiver
     {
         receivedData = true;
 
-        failed = !(Encoding.ASCII.GetString(data).CompareTo(Encoding.ASCII.GetString(expectedResult)) == 0);
+        failed = !(Encoding.ASCII.GetString(data).CompareTo(
+            Encoding.ASCII.GetString(expectedResult)) == 0);
     }
 }
 
@@ -30,13 +30,7 @@ public class UnitTest_TCPDataLink
     private TCPDataLink test;
 
     [Test]
-    public void Constructor()
-    {
-        Assert.That(true);
-    }
-
-    [Test]
-    public void Receiving()
+    public void SendingAndReceiving()
     {
         TcpClient clientSender;
         TcpClient clientReader;
