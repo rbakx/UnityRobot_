@@ -1,5 +1,7 @@
 # Build specific
 build
+resources/*
+!resources/README.md
 
 # Prerequisites
 *.d
