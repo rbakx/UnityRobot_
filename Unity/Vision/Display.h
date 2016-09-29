@@ -4,7 +4,7 @@
 
 class Display {
 private:
-    const std::string CAMERA_FILE_PATH = "resources/result2.avi";
+    const std::string CAMERA_FILE_PATH = "resources/sample.avi";
 
 public:
     Display();

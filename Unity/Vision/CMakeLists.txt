@@ -4,7 +4,13 @@ set(CMAKE_CXX_COMPILER g++)
 cmake_minimum_required(VERSION 3.3)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
-file(COPY resources DESTINATION build)
+#file(COPY resources DESTINATION build)
+
+add_custom_command(OUTPUT ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/resources
+        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/resources ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/resources)
+add_custom_target(copy_dir_target ALL
+        DEPENDS ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/resources)
+
 
 project(Assignment)
 
