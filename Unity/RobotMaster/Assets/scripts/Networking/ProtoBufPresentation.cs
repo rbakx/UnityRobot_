@@ -6,7 +6,7 @@ using System.IO;
 
 namespace Networking
 {
-	public class ProtoBufPresentation : IPresentationProtocol, IDataStreamReceiver
+	public class ProtoBufPresentation : IPresentationProtocol
 	{
 		private IMessageReceiver _messageReceiver;
 		private List<byte> _incomingData;
@@ -66,6 +66,7 @@ namespace Networking
 
 				if(message != null)
 				{
+
 					if(_messageReceiver != null)
 					{
 						_messageReceiver.IncomingMessage(message);

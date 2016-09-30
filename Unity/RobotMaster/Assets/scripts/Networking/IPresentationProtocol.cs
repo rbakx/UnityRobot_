@@ -3,7 +3,7 @@ using System;
 
 namespace Networking
 {
-	public interface IPresentationProtocol : IPresentationProtocolSerializer
+	public interface IPresentationProtocol : IPresentationProtocolSerializer, IDataStreamReceiver
 	{
 		void SetReceiver(IMessageReceiver receiver);
 		byte[] MessageToBinaryData(Message message);

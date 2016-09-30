@@ -72,6 +72,7 @@ namespace Networking
 					TcpClient newClient = listener._listener.AcceptTcpClient();
 					TCPDataLink newDataLink = new TCPDataLink(newClient);
 					T pp = new T();
+					newDataLink.SetReceiver(pp);
 
 					listener._subscriber.IncomingNewDataLink(newDataLink, pp);
 				}
