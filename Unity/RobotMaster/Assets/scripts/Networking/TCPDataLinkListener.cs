@@ -67,7 +67,7 @@ namespace Networking
 
 			while(listener._listening)
 			{
-				if(listener._listener.Pending())
+				while(listener._listener.Pending())
 				{
 					TcpClient newClient = listener._listener.AcceptTcpClient();
 					TCPDataLink newDataLink = new TCPDataLink(newClient);
@@ -76,10 +76,8 @@ namespace Networking
 
 					listener._subscriber.IncomingNewDataLink(newDataLink, pp);
 				}
-                else
-                {
-                    Thread.Sleep(NO_CONNECTION_PENDING_TIMEOUT);
-                }
+
+                Thread.Sleep(NO_CONNECTION_PENDING_TIMEOUT);
 			}
 		}
 
