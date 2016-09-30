@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Networking
 {
-    public class Communicator : MonoBehaviour, IMessageSender
+    public class Communicator : IMessageSender
     {
         private IPresentationProtocol _pp;
         private IDataLink _datalink;
