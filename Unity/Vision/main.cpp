@@ -1,5 +1,6 @@
-#include "Recorder.h"
-#include "Display.h"
+#include "src/Recorder.h"
+#include "src/Display.h"
+#include "src/RobotDetection/Calibrator.h"
 #include <unistd.h> /* For getuid() */
 #include <iostream> /* For ofstream */
 #include <fstream>  /* For ofstream */
@@ -9,6 +10,7 @@ using namespace std;
 
 string exec_path;
 
+void calibrate(int argc, char* argv[]);
 void printHelp();
 void configure();
 
@@ -29,15 +31,34 @@ int main(int argc, char* argv[])
             Recorder recorder;
             recorder.run();
         }
-        else if(strcmp(argv[1], "configure") == 0) {
+        else if(strcmp(argv[1], "calibrate") == 0)
+            calibrate(argc, argv);
+        else if(strcmp(argv[1], "configure") == 0)
             configure();
-        }
-        else {
+        else
             printHelp();
-        }
     }
 
     return 0;
+}
+
+void calibrate(int argc, char* argv[])
+{
+    Calibrator *calibrator;
+
+    if(argc > 2) //There is an option passed to the calibrate function, this means we will be loading from file
+        calibrator = new Calibrator(argv[2]);
+    else {
+        Recorder recorder;
+        calibrator = new Calibrator(recorder); //TODO: Will now still throw an exception as it is not implemented yet
+    }
+
+    cout << "Please provide a file path where you want to store the calibration file:" << endl;
+    string filePath;
+    getline(cin, filePath);
+
+    calibrator->writeToFile(filePath);
+    delete calibrator;
 }
 
 void printHelp()
@@ -49,6 +70,7 @@ void printHelp()
     cout << "Commands:" << endl;
     cout << "  start      Starts the robot recognition. This command can be omitted." << endl;
     cout << "  record     Writes camera output to an .avi file with autofocus disabled, useful to create sample data." << endl;
+    cout << "  calibrate  Extracts features and stores them to a binary file to be used in the main program." << endl; //TODO: Better description
     cout << "  configure  Will write a file to /etc/udev/rules.d/ in order to obtain write access to the webcam." << endl;
     cout << "  help       Shows this list." << endl;
 }

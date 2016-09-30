@@ -1,6 +1,6 @@
 #include "Display.h"
 #include <opencv2/opencv.hpp>
-#include "src/RobotDetection/RobotDetection.h"
+#include "RobotDetection/RobotDetection.h"
 
 using namespace std;
 using namespace cv;

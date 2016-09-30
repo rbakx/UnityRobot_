@@ -5,40 +5,28 @@ using namespace std;
 
 void RobotDetection::processImage()
 {
-	Mat grayBuffer, grayCurrent;
-	cvtColor(bufferFrame, grayBuffer, CV_BGR2GRAY);
-	cvtColor(currentFrame, grayCurrent, CV_BGR2GRAY);
-
-	Mat diffImage, thresholdImage;
-	absdiff(grayBuffer, grayCurrent, diffImage);
-	threshold(diffImage, thresholdImage, 10, 255, CV_THRESH_BINARY); //TODO: Make this adaptive? --> no.
-
-	Mat filteredImage;
-	medianBlur(thresholdImage, filteredImage, 9);
-
-	Mat structuredElement = getStructuringElement(CV_SHAPE_ELLIPSE, Size(3, 3));
-	dilate(filteredImage, filteredImage, structuredElement, Point(-1, -1), 25);
-
-	imshow("Differences", thresholdImage);
-	imshow("Filtered", filteredImage);
-
-
-
-	if(countNonZero(filteredImage) < 1) //Check if there is something moving, otherwise boundingRect will throw an exception
-		return;
-
-	Rect rect = boundingRect(filteredImage);
-
 	Mat result = currentFrame.clone();
-	rectangle(result, rect, Scalar(0, 255, 0), 3);
+    //Mat descriptors;
+
+	//orb->compute(currentFrame, sampleKeypoints[3], descriptors);
+
+    
+
+//
+//	if(rect.width >= rect.height)
+//		circle(result, Point(rect.x + rect.height / 2, rect.y + rect.height / 2), 10, Scalar(0, 0, 255), 20);
+//	else
+//		circle(result, Point(rect.x + rect.width / 2, rect.y + rect.width / 2), 10, Scalar(0, 0, 255), 20);
+
+    //Mat result = currentFrame.clone();
+    //drawKeypoints(result, sampleKeypoints[3], result, Scalar(0, 255, 0));
+
+    vector<DMatch> matches;
+
+    matcher->match(descriptors, currentFrame, matches);
 
 
-	if(rect.width >= rect.height)
-		circle(result, Point(rect.x + rect.height / 2, rect.y + rect.height / 2), 10, Scalar(0, 0, 255), 20);
-	else
-		circle(result, Point(rect.x + rect.width / 2, rect.y + rect.width / 2), 10, Scalar(0, 0, 255), 20);
-
-	imshow("Result", result);
+	imshow("Result", descriptors[0]);
 }
 
 void RobotDetection::updateRobotPosition(int x, int y)
@@ -49,12 +37,36 @@ void RobotDetection::updateRobotPosition(int x, int y)
 
 RobotDetection::RobotDetection()
 {
+    //orb = ORB::create();
 
-}
+    FileStorage fs2("keypoints.yml", FileStorage::READ);
 
-void RobotDetection::calibrate()
-{
+    int i = 0;
+    while(true) {
+        stringstream key;
+        key << "Descriptor " << i;
 
+        FileNode fileNode = fs2[key.str()];
+
+        if(fileNode.isNone()) //Reached end of file, we can break out of the loop
+            break;
+
+        //vector<KeyPoint> sample;
+        // read(fileNode, sample);
+        Mat descriptor;
+        read(fileNode, descriptor);
+
+        descriptors.push_back(descriptor);
+
+        i++;
+    }
+
+    fs2.release();
+
+    cout << "Read " << i << " samples from file" << endl;
+
+    matcher = BFMatcher::create("BruteForce-Hamming");
+    matcher->add(descriptors);
 }
 
 void RobotDetection::passNewFrame(const Mat& frame)

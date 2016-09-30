@@ -28,9 +28,9 @@ set (SOURCE_FILES   main.cpp
                     src/Robot.h
                     src/RobotDetection/RobotDetection.cpp
                     src/RobotDetection/RobotDetection.h
-                    Recorder.cpp
-                    Recorder.h
-                    Display.cpp
-                    Display.h)
+        src/Recorder.cpp
+        src/Recorder.h
+        src/Display.cpp
+        src/Display.h src/RobotDetection/Calibrator.cpp src/RobotDetection/Calibrator.h)
 add_executable(Assignment ${SOURCE_FILES})
 target_link_libraries( Assignment ${OpenCV_LIBS} uvc usb-1.0)
