@@ -43,7 +43,7 @@ namespace Networking
 				_listening = true;
 				_listenerThread.Start(this);
 			}
-			catch(ArgumentOutOfRangeException ex)
+			catch(ArgumentOutOfRangeException)
 			{
 				return false;
 			}
