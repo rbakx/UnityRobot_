@@ -29,6 +29,7 @@ public:
 
 	void Connect();
 
+	bool SendData(const std::string& data) noexcept;
 	bool SendData(const std::vector<char>& data) noexcept;
 	bool Connected() const noexcept;
 

@@ -47,6 +47,8 @@ private:
 				std::string s(asio::buffer_cast<const char*>(asio::buffer(data_, length)), length);
 				//std::cout << s << " was the message\n";
 				std::cout.write(s.data(), length);
+				std::cout << ", length: " << length << std::endl;
+
 				do_write(length);
 			}
 		});
@@ -56,9 +58,15 @@ private:
 	{
 		auto self(shared_from_this());
 		//asio::async_write(socket_, asio::buffer(data_, length),
-		asio::async_write(socket_, asio::buffer("received\n", 9),
+
+		std::cout << "data: ";
+		std::cout.write(data_, length);
+		std::cout << std::endl;
+
+		asio::async_write(socket_, asio::buffer(data_, length),
 			[this, self](asio::error_code ec, std::size_t /*length*/)
 		{
+
 			if (!ec)
 			{
 				//std::string s(asio::buffer_cast<const char*>(asio::buffer(data_, length)), length);
@@ -91,6 +99,8 @@ private:
 		acceptor_.async_accept(socket_,
 			[this](asio::error_code ec)
 		{
+			std::cout << "Incoming client from " << socket_.remote_endpoint().address().to_string() << std::endl;
+
 			if (!ec)
 			{
 				std::make_shared<session>(std::move(socket_))->start();
@@ -106,6 +116,8 @@ private:
 
 int main(int argc, char* argv[])
 {
+	std::cout << "Program started" << std::endl;
+
 	try
 	{
 		if (argc != 2)
@@ -114,9 +126,13 @@ int main(int argc, char* argv[])
 			return 1;
 		}
 
+		int portValue = std::atoi(argv[1]);
+
+		std::cout << "Attempting to listen on port: " << portValue << std::endl;
+
 		asio::io_service io_service;
 
-		server s(io_service, std::atoi(argv[1]));
+		server s(io_service, portValue);
 
 		io_service.run();
 	}

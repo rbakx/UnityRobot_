@@ -4,6 +4,7 @@
 #include <asio/impl/write.hpp>
 #include <asio/io_service.hpp>
 #include <stdexcept>
+#include <iostream>
 
 namespace UnityRobot {
 
@@ -66,8 +67,7 @@ void TCPSocketDataLink::StartReading()
 {
 	asio::error_code ec;
 
-	std::vector<char> socketBuffer;
-	socketBuffer.reserve(128);
+	std::vector<char> socketBuffer(128);
 
 	while (ec != asio::error::eof)
 	{
@@ -75,20 +75,14 @@ void TCPSocketDataLink::StartReading()
 
 		if (buffersize > 0)
 		{
-			m_receiver->IncomingData(socketBuffer);
+			std::vector<char> incomingDataString(buffersize);
+			memcpy(incomingDataString.data(), socketBuffer.data(), buffersize);
 
-			//std::cout << "received" << std::endl;
-
-			for (unsigned int i = 0; i < buffersize; ++i)
-			{
-				//std::cout << socketBuffer.at(i);
-			}
-
-			//std::cout << "" << std::endl;
-
-			socketBuffer.clear();
+			m_receiver->IncomingData(incomingDataString);
 		}
 	}
+	
+	std::cout << "end of stream" << std::endl;
 
 	m_Socket.close();
 }
@@ -101,6 +95,22 @@ void TCPSocketDataLink::ReadCallback(const asio::error_code& error, size_t bytes
 		//logstuff
 		return;
 	}
+}
+
+bool TCPSocketDataLink::SendData(const std::string& data) noexcept
+{
+	std::vector<char> charVectorArray;
+
+	charVectorArray.reserve(data.length());
+
+	std::cout << data.length() << std::endl;
+
+	for (size_t length = 0; length < data.length(); length++)
+	{
+		charVectorArray.push_back(data[length]);
+	}
+
+	return SendData(charVectorArray);
 }
 
 bool TCPSocketDataLink::SendData(const std::vector<char>& data) noexcept
