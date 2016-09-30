@@ -4,5 +4,26 @@ package Communication;
 
 message Message {
 	optional int32 target = 1;
-	optional string data = 2;
+	optional string stringData = 2;
+
+	optional Shape ShapeData = 3;
+}
+
+message Shape {
+	required Quaternion rotation = 1;
+
+	repeated Vector3 vertices = 2;
+}
+
+message Vector3 {
+	required float x = 1;
+	required float y = 2;
+	required float z = 3;
+}
+
+message Quaternion {
+	required float x = 1;
+	required float y = 2;
+	required float z = 3;
+	required float w = 4;
 }

@@ -20,7 +20,7 @@ public class TEST_ProtoBufPresentation
         int messageTarget = 1;
         string messageData = "Test message data";
 
-        Message sourceMessage = new Message { target = messageTarget, data = messageData };
+        Message sourceMessage = new Message { target = messageTarget, stringData = messageData };
 
         MemoryStream stream = new MemoryStream();
         Serializer.Serialize(stream, sourceMessage);
@@ -37,7 +37,7 @@ public class TEST_ProtoBufPresentation
         // Checking
         Assert.NotNull(result);
         Assert.AreEqual(result.target, messageTarget);
-        Assert.AreEqual(result.data, messageData);
+        Assert.AreEqual(result.stringData, messageData);
     }
 
     [Test]
@@ -51,7 +51,7 @@ public class TEST_ProtoBufPresentation
         int messageTarget = 1;
         string messageData = "Test message data";
 
-        Message sourceMessage = new Message { target = messageTarget, data = messageData };
+        Message sourceMessage = new Message { target = messageTarget, stringData = messageData };
 
         MemoryStream stream = new MemoryStream();
         Serializer.Serialize<Message>(stream, sourceMessage);
@@ -77,8 +77,8 @@ public class TEST_ProtoBufPresentation
         int messageTarget = 1;
         string messageData = "Test message data";
 
-        Message expectedMessage = new Message { target = messageTarget, data = messageData };
-        Message sourceMessage = new Message { target = messageTarget, data = messageData };
+        Message expectedMessage = new Message { target = messageTarget, stringData = messageData };
+        Message sourceMessage = new Message { target = messageTarget, stringData = messageData };
 
         ProtoBufPresentation pbPres = new ProtoBufPresentation();
 		DummyMessageReceiver receiver = new DummyMessageReceiver(expectedMessage);
@@ -115,6 +115,6 @@ public class DummyMessageReceiver : IMessageReceiver
     {
         Assert.NotNull(newMessage);
         Assert.AreEqual(newMessage.target, _expectedMessage.target);
-        Assert.AreEqual(newMessage.data, _expectedMessage.data);
+        Assert.AreEqual(newMessage.stringData, _expectedMessage.stringData);
     }
 }

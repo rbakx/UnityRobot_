@@ -23,13 +23,114 @@ namespace Communication
       get { return _target; }
       set { _target = value; }
     }
-    private string _data = "";
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"data", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    private string _stringData = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"stringData", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
-    public string data
+    public string stringData
     {
-      get { return _data; }
-      set { _data = value; }
+      get { return _stringData; }
+      set { _stringData = value; }
+    }
+    private Communication.Shape _ShapeData = null;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"ShapeData", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public Communication.Shape ShapeData
+    {
+      get { return _ShapeData; }
+      set { _ShapeData = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Shape")]
+  public partial class Shape : global::ProtoBuf.IExtensible
+  {
+    public Shape() {}
+    
+    private Communication.Quaternion _rotation;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"rotation", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public Communication.Quaternion rotation
+    {
+      get { return _rotation; }
+      set { _rotation = value; }
+    }
+    private readonly global::System.Collections.Generic.List<Communication.Vector3> _vertices = new global::System.Collections.Generic.List<Communication.Vector3>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"vertices", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<Communication.Vector3> vertices
+    {
+      get { return _vertices; }
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Vector3")]
+  public partial class Vector3 : global::ProtoBuf.IExtensible
+  {
+    public Vector3() {}
+    
+    private float _x;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"x", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    public float x
+    {
+      get { return _x; }
+      set { _x = value; }
+    }
+    private float _y;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"y", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    public float y
+    {
+      get { return _y; }
+      set { _y = value; }
+    }
+    private float _z;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"z", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    public float z
+    {
+      get { return _z; }
+      set { _z = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Quaternion")]
+  public partial class Quaternion : global::ProtoBuf.IExtensible
+  {
+    public Quaternion() {}
+    
+    private float _x;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"x", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    public float x
+    {
+      get { return _x; }
+      set { _x = value; }
+    }
+    private float _y;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"y", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    public float y
+    {
+      get { return _y; }
+      set { _y = value; }
+    }
+    private float _z;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"z", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    public float z
+    {
+      get { return _z; }
+      set { _z = value; }
+    }
+    private float _w;
+    [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name=@"w", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    public float w
+    {
+      get { return _w; }
+      set { _w = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
