@@ -5,28 +5,35 @@ using namespace std;
 
 void RobotDetection::processImage()
 {
-	Mat result = currentFrame.clone();
-    //Mat descriptors;
+    Mat queryDescriptor;
 
-	//orb->compute(currentFrame, sampleKeypoints[3], descriptors);
-
-    
-
-//
-//	if(rect.width >= rect.height)
-//		circle(result, Point(rect.x + rect.height / 2, rect.y + rect.height / 2), 10, Scalar(0, 0, 255), 20);
-//	else
-//		circle(result, Point(rect.x + rect.width / 2, rect.y + rect.width / 2), 10, Scalar(0, 0, 255), 20);
-
-    //Mat result = currentFrame.clone();
-    //drawKeypoints(result, sampleKeypoints[3], result, Scalar(0, 255, 0));
+    vector<KeyPoint> keypoints;
+    orb->detect(currentFrame, keypoints);
+	orb->compute(currentFrame, keypoints, queryDescriptor);
 
     vector<DMatch> matches;
+    matcher->match(queryDescriptor, trainDescriptor, matches);
 
-    matcher->match(descriptors, currentFrame, matches);
 
+    //drawMatches(currentFrame, keypoints, trainSample, trainKeypoints, matches, result);
 
-	imshow("Result", descriptors[0]);
+    DMatch *bestMatch = nullptr;
+    for(auto &match : matches) {
+        if(bestMatch == nullptr)
+            bestMatch = &match;
+        else if(match.distance < bestMatch->distance)
+            bestMatch = &match;
+    }
+
+    Mat result = currentFrame.clone();
+//    for(auto &match : matches)
+//    {
+//        circle(result, keypoints[match.imgIdx].pt, 10, Scalar(0, 255, 0), 10);
+//    }
+
+    circle(result, keypoints[bestMatch->queryIdx].pt, 10, Scalar(0, 255, 0), 10);
+
+	imshow("Result", result);
 }
 
 void RobotDetection::updateRobotPosition(int x, int y)
@@ -37,36 +44,27 @@ void RobotDetection::updateRobotPosition(int x, int y)
 
 RobotDetection::RobotDetection()
 {
-    //orb = ORB::create();
+    orb = ORB::create();
 
-    FileStorage fs2("keypoints.yml", FileStorage::READ);
+    FileStorage fs2("sample.yml", FileStorage::READ);
 
-    int i = 0;
-    while(true) {
-        stringstream key;
-        key << "Descriptor " << i;
 
-        FileNode fileNode = fs2[key.str()];
+    FileNode descriptorNode = fs2["Descriptors"];
+    FileNode keypointsNode = fs2["Keypoints"];
+    FileNode sampleNode = fs2["Sample"];
 
-        if(fileNode.isNone()) //Reached end of file, we can break out of the loop
-            break;
+    if(descriptorNode.isNone() || keypointsNode.isNone() || sampleNode.isNone()) //We couldn't find the descriptors in the file
+        throw runtime_error("Sample is not complete!");
 
-        //vector<KeyPoint> sample;
-        // read(fileNode, sample);
-        Mat descriptor;
-        read(fileNode, descriptor);
-
-        descriptors.push_back(descriptor);
-
-        i++;
-    }
+    read(descriptorNode, trainDescriptor);
+    read(keypointsNode, trainKeypoints);
+    read(sampleNode, trainSample);
 
     fs2.release();
 
-    cout << "Read " << i << " samples from file" << endl;
+    cout << "Read sample from file" << endl;
 
-    matcher = BFMatcher::create("BruteForce-Hamming");
-    matcher->add(descriptors);
+    matcher = new cv::BFMatcher(cv::NORM_HAMMING, true);
 }
 
 void RobotDetection::passNewFrame(const Mat& frame)

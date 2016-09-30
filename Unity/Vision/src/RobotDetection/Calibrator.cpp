@@ -49,14 +49,20 @@ Calibrator::Calibrator(const string inputFilePath)
         }
 
         passNewFrame(frame);
-        findROIs();
+        updateROI();
 
         if(waitKey(24) == 27) //Display images in 30fps and when ASCII key 27 (ESC) is pressed, quit application
             break;
     }
 
-    orb->detect(ROIs, sampleKeypoints);
-    orb->compute(ROIs, sampleKeypoints, descriptors);
+//
+//    Rect ROI = boundingRect(ROImask);
+//    Mat robot(currentFrame.clone(), ROI);
+
+    orb->detect(currentFrame, keypoints, ROImask);
+    orb->compute(currentFrame, keypoints, descriptors);
+
+    //orb->detectAndCompute(currentFrame, ROImask, keypoints, descriptors);
 
     cout << "Finished calibrating." << endl;
 }
@@ -67,7 +73,7 @@ Calibrator::Calibrator(Recorder recorder)
     throw logic_error("Not implemented"); //TODO: Implement this
 }
 
-void Calibrator::findROIs()
+void Calibrator::updateROI()
 {
     if(bufferFrame.empty())
         return;
@@ -86,26 +92,32 @@ void Calibrator::findROIs()
     imshow("Differences", thresholdImage);
     imshow("Filtered", filteredImage);
 
-
     if(countNonZero(filteredImage) < 1) //Check if there is something moving, otherwise boundingRect will throw an exception
         return;
 
-    Rect rect = boundingRect(filteredImage);
+    if(ROImask.rows <= 0)
+        ROImask = Mat::zeros(currentFrame.size(), CV_8U);
 
-    Mat ROI = Mat(currentFrame, rect);
-    ROIs.push_back(ROI.clone());
+    bitwise_or(ROImask, filteredImage, ROImask); //Merge current mask with overall ROImask
 }
 
 void Calibrator::writeToFile(const string filePath) const
 {
-    FileStorage fs("keypoints.yml", FileStorage::WRITE);
-    for(int i = 0; i < descriptors.size(); i++) {
-        stringstream key;
-        key << "Descriptor " << i;
+    FileStorage fs("sample.yml", FileStorage::WRITE);
 
-        //write(fs, key.str(), sampleKeypoints[i]);
-        write(fs, key.str(), descriptors[i]);
-    }
+
+//    for(int i = 0; i < descriptors.size(); i++) {
+//        stringstream key;
+//        key << "Descriptor " << i;
+//
+//        //write(fs, key.str(), sampleKeypoints[i]);
+//        write(fs, key.str(), descriptors[i]);
+//    }
+
+    write(fs, "Descriptors", descriptors);
+    write(fs, "Keypoints", keypoints);
+    write(fs, "Sample", Mat(currentFrame.clone(), boundingRect(ROImask)));
+
     fs.release();
 
     //

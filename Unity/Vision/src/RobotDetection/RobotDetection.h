@@ -8,10 +8,12 @@ class RobotDetection
 {
 private:
     cv::Mat bufferFrame, currentFrame;
-    //cv::Ptr<cv::ORB> orb;
+    cv::Ptr<cv::ORB> orb;
     cv::Ptr<cv::DescriptorMatcher> matcher;
-    std::vector<std::vector<cv::KeyPoint>> sampleKeypoints;
-    std::vector<cv::Mat> descriptors;
+
+    cv::Mat trainDescriptor;
+    std::vector<cv::KeyPoint> trainKeypoints;
+    cv::Mat trainSample;
 
     std::vector<Robot> robots;
 

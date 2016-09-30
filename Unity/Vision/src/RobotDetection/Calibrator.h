@@ -16,13 +16,13 @@ private:
     int numberOfFeatures = 20; //The maximum number of features to retain.
     cv::Ptr<cv::ORB> orb;
 
-    std::vector<cv::Mat> ROIs;
-    std::vector<std::vector<cv::KeyPoint>> sampleKeypoints;
-    std::vector<cv::Mat> descriptors;
+    cv::Mat ROImask;
+    std::vector<cv::KeyPoint> keypoints;
+    cv::Mat descriptors;
 
 
     void passNewFrame(const cv::Mat &img);
-    void findROIs();
+    void updateROI();
 
 
 public:
