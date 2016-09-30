@@ -73,7 +73,7 @@ public class TestIncomingDataLinkSubscriberCopy : IIncomingDataLinkSubscriber, I
         Debug.Log("Incoming impl");
     }
 
-	public void IncomingMessage(Message newMessage)
+	public void IncomingMessage(Message newMessage, IDataLink datalink)
 	{
 		Debug.Log(newMessage.data);
 	}

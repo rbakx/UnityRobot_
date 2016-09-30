@@ -13,7 +13,7 @@ public class unnitTest_DataReceiver : IDataStreamReceiver
     public volatile bool failed = false;
     
 
-    public void IncomingData(byte[] data)
+    public void IncomingData(byte[] data, IDataLink datalink)
     {
         receivedData = true;
 

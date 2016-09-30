@@ -99,7 +99,7 @@ namespace Networking
 							buffer.Add (bytebuffer [0]);
 						}
 
-						datalink._receiver.IncomingData (buffer.ToArray ());
+						datalink._receiver.IncomingData (buffer.ToArray (), datalink);
 					}
 				}
 			}

@@ -86,8 +86,10 @@ public class TEST_ProtoBufPresentation
 
         byte[] binaryMessage = pbPres.MessageToBinaryData(sourceMessage);
 
-        pbPres.IncomingData(binaryMessage);
-        pbPres.IncomingData(binaryMessage);
+        IDataLink datalink = NSubstitute.Substitute.For<IDataLink>();
+
+        pbPres.IncomingData(binaryMessage, datalink);
+        pbPres.IncomingData(binaryMessage, datalink);
 
         byte[] firstHalf = new byte[6];
         byte[] secondHalf = new byte[binaryMessage.Length - 6];
@@ -95,8 +97,8 @@ public class TEST_ProtoBufPresentation
         Array.Copy(binaryMessage, 0, firstHalf, 0, 6);
         Array.Copy(binaryMessage, 6, secondHalf, 0, binaryMessage.Length - 6);
 
-        pbPres.IncomingData(firstHalf);
-        pbPres.IncomingData(secondHalf);
+        pbPres.IncomingData(firstHalf, datalink);
+        pbPres.IncomingData(secondHalf, datalink);
     }
 }
 
@@ -109,7 +111,7 @@ public class DummyMessageReceiver : IMessageReceiver
         _expectedMessage = expectedMessage;
     }
 
-    public void IncomingMessage(Message newMessage)
+    public void IncomingMessage(Message newMessage, IDataLink datalink)
     {
         Assert.NotNull(newMessage);
         Assert.AreEqual(newMessage.target, _expectedMessage.target);

@@ -8,6 +8,6 @@ namespace Networking
 		void SetReceiver(IMessageReceiver receiver);
 		byte[] MessageToBinaryData(Message message);
 		Message BinaryDataToMessage(byte[] data, out Int32 countedProcessedBytes);
-		void IncomingData(byte[] data);
+		void IncomingData(byte[] data, IDataLink datalink);
 	}
 }

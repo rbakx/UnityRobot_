@@ -55,7 +55,7 @@ namespace Networking
 			return result;
 		}
 
-		public void IncomingData(byte[] data)
+		public void IncomingData(byte[] data, IDataLink datalink)
 		{
 			_incomingData.AddRange(data);
 
@@ -69,7 +69,7 @@ namespace Networking
 
 					if(_messageReceiver != null)
 					{
-						_messageReceiver.IncomingMessage(message);
+						_messageReceiver.IncomingMessage(message, datalink);
 					}
 
 					// Remove the deserialized data from the incoming data
@@ -95,5 +95,5 @@ namespace Networking
 
 			return result.ToArray();
 		}
-	}
+    }
 }
