@@ -29,7 +29,7 @@ public class UnitSelecter : MonoBehaviour
         {
             selected = false;
             SelectedUnit.GetComponent<RobotSelect>().isSelected = false;
-            if (SelectedUnit.GetComponent<Robot>().GetMoving())
+            if (SelectedUnit.GetComponent<Robot>().IsMoving())
             {
                 MoveUnit(SelectedUnit, SelectedUnit.gameObject.transform.position);
             }
@@ -69,6 +69,6 @@ public class UnitSelecter : MonoBehaviour
 
     void MoveUnit(GameObject unit, Vector3 p)
     {
-        unit.gameObject.GetComponent<Robot>().MoveMe(p);
+        unit.gameObject.GetComponent<Robot>().SetVelocity(p);
     }
 }

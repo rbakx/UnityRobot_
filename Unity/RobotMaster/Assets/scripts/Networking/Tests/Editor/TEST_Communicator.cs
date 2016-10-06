@@ -20,13 +20,13 @@ public class TEST_Communicator
 
 		Communicator com = new Communicator(datalink, pp);
 
-		Message sendMessage = new Message { target = 2, stringData = "Message data..." };
+		Message sendMessage = new Message { robotID = 2, stringData = "Message data..." };
 
 		Assert.True(com.SendCommand(sendMessage));
 
 		Assert.NotNull(receiver.incomingMessage);
 
-		Assert.AreEqual(receiver.incomingMessage.target, sendMessage.target);
+		Assert.AreEqual(receiver.incomingMessage.robotID, sendMessage.robotID);
 		Assert.AreEqual(receiver.incomingMessage.stringData, sendMessage.stringData);
 	}
 }

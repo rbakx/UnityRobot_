@@ -1,15 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
-public class RobotList : MonoBehaviour {
+public class RobotList  {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    private List<Robot> _robots;
+
+
 }
