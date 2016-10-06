@@ -3,6 +3,7 @@ using System.Collections;
 using Networking;
 using Communication;
 using System;
+using System.Runtime.CompilerServices;
 
 public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
 {
@@ -19,6 +20,16 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
 
     public int Id { get { return _id; } set { _id = value; } }
 
+    void Awake()
+    {
+        // TODO: Robots should be initialized somewhere else
+        ProtoBufPresentation pp = new ProtoBufPresentation();
+        LocalDataLink dl = new LocalDataLink();
+        Communicator c = new Communicator(dl, pp);
+
+        _communicator = c;
+    }
+
     void Update()
     {
         //if (_moving && transform.position != _destination)
@@ -28,8 +39,8 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
         //    Debug.Log("hans is een steen");
         //}
 
-        transform.position += _velocity;
-        transform.Rotate(_rotationVelocity);
+        transform.Rotate(_rotationVelocity * Time.deltaTime);
+        transform.Translate(_velocity * Time.deltaTime);
     }
 
     public void Init(Communicator communicator, int id, string name = "", string type = "")
@@ -174,6 +185,7 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
                 if (string.IsNullOrEmpty(newMessage.robotType.type) == false)
                 {
                     _type = newMessage.robotType.type;
+                    Debug.Log("New robot type: " + _type);
                 }
                 break;
         }
