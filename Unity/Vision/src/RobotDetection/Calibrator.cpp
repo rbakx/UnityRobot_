@@ -55,14 +55,8 @@ Calibrator::Calibrator(const string inputFilePath)
             break;
     }
 
-//
-//    Rect ROI = boundingRect(ROImask);
-//    Mat robot(currentFrame.clone(), ROI);
-
     orb->detect(currentFrame, keypoints, ROImask);
     orb->compute(currentFrame, keypoints, descriptors);
-
-    //orb->detectAndCompute(currentFrame, ROImask, keypoints, descriptors);
 
     cout << "Finished calibrating." << endl;
 }
@@ -101,25 +95,13 @@ void Calibrator::updateROI()
     bitwise_or(ROImask, filteredImage, ROImask); //Merge current mask with overall ROImask
 }
 
-void Calibrator::writeToFile(const string filePath) const
+void Calibrator::writeToFile(const string fileName) const
 {
-    FileStorage fs("sample.yml", FileStorage::WRITE);
-
-
-//    for(int i = 0; i < descriptors.size(); i++) {
-//        stringstream key;
-//        key << "Descriptor " << i;
-//
-//        //write(fs, key.str(), sampleKeypoints[i]);
-//        write(fs, key.str(), descriptors[i]);
-//    }
+    FileStorage fs(fileName, FileStorage::WRITE);
 
     write(fs, "Descriptors", descriptors);
     write(fs, "Keypoints", keypoints);
     write(fs, "Sample", Mat(currentFrame.clone(), boundingRect(ROImask)));
 
     fs.release();
-
-    //
-    // orb->save(filePath);
 }
