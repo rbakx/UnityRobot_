@@ -19,7 +19,7 @@ void configure();
 int main(int argc, char* argv[])
 {
     exec_path = argv[0];
-    settings = Settings::read("config.yml");
+    settings = Settings::read("./resources/config.yml");
 
     if(argc == 1) {
         Display display;
