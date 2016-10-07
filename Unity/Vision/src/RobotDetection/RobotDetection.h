@@ -21,7 +21,7 @@ private:
     void updateRobotPosition(int x, int y);
 
 public:
-    RobotDetection();
+    RobotDetection(const std::string fileName);
     void passNewFrame(const cv::Mat& frame);
 
     const std::vector<Robot>& getRobots() const;

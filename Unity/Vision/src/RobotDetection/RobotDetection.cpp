@@ -14,9 +14,6 @@ void RobotDetection::processImage()
     vector<DMatch> matches;
     matcher->match(queryDescriptor, trainDescriptor, matches);
 
-
-    //drawMatches(currentFrame, keypoints, trainSample, trainKeypoints, matches, result);
-
     DMatch *bestMatch = nullptr;
     for(auto &match : matches) {
         if(bestMatch == nullptr)
@@ -25,6 +22,7 @@ void RobotDetection::processImage()
             bestMatch = &match;
     }
 
+    //TODO: Label the movement blobs instead of just drawing circles
     Mat result = currentFrame.clone();
 //    for(auto &match : matches)
 //    {
@@ -42,11 +40,11 @@ void RobotDetection::updateRobotPosition(int x, int y)
 }
 
 
-RobotDetection::RobotDetection()
+RobotDetection::RobotDetection(const string fileName)
 {
     orb = ORB::create();
 
-    FileStorage fs2("sample.yml", FileStorage::READ);
+    FileStorage fs2(fileName, FileStorage::READ);
 
 
     FileNode descriptorNode = fs2["Descriptors"];
