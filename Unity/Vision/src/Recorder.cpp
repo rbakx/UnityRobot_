@@ -4,21 +4,26 @@
 
 #include <sys/stat.h>
 #include "libusb-1.0/libusb.h"
-
 #endif
 
 
 using namespace cv;
 using namespace std;
 
-Recorder::Recorder()
+Recorder::Recorder(Settings &settings)
+    : deviceNumber(settings.getDeviceProperties().number),
+      vid(settings.getDeviceProperties().vid),
+      pid(settings.getDeviceProperties().pid),
+      width(settings.getRecordingProperties().width),
+      height(settings.getRecordingProperties().height),
+      fps(settings.getRecordingProperties().fps)
 {
     setAutoFocus();
 }
 
 int Recorder::run()
 {
-    VideoCapture cap(DEVICE_NR); // open the external camera
+    VideoCapture cap(deviceNumber); // open the external camera
 
     if(!cap.isOpened())  // check if we succeeded
     {
@@ -28,13 +33,12 @@ int Recorder::run()
 
     //Set video source to FullHD@24fps
     //cap.set(CV_CAP_PROP_FOURCC, CODEC);
-    cap.set(CV_CAP_PROP_FRAME_WIDTH, WIDTH);
-    cap.set(CV_CAP_PROP_FRAME_HEIGHT, HEIGHT);
-    //cap.set(CV_CAP_PROP_FPS, FPS); //Warning: This doesn't work for at least the Logitech C930e
+    cap.set(CV_CAP_PROP_FRAME_WIDTH, width);
+    cap.set(CV_CAP_PROP_FRAME_HEIGHT, height);
+    cap.set(CV_CAP_PROP_FPS, fps); //Warning: This doesn't work for at least the Logitech C930e
     //cap.set(CV_CAP_PROP_AUTOFOCUS, 0); //Warning: This doesn't work for at least the Logitech C930e
 
-
-    VideoWriter writer(DESTINATION, CODEC, FPS, Size(WIDTH, HEIGHT));
+    VideoWriter writer(DESTINATION, CODEC, fps, Size(width, height));
 
     if (!writer.isOpened())
     {
@@ -52,7 +56,7 @@ int Recorder::run()
 
         imshow("Original", frame); //show original
 
-        if (waitKey(FPS) == 27) //Display images in 30fps and when ASCII key 27 (ESC) is pressed, quit application
+        if (waitKey(fps) == 27) //Display images in 30fps and when ASCII key 27 (ESC) is pressed, quit application
             break;
     }
 
@@ -78,7 +82,7 @@ void Recorder::setAutoFocus()
     /* Locates the attached UVC device, stores in dev */
     res = uvc_find_device(
             ctx, &dev,
-            VID, PID, NULL); /* filter devices: vendor_id, product_id, "serial_num" */
+            vid, pid, NULL); /* filter devices: vendor_id, product_id, "serial_num" */
 
     if (res < 0) {
         uvc_perror(res, "uvc_find_device"); /* no devices found */

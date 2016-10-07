@@ -1,6 +1,7 @@
 #include "src/Recorder.h"
 #include "src/Display.h"
 #include "src/RobotDetection/Calibrator.h"
+#include "src/Settings.h"
 #include <unistd.h> /* For getuid() */
 #include <iostream> /* For ofstream */
 #include <fstream>  /* For ofstream */
@@ -17,6 +18,7 @@ void configure();
 int main(int argc, char* argv[])
 {
     exec_path = argv[0];
+    Settings settings = Settings::read("config.yml");
 
     if(argc == 1) {
         Display display;
@@ -28,7 +30,7 @@ int main(int argc, char* argv[])
             display.run();
         }
         else if(strcmp(argv[1], "record") == 0) {
-            Recorder recorder;
+            Recorder recorder(settings);
             recorder.run();
         }
         else if(strcmp(argv[1], "calibrate") == 0)
@@ -53,9 +55,11 @@ void calibrate(int argc, char* argv[])
         calibrator = new Calibrator(recorder); //TODO: Will now still throw an exception as it is not implemented yet
     }
 
-    cout << "Please provide a file path where you want to store the calibration file:" << endl;
+    cout << "Please provide a file name where you want to store the calibration file:" << endl;
     string filePath;
     getline(cin, filePath);
+
+    filePath.append(".yml");
 
     calibrator->writeToFile(filePath);
     delete calibrator;

@@ -25,8 +25,8 @@ void Settings::write(const string fileName) const
             << "Device"
             << "{"
                 << "number" << dp.number
-                << "pid" << dp.pid
                 << "vid" << dp.vid
+                << "pid" << dp.pid
             << "}"
             << "Recording"
             << "{"
