@@ -1,0 +1,46 @@
+syntax = "proto2";
+
+package Communication.Messages;
+
+message SetVelocity {
+	required Vector3 velocity = 1;
+}
+
+message SetRotation {
+	required Vector3 rotation = 1;
+}
+
+message IdentificationResponse {
+	required string robotType = 1;
+}
+
+message Error {
+	required string message = 1;
+}
+
+message CustomMessage {
+	required string key = 1;
+	optional string data = 2;
+}
+
+message ShapeUpdateInfo {
+
+}
+
+message Vector3 {
+	required float x = 1;
+	required float y = 2;
+	required float z = 3;
+}
+
+message Quaternion {
+	required float x = 1;
+	required float y = 2;
+	required float z = 3;
+	required float w = 4;
+}
+
+message Transform {
+	required Vector3 position = 1;
+	required Quaternion rotation = 2;
+}

@@ -1,52 +1,49 @@
 syntax = "proto2";
 
-import "messages/transform.proto";
+import "messages/messages.proto";
 
 package Communication;
 
 enum MessageTarget {
 	Robot = 0;
 	Unity = 1;
+	Vision = 2; // We probably won't need this
 }
 
 enum MessageType {
-	// target == Robot
-	SetVelocity = 0;
-	SetRotation = 1;
-	StopMoving = 2;
-	Indicate = 3;
+	// Unity -> Robot
+	IdentificationRequest = 0;
+	VelocityChange = 1;
+	RotationChange = 2;
+	StopMoving = 3;
+	Indicate = 4;
 
-	// target == Unity
-	RobotTypeNotification = 4;
-	RobotHeartbeat = 5;
+	// Robot -> Unity
+	Identification = 5;
+	LogError = 6;
+	CustomEvent = 7;
+
+	// Vision -> Unity
+	ShapeUpdate = 8;
 }
 
 message Message {
 	required MessageTarget messageTarget = 1;
 	required MessageType messageType = 2;
-	optional int32 robotID = 3;
 
-	optional RobotVelocity robotVelocity = 4;
-	optional RobotRotation robotRotation = 5;
-	optional RobotType robotType = 6;
+	// Unity -> Robot
+	optional Messages.SetVelocity robotVelocity = 5;
+	optional Messages.SetRotation robotRotation = 6;
+	// StopMoving is just a signal, we don't need additional info
 
-	optional string stringData = 7;
-}
+	// Robot -> Unity
+	optional Messages.IdentificationResponse identificationResponse = 7;
+	optional Messages.Error error = 8;
+	optional Messages.CustomMessage customMessage = 9;
 
-message RobotVelocity {
-	required Transform.Vector3 velocity = 1;
-}
+	// Vision -> Unity
+	optional Messages.ShapeUpdateInfo shapeUpdate = 10;
 
-message RobotRotation {
-	required Transform.Vector3 rotation = 1;
-}
 
-message RobotType {
-	required string type = 1;
-}
-
-message Shape {
-	required Transform.Quaternion rotation = 1;
-
-	repeated Transform.Vector3 vertices = 2;
+	optional string stringData = 11;
 }
