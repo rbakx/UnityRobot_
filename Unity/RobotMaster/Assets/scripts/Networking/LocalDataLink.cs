@@ -1,11 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-using Networking;
-using System;
+﻿using Networking;
 
 public class LocalDataLink : IDataLink
 {
-    private IDataStreamReceiver _receiver;
 
     public bool Connected()
     {
@@ -24,11 +20,6 @@ public class LocalDataLink : IDataLink
 
     public void SetReceiver(IDataStreamReceiver receiver)
     {
-        if (receiver == null)
-        {
-            throw new ArgumentNullException("receiver");
-        }
-
-        _receiver = receiver;
+        
     }
 }
