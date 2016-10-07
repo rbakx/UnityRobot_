@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 
 // Generated from: messages/message.proto
-// Note: requires additional types generated from: messages/transform.proto
+// Note: requires additional types generated from: messages/messages.proto
 namespace Communication
 {
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Message")]
@@ -16,6 +16,13 @@ namespace Communication
   {
     public Message() {}
     
+    private int _id;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int id
+    {
+      get { return _id; }
+      set { _id = value; }
+    }
     private Communication.MessageTarget _messageTarget;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"messageTarget", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     public Communication.MessageTarget messageTarget
@@ -30,121 +37,62 @@ namespace Communication
       get { return _messageType; }
       set { _messageType = value; }
     }
-    private int _robotID = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"robotID", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int robotID
-    {
-      get { return _robotID; }
-      set { _robotID = value; }
-    }
-    private Communication.RobotVelocity _robotVelocity = null;
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"robotVelocity", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    private Communication.Messages.SetVelocity _robotVelocity = null;
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"robotVelocity", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public Communication.RobotVelocity robotVelocity
+    public Communication.Messages.SetVelocity robotVelocity
     {
       get { return _robotVelocity; }
       set { _robotVelocity = value; }
     }
-    private Communication.RobotRotation _robotRotation = null;
-    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"robotRotation", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    private Communication.Messages.SetRotation _robotRotation = null;
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"robotRotation", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public Communication.RobotRotation robotRotation
+    public Communication.Messages.SetRotation robotRotation
     {
       get { return _robotRotation; }
       set { _robotRotation = value; }
     }
-    private Communication.RobotType _robotType = null;
-    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"robotType", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    private Communication.Messages.IdentificationResponse _identificationResponse = null;
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"identificationResponse", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public Communication.RobotType robotType
+    public Communication.Messages.IdentificationResponse identificationResponse
     {
-      get { return _robotType; }
-      set { _robotType = value; }
+      get { return _identificationResponse; }
+      set { _identificationResponse = value; }
+    }
+    private Communication.Messages.Error _error = null;
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"error", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public Communication.Messages.Error error
+    {
+      get { return _error; }
+      set { _error = value; }
+    }
+    private Communication.Messages.CustomMessage _customMessage = null;
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"customMessage", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public Communication.Messages.CustomMessage customMessage
+    {
+      get { return _customMessage; }
+      set { _customMessage = value; }
+    }
+    private Communication.Messages.ShapeUpdateInfo _shapeUpdate = null;
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"shapeUpdate", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public Communication.Messages.ShapeUpdateInfo shapeUpdate
+    {
+      get { return _shapeUpdate; }
+      set { _shapeUpdate = value; }
     }
     private string _stringData = "";
-    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"stringData", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"stringData", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
     public string stringData
     {
       get { return _stringData; }
       set { _stringData = value; }
     }
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
-  
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RobotVelocity")]
-  public partial class RobotVelocity : global::ProtoBuf.IExtensible
-  {
-    public RobotVelocity() {}
-    
-    private Communication.Transform.Vector3 _velocity;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"velocity", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public Communication.Transform.Vector3 velocity
-    {
-      get { return _velocity; }
-      set { _velocity = value; }
-    }
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
-  
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RobotRotation")]
-  public partial class RobotRotation : global::ProtoBuf.IExtensible
-  {
-    public RobotRotation() {}
-    
-    private Communication.Transform.Vector3 _rotation;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"rotation", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public Communication.Transform.Vector3 rotation
-    {
-      get { return _rotation; }
-      set { _rotation = value; }
-    }
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
-  
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RobotType")]
-  public partial class RobotType : global::ProtoBuf.IExtensible
-  {
-    public RobotType() {}
-    
-    private string _type;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"type", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public string type
-    {
-      get { return _type; }
-      set { _type = value; }
-    }
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
-  
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Shape")]
-  public partial class Shape : global::ProtoBuf.IExtensible
-  {
-    public Shape() {}
-    
-    private Communication.Transform.Quaternion _rotation;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"rotation", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public Communication.Transform.Quaternion rotation
-    {
-      get { return _rotation; }
-      set { _rotation = value; }
-    }
-    private readonly global::System.Collections.Generic.List<Communication.Transform.Vector3> _vertices = new global::System.Collections.Generic.List<Communication.Transform.Vector3>();
-    [global::ProtoBuf.ProtoMember(2, Name=@"vertices", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<Communication.Transform.Vector3> vertices
-    {
-      get { return _vertices; }
-    }
-  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -158,30 +106,42 @@ namespace Communication
       Robot = 0,
             
       [global::ProtoBuf.ProtoEnum(Name=@"Unity", Value=1)]
-      Unity = 1
+      Unity = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"Vision", Value=2)]
+      Vision = 2
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"MessageType")]
     public enum MessageType
     {
             
-      [global::ProtoBuf.ProtoEnum(Name=@"SetVelocity", Value=0)]
-      SetVelocity = 0,
+      [global::ProtoBuf.ProtoEnum(Name=@"IdentificationRequest", Value=0)]
+      IdentificationRequest = 0,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"SetRotation", Value=1)]
-      SetRotation = 1,
+      [global::ProtoBuf.ProtoEnum(Name=@"VelocityChange", Value=1)]
+      VelocityChange = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"StopMoving", Value=2)]
-      StopMoving = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"RotationChange", Value=2)]
+      RotationChange = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"Indicate", Value=3)]
-      Indicate = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"StopMoving", Value=3)]
+      StopMoving = 3,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"RobotTypeNotification", Value=4)]
-      RobotTypeNotification = 4,
+      [global::ProtoBuf.ProtoEnum(Name=@"Indicate", Value=4)]
+      Indicate = 4,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"RobotHeartbeat", Value=5)]
-      RobotHeartbeat = 5
+      [global::ProtoBuf.ProtoEnum(Name=@"Identification", Value=5)]
+      Identification = 5,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"LogError", Value=6)]
+      LogError = 6,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"CustomEvent", Value=7)]
+      CustomEvent = 7,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ShapeUpdate", Value=8)]
+      ShapeUpdate = 8
     }
   
 }

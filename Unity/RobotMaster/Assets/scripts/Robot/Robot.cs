@@ -1,13 +1,10 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using Communication;
+using Communication.Messages;
 using Networking;
-using Communication;
-using System;
-using System.Runtime.CompilerServices;
+using UnityEngine;
 
 public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
 {
-    private int _id;
     private string _name;
     private string _type;
     private Vector3 _velocity;
@@ -17,8 +14,6 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
 
     private RecognisedShape _shape;
     private Communicator _communicator;
-
-    public int Id { get { return _id; } set { _id = value; } }
 
     void Awake()
     {
@@ -46,7 +41,6 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
     public void Init(Communicator communicator, int id, string name = "", string type = "")
     {
         _communicator = communicator;
-        _id = id;
         _name = name;
         _type = type;
 
@@ -82,9 +76,8 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
         Message moveMessage = new Message
         {
             messageTarget = MessageTarget.Robot,
-            messageType = MessageType.SetVelocity,
-            robotID = _id,
-            robotVelocity = new RobotVelocity
+            messageType = MessageType.VelocityChange,
+            robotVelocity = new SetVelocity
             {
                 velocity = new Communication.Transform.Vector3
                 {
@@ -112,7 +105,6 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
         {
             messageTarget = MessageTarget.Robot,
             messageType = MessageType.StopMoving,
-            robotID = _id,
         };
 
         SendCommand(stopMessage);
@@ -125,9 +117,8 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
         Message rotateMessage = new Message
         {
             messageTarget = MessageTarget.Robot,
-            messageType = MessageType.SetRotation,
-            robotID = _id,
-            robotRotation = new RobotRotation
+            messageType = MessageType.RotationChange,
+            robotRotation = new SetRotation
             {
                 rotation = new Communication.Transform.Vector3
                 {
@@ -147,7 +138,6 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
         {
             messageTarget = MessageTarget.Robot,
             messageType = MessageType.Indicate,
-            robotID = _id,
         };
 
         SendCommand(indicateMessage);
@@ -175,18 +165,17 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
 
         switch (newMessage.messageType)
         {
-            case MessageType.RobotHeartbeat:
-                // TODO: Handle heartbeat, or the lack thereof
+            case Communication.MessageType.Identification:
+                Debug.Log("Identification for robot " + _name + ": " + newMessage.identificationResponse.robotType);
                 break;
 
-            case MessageType.RobotTypeNotification:
-                // TODO: Is a robot allowed to change it's type when it already is an 
-                // instance of this class (Robot)?
-                if (string.IsNullOrEmpty(newMessage.robotType.type) == false)
-                {
-                    _type = newMessage.robotType.type;
-                    Debug.Log("New robot type: " + _type);
-                }
+            case Communication.MessageType.LogError:
+                Debug.LogError(newMessage.error.message);
+                break;
+
+            case Communication.MessageType.CustomEvent:
+                Debug.Log("Custom event for robot " + _name + ": (" +
+                    newMessage.customMessage.key + ", " + newMessage.customMessage.data + ")");
                 break;
         }
     }

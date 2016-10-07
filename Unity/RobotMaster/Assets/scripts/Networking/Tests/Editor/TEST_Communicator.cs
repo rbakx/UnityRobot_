@@ -1,7 +1,6 @@
-﻿using System;
-using NUnit.Framework;
+﻿using Communication;
 using Networking;
-using Communication;
+using NUnit.Framework;
 
 [TestFixture]
 public class TEST_Communicator
@@ -20,13 +19,13 @@ public class TEST_Communicator
 
 		Communicator com = new Communicator(datalink, pp);
 
-		Message sendMessage = new Message { robotID = 2, stringData = "Message data..." };
+		Message sendMessage = new Message { id = 2, stringData = "Message data..." };
 
 		Assert.True(com.SendCommand(sendMessage));
 
 		Assert.NotNull(receiver.incomingMessage);
 
-		Assert.AreEqual(receiver.incomingMessage.robotID, sendMessage.robotID);
+		Assert.AreEqual(receiver.incomingMessage.id, sendMessage.id);
 		Assert.AreEqual(receiver.incomingMessage.stringData, sendMessage.stringData);
 	}
 }

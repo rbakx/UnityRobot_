@@ -28,6 +28,7 @@ enum MessageType {
 }
 
 message Message {
+	required int32 id =3;
 	required MessageTarget messageTarget = 1;
 	required MessageType messageType = 2;
 

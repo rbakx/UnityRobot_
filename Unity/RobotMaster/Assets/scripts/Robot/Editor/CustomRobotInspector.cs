@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using UnityEditor;
+﻿using Communication;
 using System;
-using Communication;
+using UnityEditor;
+using UnityEngine;
 
 [CustomEditor(typeof(Robot))]
 public class CustomRobotInspector : Editor
@@ -14,6 +14,9 @@ public class CustomRobotInspector : Editor
     private bool _showSimulateMessage = true;
 
     private string _robotType = "";
+    private string _errorMsg = "";
+    private string _customKey = "";
+    private string _customData = "";
 
     void Awake()
     {
@@ -67,20 +70,56 @@ public class CustomRobotInspector : Editor
 
             switch (_messageType)
             {
-                case Communication.MessageType.RobotHeartbeat:
+                case Communication.MessageType.Identification:
                     validMessage = true;
-                    break;
-
-                case Communication.MessageType.RobotTypeNotification:
                     EditorGUILayout.BeginHorizontal();
                     {
                         GUILayout.Label("Robot Type");
                         _robotType = GUILayout.TextField(_robotType);
-                        message.robotType = new RobotType();
-                        message.robotType.type = _robotType;
+                        message.identificationResponse = new Communication.Messages.IdentificationResponse()
+                        {
+                            robotType = _robotType,
+                        };
                     }
                     EditorGUILayout.EndHorizontal();
+                    break;
+
+                case Communication.MessageType.LogError:
                     validMessage = true;
+                    EditorGUILayout.BeginHorizontal();
+                    {
+                        GUILayout.Label("Robot Type");
+                        _errorMsg = GUILayout.TextField(_errorMsg);
+                        message.error = new Communication.Messages.Error()
+                        {
+                            message = _errorMsg,
+                        };
+                    }
+                    EditorGUILayout.EndHorizontal();
+                    break;
+
+                case Communication.MessageType.CustomEvent:
+                    validMessage = true;
+                    EditorGUILayout.BeginHorizontal();
+                    {
+                        GUILayout.Label("Key");
+                        _customKey = GUILayout.TextField(_customKey);
+
+                    }
+                    EditorGUILayout.EndHorizontal();
+                    EditorGUILayout.BeginHorizontal();
+                    {
+                        GUILayout.Label("Data");
+                        _customData = GUILayout.TextField(_customData);
+
+                    }
+                    EditorGUILayout.EndHorizontal();
+
+                    message.customMessage = new Communication.Messages.CustomMessage()
+                    {
+                        key = _customKey,
+                        data = _customData,
+                    };
                     break;
             }
 
