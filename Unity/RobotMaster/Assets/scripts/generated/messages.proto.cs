@@ -109,6 +109,44 @@ namespace Communication.Messages
   {
     public ShapeUpdateInfo() {}
     
+    private readonly global::System.Collections.Generic.List<Communication.Messages.Shape> _changedShapes = new global::System.Collections.Generic.List<Communication.Messages.Shape>();
+    [global::ProtoBuf.ProtoMember(1, Name=@"changedShapes", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<Communication.Messages.Shape> changedShapes
+    {
+      get { return _changedShapes; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<Communication.Messages.Shape> _newShapes = new global::System.Collections.Generic.List<Communication.Messages.Shape>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"newShapes", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<Communication.Messages.Shape> newShapes
+    {
+      get { return _newShapes; }
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Shape")]
+  public partial class Shape : global::ProtoBuf.IExtensible
+  {
+    public Shape() {}
+    
+    private int _id;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int id
+    {
+      get { return _id; }
+      set { _id = value; }
+    }
+    private readonly global::System.Collections.Generic.List<Communication.Transform.Vector3> _vertices = new global::System.Collections.Generic.List<Communication.Transform.Vector3>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"vertices", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<Communication.Transform.Vector3> vertices
+    {
+      get { return _vertices; }
+    }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

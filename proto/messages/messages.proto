@@ -26,5 +26,11 @@ message CustomMessage {
 }
 
 message ShapeUpdateInfo {
+	repeated Shape changedShapes = 1;
+	repeated Shape newShapes = 2;
+}
 
+message Shape {
+	required int32 id = 1;
+	repeated Transform.Vector3 vertices = 2;
 }
