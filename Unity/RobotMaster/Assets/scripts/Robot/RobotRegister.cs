@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Networking;
+using Communication;
+using System;
 
-public class RobotRegister : MonoBehaviour {
+public class RobotRegister : IMessageReceiver
+{
+    private RobotList _robotList;
+    private ShapesUpdater _shapesUpdater;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public void IncomingMessage(Message newMessage, IDataLink dataLink)
+    {
+        
+    }
 }

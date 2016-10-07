@@ -75,7 +75,7 @@ public class TestIncomingDataLinkSubscriberCopy : IIncomingDataLinkSubscriber, I
 
 	public void IncomingMessage(Message newMessage, IDataLink datalink)
 	{
-		Debug.Log(newMessage.data);
+		Debug.Log(newMessage.stringData);
 	}
 
     public void Cleanup()

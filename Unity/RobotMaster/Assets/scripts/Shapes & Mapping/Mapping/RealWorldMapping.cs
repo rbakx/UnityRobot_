@@ -1,27 +1,34 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 
-public class RealWorldMapping : MonoBehaviour
+public class RealWorldMapping
 {
-    private RecognisedShapesList ShapesList;
-	// Use this for initialization
-	void Start () {
-	ShapesList = new RecognisedShapesList();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    private RecognisedShapesList _shapesList;
 
     RealWorldMapping(RecognisedShapesList shapeList)
     {
-        this.ShapesList = shapeList;
+        if (shapeList == null)
+        {
+            throw new ArgumentNullException("shapeList");
+        }
+
+        _shapesList = shapeList;
     }
 
-    RecognisedShape[] GetShapesNearPositionWithinRadius(float radius)
+    RecognisedShape[] GetShapesNearPositionWithinRadius(float radius, Vector3 position)
     {
-        RecognisedShape[] shapes = null;
-        return shapes;
+        List<RecognisedShape> shapes = new List<RecognisedShape>();
+
+        foreach (RecognisedShape shape in _shapesList)
+        {
+            if (Vector3.Distance(position, shape.Position) <= radius)
+            {
+                shapes.Add(shape);
+            }
+        }
+
+        return shapes.ToArray(); ;
     }
 }

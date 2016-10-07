@@ -1,15 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
-public class AIController : MonoBehaviour {
+public class AIController
+{
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    private RobotList _robots;
+    private RealWorldMapping _objects;
+    private List<AIProgram> _programs;
 }

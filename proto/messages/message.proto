@@ -1,8 +1,52 @@
 syntax = "proto2";
 
+import "messages/transform.proto";
+
 package Communication;
 
+enum MessageTarget {
+	Robot = 0;
+	Unity = 1;
+}
+
+enum MessageType {
+	// target == Robot
+	SetVelocity = 0;
+	SetRotation = 1;
+	StopMoving = 2;
+	Indicate = 3;
+
+	// target == Unity
+	RobotTypeNotification = 4;
+	RobotHeartbeat = 5;
+}
+
 message Message {
-	optional int32 target = 1;
-	optional string data = 2;
+	required MessageTarget messageTarget = 1;
+	required MessageType messageType = 2;
+	optional int32 robotID = 3;
+
+	optional RobotVelocity robotVelocity = 4;
+	optional RobotRotation robotRotation = 5;
+	optional RobotType robotType = 6;
+
+	optional string stringData = 7;
+}
+
+message RobotVelocity {
+	required Transform.Vector3 velocity = 1;
+}
+
+message RobotRotation {
+	required Transform.Vector3 rotation = 1;
+}
+
+message RobotType {
+	required string type = 1;
+}
+
+message Shape {
+	required Transform.Quaternion rotation = 1;
+
+	repeated Transform.Vector3 vertices = 2;
 }
