@@ -39,9 +39,9 @@ void Settings::write(const string fileName) const
     fs.release();
 }
 
-Settings Settings::read(const string fileName)
+Settings* Settings::read(const string fileName)
 {
-    Settings settingsObj;
+    Settings* settingsObj = new Settings();
 
     FileStorage fs(fileName, FileStorage::READ);
 
@@ -52,8 +52,8 @@ Settings Settings::read(const string fileName)
     if(deviceNode.isNone() || recordingNode.isNone()) //We couldn't find the properties in the file
         throw runtime_error("Settings are incomplete!");
 
-    settingsObj.dp = DeviceProperties(deviceNode["number"], deviceNode["pid"], deviceNode["vid"]);
-    settingsObj.rp = RecordingProperties(recordingNode["width"], recordingNode["height"], recordingNode["fps"]);
+    settingsObj->dp = DeviceProperties(deviceNode["number"], deviceNode["pid"], deviceNode["vid"]);
+    settingsObj->rp = RecordingProperties(recordingNode["width"], recordingNode["height"], recordingNode["fps"]);
 
     fs.release();
 

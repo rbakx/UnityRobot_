@@ -10,6 +10,7 @@ add_custom_command(OUTPUT ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/resources
         COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/resources ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/resources)
 add_custom_target(copy_dir_target ALL
         DEPENDS ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/resources)
+file(COPY config.yml DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
 
 project(Assignment)

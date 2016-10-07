@@ -28,7 +28,7 @@ int Display::run()
         return -1;
     }
 
-    RobotDetection rd;
+    RobotDetection rd("sample.yml"); //TODO: fix dis
     Mat frame;
 
     while(true)

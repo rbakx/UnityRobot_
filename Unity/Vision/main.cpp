@@ -10,6 +10,7 @@
 using namespace std;
 
 string exec_path;
+Settings* settings = nullptr;
 
 void calibrate(int argc, char* argv[]);
 void printHelp();
@@ -18,7 +19,7 @@ void configure();
 int main(int argc, char* argv[])
 {
     exec_path = argv[0];
-    Settings settings = Settings::read("config.yml");
+    settings = Settings::read("config.yml");
 
     if(argc == 1) {
         Display display;
@@ -30,7 +31,7 @@ int main(int argc, char* argv[])
             display.run();
         }
         else if(strcmp(argv[1], "record") == 0) {
-            Recorder recorder(settings);
+            Recorder recorder(*settings);
             recorder.run();
         }
         else if(strcmp(argv[1], "calibrate") == 0)
@@ -51,7 +52,7 @@ void calibrate(int argc, char* argv[])
     if(argc > 2) //There is an option passed to the calibrate function, this means we will be loading from file
         calibrator = new Calibrator(argv[2]);
     else {
-        Recorder recorder;
+        Recorder recorder(*settings);
         calibrator = new Calibrator(recorder); //TODO: Will now still throw an exception as it is not implemented yet
     }
 

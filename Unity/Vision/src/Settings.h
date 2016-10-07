@@ -30,7 +30,7 @@ private:
 public:
     Settings(DeviceProperties dp, RecordingProperties rp) : dp(dp), rp(rp) {};
     void write(const std::string fileName) const;
-    static Settings read(const std::string fileName);
+    static Settings* read(const std::string fileName);
 
     /*
      * Getters
