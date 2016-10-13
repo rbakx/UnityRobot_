@@ -10,10 +10,10 @@
 // Generated from: messages/transform.proto
 namespace Communication.Transform
 {
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Vector3")]
-  public partial class Vector3 : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Vector3_")]
+  public partial class Vector3_ : global::ProtoBuf.IExtensible
   {
-    public Vector3() {}
+    public Vector3_() {}
     
     private float _x;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"x", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
@@ -41,10 +41,10 @@ namespace Communication.Transform
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Quaternion")]
-  public partial class Quaternion : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Quaternion_")]
+  public partial class Quaternion_ : global::ProtoBuf.IExtensible
   {
-    public Quaternion() {}
+    public Quaternion_() {}
     
     private float _x;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"x", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
@@ -79,21 +79,21 @@ namespace Communication.Transform
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Transform")]
-  public partial class Transform : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Transform_")]
+  public partial class Transform_ : global::ProtoBuf.IExtensible
   {
-    public Transform() {}
+    public Transform_() {}
     
-    private Communication.Transform.Vector3 _position;
+    private Communication.Transform.Vector3_ _position;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"position", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public Communication.Transform.Vector3 position
+    public Communication.Transform.Vector3_ position
     {
       get { return _position; }
       set { _position = value; }
     }
-    private Communication.Transform.Quaternion _rotation;
+    private Communication.Transform.Quaternion_ _rotation;
     [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"rotation", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public Communication.Transform.Quaternion rotation
+    public Communication.Transform.Quaternion_ rotation
     {
       get { return _rotation; }
       set { _rotation = value; }

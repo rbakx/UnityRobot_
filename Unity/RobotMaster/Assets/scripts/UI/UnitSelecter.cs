@@ -69,6 +69,6 @@ public class UnitSelecter : MonoBehaviour
 
     void MoveUnit(GameObject unit, Vector3 p)
     {
-        unit.gameObject.GetComponent<Robot>().SetVelocity(p);
+        unit.gameObject.GetComponent<Robot>().SetLinearVelocity(p);
     }
 }

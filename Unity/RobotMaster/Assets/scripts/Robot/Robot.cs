@@ -68,23 +68,24 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
         return _type;
     }
 
-    public void SetVelocity(Vector3 velocity)
+    public void SetLinearVelocity(Vector3 linearVelocity)
     {
         _moving = true;
-        this._velocity = velocity;
+        this._velocity = linearVelocity;
 
         Message moveMessage = new Message
         {
-            messageTarget = MessageTarget.Robot,
-            messageType = MessageType.VelocityChange,
-            robotVelocity = new SetVelocity
+            messageTarget = MessageTarget_.Robot,
+            messageType = MessageType_.VelocityChange,
+            robotVelocity = new SetVelocity_
             {
-                velocity = new Communication.Transform.Vector3
+                linearVelocity = new Communication.Transform.Vector3_
                 {
-                    x = velocity.x,
-                    y = velocity.y,
-                    z = velocity.z,
-                }
+                    x = linearVelocity.x,
+                    y = linearVelocity.y,
+                    z = linearVelocity.z,
+                },
+                angularVelocity = null,
             }
         };
 
@@ -103,29 +104,35 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
 
         Message stopMessage = new Message
         {
-            messageTarget = MessageTarget.Robot,
-            messageType = MessageType.StopMoving,
+            messageTarget = MessageTarget_.Robot,
+            messageType = MessageType_.VelocityChange,
+            robotVelocity = new SetVelocity_
+            {
+                linearVelocity = new Communication.Transform.Vector3_ { x = 0, y = 0, z = 0 },
+                angularVelocity = new Communication.Transform.Vector3_ { x = 0, y = 0, z = 0 },
+            },
         };
 
         SendCommand(stopMessage);
     }
 
-    public void SetRotation(Vector3 rotation)
+    public void SetAngularVelocity(Vector3 angularVelocity)
     {
-        _rotationVelocity = rotation;
+        _rotationVelocity = angularVelocity;
 
         Message rotateMessage = new Message
         {
-            messageTarget = MessageTarget.Robot,
-            messageType = MessageType.RotationChange,
-            robotRotation = new SetRotation
+            messageTarget = MessageTarget_.Robot,
+            messageType = MessageType_.VelocityChange,
+            robotVelocity = new SetVelocity_
             {
-                rotation = new Communication.Transform.Vector3
+                angularVelocity = new Communication.Transform.Vector3_
                 {
-                    x = rotation.x,
-                    y = rotation.y,
-                    z = rotation.z,
-                }
+                    x = angularVelocity.x,
+                    y = angularVelocity.y,
+                    z = angularVelocity.z,
+                },
+                linearVelocity = null,
             }
         };
 
@@ -136,8 +143,8 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
     {
         Message indicateMessage = new Message
         {
-            messageTarget = MessageTarget.Robot,
-            messageType = MessageType.Indicate,
+            messageTarget = MessageTarget_.Robot,
+            messageType = MessageType_.Indicate,
         };
 
         SendCommand(indicateMessage);
@@ -157,7 +164,7 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
 
     public void IncomingMessage(Message newMessage, IDataLink dataLink)
     {
-        if (newMessage.messageTarget != MessageTarget.Unity)
+        if (newMessage.messageTarget != MessageTarget_.Unity)
         {
             Debug.LogError("Robot " + _name + ": received message with a physical robot target!");
             return;
@@ -165,15 +172,15 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
 
         switch (newMessage.messageType)
         {
-            case Communication.MessageType.Identification:
+            case Communication.MessageType_.IdentificationResponse:
                 Debug.Log("Identification for robot " + _name + ": " + newMessage.identificationResponse.robotType);
                 break;
 
-            case Communication.MessageType.LogError:
+            case Communication.MessageType_.LogError:
                 Debug.LogError(newMessage.error.message);
                 break;
 
-            case Communication.MessageType.CustomEvent:
+            case Communication.MessageType_.CustomEvent:
                 Debug.Log("Custom event for robot " + _name + ": (" +
                     newMessage.customMessage.key + ", " + newMessage.customMessage.data + ")");
                 break;

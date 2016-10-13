@@ -11,44 +11,36 @@
 // Note: requires additional types generated from: messages/transform.proto
 namespace Communication.Messages
 {
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SetVelocity")]
-  public partial class SetVelocity : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SetVelocity_")]
+  public partial class SetVelocity_ : global::ProtoBuf.IExtensible
   {
-    public SetVelocity() {}
+    public SetVelocity_() {}
     
-    private Communication.Transform.Vector3 _velocity;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"velocity", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public Communication.Transform.Vector3 velocity
+    private Communication.Transform.Vector3_ _linearVelocity = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"linearVelocity", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public Communication.Transform.Vector3_ linearVelocity
     {
-      get { return _velocity; }
-      set { _velocity = value; }
+      get { return _linearVelocity; }
+      set { _linearVelocity = value; }
+    }
+    private Communication.Transform.Vector3_ _angularVelocity = null;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"angularVelocity", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public Communication.Transform.Vector3_ angularVelocity
+    {
+      get { return _angularVelocity; }
+      set { _angularVelocity = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SetRotation")]
-  public partial class SetRotation : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"IdentificationResponse_")]
+  public partial class IdentificationResponse_ : global::ProtoBuf.IExtensible
   {
-    public SetRotation() {}
-    
-    private Communication.Transform.Vector3 _rotation;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"rotation", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public Communication.Transform.Vector3 rotation
-    {
-      get { return _rotation; }
-      set { _rotation = value; }
-    }
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
-  
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"IdentificationResponse")]
-  public partial class IdentificationResponse : global::ProtoBuf.IExtensible
-  {
-    public IdentificationResponse() {}
+    public IdentificationResponse_() {}
     
     private string _robotType;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"robotType", DataFormat = global::ProtoBuf.DataFormat.Default)]
@@ -62,10 +54,10 @@ namespace Communication.Messages
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Error")]
-  public partial class Error : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Error_")]
+  public partial class Error_ : global::ProtoBuf.IExtensible
   {
-    public Error() {}
+    public Error_() {}
     
     private string _message;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"message", DataFormat = global::ProtoBuf.DataFormat.Default)]
@@ -79,10 +71,10 @@ namespace Communication.Messages
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"CustomMessage")]
-  public partial class CustomMessage : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"CustomMessage_")]
+  public partial class CustomMessage_ : global::ProtoBuf.IExtensible
   {
-    public CustomMessage() {}
+    public CustomMessage_() {}
     
     private string _key;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"key", DataFormat = global::ProtoBuf.DataFormat.Default)]
@@ -104,21 +96,21 @@ namespace Communication.Messages
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ShapeUpdateInfo")]
-  public partial class ShapeUpdateInfo : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ShapeUpdateInfo_")]
+  public partial class ShapeUpdateInfo_ : global::ProtoBuf.IExtensible
   {
-    public ShapeUpdateInfo() {}
+    public ShapeUpdateInfo_() {}
     
-    private readonly global::System.Collections.Generic.List<Communication.Messages.Shape> _changedShapes = new global::System.Collections.Generic.List<Communication.Messages.Shape>();
+    private readonly global::System.Collections.Generic.List<Communication.Messages.Shape_> _changedShapes = new global::System.Collections.Generic.List<Communication.Messages.Shape_>();
     [global::ProtoBuf.ProtoMember(1, Name=@"changedShapes", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<Communication.Messages.Shape> changedShapes
+    public global::System.Collections.Generic.List<Communication.Messages.Shape_> changedShapes
     {
       get { return _changedShapes; }
     }
   
-    private readonly global::System.Collections.Generic.List<Communication.Messages.Shape> _newShapes = new global::System.Collections.Generic.List<Communication.Messages.Shape>();
+    private readonly global::System.Collections.Generic.List<Communication.Messages.Shape_> _newShapes = new global::System.Collections.Generic.List<Communication.Messages.Shape_>();
     [global::ProtoBuf.ProtoMember(2, Name=@"newShapes", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<Communication.Messages.Shape> newShapes
+    public global::System.Collections.Generic.List<Communication.Messages.Shape_> newShapes
     {
       get { return _newShapes; }
     }
@@ -128,10 +120,10 @@ namespace Communication.Messages
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Shape")]
-  public partial class Shape : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Shape_")]
+  public partial class Shape_ : global::ProtoBuf.IExtensible
   {
-    public Shape() {}
+    public Shape_() {}
     
     private int _id;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
@@ -140,9 +132,9 @@ namespace Communication.Messages
       get { return _id; }
       set { _id = value; }
     }
-    private readonly global::System.Collections.Generic.List<Communication.Transform.Vector3> _vertices = new global::System.Collections.Generic.List<Communication.Transform.Vector3>();
+    private readonly global::System.Collections.Generic.List<Communication.Transform.Vector3_> _vertices = new global::System.Collections.Generic.List<Communication.Transform.Vector3_>();
     [global::ProtoBuf.ProtoMember(2, Name=@"vertices", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<Communication.Transform.Vector3> vertices
+    public global::System.Collections.Generic.List<Communication.Transform.Vector3_> vertices
     {
       get { return _vertices; }
     }
