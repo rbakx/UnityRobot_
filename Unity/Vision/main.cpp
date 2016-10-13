@@ -2,10 +2,12 @@
 #include "src/Display.h"
 #include "src/RobotDetection/Calibrator.h"
 #include "src/Settings.h"
-#include <unistd.h> /* For getuid() */
 #include <iostream> /* For ofstream */
 #include <fstream>  /* For ofstream */
 
+#ifdef __linux__
+#include <unistd.h> /* For getuid() */
+#endif
 
 using namespace std;
 
@@ -41,6 +43,8 @@ int main(int argc, char* argv[])
         else
             printHelp();
     }
+
+
 
     return 0;
 }
