@@ -1,0 +1,36 @@
+syntax = "proto2";
+
+import "messages/transform.proto";
+
+package Communication.Messages;
+
+message SetVelocity {
+	required Transform.Vector3 velocity = 1;
+}
+
+message SetRotation {
+	required Transform.Vector3 rotation = 1;
+}
+
+message IdentificationResponse {
+	required string robotType = 1;
+}
+
+message Error {
+	required string message = 1;
+}
+
+message CustomMessage {
+	required string key = 1;
+	optional string data = 2;
+}
+
+message ShapeUpdateInfo {
+	repeated Shape changedShapes = 1;
+	repeated Shape newShapes = 2;
+}
+
+message Shape {
+	required int32 id = 1;
+	repeated Transform.Vector3 vertices = 2;
+}

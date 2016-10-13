@@ -5,14 +5,15 @@
 #include <asio/io_service.hpp>
 #include <stdexcept>
 #include <iostream>
+#include "RobotLogger.h"
 
 namespace UnityRobot {
 
 asio::io_service TCPSocketDataLink::_Service;
 
 TCPSocketDataLink::TCPSocketDataLink(std::string address, std::string port, std::unique_ptr<Networking::IDataStreamReceiver>& receiver)
-	: m_AdrressStr(std::move(address)), m_SocketStr(std::move(port)), m_Socket(TCPSocketDataLink::_Service),
-	m_Resolver(TCPSocketDataLink::_Service), m_TCPReaderThread(std::thread()), m_receiver(receiver.release())
+	: m_TCPReaderThread(std::thread()), m_AdrressStr(std::move(address)), m_SocketStr(std::move(port)),
+	m_Socket(TCPSocketDataLink::_Service), m_Resolver(TCPSocketDataLink::_Service), m_receiver(receiver.release())
 {
 	if (m_AdrressStr.length() < 3)
 	{
@@ -20,6 +21,28 @@ TCPSocketDataLink::TCPSocketDataLink(std::string address, std::string port, std:
 	}
 
 	int portValue =	stoi(m_SocketStr);
+
+	if (portValue <= 0 || portValue > 65655)
+	{
+		throw std::out_of_range("[TCPSocketDataLink] port should be within range 1 - 65655");
+	}
+
+	if (m_receiver == nullptr)
+	{
+		throw std::invalid_argument("[TCPSocketDataLink] IDataStreamReceiver receiver may not own null");
+	}
+}
+
+TCPSocketDataLink::TCPSocketDataLink(std::string address, std::string port, std::unique_ptr<Networking::IDataStreamReceiver>&& receiver)
+	: m_TCPReaderThread(std::thread()), m_AdrressStr(std::move(address)), m_SocketStr(std::move(port)),
+	m_Socket(TCPSocketDataLink::_Service), m_Resolver(TCPSocketDataLink::_Service), m_receiver(receiver.release())
+{
+	if (m_AdrressStr.length() < 3)
+	{
+		throw std::invalid_argument("[TCPSocketDataLink] String addres must be a hostname name.ext or IP address or 0.0.0.0");
+	}
+
+	int portValue = stoi(m_SocketStr);
 
 	if (portValue <= 0 || portValue > 65655)
 	{
@@ -54,7 +77,7 @@ void TCPSocketDataLink::Connect()
 			});
 		}
 	}
-	catch (std::exception& e)
+	catch (std::exception& )
 	{
 		//e.what();
 		//LOG : CONNECTION FAILED!
@@ -78,7 +101,7 @@ void TCPSocketDataLink::StartReading()
 			std::vector<char> incomingDataString(buffersize);
 			memcpy(incomingDataString.data(), socketBuffer.data(), buffersize);
 
-			m_receiver->IncomingData(incomingDataString);
+			m_receiver->IncomingData(incomingDataString, this);
 		}
 	}
 	

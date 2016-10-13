@@ -3,18 +3,19 @@
 #include <vector>
 #include <stdint.h>
 
-#include <Message.h>
+#include <message.pb.h>
 
 namespace Networking {
-	
-class IPresentationProtocol
+
+class IPresentationProtocol : public IDataStreamReceiver
 {
 	public:
-	
+
 		virtual ~IPresentationProtocol(){ };
-		
-		virtual std::vector<char> MessageToBinaryData(const Message& messsage) const noexcept = 0;
-		virtual Message* BinaryDataToMessage(const std::vector<char>& data, int32_t& countedProcessedBytes) = 0;
+
+		virtual std::vector<char> MessageToBinaryData(const Communication::Message& messsage) const noexcept = 0;
+		virtual Communication::Message BinaryDataToMessage(const std::vector<char>& data, int32_t& countedProcessedBytes) const = 0;
+		virtual void IncomingMessage(const Communication::Message& newMessage, IDataLink* dlink) = 0;
 };
-	
+
 }

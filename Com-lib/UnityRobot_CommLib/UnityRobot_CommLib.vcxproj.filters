@@ -24,6 +24,15 @@
     <ClInclude Include="TCPSocketDataLink.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="protobuf\message.pb.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="protobuf\transform.pb.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="protobuf\messages.pb.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LogFileCreator.cpp">
@@ -37,6 +46,15 @@
     </ClCompile>
     <ClCompile Include="TCPSocketDataLink.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="protobuf\message.pb.cc">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="protobuf\transform.pb.cc">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="protobuf\messages.pb.cc">
+      <Filter>Resource Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

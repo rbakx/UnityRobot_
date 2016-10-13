@@ -1,13 +1,50 @@
 syntax = "proto2";
 
-package UnityRobot.Communication;
+import "messages/messages.proto";
+
+package Communication;
+
+enum MessageTarget {
+	Robot = 0;
+	Unity = 1;
+	Vision = 2; // We probably won't need this
+}
 
 enum MessageType {
-	HARTBEATN = 0;
-	REQUEST = 1;
+	// Unity -> Robot
+	IdentificationRequest = 0;
+	VelocityChange = 1;
+	RotationChange = 2;
+	StopMoving = 3;
+	Indicate = 4;
+
+	// Robot -> Unity
+	Identification = 5;
+	LogError = 6;
+	CustomEvent = 7;
+
+	// Vision -> Unity
+	ShapeUpdate = 8;
 }
 
 message Message {
-	optional int32 id = 1;
-	optional MessageType type = 2;
+	required int32 id =3;
+	required MessageTarget messageTarget = 1;
+	required MessageType messageType = 2;
+
+	// Unity -> Robot
+	optional Messages.SetVelocity robotVelocity = 5;
+	optional Messages.SetRotation robotRotation = 6;
+	// StopMoving is just a signal, we don't need additional info
+
+	// Robot -> Unity
+	optional Messages.IdentificationResponse identificationResponse = 7;
+	optional Messages.Error error = 8;
+	optional Messages.CustomMessage customMessage = 9;
+
+	// Vision -> Unity
+	optional Messages.ShapeUpdateInfo shapeUpdate = 10;
+
+
+	optional string stringData = 11;
 }

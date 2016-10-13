@@ -25,6 +25,7 @@ class TCPSocketDataLink : public Networking::IDataLink
 public:
 
 	TCPSocketDataLink(std::string address, std::string socket, std::unique_ptr<Networking::IDataStreamReceiver>& receiver);
+	TCPSocketDataLink(std::string address, std::string socket, std::unique_ptr<Networking::IDataStreamReceiver>&& receiver);
 	virtual ~TCPSocketDataLink();
 
 	void Connect();
