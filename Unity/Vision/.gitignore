@@ -2,6 +2,7 @@
 build
 resources/*
 !resources/README.md
+!resources/config.yml
 
 # Prerequisites
 *.d

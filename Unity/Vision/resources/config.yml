@@ -1,0 +1,10 @@
+%YAML:1.0
+Settings:
+   Device:
+      number: 1
+      vid: 0x046d
+      pid: 0x0843
+   Recording:
+      width: 1920
+      height: 1080
+      fps: 24
