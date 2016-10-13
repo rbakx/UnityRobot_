@@ -9,7 +9,7 @@ public class CustomRobotInspector : Editor
     private Robot _robot;
     private Vector3 _velocity;
     private Vector3 _rotation;
-    private Communication.MessageType _messageType;
+    private Communication.MessageType_ _messageType;
 
     private bool _showSimulateMessage = true;
 
@@ -33,8 +33,8 @@ public class CustomRobotInspector : Editor
 
         if (Application.isPlaying)
         {
-            DrawVector("Velocity", ref _velocity, _robot.SetVelocity);
-            DrawVector("Rotation", ref _rotation, _robot.SetRotation);
+            DrawVector("Velocity", ref _velocity, _robot.SetLinearVelocity);
+            DrawVector("Rotation", ref _rotation, _robot.SetAngularVelocity);
 
             if (GUILayout.Button("Indicate"))
             {
@@ -49,13 +49,13 @@ public class CustomRobotInspector : Editor
 
     private void DrawSendMessageGUI()
     {
-        if (_showSimulateMessage =
-            EditorGUILayout.Foldout(_showSimulateMessage, "Simulate Message"))
+        if (_showSimulateMessage = EditorGUILayout.Foldout(_showSimulateMessage,
+            "Simulate Message"))
         {
             EditorGUILayout.BeginHorizontal();
             {
                 EditorGUILayout.LabelField("Message Type:");
-                _messageType = (Communication.MessageType)EditorGUILayout.EnumPopup(_messageType);
+                _messageType = (Communication.MessageType_)EditorGUILayout.EnumPopup(_messageType);
             }
             EditorGUILayout.EndHorizontal();
 
@@ -63,59 +63,40 @@ public class CustomRobotInspector : Editor
 
             Message message = new Message
             {
-                messageTarget = Communication.MessageTarget.Unity,
+                messageTarget = Communication.MessageTarget_.Unity,
                 messageType = _messageType,
             };
 
 
             switch (_messageType)
             {
-                case Communication.MessageType.Identification:
+                case Communication.MessageType_.IdentificationResponse:
                     validMessage = true;
-                    EditorGUILayout.BeginHorizontal();
+                    DrawTextBox("Robot type", ref _robotType);
+                    message.identificationResponse = new Communication.Messages.IdentificationResponse_
                     {
-                        GUILayout.Label("Robot Type");
-                        _robotType = GUILayout.TextField(_robotType);
-                        message.identificationResponse = new Communication.Messages.IdentificationResponse()
-                        {
-                            robotType = _robotType,
-                        };
-                    }
-                    EditorGUILayout.EndHorizontal();
+                        robotType = _robotType,
+                    };
                     break;
 
-                case Communication.MessageType.LogError:
+                case Communication.MessageType_.LogError:
                     validMessage = true;
-                    EditorGUILayout.BeginHorizontal();
+
+                    DrawTextBox("Error message", ref _errorMsg);
+
+                    message.error = new Communication.Messages.Error_
                     {
-                        GUILayout.Label("Robot Type");
-                        _errorMsg = GUILayout.TextField(_errorMsg);
-                        message.error = new Communication.Messages.Error()
-                        {
-                            message = _errorMsg,
-                        };
-                    }
-                    EditorGUILayout.EndHorizontal();
+                        message = _errorMsg,
+                    };
                     break;
 
-                case Communication.MessageType.CustomEvent:
+                case Communication.MessageType_.CustomEvent:
                     validMessage = true;
-                    EditorGUILayout.BeginHorizontal();
-                    {
-                        GUILayout.Label("Key");
-                        _customKey = GUILayout.TextField(_customKey);
 
-                    }
-                    EditorGUILayout.EndHorizontal();
-                    EditorGUILayout.BeginHorizontal();
-                    {
-                        GUILayout.Label("Data");
-                        _customData = GUILayout.TextField(_customData);
+                    DrawTextBox("Key", ref _customKey);
+                    DrawTextBox("Data", ref _customData);
 
-                    }
-                    EditorGUILayout.EndHorizontal();
-
-                    message.customMessage = new Communication.Messages.CustomMessage()
+                    message.customMessage = new Communication.Messages.CustomMessage_
                     {
                         key = _customKey,
                         data = _customData,
@@ -140,6 +121,17 @@ public class CustomRobotInspector : Editor
         }
     }
 
+    private void DrawTextBox(string label, ref string result)
+    {
+        EditorGUILayout.BeginHorizontal();
+        {
+            GUILayout.Label(label);
+            result = GUILayout.TextField(result);
+
+        }
+        EditorGUILayout.EndHorizontal();
+    }
+
     private void DrawVector(string name, ref Vector3 vec, Action<Vector3> robotMethod)
     {
         EditorGUILayout.BeginHorizontal();
@@ -151,7 +143,10 @@ public class CustomRobotInspector : Editor
             if (newVec != vec)
             {
                 vec = newVec;
-                robotMethod(vec);
+                if (robotMethod != null)
+                {
+                    robotMethod(vec);
+                }
             }
         }
         EditorGUILayout.EndHorizontal();

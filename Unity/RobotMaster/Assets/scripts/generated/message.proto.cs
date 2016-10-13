@@ -17,76 +17,68 @@ namespace Communication
     public Message() {}
     
     private int _id;
-    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     public int id
     {
       get { return _id; }
       set { _id = value; }
     }
-    private Communication.MessageTarget _messageTarget;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"messageTarget", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public Communication.MessageTarget messageTarget
+    private Communication.MessageTarget_ _messageTarget;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"messageTarget", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public Communication.MessageTarget_ messageTarget
     {
       get { return _messageTarget; }
       set { _messageTarget = value; }
     }
-    private Communication.MessageType _messageType;
-    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"messageType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public Communication.MessageType messageType
+    private Communication.MessageType_ _messageType;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"messageType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public Communication.MessageType_ messageType
     {
       get { return _messageType; }
       set { _messageType = value; }
     }
-    private Communication.Messages.SetVelocity _robotVelocity = null;
-    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"robotVelocity", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    private Communication.Messages.SetVelocity_ _robotVelocity = null;
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"robotVelocity", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public Communication.Messages.SetVelocity robotVelocity
+    public Communication.Messages.SetVelocity_ robotVelocity
     {
       get { return _robotVelocity; }
       set { _robotVelocity = value; }
     }
-    private Communication.Messages.SetRotation _robotRotation = null;
-    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"robotRotation", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    private Communication.Messages.IdentificationResponse_ _identificationResponse = null;
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"identificationResponse", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public Communication.Messages.SetRotation robotRotation
-    {
-      get { return _robotRotation; }
-      set { _robotRotation = value; }
-    }
-    private Communication.Messages.IdentificationResponse _identificationResponse = null;
-    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"identificationResponse", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(null)]
-    public Communication.Messages.IdentificationResponse identificationResponse
+    public Communication.Messages.IdentificationResponse_ identificationResponse
     {
       get { return _identificationResponse; }
       set { _identificationResponse = value; }
     }
-    private Communication.Messages.Error _error = null;
-    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"error", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    private Communication.Messages.Error_ _error = null;
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"error", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public Communication.Messages.Error error
+    public Communication.Messages.Error_ error
     {
       get { return _error; }
       set { _error = value; }
     }
-    private Communication.Messages.CustomMessage _customMessage = null;
-    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"customMessage", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    private Communication.Messages.CustomMessage_ _customMessage = null;
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"customMessage", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public Communication.Messages.CustomMessage customMessage
+    public Communication.Messages.CustomMessage_ customMessage
     {
       get { return _customMessage; }
       set { _customMessage = value; }
     }
-    private Communication.Messages.ShapeUpdateInfo _shapeUpdate = null;
-    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"shapeUpdate", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    private Communication.Messages.ShapeUpdateInfo_ _shapeUpdate = null;
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"shapeUpdate", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public Communication.Messages.ShapeUpdateInfo shapeUpdate
+    public Communication.Messages.ShapeUpdateInfo_ shapeUpdate
     {
       get { return _shapeUpdate; }
       set { _shapeUpdate = value; }
     }
     private string _stringData = "";
-    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"stringData", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"stringData", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
     public string stringData
     {
@@ -98,8 +90,8 @@ namespace Communication
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-    [global::ProtoBuf.ProtoContract(Name=@"MessageTarget")]
-    public enum MessageTarget
+    [global::ProtoBuf.ProtoContract(Name=@"MessageTarget_")]
+    public enum MessageTarget_
     {
             
       [global::ProtoBuf.ProtoEnum(Name=@"Robot", Value=0)]
@@ -112,8 +104,8 @@ namespace Communication
       Vision = 2
     }
   
-    [global::ProtoBuf.ProtoContract(Name=@"MessageType")]
-    public enum MessageType
+    [global::ProtoBuf.ProtoContract(Name=@"MessageType_")]
+    public enum MessageType_
     {
             
       [global::ProtoBuf.ProtoEnum(Name=@"IdentificationRequest", Value=0)]
@@ -122,26 +114,20 @@ namespace Communication
       [global::ProtoBuf.ProtoEnum(Name=@"VelocityChange", Value=1)]
       VelocityChange = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"RotationChange", Value=2)]
-      RotationChange = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"Indicate", Value=2)]
+      Indicate = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"StopMoving", Value=3)]
-      StopMoving = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"IdentificationResponse", Value=3)]
+      IdentificationResponse = 3,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"Indicate", Value=4)]
-      Indicate = 4,
+      [global::ProtoBuf.ProtoEnum(Name=@"LogError", Value=4)]
+      LogError = 4,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"Identification", Value=5)]
-      Identification = 5,
+      [global::ProtoBuf.ProtoEnum(Name=@"CustomEvent", Value=5)]
+      CustomEvent = 5,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"LogError", Value=6)]
-      LogError = 6,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"CustomEvent", Value=7)]
-      CustomEvent = 7,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"ShapeUpdate", Value=8)]
-      ShapeUpdate = 8
+      [global::ProtoBuf.ProtoEnum(Name=@"ShapeUpdate", Value=6)]
+      ShapeUpdate = 6
     }
   
 }

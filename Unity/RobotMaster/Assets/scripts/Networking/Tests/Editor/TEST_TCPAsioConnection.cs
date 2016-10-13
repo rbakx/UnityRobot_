@@ -15,6 +15,8 @@ public class TEST_TCPAsioConnection
     [Test]
     public void AcceptConnection()
     {
+		Debug.LogWarning("[TEST_TCPAsioConnection.AcceptConnection] This test will only pass when a tcp client is manually connected to the listener started in this test.");
+
         _subscriber = new TestIncomingDataLinkSubscriberCopy();
 
         _listener = new TCPDataLinkListener<ProtoBufPresentation>(_subscriber);
