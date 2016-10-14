@@ -61,33 +61,21 @@ public class CustomRobotInspector : Editor
 
             bool validMessage = false;
 
-            Message message = new Message
-            {
-                messageTarget = Communication.MessageTarget_.Unity,
-                messageType = _messageType,
-            };
-
+            Message message = MessageBuilder.CreateMessage(MessageTarget_.Unity, _messageType);
 
             switch (_messageType)
             {
                 case Communication.MessageType_.IdentificationResponse:
                     validMessage = true;
                     DrawTextBox("Robot type", ref _robotType);
-                    message.identificationResponse = new Communication.Messages.IdentificationResponse_
-                    {
-                        robotType = _robotType,
-                    };
+                    message.SetIdentificationResponse(_robotType);
                     break;
 
                 case Communication.MessageType_.LogError:
                     validMessage = true;
 
                     DrawTextBox("Error message", ref _errorMsg);
-
-                    message.error = new Communication.Messages.Error_
-                    {
-                        message = _errorMsg,
-                    };
+                    message.SetLogError(_errorMsg);
                     break;
 
                 case Communication.MessageType_.CustomEvent:
@@ -95,12 +83,7 @@ public class CustomRobotInspector : Editor
 
                     DrawTextBox("Key", ref _customKey);
                     DrawTextBox("Data", ref _customData);
-
-                    message.customMessage = new Communication.Messages.CustomMessage_
-                    {
-                        key = _customKey,
-                        data = _customData,
-                    };
+                    message.SetCustomMessage(_customKey, _customData);
                     break;
             }
 

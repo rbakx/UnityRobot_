@@ -73,21 +73,10 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
         _moving = true;
         this._velocity = linearVelocity;
 
-        Message moveMessage = new Message
-        {
-            messageTarget = MessageTarget_.Robot,
-            messageType = MessageType_.VelocityChange,
-            robotVelocity = new SetVelocity_
-            {
-                linearVelocity = new Communication.Transform.Vector3_
-                {
-                    x = linearVelocity.x,
-                    y = linearVelocity.y,
-                    z = linearVelocity.z,
-                },
-                angularVelocity = null,
-            }
-        };
+        Message moveMessage = MessageBuilder.CreateMessage(MessageTarget_.Robot,
+            MessageType_.VelocityChange);
+
+        moveMessage.SetVelocity(linearVelocity, null);
 
         SendCommand(moveMessage);
     }
@@ -102,16 +91,10 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
         _moving = false;
         _velocity = Vector3.zero;
 
-        Message stopMessage = new Message
-        {
-            messageTarget = MessageTarget_.Robot,
-            messageType = MessageType_.VelocityChange,
-            robotVelocity = new SetVelocity_
-            {
-                linearVelocity = new Communication.Transform.Vector3_ { x = 0, y = 0, z = 0 },
-                angularVelocity = new Communication.Transform.Vector3_ { x = 0, y = 0, z = 0 },
-            },
-        };
+        Message stopMessage = MessageBuilder.CreateMessage(MessageTarget_.Robot,
+            MessageType_.VelocityChange);
+
+        stopMessage.SetVelocity(Vector3.zero, Vector3.zero);
 
         SendCommand(stopMessage);
     }
@@ -120,32 +103,18 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
     {
         _rotationVelocity = angularVelocity;
 
-        Message rotateMessage = new Message
-        {
-            messageTarget = MessageTarget_.Robot,
-            messageType = MessageType_.VelocityChange,
-            robotVelocity = new SetVelocity_
-            {
-                angularVelocity = new Communication.Transform.Vector3_
-                {
-                    x = angularVelocity.x,
-                    y = angularVelocity.y,
-                    z = angularVelocity.z,
-                },
-                linearVelocity = null,
-            }
-        };
+        Message rotateMessage = MessageBuilder.CreateMessage(MessageTarget_.Robot,
+            MessageType_.VelocityChange);
+
+        rotateMessage.SetVelocity(null, angularVelocity);
 
         SendCommand(rotateMessage);
     }
 
     public void Indicate()
     {
-        Message indicateMessage = new Message
-        {
-            messageTarget = MessageTarget_.Robot,
-            messageType = MessageType_.Indicate,
-        };
+        Message indicateMessage = MessageBuilder.CreateMessage(MessageTarget_.Robot,
+            MessageType_.Indicate);
 
         SendCommand(indicateMessage);
     }
@@ -172,15 +141,15 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
 
         switch (newMessage.messageType)
         {
-            case Communication.MessageType_.IdentificationResponse:
+            case MessageType_.IdentificationResponse:
                 Debug.Log("Identification for robot " + _name + ": " + newMessage.identificationResponse.robotType);
                 break;
 
-            case Communication.MessageType_.LogError:
+            case MessageType_.LogError:
                 Debug.LogError(newMessage.error.message);
                 break;
 
-            case Communication.MessageType_.CustomEvent:
+            case MessageType_.CustomEvent:
                 Debug.Log("Custom event for robot " + _name + ": (" +
                     newMessage.customMessage.key + ", " + newMessage.customMessage.data + ")");
                 break;
