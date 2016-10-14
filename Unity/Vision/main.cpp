@@ -1,4 +1,6 @@
-#include <unistd.h> /* For getuid() */
+#ifdef __linux__
+	#include <unistd.h> /* For getuid() */
+#endif
 #include <iostream> /* For ofstream */
 #include <fstream>  /* For ofstream */
 
