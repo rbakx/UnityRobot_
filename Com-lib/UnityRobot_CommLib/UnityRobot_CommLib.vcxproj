@@ -126,6 +126,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="LogFileCreator.h" />
+    <ClInclude Include="MessageBuilder.h" />
     <ClInclude Include="protobuf\message.pb.h" />
     <ClInclude Include="protobuf\messages.pb.h" />
     <ClInclude Include="protobuf\transform.pb.h" />
@@ -135,6 +136,7 @@
   <ItemGroup>
     <ClCompile Include="LogFileCreator.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MessageBuilder.cpp" />
     <ClCompile Include="protobuf\message.pb.cc" />
     <ClCompile Include="protobuf\messages.pb.cc" />
     <ClCompile Include="protobuf\transform.pb.cc" />

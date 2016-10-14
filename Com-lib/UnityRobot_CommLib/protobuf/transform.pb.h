@@ -37,20 +37,20 @@ void protobuf_AddDesc_transform_2eproto();
 void protobuf_AssignDesc_transform_2eproto();
 void protobuf_ShutdownFile_transform_2eproto();
 
-class Quaternion;
-class Transform;
-class Vector3;
+class Quaternion_;
+class Transform_;
+class Vector3_;
 
 // ===================================================================
 
-class Vector3 : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Communication.Transform.Vector3) */ {
+class Vector3_ : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Communication.Transform.Vector3_) */ {
  public:
-  Vector3();
-  virtual ~Vector3();
+  Vector3_();
+  virtual ~Vector3_();
 
-  Vector3(const Vector3& from);
+  Vector3_(const Vector3_& from);
 
-  inline Vector3& operator=(const Vector3& from) {
+  inline Vector3_& operator=(const Vector3_& from) {
     CopyFrom(from);
     return *this;
   }
@@ -64,19 +64,19 @@ class Vector3 : public ::google::protobuf::Message /* @@protoc_insertion_point(c
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const Vector3& default_instance();
+  static const Vector3_& default_instance();
 
-  void Swap(Vector3* other);
+  void Swap(Vector3_* other);
 
   // implements Message ----------------------------------------------
 
-  inline Vector3* New() const { return New(NULL); }
+  inline Vector3_* New() const { return New(NULL); }
 
-  Vector3* New(::google::protobuf::Arena* arena) const;
+  Vector3_* New(::google::protobuf::Arena* arena) const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const Vector3& from);
-  void MergeFrom(const Vector3& from);
+  void CopyFrom(const Vector3_& from);
+  void MergeFrom(const Vector3_& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -95,7 +95,7 @@ class Vector3 : public ::google::protobuf::Message /* @@protoc_insertion_point(c
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(Vector3* other);
+  void InternalSwap(Vector3_* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -132,7 +132,7 @@ class Vector3 : public ::google::protobuf::Message /* @@protoc_insertion_point(c
   float z() const;
   void set_z(float value);
 
-  // @@protoc_insertion_point(class_scope:Communication.Transform.Vector3)
+  // @@protoc_insertion_point(class_scope:Communication.Transform.Vector3_)
  private:
   inline void set_has_x();
   inline void clear_has_x();
@@ -155,18 +155,18 @@ class Vector3 : public ::google::protobuf::Message /* @@protoc_insertion_point(c
   friend void protobuf_ShutdownFile_transform_2eproto();
 
   void InitAsDefaultInstance();
-  static Vector3* default_instance_;
+  static Vector3_* default_instance_;
 };
 // -------------------------------------------------------------------
 
-class Quaternion : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Communication.Transform.Quaternion) */ {
+class Quaternion_ : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Communication.Transform.Quaternion_) */ {
  public:
-  Quaternion();
-  virtual ~Quaternion();
+  Quaternion_();
+  virtual ~Quaternion_();
 
-  Quaternion(const Quaternion& from);
+  Quaternion_(const Quaternion_& from);
 
-  inline Quaternion& operator=(const Quaternion& from) {
+  inline Quaternion_& operator=(const Quaternion_& from) {
     CopyFrom(from);
     return *this;
   }
@@ -180,19 +180,19 @@ class Quaternion : public ::google::protobuf::Message /* @@protoc_insertion_poin
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const Quaternion& default_instance();
+  static const Quaternion_& default_instance();
 
-  void Swap(Quaternion* other);
+  void Swap(Quaternion_* other);
 
   // implements Message ----------------------------------------------
 
-  inline Quaternion* New() const { return New(NULL); }
+  inline Quaternion_* New() const { return New(NULL); }
 
-  Quaternion* New(::google::protobuf::Arena* arena) const;
+  Quaternion_* New(::google::protobuf::Arena* arena) const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const Quaternion& from);
-  void MergeFrom(const Quaternion& from);
+  void CopyFrom(const Quaternion_& from);
+  void MergeFrom(const Quaternion_& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -211,7 +211,7 @@ class Quaternion : public ::google::protobuf::Message /* @@protoc_insertion_poin
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(Quaternion* other);
+  void InternalSwap(Quaternion_* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -255,7 +255,7 @@ class Quaternion : public ::google::protobuf::Message /* @@protoc_insertion_poin
   float w() const;
   void set_w(float value);
 
-  // @@protoc_insertion_point(class_scope:Communication.Transform.Quaternion)
+  // @@protoc_insertion_point(class_scope:Communication.Transform.Quaternion_)
  private:
   inline void set_has_x();
   inline void clear_has_x();
@@ -281,18 +281,18 @@ class Quaternion : public ::google::protobuf::Message /* @@protoc_insertion_poin
   friend void protobuf_ShutdownFile_transform_2eproto();
 
   void InitAsDefaultInstance();
-  static Quaternion* default_instance_;
+  static Quaternion_* default_instance_;
 };
 // -------------------------------------------------------------------
 
-class Transform : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Communication.Transform.Transform) */ {
+class Transform_ : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Communication.Transform.Transform_) */ {
  public:
-  Transform();
-  virtual ~Transform();
+  Transform_();
+  virtual ~Transform_();
 
-  Transform(const Transform& from);
+  Transform_(const Transform_& from);
 
-  inline Transform& operator=(const Transform& from) {
+  inline Transform_& operator=(const Transform_& from) {
     CopyFrom(from);
     return *this;
   }
@@ -306,19 +306,19 @@ class Transform : public ::google::protobuf::Message /* @@protoc_insertion_point
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const Transform& default_instance();
+  static const Transform_& default_instance();
 
-  void Swap(Transform* other);
+  void Swap(Transform_* other);
 
   // implements Message ----------------------------------------------
 
-  inline Transform* New() const { return New(NULL); }
+  inline Transform_* New() const { return New(NULL); }
 
-  Transform* New(::google::protobuf::Arena* arena) const;
+  Transform_* New(::google::protobuf::Arena* arena) const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const Transform& from);
-  void MergeFrom(const Transform& from);
+  void CopyFrom(const Transform_& from);
+  void MergeFrom(const Transform_& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -337,7 +337,7 @@ class Transform : public ::google::protobuf::Message /* @@protoc_insertion_point
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(Transform* other);
+  void InternalSwap(Transform_* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -353,25 +353,25 @@ class Transform : public ::google::protobuf::Message /* @@protoc_insertion_point
 
   // accessors -------------------------------------------------------
 
-  // required .Communication.Transform.Vector3 position = 1;
+  // required .Communication.Transform.Vector3_ position = 1;
   bool has_position() const;
   void clear_position();
   static const int kPositionFieldNumber = 1;
-  const ::Communication::Transform::Vector3& position() const;
-  ::Communication::Transform::Vector3* mutable_position();
-  ::Communication::Transform::Vector3* release_position();
-  void set_allocated_position(::Communication::Transform::Vector3* position);
+  const ::Communication::Transform::Vector3_& position() const;
+  ::Communication::Transform::Vector3_* mutable_position();
+  ::Communication::Transform::Vector3_* release_position();
+  void set_allocated_position(::Communication::Transform::Vector3_* position);
 
-  // required .Communication.Transform.Quaternion rotation = 2;
+  // required .Communication.Transform.Quaternion_ rotation = 2;
   bool has_rotation() const;
   void clear_rotation();
   static const int kRotationFieldNumber = 2;
-  const ::Communication::Transform::Quaternion& rotation() const;
-  ::Communication::Transform::Quaternion* mutable_rotation();
-  ::Communication::Transform::Quaternion* release_rotation();
-  void set_allocated_rotation(::Communication::Transform::Quaternion* rotation);
+  const ::Communication::Transform::Quaternion_& rotation() const;
+  ::Communication::Transform::Quaternion_* mutable_rotation();
+  ::Communication::Transform::Quaternion_* release_rotation();
+  void set_allocated_rotation(::Communication::Transform::Quaternion_* rotation);
 
-  // @@protoc_insertion_point(class_scope:Communication.Transform.Transform)
+  // @@protoc_insertion_point(class_scope:Communication.Transform.Transform_)
  private:
   inline void set_has_position();
   inline void clear_has_position();
@@ -384,14 +384,14 @@ class Transform : public ::google::protobuf::Message /* @@protoc_insertion_point
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::Communication::Transform::Vector3* position_;
-  ::Communication::Transform::Quaternion* rotation_;
+  ::Communication::Transform::Vector3_* position_;
+  ::Communication::Transform::Quaternion_* rotation_;
   friend void  protobuf_AddDesc_transform_2eproto();
   friend void protobuf_AssignDesc_transform_2eproto();
   friend void protobuf_ShutdownFile_transform_2eproto();
 
   void InitAsDefaultInstance();
-  static Transform* default_instance_;
+  static Transform_* default_instance_;
 };
 // ===================================================================
 
@@ -399,218 +399,218 @@ class Transform : public ::google::protobuf::Message /* @@protoc_insertion_point
 // ===================================================================
 
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
-// Vector3
+// Vector3_
 
 // required float x = 1;
-inline bool Vector3::has_x() const {
+inline bool Vector3_::has_x() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void Vector3::set_has_x() {
+inline void Vector3_::set_has_x() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void Vector3::clear_has_x() {
+inline void Vector3_::clear_has_x() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void Vector3::clear_x() {
+inline void Vector3_::clear_x() {
   x_ = 0;
   clear_has_x();
 }
-inline float Vector3::x() const {
-  // @@protoc_insertion_point(field_get:Communication.Transform.Vector3.x)
+inline float Vector3_::x() const {
+  // @@protoc_insertion_point(field_get:Communication.Transform.Vector3_.x)
   return x_;
 }
-inline void Vector3::set_x(float value) {
+inline void Vector3_::set_x(float value) {
   set_has_x();
   x_ = value;
-  // @@protoc_insertion_point(field_set:Communication.Transform.Vector3.x)
+  // @@protoc_insertion_point(field_set:Communication.Transform.Vector3_.x)
 }
 
 // required float y = 2;
-inline bool Vector3::has_y() const {
+inline bool Vector3_::has_y() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void Vector3::set_has_y() {
+inline void Vector3_::set_has_y() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void Vector3::clear_has_y() {
+inline void Vector3_::clear_has_y() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void Vector3::clear_y() {
+inline void Vector3_::clear_y() {
   y_ = 0;
   clear_has_y();
 }
-inline float Vector3::y() const {
-  // @@protoc_insertion_point(field_get:Communication.Transform.Vector3.y)
+inline float Vector3_::y() const {
+  // @@protoc_insertion_point(field_get:Communication.Transform.Vector3_.y)
   return y_;
 }
-inline void Vector3::set_y(float value) {
+inline void Vector3_::set_y(float value) {
   set_has_y();
   y_ = value;
-  // @@protoc_insertion_point(field_set:Communication.Transform.Vector3.y)
+  // @@protoc_insertion_point(field_set:Communication.Transform.Vector3_.y)
 }
 
 // required float z = 3;
-inline bool Vector3::has_z() const {
+inline bool Vector3_::has_z() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void Vector3::set_has_z() {
+inline void Vector3_::set_has_z() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void Vector3::clear_has_z() {
+inline void Vector3_::clear_has_z() {
   _has_bits_[0] &= ~0x00000004u;
 }
-inline void Vector3::clear_z() {
+inline void Vector3_::clear_z() {
   z_ = 0;
   clear_has_z();
 }
-inline float Vector3::z() const {
-  // @@protoc_insertion_point(field_get:Communication.Transform.Vector3.z)
+inline float Vector3_::z() const {
+  // @@protoc_insertion_point(field_get:Communication.Transform.Vector3_.z)
   return z_;
 }
-inline void Vector3::set_z(float value) {
+inline void Vector3_::set_z(float value) {
   set_has_z();
   z_ = value;
-  // @@protoc_insertion_point(field_set:Communication.Transform.Vector3.z)
+  // @@protoc_insertion_point(field_set:Communication.Transform.Vector3_.z)
 }
 
 // -------------------------------------------------------------------
 
-// Quaternion
+// Quaternion_
 
 // required float x = 1;
-inline bool Quaternion::has_x() const {
+inline bool Quaternion_::has_x() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void Quaternion::set_has_x() {
+inline void Quaternion_::set_has_x() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void Quaternion::clear_has_x() {
+inline void Quaternion_::clear_has_x() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void Quaternion::clear_x() {
+inline void Quaternion_::clear_x() {
   x_ = 0;
   clear_has_x();
 }
-inline float Quaternion::x() const {
-  // @@protoc_insertion_point(field_get:Communication.Transform.Quaternion.x)
+inline float Quaternion_::x() const {
+  // @@protoc_insertion_point(field_get:Communication.Transform.Quaternion_.x)
   return x_;
 }
-inline void Quaternion::set_x(float value) {
+inline void Quaternion_::set_x(float value) {
   set_has_x();
   x_ = value;
-  // @@protoc_insertion_point(field_set:Communication.Transform.Quaternion.x)
+  // @@protoc_insertion_point(field_set:Communication.Transform.Quaternion_.x)
 }
 
 // required float y = 2;
-inline bool Quaternion::has_y() const {
+inline bool Quaternion_::has_y() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void Quaternion::set_has_y() {
+inline void Quaternion_::set_has_y() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void Quaternion::clear_has_y() {
+inline void Quaternion_::clear_has_y() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void Quaternion::clear_y() {
+inline void Quaternion_::clear_y() {
   y_ = 0;
   clear_has_y();
 }
-inline float Quaternion::y() const {
-  // @@protoc_insertion_point(field_get:Communication.Transform.Quaternion.y)
+inline float Quaternion_::y() const {
+  // @@protoc_insertion_point(field_get:Communication.Transform.Quaternion_.y)
   return y_;
 }
-inline void Quaternion::set_y(float value) {
+inline void Quaternion_::set_y(float value) {
   set_has_y();
   y_ = value;
-  // @@protoc_insertion_point(field_set:Communication.Transform.Quaternion.y)
+  // @@protoc_insertion_point(field_set:Communication.Transform.Quaternion_.y)
 }
 
 // required float z = 3;
-inline bool Quaternion::has_z() const {
+inline bool Quaternion_::has_z() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void Quaternion::set_has_z() {
+inline void Quaternion_::set_has_z() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void Quaternion::clear_has_z() {
+inline void Quaternion_::clear_has_z() {
   _has_bits_[0] &= ~0x00000004u;
 }
-inline void Quaternion::clear_z() {
+inline void Quaternion_::clear_z() {
   z_ = 0;
   clear_has_z();
 }
-inline float Quaternion::z() const {
-  // @@protoc_insertion_point(field_get:Communication.Transform.Quaternion.z)
+inline float Quaternion_::z() const {
+  // @@protoc_insertion_point(field_get:Communication.Transform.Quaternion_.z)
   return z_;
 }
-inline void Quaternion::set_z(float value) {
+inline void Quaternion_::set_z(float value) {
   set_has_z();
   z_ = value;
-  // @@protoc_insertion_point(field_set:Communication.Transform.Quaternion.z)
+  // @@protoc_insertion_point(field_set:Communication.Transform.Quaternion_.z)
 }
 
 // required float w = 4;
-inline bool Quaternion::has_w() const {
+inline bool Quaternion_::has_w() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
-inline void Quaternion::set_has_w() {
+inline void Quaternion_::set_has_w() {
   _has_bits_[0] |= 0x00000008u;
 }
-inline void Quaternion::clear_has_w() {
+inline void Quaternion_::clear_has_w() {
   _has_bits_[0] &= ~0x00000008u;
 }
-inline void Quaternion::clear_w() {
+inline void Quaternion_::clear_w() {
   w_ = 0;
   clear_has_w();
 }
-inline float Quaternion::w() const {
-  // @@protoc_insertion_point(field_get:Communication.Transform.Quaternion.w)
+inline float Quaternion_::w() const {
+  // @@protoc_insertion_point(field_get:Communication.Transform.Quaternion_.w)
   return w_;
 }
-inline void Quaternion::set_w(float value) {
+inline void Quaternion_::set_w(float value) {
   set_has_w();
   w_ = value;
-  // @@protoc_insertion_point(field_set:Communication.Transform.Quaternion.w)
+  // @@protoc_insertion_point(field_set:Communication.Transform.Quaternion_.w)
 }
 
 // -------------------------------------------------------------------
 
-// Transform
+// Transform_
 
-// required .Communication.Transform.Vector3 position = 1;
-inline bool Transform::has_position() const {
+// required .Communication.Transform.Vector3_ position = 1;
+inline bool Transform_::has_position() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void Transform::set_has_position() {
+inline void Transform_::set_has_position() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void Transform::clear_has_position() {
+inline void Transform_::clear_has_position() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void Transform::clear_position() {
-  if (position_ != NULL) position_->::Communication::Transform::Vector3::Clear();
+inline void Transform_::clear_position() {
+  if (position_ != NULL) position_->::Communication::Transform::Vector3_::Clear();
   clear_has_position();
 }
-inline const ::Communication::Transform::Vector3& Transform::position() const {
-  // @@protoc_insertion_point(field_get:Communication.Transform.Transform.position)
+inline const ::Communication::Transform::Vector3_& Transform_::position() const {
+  // @@protoc_insertion_point(field_get:Communication.Transform.Transform_.position)
   return position_ != NULL ? *position_ : *default_instance_->position_;
 }
-inline ::Communication::Transform::Vector3* Transform::mutable_position() {
+inline ::Communication::Transform::Vector3_* Transform_::mutable_position() {
   set_has_position();
   if (position_ == NULL) {
-    position_ = new ::Communication::Transform::Vector3;
+    position_ = new ::Communication::Transform::Vector3_;
   }
-  // @@protoc_insertion_point(field_mutable:Communication.Transform.Transform.position)
+  // @@protoc_insertion_point(field_mutable:Communication.Transform.Transform_.position)
   return position_;
 }
-inline ::Communication::Transform::Vector3* Transform::release_position() {
-  // @@protoc_insertion_point(field_release:Communication.Transform.Transform.position)
+inline ::Communication::Transform::Vector3_* Transform_::release_position() {
+  // @@protoc_insertion_point(field_release:Communication.Transform.Transform_.position)
   clear_has_position();
-  ::Communication::Transform::Vector3* temp = position_;
+  ::Communication::Transform::Vector3_* temp = position_;
   position_ = NULL;
   return temp;
 }
-inline void Transform::set_allocated_position(::Communication::Transform::Vector3* position) {
+inline void Transform_::set_allocated_position(::Communication::Transform::Vector3_* position) {
   delete position_;
   position_ = position;
   if (position) {
@@ -618,43 +618,43 @@ inline void Transform::set_allocated_position(::Communication::Transform::Vector
   } else {
     clear_has_position();
   }
-  // @@protoc_insertion_point(field_set_allocated:Communication.Transform.Transform.position)
+  // @@protoc_insertion_point(field_set_allocated:Communication.Transform.Transform_.position)
 }
 
-// required .Communication.Transform.Quaternion rotation = 2;
-inline bool Transform::has_rotation() const {
+// required .Communication.Transform.Quaternion_ rotation = 2;
+inline bool Transform_::has_rotation() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void Transform::set_has_rotation() {
+inline void Transform_::set_has_rotation() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void Transform::clear_has_rotation() {
+inline void Transform_::clear_has_rotation() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void Transform::clear_rotation() {
-  if (rotation_ != NULL) rotation_->::Communication::Transform::Quaternion::Clear();
+inline void Transform_::clear_rotation() {
+  if (rotation_ != NULL) rotation_->::Communication::Transform::Quaternion_::Clear();
   clear_has_rotation();
 }
-inline const ::Communication::Transform::Quaternion& Transform::rotation() const {
-  // @@protoc_insertion_point(field_get:Communication.Transform.Transform.rotation)
+inline const ::Communication::Transform::Quaternion_& Transform_::rotation() const {
+  // @@protoc_insertion_point(field_get:Communication.Transform.Transform_.rotation)
   return rotation_ != NULL ? *rotation_ : *default_instance_->rotation_;
 }
-inline ::Communication::Transform::Quaternion* Transform::mutable_rotation() {
+inline ::Communication::Transform::Quaternion_* Transform_::mutable_rotation() {
   set_has_rotation();
   if (rotation_ == NULL) {
-    rotation_ = new ::Communication::Transform::Quaternion;
+    rotation_ = new ::Communication::Transform::Quaternion_;
   }
-  // @@protoc_insertion_point(field_mutable:Communication.Transform.Transform.rotation)
+  // @@protoc_insertion_point(field_mutable:Communication.Transform.Transform_.rotation)
   return rotation_;
 }
-inline ::Communication::Transform::Quaternion* Transform::release_rotation() {
-  // @@protoc_insertion_point(field_release:Communication.Transform.Transform.rotation)
+inline ::Communication::Transform::Quaternion_* Transform_::release_rotation() {
+  // @@protoc_insertion_point(field_release:Communication.Transform.Transform_.rotation)
   clear_has_rotation();
-  ::Communication::Transform::Quaternion* temp = rotation_;
+  ::Communication::Transform::Quaternion_* temp = rotation_;
   rotation_ = NULL;
   return temp;
 }
-inline void Transform::set_allocated_rotation(::Communication::Transform::Quaternion* rotation) {
+inline void Transform_::set_allocated_rotation(::Communication::Transform::Quaternion_* rotation) {
   delete rotation_;
   rotation_ = rotation;
   if (rotation) {
@@ -662,7 +662,7 @@ inline void Transform::set_allocated_rotation(::Communication::Transform::Quater
   } else {
     clear_has_rotation();
   }
-  // @@protoc_insertion_point(field_set_allocated:Communication.Transform.Transform.rotation)
+  // @@protoc_insertion_point(field_set_allocated:Communication.Transform.Transform_.rotation)
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS

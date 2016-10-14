@@ -40,51 +40,49 @@ void protobuf_ShutdownFile_message_2eproto();
 
 class Message;
 
-enum MessageTarget {
+enum MessageTarget_ {
   Robot = 0,
   Unity = 1,
   Vision = 2
 };
-bool MessageTarget_IsValid(int value);
-const MessageTarget MessageTarget_MIN = Robot;
-const MessageTarget MessageTarget_MAX = Vision;
-const int MessageTarget_ARRAYSIZE = MessageTarget_MAX + 1;
+bool MessageTarget__IsValid(int value);
+const MessageTarget_ MessageTarget__MIN = Robot;
+const MessageTarget_ MessageTarget__MAX = Vision;
+const int MessageTarget__ARRAYSIZE = MessageTarget__MAX + 1;
 
-const ::google::protobuf::EnumDescriptor* MessageTarget_descriptor();
-inline const ::std::string& MessageTarget_Name(MessageTarget value) {
+const ::google::protobuf::EnumDescriptor* MessageTarget__descriptor();
+inline const ::std::string& MessageTarget__Name(MessageTarget_ value) {
   return ::google::protobuf::internal::NameOfEnum(
-    MessageTarget_descriptor(), value);
+    MessageTarget__descriptor(), value);
 }
-inline bool MessageTarget_Parse(
-    const ::std::string& name, MessageTarget* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<MessageTarget>(
-    MessageTarget_descriptor(), name, value);
+inline bool MessageTarget__Parse(
+    const ::std::string& name, MessageTarget_* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<MessageTarget_>(
+    MessageTarget__descriptor(), name, value);
 }
-enum MessageType {
+enum MessageType_ {
   IdentificationRequest = 0,
   VelocityChange = 1,
-  RotationChange = 2,
-  StopMoving = 3,
-  Indicate = 4,
-  Identification = 5,
-  LogError = 6,
-  CustomEvent = 7,
-  ShapeUpdate = 8
+  Indicate = 2,
+  IdentificationResponse = 3,
+  LogError = 4,
+  CustomEvent = 5,
+  ShapeUpdate = 6
 };
-bool MessageType_IsValid(int value);
-const MessageType MessageType_MIN = IdentificationRequest;
-const MessageType MessageType_MAX = ShapeUpdate;
-const int MessageType_ARRAYSIZE = MessageType_MAX + 1;
+bool MessageType__IsValid(int value);
+const MessageType_ MessageType__MIN = IdentificationRequest;
+const MessageType_ MessageType__MAX = ShapeUpdate;
+const int MessageType__ARRAYSIZE = MessageType__MAX + 1;
 
-const ::google::protobuf::EnumDescriptor* MessageType_descriptor();
-inline const ::std::string& MessageType_Name(MessageType value) {
+const ::google::protobuf::EnumDescriptor* MessageType__descriptor();
+inline const ::std::string& MessageType__Name(MessageType_ value) {
   return ::google::protobuf::internal::NameOfEnum(
-    MessageType_descriptor(), value);
+    MessageType__descriptor(), value);
 }
-inline bool MessageType_Parse(
-    const ::std::string& name, MessageType* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<MessageType>(
-    MessageType_descriptor(), name, value);
+inline bool MessageType__Parse(
+    const ::std::string& name, MessageType_* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<MessageType_>(
+    MessageType__descriptor(), name, value);
 }
 // ===================================================================
 
@@ -156,85 +154,76 @@ class Message : public ::google::protobuf::Message /* @@protoc_insertion_point(c
 
   // accessors -------------------------------------------------------
 
-  // required int32 id = 3;
+  // required int32 id = 1;
   bool has_id() const;
   void clear_id();
-  static const int kIdFieldNumber = 3;
+  static const int kIdFieldNumber = 1;
   ::google::protobuf::int32 id() const;
   void set_id(::google::protobuf::int32 value);
 
-  // required .Communication.MessageTarget messageTarget = 1;
+  // required .Communication.MessageTarget_ messageTarget = 2;
   bool has_messagetarget() const;
   void clear_messagetarget();
-  static const int kMessageTargetFieldNumber = 1;
-  ::Communication::MessageTarget messagetarget() const;
-  void set_messagetarget(::Communication::MessageTarget value);
+  static const int kMessageTargetFieldNumber = 2;
+  ::Communication::MessageTarget_ messagetarget() const;
+  void set_messagetarget(::Communication::MessageTarget_ value);
 
-  // required .Communication.MessageType messageType = 2;
+  // required .Communication.MessageType_ messageType = 3;
   bool has_messagetype() const;
   void clear_messagetype();
-  static const int kMessageTypeFieldNumber = 2;
-  ::Communication::MessageType messagetype() const;
-  void set_messagetype(::Communication::MessageType value);
+  static const int kMessageTypeFieldNumber = 3;
+  ::Communication::MessageType_ messagetype() const;
+  void set_messagetype(::Communication::MessageType_ value);
 
-  // optional .Communication.Messages.SetVelocity robotVelocity = 5;
+  // optional .Communication.Messages.SetVelocity_ robotVelocity = 4;
   bool has_robotvelocity() const;
   void clear_robotvelocity();
-  static const int kRobotVelocityFieldNumber = 5;
-  const ::Communication::Messages::SetVelocity& robotvelocity() const;
-  ::Communication::Messages::SetVelocity* mutable_robotvelocity();
-  ::Communication::Messages::SetVelocity* release_robotvelocity();
-  void set_allocated_robotvelocity(::Communication::Messages::SetVelocity* robotvelocity);
+  static const int kRobotVelocityFieldNumber = 4;
+  const ::Communication::Messages::SetVelocity_& robotvelocity() const;
+  ::Communication::Messages::SetVelocity_* mutable_robotvelocity();
+  ::Communication::Messages::SetVelocity_* release_robotvelocity();
+  void set_allocated_robotvelocity(::Communication::Messages::SetVelocity_* robotvelocity);
 
-  // optional .Communication.Messages.SetRotation robotRotation = 6;
-  bool has_robotrotation() const;
-  void clear_robotrotation();
-  static const int kRobotRotationFieldNumber = 6;
-  const ::Communication::Messages::SetRotation& robotrotation() const;
-  ::Communication::Messages::SetRotation* mutable_robotrotation();
-  ::Communication::Messages::SetRotation* release_robotrotation();
-  void set_allocated_robotrotation(::Communication::Messages::SetRotation* robotrotation);
-
-  // optional .Communication.Messages.IdentificationResponse identificationResponse = 7;
+  // optional .Communication.Messages.IdentificationResponse_ identificationResponse = 5;
   bool has_identificationresponse() const;
   void clear_identificationresponse();
-  static const int kIdentificationResponseFieldNumber = 7;
-  const ::Communication::Messages::IdentificationResponse& identificationresponse() const;
-  ::Communication::Messages::IdentificationResponse* mutable_identificationresponse();
-  ::Communication::Messages::IdentificationResponse* release_identificationresponse();
-  void set_allocated_identificationresponse(::Communication::Messages::IdentificationResponse* identificationresponse);
+  static const int kIdentificationResponseFieldNumber = 5;
+  const ::Communication::Messages::IdentificationResponse_& identificationresponse() const;
+  ::Communication::Messages::IdentificationResponse_* mutable_identificationresponse();
+  ::Communication::Messages::IdentificationResponse_* release_identificationresponse();
+  void set_allocated_identificationresponse(::Communication::Messages::IdentificationResponse_* identificationresponse);
 
-  // optional .Communication.Messages.Error error = 8;
+  // optional .Communication.Messages.Error_ error = 6;
   bool has_error() const;
   void clear_error();
-  static const int kErrorFieldNumber = 8;
-  const ::Communication::Messages::Error& error() const;
-  ::Communication::Messages::Error* mutable_error();
-  ::Communication::Messages::Error* release_error();
-  void set_allocated_error(::Communication::Messages::Error* error);
+  static const int kErrorFieldNumber = 6;
+  const ::Communication::Messages::Error_& error() const;
+  ::Communication::Messages::Error_* mutable_error();
+  ::Communication::Messages::Error_* release_error();
+  void set_allocated_error(::Communication::Messages::Error_* error);
 
-  // optional .Communication.Messages.CustomMessage customMessage = 9;
+  // optional .Communication.Messages.CustomMessage_ customMessage = 7;
   bool has_custommessage() const;
   void clear_custommessage();
-  static const int kCustomMessageFieldNumber = 9;
-  const ::Communication::Messages::CustomMessage& custommessage() const;
-  ::Communication::Messages::CustomMessage* mutable_custommessage();
-  ::Communication::Messages::CustomMessage* release_custommessage();
-  void set_allocated_custommessage(::Communication::Messages::CustomMessage* custommessage);
+  static const int kCustomMessageFieldNumber = 7;
+  const ::Communication::Messages::CustomMessage_& custommessage() const;
+  ::Communication::Messages::CustomMessage_* mutable_custommessage();
+  ::Communication::Messages::CustomMessage_* release_custommessage();
+  void set_allocated_custommessage(::Communication::Messages::CustomMessage_* custommessage);
 
-  // optional .Communication.Messages.ShapeUpdateInfo shapeUpdate = 10;
+  // optional .Communication.Messages.ShapeUpdateInfo_ shapeUpdate = 8;
   bool has_shapeupdate() const;
   void clear_shapeupdate();
-  static const int kShapeUpdateFieldNumber = 10;
-  const ::Communication::Messages::ShapeUpdateInfo& shapeupdate() const;
-  ::Communication::Messages::ShapeUpdateInfo* mutable_shapeupdate();
-  ::Communication::Messages::ShapeUpdateInfo* release_shapeupdate();
-  void set_allocated_shapeupdate(::Communication::Messages::ShapeUpdateInfo* shapeupdate);
+  static const int kShapeUpdateFieldNumber = 8;
+  const ::Communication::Messages::ShapeUpdateInfo_& shapeupdate() const;
+  ::Communication::Messages::ShapeUpdateInfo_* mutable_shapeupdate();
+  ::Communication::Messages::ShapeUpdateInfo_* release_shapeupdate();
+  void set_allocated_shapeupdate(::Communication::Messages::ShapeUpdateInfo_* shapeupdate);
 
-  // optional string stringData = 11;
+  // optional string stringData = 9;
   bool has_stringdata() const;
   void clear_stringdata();
-  static const int kStringDataFieldNumber = 11;
+  static const int kStringDataFieldNumber = 9;
   const ::std::string& stringdata() const;
   void set_stringdata(const ::std::string& value);
   void set_stringdata(const char* value);
@@ -253,8 +242,6 @@ class Message : public ::google::protobuf::Message /* @@protoc_insertion_point(c
   inline void clear_has_messagetype();
   inline void set_has_robotvelocity();
   inline void clear_has_robotvelocity();
-  inline void set_has_robotrotation();
-  inline void clear_has_robotrotation();
   inline void set_has_identificationresponse();
   inline void clear_has_identificationresponse();
   inline void set_has_error();
@@ -274,12 +261,11 @@ class Message : public ::google::protobuf::Message /* @@protoc_insertion_point(c
   mutable int _cached_size_;
   ::google::protobuf::int32 id_;
   int messagetarget_;
-  ::Communication::Messages::SetVelocity* robotvelocity_;
-  ::Communication::Messages::SetRotation* robotrotation_;
-  ::Communication::Messages::IdentificationResponse* identificationresponse_;
-  ::Communication::Messages::Error* error_;
-  ::Communication::Messages::CustomMessage* custommessage_;
-  ::Communication::Messages::ShapeUpdateInfo* shapeupdate_;
+  ::Communication::Messages::SetVelocity_* robotvelocity_;
+  ::Communication::Messages::IdentificationResponse_* identificationresponse_;
+  ::Communication::Messages::Error_* error_;
+  ::Communication::Messages::CustomMessage_* custommessage_;
+  ::Communication::Messages::ShapeUpdateInfo_* shapeupdate_;
   ::google::protobuf::internal::ArenaStringPtr stringdata_;
   int messagetype_;
   friend void  protobuf_AddDesc_message_2eproto();
@@ -297,7 +283,7 @@ class Message : public ::google::protobuf::Message /* @@protoc_insertion_point(c
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
 // Message
 
-// required int32 id = 3;
+// required int32 id = 1;
 inline bool Message::has_id() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -321,7 +307,7 @@ inline void Message::set_id(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:Communication.Message.id)
 }
 
-// required .Communication.MessageTarget messageTarget = 1;
+// required .Communication.MessageTarget_ messageTarget = 2;
 inline bool Message::has_messagetarget() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -335,18 +321,18 @@ inline void Message::clear_messagetarget() {
   messagetarget_ = 0;
   clear_has_messagetarget();
 }
-inline ::Communication::MessageTarget Message::messagetarget() const {
+inline ::Communication::MessageTarget_ Message::messagetarget() const {
   // @@protoc_insertion_point(field_get:Communication.Message.messageTarget)
-  return static_cast< ::Communication::MessageTarget >(messagetarget_);
+  return static_cast< ::Communication::MessageTarget_ >(messagetarget_);
 }
-inline void Message::set_messagetarget(::Communication::MessageTarget value) {
-  assert(::Communication::MessageTarget_IsValid(value));
+inline void Message::set_messagetarget(::Communication::MessageTarget_ value) {
+  assert(::Communication::MessageTarget__IsValid(value));
   set_has_messagetarget();
   messagetarget_ = value;
   // @@protoc_insertion_point(field_set:Communication.Message.messageTarget)
 }
 
-// required .Communication.MessageType messageType = 2;
+// required .Communication.MessageType_ messageType = 3;
 inline bool Message::has_messagetype() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
@@ -360,18 +346,18 @@ inline void Message::clear_messagetype() {
   messagetype_ = 0;
   clear_has_messagetype();
 }
-inline ::Communication::MessageType Message::messagetype() const {
+inline ::Communication::MessageType_ Message::messagetype() const {
   // @@protoc_insertion_point(field_get:Communication.Message.messageType)
-  return static_cast< ::Communication::MessageType >(messagetype_);
+  return static_cast< ::Communication::MessageType_ >(messagetype_);
 }
-inline void Message::set_messagetype(::Communication::MessageType value) {
-  assert(::Communication::MessageType_IsValid(value));
+inline void Message::set_messagetype(::Communication::MessageType_ value) {
+  assert(::Communication::MessageType__IsValid(value));
   set_has_messagetype();
   messagetype_ = value;
   // @@protoc_insertion_point(field_set:Communication.Message.messageType)
 }
 
-// optional .Communication.Messages.SetVelocity robotVelocity = 5;
+// optional .Communication.Messages.SetVelocity_ robotVelocity = 4;
 inline bool Message::has_robotvelocity() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
@@ -382,29 +368,29 @@ inline void Message::clear_has_robotvelocity() {
   _has_bits_[0] &= ~0x00000008u;
 }
 inline void Message::clear_robotvelocity() {
-  if (robotvelocity_ != NULL) robotvelocity_->::Communication::Messages::SetVelocity::Clear();
+  if (robotvelocity_ != NULL) robotvelocity_->::Communication::Messages::SetVelocity_::Clear();
   clear_has_robotvelocity();
 }
-inline const ::Communication::Messages::SetVelocity& Message::robotvelocity() const {
+inline const ::Communication::Messages::SetVelocity_& Message::robotvelocity() const {
   // @@protoc_insertion_point(field_get:Communication.Message.robotVelocity)
   return robotvelocity_ != NULL ? *robotvelocity_ : *default_instance_->robotvelocity_;
 }
-inline ::Communication::Messages::SetVelocity* Message::mutable_robotvelocity() {
+inline ::Communication::Messages::SetVelocity_* Message::mutable_robotvelocity() {
   set_has_robotvelocity();
   if (robotvelocity_ == NULL) {
-    robotvelocity_ = new ::Communication::Messages::SetVelocity;
+    robotvelocity_ = new ::Communication::Messages::SetVelocity_;
   }
   // @@protoc_insertion_point(field_mutable:Communication.Message.robotVelocity)
   return robotvelocity_;
 }
-inline ::Communication::Messages::SetVelocity* Message::release_robotvelocity() {
+inline ::Communication::Messages::SetVelocity_* Message::release_robotvelocity() {
   // @@protoc_insertion_point(field_release:Communication.Message.robotVelocity)
   clear_has_robotvelocity();
-  ::Communication::Messages::SetVelocity* temp = robotvelocity_;
+  ::Communication::Messages::SetVelocity_* temp = robotvelocity_;
   robotvelocity_ = NULL;
   return temp;
 }
-inline void Message::set_allocated_robotvelocity(::Communication::Messages::SetVelocity* robotvelocity) {
+inline void Message::set_allocated_robotvelocity(::Communication::Messages::SetVelocity_* robotvelocity) {
   delete robotvelocity_;
   robotvelocity_ = robotvelocity;
   if (robotvelocity) {
@@ -415,84 +401,40 @@ inline void Message::set_allocated_robotvelocity(::Communication::Messages::SetV
   // @@protoc_insertion_point(field_set_allocated:Communication.Message.robotVelocity)
 }
 
-// optional .Communication.Messages.SetRotation robotRotation = 6;
-inline bool Message::has_robotrotation() const {
+// optional .Communication.Messages.IdentificationResponse_ identificationResponse = 5;
+inline bool Message::has_identificationresponse() const {
   return (_has_bits_[0] & 0x00000010u) != 0;
 }
-inline void Message::set_has_robotrotation() {
+inline void Message::set_has_identificationresponse() {
   _has_bits_[0] |= 0x00000010u;
 }
-inline void Message::clear_has_robotrotation() {
+inline void Message::clear_has_identificationresponse() {
   _has_bits_[0] &= ~0x00000010u;
 }
-inline void Message::clear_robotrotation() {
-  if (robotrotation_ != NULL) robotrotation_->::Communication::Messages::SetRotation::Clear();
-  clear_has_robotrotation();
-}
-inline const ::Communication::Messages::SetRotation& Message::robotrotation() const {
-  // @@protoc_insertion_point(field_get:Communication.Message.robotRotation)
-  return robotrotation_ != NULL ? *robotrotation_ : *default_instance_->robotrotation_;
-}
-inline ::Communication::Messages::SetRotation* Message::mutable_robotrotation() {
-  set_has_robotrotation();
-  if (robotrotation_ == NULL) {
-    robotrotation_ = new ::Communication::Messages::SetRotation;
-  }
-  // @@protoc_insertion_point(field_mutable:Communication.Message.robotRotation)
-  return robotrotation_;
-}
-inline ::Communication::Messages::SetRotation* Message::release_robotrotation() {
-  // @@protoc_insertion_point(field_release:Communication.Message.robotRotation)
-  clear_has_robotrotation();
-  ::Communication::Messages::SetRotation* temp = robotrotation_;
-  robotrotation_ = NULL;
-  return temp;
-}
-inline void Message::set_allocated_robotrotation(::Communication::Messages::SetRotation* robotrotation) {
-  delete robotrotation_;
-  robotrotation_ = robotrotation;
-  if (robotrotation) {
-    set_has_robotrotation();
-  } else {
-    clear_has_robotrotation();
-  }
-  // @@protoc_insertion_point(field_set_allocated:Communication.Message.robotRotation)
-}
-
-// optional .Communication.Messages.IdentificationResponse identificationResponse = 7;
-inline bool Message::has_identificationresponse() const {
-  return (_has_bits_[0] & 0x00000020u) != 0;
-}
-inline void Message::set_has_identificationresponse() {
-  _has_bits_[0] |= 0x00000020u;
-}
-inline void Message::clear_has_identificationresponse() {
-  _has_bits_[0] &= ~0x00000020u;
-}
 inline void Message::clear_identificationresponse() {
-  if (identificationresponse_ != NULL) identificationresponse_->::Communication::Messages::IdentificationResponse::Clear();
+  if (identificationresponse_ != NULL) identificationresponse_->::Communication::Messages::IdentificationResponse_::Clear();
   clear_has_identificationresponse();
 }
-inline const ::Communication::Messages::IdentificationResponse& Message::identificationresponse() const {
+inline const ::Communication::Messages::IdentificationResponse_& Message::identificationresponse() const {
   // @@protoc_insertion_point(field_get:Communication.Message.identificationResponse)
   return identificationresponse_ != NULL ? *identificationresponse_ : *default_instance_->identificationresponse_;
 }
-inline ::Communication::Messages::IdentificationResponse* Message::mutable_identificationresponse() {
+inline ::Communication::Messages::IdentificationResponse_* Message::mutable_identificationresponse() {
   set_has_identificationresponse();
   if (identificationresponse_ == NULL) {
-    identificationresponse_ = new ::Communication::Messages::IdentificationResponse;
+    identificationresponse_ = new ::Communication::Messages::IdentificationResponse_;
   }
   // @@protoc_insertion_point(field_mutable:Communication.Message.identificationResponse)
   return identificationresponse_;
 }
-inline ::Communication::Messages::IdentificationResponse* Message::release_identificationresponse() {
+inline ::Communication::Messages::IdentificationResponse_* Message::release_identificationresponse() {
   // @@protoc_insertion_point(field_release:Communication.Message.identificationResponse)
   clear_has_identificationresponse();
-  ::Communication::Messages::IdentificationResponse* temp = identificationresponse_;
+  ::Communication::Messages::IdentificationResponse_* temp = identificationresponse_;
   identificationresponse_ = NULL;
   return temp;
 }
-inline void Message::set_allocated_identificationresponse(::Communication::Messages::IdentificationResponse* identificationresponse) {
+inline void Message::set_allocated_identificationresponse(::Communication::Messages::IdentificationResponse_* identificationresponse) {
   delete identificationresponse_;
   identificationresponse_ = identificationresponse;
   if (identificationresponse) {
@@ -503,40 +445,40 @@ inline void Message::set_allocated_identificationresponse(::Communication::Messa
   // @@protoc_insertion_point(field_set_allocated:Communication.Message.identificationResponse)
 }
 
-// optional .Communication.Messages.Error error = 8;
+// optional .Communication.Messages.Error_ error = 6;
 inline bool Message::has_error() const {
-  return (_has_bits_[0] & 0x00000040u) != 0;
+  return (_has_bits_[0] & 0x00000020u) != 0;
 }
 inline void Message::set_has_error() {
-  _has_bits_[0] |= 0x00000040u;
+  _has_bits_[0] |= 0x00000020u;
 }
 inline void Message::clear_has_error() {
-  _has_bits_[0] &= ~0x00000040u;
+  _has_bits_[0] &= ~0x00000020u;
 }
 inline void Message::clear_error() {
-  if (error_ != NULL) error_->::Communication::Messages::Error::Clear();
+  if (error_ != NULL) error_->::Communication::Messages::Error_::Clear();
   clear_has_error();
 }
-inline const ::Communication::Messages::Error& Message::error() const {
+inline const ::Communication::Messages::Error_& Message::error() const {
   // @@protoc_insertion_point(field_get:Communication.Message.error)
   return error_ != NULL ? *error_ : *default_instance_->error_;
 }
-inline ::Communication::Messages::Error* Message::mutable_error() {
+inline ::Communication::Messages::Error_* Message::mutable_error() {
   set_has_error();
   if (error_ == NULL) {
-    error_ = new ::Communication::Messages::Error;
+    error_ = new ::Communication::Messages::Error_;
   }
   // @@protoc_insertion_point(field_mutable:Communication.Message.error)
   return error_;
 }
-inline ::Communication::Messages::Error* Message::release_error() {
+inline ::Communication::Messages::Error_* Message::release_error() {
   // @@protoc_insertion_point(field_release:Communication.Message.error)
   clear_has_error();
-  ::Communication::Messages::Error* temp = error_;
+  ::Communication::Messages::Error_* temp = error_;
   error_ = NULL;
   return temp;
 }
-inline void Message::set_allocated_error(::Communication::Messages::Error* error) {
+inline void Message::set_allocated_error(::Communication::Messages::Error_* error) {
   delete error_;
   error_ = error;
   if (error) {
@@ -547,40 +489,40 @@ inline void Message::set_allocated_error(::Communication::Messages::Error* error
   // @@protoc_insertion_point(field_set_allocated:Communication.Message.error)
 }
 
-// optional .Communication.Messages.CustomMessage customMessage = 9;
+// optional .Communication.Messages.CustomMessage_ customMessage = 7;
 inline bool Message::has_custommessage() const {
-  return (_has_bits_[0] & 0x00000080u) != 0;
+  return (_has_bits_[0] & 0x00000040u) != 0;
 }
 inline void Message::set_has_custommessage() {
-  _has_bits_[0] |= 0x00000080u;
+  _has_bits_[0] |= 0x00000040u;
 }
 inline void Message::clear_has_custommessage() {
-  _has_bits_[0] &= ~0x00000080u;
+  _has_bits_[0] &= ~0x00000040u;
 }
 inline void Message::clear_custommessage() {
-  if (custommessage_ != NULL) custommessage_->::Communication::Messages::CustomMessage::Clear();
+  if (custommessage_ != NULL) custommessage_->::Communication::Messages::CustomMessage_::Clear();
   clear_has_custommessage();
 }
-inline const ::Communication::Messages::CustomMessage& Message::custommessage() const {
+inline const ::Communication::Messages::CustomMessage_& Message::custommessage() const {
   // @@protoc_insertion_point(field_get:Communication.Message.customMessage)
   return custommessage_ != NULL ? *custommessage_ : *default_instance_->custommessage_;
 }
-inline ::Communication::Messages::CustomMessage* Message::mutable_custommessage() {
+inline ::Communication::Messages::CustomMessage_* Message::mutable_custommessage() {
   set_has_custommessage();
   if (custommessage_ == NULL) {
-    custommessage_ = new ::Communication::Messages::CustomMessage;
+    custommessage_ = new ::Communication::Messages::CustomMessage_;
   }
   // @@protoc_insertion_point(field_mutable:Communication.Message.customMessage)
   return custommessage_;
 }
-inline ::Communication::Messages::CustomMessage* Message::release_custommessage() {
+inline ::Communication::Messages::CustomMessage_* Message::release_custommessage() {
   // @@protoc_insertion_point(field_release:Communication.Message.customMessage)
   clear_has_custommessage();
-  ::Communication::Messages::CustomMessage* temp = custommessage_;
+  ::Communication::Messages::CustomMessage_* temp = custommessage_;
   custommessage_ = NULL;
   return temp;
 }
-inline void Message::set_allocated_custommessage(::Communication::Messages::CustomMessage* custommessage) {
+inline void Message::set_allocated_custommessage(::Communication::Messages::CustomMessage_* custommessage) {
   delete custommessage_;
   custommessage_ = custommessage;
   if (custommessage) {
@@ -591,40 +533,40 @@ inline void Message::set_allocated_custommessage(::Communication::Messages::Cust
   // @@protoc_insertion_point(field_set_allocated:Communication.Message.customMessage)
 }
 
-// optional .Communication.Messages.ShapeUpdateInfo shapeUpdate = 10;
+// optional .Communication.Messages.ShapeUpdateInfo_ shapeUpdate = 8;
 inline bool Message::has_shapeupdate() const {
-  return (_has_bits_[0] & 0x00000100u) != 0;
+  return (_has_bits_[0] & 0x00000080u) != 0;
 }
 inline void Message::set_has_shapeupdate() {
-  _has_bits_[0] |= 0x00000100u;
+  _has_bits_[0] |= 0x00000080u;
 }
 inline void Message::clear_has_shapeupdate() {
-  _has_bits_[0] &= ~0x00000100u;
+  _has_bits_[0] &= ~0x00000080u;
 }
 inline void Message::clear_shapeupdate() {
-  if (shapeupdate_ != NULL) shapeupdate_->::Communication::Messages::ShapeUpdateInfo::Clear();
+  if (shapeupdate_ != NULL) shapeupdate_->::Communication::Messages::ShapeUpdateInfo_::Clear();
   clear_has_shapeupdate();
 }
-inline const ::Communication::Messages::ShapeUpdateInfo& Message::shapeupdate() const {
+inline const ::Communication::Messages::ShapeUpdateInfo_& Message::shapeupdate() const {
   // @@protoc_insertion_point(field_get:Communication.Message.shapeUpdate)
   return shapeupdate_ != NULL ? *shapeupdate_ : *default_instance_->shapeupdate_;
 }
-inline ::Communication::Messages::ShapeUpdateInfo* Message::mutable_shapeupdate() {
+inline ::Communication::Messages::ShapeUpdateInfo_* Message::mutable_shapeupdate() {
   set_has_shapeupdate();
   if (shapeupdate_ == NULL) {
-    shapeupdate_ = new ::Communication::Messages::ShapeUpdateInfo;
+    shapeupdate_ = new ::Communication::Messages::ShapeUpdateInfo_;
   }
   // @@protoc_insertion_point(field_mutable:Communication.Message.shapeUpdate)
   return shapeupdate_;
 }
-inline ::Communication::Messages::ShapeUpdateInfo* Message::release_shapeupdate() {
+inline ::Communication::Messages::ShapeUpdateInfo_* Message::release_shapeupdate() {
   // @@protoc_insertion_point(field_release:Communication.Message.shapeUpdate)
   clear_has_shapeupdate();
-  ::Communication::Messages::ShapeUpdateInfo* temp = shapeupdate_;
+  ::Communication::Messages::ShapeUpdateInfo_* temp = shapeupdate_;
   shapeupdate_ = NULL;
   return temp;
 }
-inline void Message::set_allocated_shapeupdate(::Communication::Messages::ShapeUpdateInfo* shapeupdate) {
+inline void Message::set_allocated_shapeupdate(::Communication::Messages::ShapeUpdateInfo_* shapeupdate) {
   delete shapeupdate_;
   shapeupdate_ = shapeupdate;
   if (shapeupdate) {
@@ -635,15 +577,15 @@ inline void Message::set_allocated_shapeupdate(::Communication::Messages::ShapeU
   // @@protoc_insertion_point(field_set_allocated:Communication.Message.shapeUpdate)
 }
 
-// optional string stringData = 11;
+// optional string stringData = 9;
 inline bool Message::has_stringdata() const {
-  return (_has_bits_[0] & 0x00000200u) != 0;
+  return (_has_bits_[0] & 0x00000100u) != 0;
 }
 inline void Message::set_has_stringdata() {
-  _has_bits_[0] |= 0x00000200u;
+  _has_bits_[0] |= 0x00000100u;
 }
 inline void Message::clear_has_stringdata() {
-  _has_bits_[0] &= ~0x00000200u;
+  _has_bits_[0] &= ~0x00000100u;
 }
 inline void Message::clear_stringdata() {
   stringdata_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -699,15 +641,15 @@ inline void Message::set_allocated_stringdata(::std::string* stringdata) {
 namespace google {
 namespace protobuf {
 
-template <> struct is_proto_enum< ::Communication::MessageTarget> : ::google::protobuf::internal::true_type {};
+template <> struct is_proto_enum< ::Communication::MessageTarget_> : ::google::protobuf::internal::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::Communication::MessageTarget>() {
-  return ::Communication::MessageTarget_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::Communication::MessageTarget_>() {
+  return ::Communication::MessageTarget__descriptor();
 }
-template <> struct is_proto_enum< ::Communication::MessageType> : ::google::protobuf::internal::true_type {};
+template <> struct is_proto_enum< ::Communication::MessageType_> : ::google::protobuf::internal::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::Communication::MessageType>() {
-  return ::Communication::MessageType_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::Communication::MessageType_>() {
+  return ::Communication::MessageType__descriptor();
 }
 
 }  // namespace protobuf

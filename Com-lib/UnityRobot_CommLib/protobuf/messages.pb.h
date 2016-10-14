@@ -38,24 +38,23 @@ void protobuf_AddDesc_messages_2eproto();
 void protobuf_AssignDesc_messages_2eproto();
 void protobuf_ShutdownFile_messages_2eproto();
 
-class CustomMessage;
-class Error;
-class IdentificationResponse;
-class SetRotation;
-class SetVelocity;
-class Shape;
-class ShapeUpdateInfo;
+class CustomMessage_;
+class Error_;
+class IdentificationResponse_;
+class SetVelocity_;
+class ShapeUpdateInfo_;
+class Shape_;
 
 // ===================================================================
 
-class SetVelocity : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Communication.Messages.SetVelocity) */ {
+class SetVelocity_ : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Communication.Messages.SetVelocity_) */ {
  public:
-  SetVelocity();
-  virtual ~SetVelocity();
+  SetVelocity_();
+  virtual ~SetVelocity_();
 
-  SetVelocity(const SetVelocity& from);
+  SetVelocity_(const SetVelocity_& from);
 
-  inline SetVelocity& operator=(const SetVelocity& from) {
+  inline SetVelocity_& operator=(const SetVelocity_& from) {
     CopyFrom(from);
     return *this;
   }
@@ -69,19 +68,19 @@ class SetVelocity : public ::google::protobuf::Message /* @@protoc_insertion_poi
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const SetVelocity& default_instance();
+  static const SetVelocity_& default_instance();
 
-  void Swap(SetVelocity* other);
+  void Swap(SetVelocity_* other);
 
   // implements Message ----------------------------------------------
 
-  inline SetVelocity* New() const { return New(NULL); }
+  inline SetVelocity_* New() const { return New(NULL); }
 
-  SetVelocity* New(::google::protobuf::Arena* arena) const;
+  SetVelocity_* New(::google::protobuf::Arena* arena) const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const SetVelocity& from);
-  void MergeFrom(const SetVelocity& from);
+  void CopyFrom(const SetVelocity_& from);
+  void MergeFrom(const SetVelocity_& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -100,7 +99,7 @@ class SetVelocity : public ::google::protobuf::Message /* @@protoc_insertion_poi
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(SetVelocity* other);
+  void InternalSwap(SetVelocity_* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -116,41 +115,53 @@ class SetVelocity : public ::google::protobuf::Message /* @@protoc_insertion_poi
 
   // accessors -------------------------------------------------------
 
-  // required .Communication.Transform.Vector3 velocity = 1;
-  bool has_velocity() const;
-  void clear_velocity();
-  static const int kVelocityFieldNumber = 1;
-  const ::Communication::Transform::Vector3& velocity() const;
-  ::Communication::Transform::Vector3* mutable_velocity();
-  ::Communication::Transform::Vector3* release_velocity();
-  void set_allocated_velocity(::Communication::Transform::Vector3* velocity);
+  // optional .Communication.Transform.Vector3_ linearVelocity = 1;
+  bool has_linearvelocity() const;
+  void clear_linearvelocity();
+  static const int kLinearVelocityFieldNumber = 1;
+  const ::Communication::Transform::Vector3_& linearvelocity() const;
+  ::Communication::Transform::Vector3_* mutable_linearvelocity();
+  ::Communication::Transform::Vector3_* release_linearvelocity();
+  void set_allocated_linearvelocity(::Communication::Transform::Vector3_* linearvelocity);
 
-  // @@protoc_insertion_point(class_scope:Communication.Messages.SetVelocity)
+  // optional .Communication.Transform.Vector3_ angularVelocity = 2;
+  bool has_angularvelocity() const;
+  void clear_angularvelocity();
+  static const int kAngularVelocityFieldNumber = 2;
+  const ::Communication::Transform::Vector3_& angularvelocity() const;
+  ::Communication::Transform::Vector3_* mutable_angularvelocity();
+  ::Communication::Transform::Vector3_* release_angularvelocity();
+  void set_allocated_angularvelocity(::Communication::Transform::Vector3_* angularvelocity);
+
+  // @@protoc_insertion_point(class_scope:Communication.Messages.SetVelocity_)
  private:
-  inline void set_has_velocity();
-  inline void clear_has_velocity();
+  inline void set_has_linearvelocity();
+  inline void clear_has_linearvelocity();
+  inline void set_has_angularvelocity();
+  inline void clear_has_angularvelocity();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::Communication::Transform::Vector3* velocity_;
+  ::Communication::Transform::Vector3_* linearvelocity_;
+  ::Communication::Transform::Vector3_* angularvelocity_;
   friend void  protobuf_AddDesc_messages_2eproto();
   friend void protobuf_AssignDesc_messages_2eproto();
   friend void protobuf_ShutdownFile_messages_2eproto();
 
   void InitAsDefaultInstance();
-  static SetVelocity* default_instance_;
+  static SetVelocity_* default_instance_;
 };
 // -------------------------------------------------------------------
 
-class SetRotation : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Communication.Messages.SetRotation) */ {
+class IdentificationResponse_ : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Communication.Messages.IdentificationResponse_) */ {
  public:
-  SetRotation();
-  virtual ~SetRotation();
+  IdentificationResponse_();
+  virtual ~IdentificationResponse_();
 
-  SetRotation(const SetRotation& from);
+  IdentificationResponse_(const IdentificationResponse_& from);
 
-  inline SetRotation& operator=(const SetRotation& from) {
+  inline IdentificationResponse_& operator=(const IdentificationResponse_& from) {
     CopyFrom(from);
     return *this;
   }
@@ -164,19 +175,19 @@ class SetRotation : public ::google::protobuf::Message /* @@protoc_insertion_poi
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const SetRotation& default_instance();
+  static const IdentificationResponse_& default_instance();
 
-  void Swap(SetRotation* other);
+  void Swap(IdentificationResponse_* other);
 
   // implements Message ----------------------------------------------
 
-  inline SetRotation* New() const { return New(NULL); }
+  inline IdentificationResponse_* New() const { return New(NULL); }
 
-  SetRotation* New(::google::protobuf::Arena* arena) const;
+  IdentificationResponse_* New(::google::protobuf::Arena* arena) const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const SetRotation& from);
-  void MergeFrom(const SetRotation& from);
+  void CopyFrom(const IdentificationResponse_& from);
+  void MergeFrom(const IdentificationResponse_& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -195,102 +206,7 @@ class SetRotation : public ::google::protobuf::Message /* @@protoc_insertion_poi
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(SetRotation* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required .Communication.Transform.Vector3 rotation = 1;
-  bool has_rotation() const;
-  void clear_rotation();
-  static const int kRotationFieldNumber = 1;
-  const ::Communication::Transform::Vector3& rotation() const;
-  ::Communication::Transform::Vector3* mutable_rotation();
-  ::Communication::Transform::Vector3* release_rotation();
-  void set_allocated_rotation(::Communication::Transform::Vector3* rotation);
-
-  // @@protoc_insertion_point(class_scope:Communication.Messages.SetRotation)
- private:
-  inline void set_has_rotation();
-  inline void clear_has_rotation();
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::uint32 _has_bits_[1];
-  mutable int _cached_size_;
-  ::Communication::Transform::Vector3* rotation_;
-  friend void  protobuf_AddDesc_messages_2eproto();
-  friend void protobuf_AssignDesc_messages_2eproto();
-  friend void protobuf_ShutdownFile_messages_2eproto();
-
-  void InitAsDefaultInstance();
-  static SetRotation* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class IdentificationResponse : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Communication.Messages.IdentificationResponse) */ {
- public:
-  IdentificationResponse();
-  virtual ~IdentificationResponse();
-
-  IdentificationResponse(const IdentificationResponse& from);
-
-  inline IdentificationResponse& operator=(const IdentificationResponse& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const IdentificationResponse& default_instance();
-
-  void Swap(IdentificationResponse* other);
-
-  // implements Message ----------------------------------------------
-
-  inline IdentificationResponse* New() const { return New(NULL); }
-
-  IdentificationResponse* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const IdentificationResponse& from);
-  void MergeFrom(const IdentificationResponse& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
-      bool deterministic, ::google::protobuf::uint8* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
-    return InternalSerializeWithCachedSizesToArray(false, output);
-  }
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(IdentificationResponse* other);
+  void InternalSwap(IdentificationResponse_* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -318,7 +234,7 @@ class IdentificationResponse : public ::google::protobuf::Message /* @@protoc_in
   ::std::string* release_robottype();
   void set_allocated_robottype(::std::string* robottype);
 
-  // @@protoc_insertion_point(class_scope:Communication.Messages.IdentificationResponse)
+  // @@protoc_insertion_point(class_scope:Communication.Messages.IdentificationResponse_)
  private:
   inline void set_has_robottype();
   inline void clear_has_robottype();
@@ -332,18 +248,18 @@ class IdentificationResponse : public ::google::protobuf::Message /* @@protoc_in
   friend void protobuf_ShutdownFile_messages_2eproto();
 
   void InitAsDefaultInstance();
-  static IdentificationResponse* default_instance_;
+  static IdentificationResponse_* default_instance_;
 };
 // -------------------------------------------------------------------
 
-class Error : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Communication.Messages.Error) */ {
+class Error_ : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Communication.Messages.Error_) */ {
  public:
-  Error();
-  virtual ~Error();
+  Error_();
+  virtual ~Error_();
 
-  Error(const Error& from);
+  Error_(const Error_& from);
 
-  inline Error& operator=(const Error& from) {
+  inline Error_& operator=(const Error_& from) {
     CopyFrom(from);
     return *this;
   }
@@ -357,19 +273,19 @@ class Error : public ::google::protobuf::Message /* @@protoc_insertion_point(cla
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const Error& default_instance();
+  static const Error_& default_instance();
 
-  void Swap(Error* other);
+  void Swap(Error_* other);
 
   // implements Message ----------------------------------------------
 
-  inline Error* New() const { return New(NULL); }
+  inline Error_* New() const { return New(NULL); }
 
-  Error* New(::google::protobuf::Arena* arena) const;
+  Error_* New(::google::protobuf::Arena* arena) const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const Error& from);
-  void MergeFrom(const Error& from);
+  void CopyFrom(const Error_& from);
+  void MergeFrom(const Error_& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -388,7 +304,7 @@ class Error : public ::google::protobuf::Message /* @@protoc_insertion_point(cla
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(Error* other);
+  void InternalSwap(Error_* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -416,7 +332,7 @@ class Error : public ::google::protobuf::Message /* @@protoc_insertion_point(cla
   ::std::string* release_message();
   void set_allocated_message(::std::string* message);
 
-  // @@protoc_insertion_point(class_scope:Communication.Messages.Error)
+  // @@protoc_insertion_point(class_scope:Communication.Messages.Error_)
  private:
   inline void set_has_message();
   inline void clear_has_message();
@@ -430,18 +346,18 @@ class Error : public ::google::protobuf::Message /* @@protoc_insertion_point(cla
   friend void protobuf_ShutdownFile_messages_2eproto();
 
   void InitAsDefaultInstance();
-  static Error* default_instance_;
+  static Error_* default_instance_;
 };
 // -------------------------------------------------------------------
 
-class CustomMessage : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Communication.Messages.CustomMessage) */ {
+class CustomMessage_ : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Communication.Messages.CustomMessage_) */ {
  public:
-  CustomMessage();
-  virtual ~CustomMessage();
+  CustomMessage_();
+  virtual ~CustomMessage_();
 
-  CustomMessage(const CustomMessage& from);
+  CustomMessage_(const CustomMessage_& from);
 
-  inline CustomMessage& operator=(const CustomMessage& from) {
+  inline CustomMessage_& operator=(const CustomMessage_& from) {
     CopyFrom(from);
     return *this;
   }
@@ -455,19 +371,19 @@ class CustomMessage : public ::google::protobuf::Message /* @@protoc_insertion_p
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const CustomMessage& default_instance();
+  static const CustomMessage_& default_instance();
 
-  void Swap(CustomMessage* other);
+  void Swap(CustomMessage_* other);
 
   // implements Message ----------------------------------------------
 
-  inline CustomMessage* New() const { return New(NULL); }
+  inline CustomMessage_* New() const { return New(NULL); }
 
-  CustomMessage* New(::google::protobuf::Arena* arena) const;
+  CustomMessage_* New(::google::protobuf::Arena* arena) const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const CustomMessage& from);
-  void MergeFrom(const CustomMessage& from);
+  void CopyFrom(const CustomMessage_& from);
+  void MergeFrom(const CustomMessage_& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -486,7 +402,7 @@ class CustomMessage : public ::google::protobuf::Message /* @@protoc_insertion_p
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(CustomMessage* other);
+  void InternalSwap(CustomMessage_* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -526,7 +442,7 @@ class CustomMessage : public ::google::protobuf::Message /* @@protoc_insertion_p
   ::std::string* release_data();
   void set_allocated_data(::std::string* data);
 
-  // @@protoc_insertion_point(class_scope:Communication.Messages.CustomMessage)
+  // @@protoc_insertion_point(class_scope:Communication.Messages.CustomMessage_)
  private:
   inline void set_has_key();
   inline void clear_has_key();
@@ -543,18 +459,18 @@ class CustomMessage : public ::google::protobuf::Message /* @@protoc_insertion_p
   friend void protobuf_ShutdownFile_messages_2eproto();
 
   void InitAsDefaultInstance();
-  static CustomMessage* default_instance_;
+  static CustomMessage_* default_instance_;
 };
 // -------------------------------------------------------------------
 
-class ShapeUpdateInfo : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Communication.Messages.ShapeUpdateInfo) */ {
+class ShapeUpdateInfo_ : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Communication.Messages.ShapeUpdateInfo_) */ {
  public:
-  ShapeUpdateInfo();
-  virtual ~ShapeUpdateInfo();
+  ShapeUpdateInfo_();
+  virtual ~ShapeUpdateInfo_();
 
-  ShapeUpdateInfo(const ShapeUpdateInfo& from);
+  ShapeUpdateInfo_(const ShapeUpdateInfo_& from);
 
-  inline ShapeUpdateInfo& operator=(const ShapeUpdateInfo& from) {
+  inline ShapeUpdateInfo_& operator=(const ShapeUpdateInfo_& from) {
     CopyFrom(from);
     return *this;
   }
@@ -568,19 +484,19 @@ class ShapeUpdateInfo : public ::google::protobuf::Message /* @@protoc_insertion
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const ShapeUpdateInfo& default_instance();
+  static const ShapeUpdateInfo_& default_instance();
 
-  void Swap(ShapeUpdateInfo* other);
+  void Swap(ShapeUpdateInfo_* other);
 
   // implements Message ----------------------------------------------
 
-  inline ShapeUpdateInfo* New() const { return New(NULL); }
+  inline ShapeUpdateInfo_* New() const { return New(NULL); }
 
-  ShapeUpdateInfo* New(::google::protobuf::Arena* arena) const;
+  ShapeUpdateInfo_* New(::google::protobuf::Arena* arena) const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const ShapeUpdateInfo& from);
-  void MergeFrom(const ShapeUpdateInfo& from);
+  void CopyFrom(const ShapeUpdateInfo_& from);
+  void MergeFrom(const ShapeUpdateInfo_& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -599,7 +515,7 @@ class ShapeUpdateInfo : public ::google::protobuf::Message /* @@protoc_insertion
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(ShapeUpdateInfo* other);
+  void InternalSwap(ShapeUpdateInfo_* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -615,55 +531,55 @@ class ShapeUpdateInfo : public ::google::protobuf::Message /* @@protoc_insertion
 
   // accessors -------------------------------------------------------
 
-  // repeated .Communication.Messages.Shape changedShapes = 1;
+  // repeated .Communication.Messages.Shape_ changedShapes = 1;
   int changedshapes_size() const;
   void clear_changedshapes();
   static const int kChangedShapesFieldNumber = 1;
-  const ::Communication::Messages::Shape& changedshapes(int index) const;
-  ::Communication::Messages::Shape* mutable_changedshapes(int index);
-  ::Communication::Messages::Shape* add_changedshapes();
-  ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape >*
+  const ::Communication::Messages::Shape_& changedshapes(int index) const;
+  ::Communication::Messages::Shape_* mutable_changedshapes(int index);
+  ::Communication::Messages::Shape_* add_changedshapes();
+  ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape_ >*
       mutable_changedshapes();
-  const ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape >&
+  const ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape_ >&
       changedshapes() const;
 
-  // repeated .Communication.Messages.Shape newShapes = 2;
+  // repeated .Communication.Messages.Shape_ newShapes = 2;
   int newshapes_size() const;
   void clear_newshapes();
   static const int kNewShapesFieldNumber = 2;
-  const ::Communication::Messages::Shape& newshapes(int index) const;
-  ::Communication::Messages::Shape* mutable_newshapes(int index);
-  ::Communication::Messages::Shape* add_newshapes();
-  ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape >*
+  const ::Communication::Messages::Shape_& newshapes(int index) const;
+  ::Communication::Messages::Shape_* mutable_newshapes(int index);
+  ::Communication::Messages::Shape_* add_newshapes();
+  ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape_ >*
       mutable_newshapes();
-  const ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape >&
+  const ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape_ >&
       newshapes() const;
 
-  // @@protoc_insertion_point(class_scope:Communication.Messages.ShapeUpdateInfo)
+  // @@protoc_insertion_point(class_scope:Communication.Messages.ShapeUpdateInfo_)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape > changedshapes_;
-  ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape > newshapes_;
+  ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape_ > changedshapes_;
+  ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape_ > newshapes_;
   friend void  protobuf_AddDesc_messages_2eproto();
   friend void protobuf_AssignDesc_messages_2eproto();
   friend void protobuf_ShutdownFile_messages_2eproto();
 
   void InitAsDefaultInstance();
-  static ShapeUpdateInfo* default_instance_;
+  static ShapeUpdateInfo_* default_instance_;
 };
 // -------------------------------------------------------------------
 
-class Shape : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Communication.Messages.Shape) */ {
+class Shape_ : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Communication.Messages.Shape_) */ {
  public:
-  Shape();
-  virtual ~Shape();
+  Shape_();
+  virtual ~Shape_();
 
-  Shape(const Shape& from);
+  Shape_(const Shape_& from);
 
-  inline Shape& operator=(const Shape& from) {
+  inline Shape_& operator=(const Shape_& from) {
     CopyFrom(from);
     return *this;
   }
@@ -677,19 +593,19 @@ class Shape : public ::google::protobuf::Message /* @@protoc_insertion_point(cla
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const Shape& default_instance();
+  static const Shape_& default_instance();
 
-  void Swap(Shape* other);
+  void Swap(Shape_* other);
 
   // implements Message ----------------------------------------------
 
-  inline Shape* New() const { return New(NULL); }
+  inline Shape_* New() const { return New(NULL); }
 
-  Shape* New(::google::protobuf::Arena* arena) const;
+  Shape_* New(::google::protobuf::Arena* arena) const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const Shape& from);
-  void MergeFrom(const Shape& from);
+  void CopyFrom(const Shape_& from);
+  void MergeFrom(const Shape_& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -708,7 +624,7 @@ class Shape : public ::google::protobuf::Message /* @@protoc_insertion_point(cla
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(Shape* other);
+  void InternalSwap(Shape_* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -731,19 +647,19 @@ class Shape : public ::google::protobuf::Message /* @@protoc_insertion_point(cla
   ::google::protobuf::int32 id() const;
   void set_id(::google::protobuf::int32 value);
 
-  // repeated .Communication.Transform.Vector3 vertices = 2;
+  // repeated .Communication.Transform.Vector3_ vertices = 2;
   int vertices_size() const;
   void clear_vertices();
   static const int kVerticesFieldNumber = 2;
-  const ::Communication::Transform::Vector3& vertices(int index) const;
-  ::Communication::Transform::Vector3* mutable_vertices(int index);
-  ::Communication::Transform::Vector3* add_vertices();
-  ::google::protobuf::RepeatedPtrField< ::Communication::Transform::Vector3 >*
+  const ::Communication::Transform::Vector3_& vertices(int index) const;
+  ::Communication::Transform::Vector3_* mutable_vertices(int index);
+  ::Communication::Transform::Vector3_* add_vertices();
+  ::google::protobuf::RepeatedPtrField< ::Communication::Transform::Vector3_ >*
       mutable_vertices();
-  const ::google::protobuf::RepeatedPtrField< ::Communication::Transform::Vector3 >&
+  const ::google::protobuf::RepeatedPtrField< ::Communication::Transform::Vector3_ >&
       vertices() const;
 
-  // @@protoc_insertion_point(class_scope:Communication.Messages.Shape)
+  // @@protoc_insertion_point(class_scope:Communication.Messages.Shape_)
  private:
   inline void set_has_id();
   inline void clear_has_id();
@@ -751,14 +667,14 @@ class Shape : public ::google::protobuf::Message /* @@protoc_insertion_point(cla
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::google::protobuf::RepeatedPtrField< ::Communication::Transform::Vector3 > vertices_;
+  ::google::protobuf::RepeatedPtrField< ::Communication::Transform::Vector3_ > vertices_;
   ::google::protobuf::int32 id_;
   friend void  protobuf_AddDesc_messages_2eproto();
   friend void protobuf_AssignDesc_messages_2eproto();
   friend void protobuf_ShutdownFile_messages_2eproto();
 
   void InitAsDefaultInstance();
-  static Shape* default_instance_;
+  static Shape_* default_instance_;
 };
 // ===================================================================
 
@@ -766,453 +682,447 @@ class Shape : public ::google::protobuf::Message /* @@protoc_insertion_point(cla
 // ===================================================================
 
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
-// SetVelocity
+// SetVelocity_
 
-// required .Communication.Transform.Vector3 velocity = 1;
-inline bool SetVelocity::has_velocity() const {
+// optional .Communication.Transform.Vector3_ linearVelocity = 1;
+inline bool SetVelocity_::has_linearvelocity() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void SetVelocity::set_has_velocity() {
+inline void SetVelocity_::set_has_linearvelocity() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void SetVelocity::clear_has_velocity() {
+inline void SetVelocity_::clear_has_linearvelocity() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void SetVelocity::clear_velocity() {
-  if (velocity_ != NULL) velocity_->::Communication::Transform::Vector3::Clear();
-  clear_has_velocity();
+inline void SetVelocity_::clear_linearvelocity() {
+  if (linearvelocity_ != NULL) linearvelocity_->::Communication::Transform::Vector3_::Clear();
+  clear_has_linearvelocity();
 }
-inline const ::Communication::Transform::Vector3& SetVelocity::velocity() const {
-  // @@protoc_insertion_point(field_get:Communication.Messages.SetVelocity.velocity)
-  return velocity_ != NULL ? *velocity_ : *default_instance_->velocity_;
+inline const ::Communication::Transform::Vector3_& SetVelocity_::linearvelocity() const {
+  // @@protoc_insertion_point(field_get:Communication.Messages.SetVelocity_.linearVelocity)
+  return linearvelocity_ != NULL ? *linearvelocity_ : *default_instance_->linearvelocity_;
 }
-inline ::Communication::Transform::Vector3* SetVelocity::mutable_velocity() {
-  set_has_velocity();
-  if (velocity_ == NULL) {
-    velocity_ = new ::Communication::Transform::Vector3;
+inline ::Communication::Transform::Vector3_* SetVelocity_::mutable_linearvelocity() {
+  set_has_linearvelocity();
+  if (linearvelocity_ == NULL) {
+    linearvelocity_ = new ::Communication::Transform::Vector3_;
   }
-  // @@protoc_insertion_point(field_mutable:Communication.Messages.SetVelocity.velocity)
-  return velocity_;
+  // @@protoc_insertion_point(field_mutable:Communication.Messages.SetVelocity_.linearVelocity)
+  return linearvelocity_;
 }
-inline ::Communication::Transform::Vector3* SetVelocity::release_velocity() {
-  // @@protoc_insertion_point(field_release:Communication.Messages.SetVelocity.velocity)
-  clear_has_velocity();
-  ::Communication::Transform::Vector3* temp = velocity_;
-  velocity_ = NULL;
+inline ::Communication::Transform::Vector3_* SetVelocity_::release_linearvelocity() {
+  // @@protoc_insertion_point(field_release:Communication.Messages.SetVelocity_.linearVelocity)
+  clear_has_linearvelocity();
+  ::Communication::Transform::Vector3_* temp = linearvelocity_;
+  linearvelocity_ = NULL;
   return temp;
 }
-inline void SetVelocity::set_allocated_velocity(::Communication::Transform::Vector3* velocity) {
-  delete velocity_;
-  velocity_ = velocity;
-  if (velocity) {
-    set_has_velocity();
+inline void SetVelocity_::set_allocated_linearvelocity(::Communication::Transform::Vector3_* linearvelocity) {
+  delete linearvelocity_;
+  linearvelocity_ = linearvelocity;
+  if (linearvelocity) {
+    set_has_linearvelocity();
   } else {
-    clear_has_velocity();
+    clear_has_linearvelocity();
   }
-  // @@protoc_insertion_point(field_set_allocated:Communication.Messages.SetVelocity.velocity)
+  // @@protoc_insertion_point(field_set_allocated:Communication.Messages.SetVelocity_.linearVelocity)
+}
+
+// optional .Communication.Transform.Vector3_ angularVelocity = 2;
+inline bool SetVelocity_::has_angularvelocity() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void SetVelocity_::set_has_angularvelocity() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void SetVelocity_::clear_has_angularvelocity() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void SetVelocity_::clear_angularvelocity() {
+  if (angularvelocity_ != NULL) angularvelocity_->::Communication::Transform::Vector3_::Clear();
+  clear_has_angularvelocity();
+}
+inline const ::Communication::Transform::Vector3_& SetVelocity_::angularvelocity() const {
+  // @@protoc_insertion_point(field_get:Communication.Messages.SetVelocity_.angularVelocity)
+  return angularvelocity_ != NULL ? *angularvelocity_ : *default_instance_->angularvelocity_;
+}
+inline ::Communication::Transform::Vector3_* SetVelocity_::mutable_angularvelocity() {
+  set_has_angularvelocity();
+  if (angularvelocity_ == NULL) {
+    angularvelocity_ = new ::Communication::Transform::Vector3_;
+  }
+  // @@protoc_insertion_point(field_mutable:Communication.Messages.SetVelocity_.angularVelocity)
+  return angularvelocity_;
+}
+inline ::Communication::Transform::Vector3_* SetVelocity_::release_angularvelocity() {
+  // @@protoc_insertion_point(field_release:Communication.Messages.SetVelocity_.angularVelocity)
+  clear_has_angularvelocity();
+  ::Communication::Transform::Vector3_* temp = angularvelocity_;
+  angularvelocity_ = NULL;
+  return temp;
+}
+inline void SetVelocity_::set_allocated_angularvelocity(::Communication::Transform::Vector3_* angularvelocity) {
+  delete angularvelocity_;
+  angularvelocity_ = angularvelocity;
+  if (angularvelocity) {
+    set_has_angularvelocity();
+  } else {
+    clear_has_angularvelocity();
+  }
+  // @@protoc_insertion_point(field_set_allocated:Communication.Messages.SetVelocity_.angularVelocity)
 }
 
 // -------------------------------------------------------------------
 
-// SetRotation
-
-// required .Communication.Transform.Vector3 rotation = 1;
-inline bool SetRotation::has_rotation() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void SetRotation::set_has_rotation() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void SetRotation::clear_has_rotation() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void SetRotation::clear_rotation() {
-  if (rotation_ != NULL) rotation_->::Communication::Transform::Vector3::Clear();
-  clear_has_rotation();
-}
-inline const ::Communication::Transform::Vector3& SetRotation::rotation() const {
-  // @@protoc_insertion_point(field_get:Communication.Messages.SetRotation.rotation)
-  return rotation_ != NULL ? *rotation_ : *default_instance_->rotation_;
-}
-inline ::Communication::Transform::Vector3* SetRotation::mutable_rotation() {
-  set_has_rotation();
-  if (rotation_ == NULL) {
-    rotation_ = new ::Communication::Transform::Vector3;
-  }
-  // @@protoc_insertion_point(field_mutable:Communication.Messages.SetRotation.rotation)
-  return rotation_;
-}
-inline ::Communication::Transform::Vector3* SetRotation::release_rotation() {
-  // @@protoc_insertion_point(field_release:Communication.Messages.SetRotation.rotation)
-  clear_has_rotation();
-  ::Communication::Transform::Vector3* temp = rotation_;
-  rotation_ = NULL;
-  return temp;
-}
-inline void SetRotation::set_allocated_rotation(::Communication::Transform::Vector3* rotation) {
-  delete rotation_;
-  rotation_ = rotation;
-  if (rotation) {
-    set_has_rotation();
-  } else {
-    clear_has_rotation();
-  }
-  // @@protoc_insertion_point(field_set_allocated:Communication.Messages.SetRotation.rotation)
-}
-
-// -------------------------------------------------------------------
-
-// IdentificationResponse
+// IdentificationResponse_
 
 // required string robotType = 1;
-inline bool IdentificationResponse::has_robottype() const {
+inline bool IdentificationResponse_::has_robottype() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void IdentificationResponse::set_has_robottype() {
+inline void IdentificationResponse_::set_has_robottype() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void IdentificationResponse::clear_has_robottype() {
+inline void IdentificationResponse_::clear_has_robottype() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void IdentificationResponse::clear_robottype() {
+inline void IdentificationResponse_::clear_robottype() {
   robottype_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   clear_has_robottype();
 }
-inline const ::std::string& IdentificationResponse::robottype() const {
-  // @@protoc_insertion_point(field_get:Communication.Messages.IdentificationResponse.robotType)
+inline const ::std::string& IdentificationResponse_::robottype() const {
+  // @@protoc_insertion_point(field_get:Communication.Messages.IdentificationResponse_.robotType)
   return robottype_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void IdentificationResponse::set_robottype(const ::std::string& value) {
+inline void IdentificationResponse_::set_robottype(const ::std::string& value) {
   set_has_robottype();
   robottype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:Communication.Messages.IdentificationResponse.robotType)
+  // @@protoc_insertion_point(field_set:Communication.Messages.IdentificationResponse_.robotType)
 }
-inline void IdentificationResponse::set_robottype(const char* value) {
+inline void IdentificationResponse_::set_robottype(const char* value) {
   set_has_robottype();
   robottype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:Communication.Messages.IdentificationResponse.robotType)
+  // @@protoc_insertion_point(field_set_char:Communication.Messages.IdentificationResponse_.robotType)
 }
-inline void IdentificationResponse::set_robottype(const char* value, size_t size) {
+inline void IdentificationResponse_::set_robottype(const char* value, size_t size) {
   set_has_robottype();
   robottype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:Communication.Messages.IdentificationResponse.robotType)
+  // @@protoc_insertion_point(field_set_pointer:Communication.Messages.IdentificationResponse_.robotType)
 }
-inline ::std::string* IdentificationResponse::mutable_robottype() {
+inline ::std::string* IdentificationResponse_::mutable_robottype() {
   set_has_robottype();
-  // @@protoc_insertion_point(field_mutable:Communication.Messages.IdentificationResponse.robotType)
+  // @@protoc_insertion_point(field_mutable:Communication.Messages.IdentificationResponse_.robotType)
   return robottype_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* IdentificationResponse::release_robottype() {
-  // @@protoc_insertion_point(field_release:Communication.Messages.IdentificationResponse.robotType)
+inline ::std::string* IdentificationResponse_::release_robottype() {
+  // @@protoc_insertion_point(field_release:Communication.Messages.IdentificationResponse_.robotType)
   clear_has_robottype();
   return robottype_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void IdentificationResponse::set_allocated_robottype(::std::string* robottype) {
+inline void IdentificationResponse_::set_allocated_robottype(::std::string* robottype) {
   if (robottype != NULL) {
     set_has_robottype();
   } else {
     clear_has_robottype();
   }
   robottype_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), robottype);
-  // @@protoc_insertion_point(field_set_allocated:Communication.Messages.IdentificationResponse.robotType)
+  // @@protoc_insertion_point(field_set_allocated:Communication.Messages.IdentificationResponse_.robotType)
 }
 
 // -------------------------------------------------------------------
 
-// Error
+// Error_
 
 // required string message = 1;
-inline bool Error::has_message() const {
+inline bool Error_::has_message() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void Error::set_has_message() {
+inline void Error_::set_has_message() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void Error::clear_has_message() {
+inline void Error_::clear_has_message() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void Error::clear_message() {
+inline void Error_::clear_message() {
   message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   clear_has_message();
 }
-inline const ::std::string& Error::message() const {
-  // @@protoc_insertion_point(field_get:Communication.Messages.Error.message)
+inline const ::std::string& Error_::message() const {
+  // @@protoc_insertion_point(field_get:Communication.Messages.Error_.message)
   return message_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void Error::set_message(const ::std::string& value) {
+inline void Error_::set_message(const ::std::string& value) {
   set_has_message();
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:Communication.Messages.Error.message)
+  // @@protoc_insertion_point(field_set:Communication.Messages.Error_.message)
 }
-inline void Error::set_message(const char* value) {
+inline void Error_::set_message(const char* value) {
   set_has_message();
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:Communication.Messages.Error.message)
+  // @@protoc_insertion_point(field_set_char:Communication.Messages.Error_.message)
 }
-inline void Error::set_message(const char* value, size_t size) {
+inline void Error_::set_message(const char* value, size_t size) {
   set_has_message();
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:Communication.Messages.Error.message)
+  // @@protoc_insertion_point(field_set_pointer:Communication.Messages.Error_.message)
 }
-inline ::std::string* Error::mutable_message() {
+inline ::std::string* Error_::mutable_message() {
   set_has_message();
-  // @@protoc_insertion_point(field_mutable:Communication.Messages.Error.message)
+  // @@protoc_insertion_point(field_mutable:Communication.Messages.Error_.message)
   return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* Error::release_message() {
-  // @@protoc_insertion_point(field_release:Communication.Messages.Error.message)
+inline ::std::string* Error_::release_message() {
+  // @@protoc_insertion_point(field_release:Communication.Messages.Error_.message)
   clear_has_message();
   return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void Error::set_allocated_message(::std::string* message) {
+inline void Error_::set_allocated_message(::std::string* message) {
   if (message != NULL) {
     set_has_message();
   } else {
     clear_has_message();
   }
   message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
-  // @@protoc_insertion_point(field_set_allocated:Communication.Messages.Error.message)
+  // @@protoc_insertion_point(field_set_allocated:Communication.Messages.Error_.message)
 }
 
 // -------------------------------------------------------------------
 
-// CustomMessage
+// CustomMessage_
 
 // required string key = 1;
-inline bool CustomMessage::has_key() const {
+inline bool CustomMessage_::has_key() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void CustomMessage::set_has_key() {
+inline void CustomMessage_::set_has_key() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void CustomMessage::clear_has_key() {
+inline void CustomMessage_::clear_has_key() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void CustomMessage::clear_key() {
+inline void CustomMessage_::clear_key() {
   key_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   clear_has_key();
 }
-inline const ::std::string& CustomMessage::key() const {
-  // @@protoc_insertion_point(field_get:Communication.Messages.CustomMessage.key)
+inline const ::std::string& CustomMessage_::key() const {
+  // @@protoc_insertion_point(field_get:Communication.Messages.CustomMessage_.key)
   return key_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void CustomMessage::set_key(const ::std::string& value) {
+inline void CustomMessage_::set_key(const ::std::string& value) {
   set_has_key();
   key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:Communication.Messages.CustomMessage.key)
+  // @@protoc_insertion_point(field_set:Communication.Messages.CustomMessage_.key)
 }
-inline void CustomMessage::set_key(const char* value) {
+inline void CustomMessage_::set_key(const char* value) {
   set_has_key();
   key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:Communication.Messages.CustomMessage.key)
+  // @@protoc_insertion_point(field_set_char:Communication.Messages.CustomMessage_.key)
 }
-inline void CustomMessage::set_key(const char* value, size_t size) {
+inline void CustomMessage_::set_key(const char* value, size_t size) {
   set_has_key();
   key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:Communication.Messages.CustomMessage.key)
+  // @@protoc_insertion_point(field_set_pointer:Communication.Messages.CustomMessage_.key)
 }
-inline ::std::string* CustomMessage::mutable_key() {
+inline ::std::string* CustomMessage_::mutable_key() {
   set_has_key();
-  // @@protoc_insertion_point(field_mutable:Communication.Messages.CustomMessage.key)
+  // @@protoc_insertion_point(field_mutable:Communication.Messages.CustomMessage_.key)
   return key_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* CustomMessage::release_key() {
-  // @@protoc_insertion_point(field_release:Communication.Messages.CustomMessage.key)
+inline ::std::string* CustomMessage_::release_key() {
+  // @@protoc_insertion_point(field_release:Communication.Messages.CustomMessage_.key)
   clear_has_key();
   return key_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void CustomMessage::set_allocated_key(::std::string* key) {
+inline void CustomMessage_::set_allocated_key(::std::string* key) {
   if (key != NULL) {
     set_has_key();
   } else {
     clear_has_key();
   }
   key_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), key);
-  // @@protoc_insertion_point(field_set_allocated:Communication.Messages.CustomMessage.key)
+  // @@protoc_insertion_point(field_set_allocated:Communication.Messages.CustomMessage_.key)
 }
 
 // optional string data = 2;
-inline bool CustomMessage::has_data() const {
+inline bool CustomMessage_::has_data() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void CustomMessage::set_has_data() {
+inline void CustomMessage_::set_has_data() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void CustomMessage::clear_has_data() {
+inline void CustomMessage_::clear_has_data() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void CustomMessage::clear_data() {
+inline void CustomMessage_::clear_data() {
   data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   clear_has_data();
 }
-inline const ::std::string& CustomMessage::data() const {
-  // @@protoc_insertion_point(field_get:Communication.Messages.CustomMessage.data)
+inline const ::std::string& CustomMessage_::data() const {
+  // @@protoc_insertion_point(field_get:Communication.Messages.CustomMessage_.data)
   return data_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void CustomMessage::set_data(const ::std::string& value) {
+inline void CustomMessage_::set_data(const ::std::string& value) {
   set_has_data();
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:Communication.Messages.CustomMessage.data)
+  // @@protoc_insertion_point(field_set:Communication.Messages.CustomMessage_.data)
 }
-inline void CustomMessage::set_data(const char* value) {
+inline void CustomMessage_::set_data(const char* value) {
   set_has_data();
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:Communication.Messages.CustomMessage.data)
+  // @@protoc_insertion_point(field_set_char:Communication.Messages.CustomMessage_.data)
 }
-inline void CustomMessage::set_data(const char* value, size_t size) {
+inline void CustomMessage_::set_data(const char* value, size_t size) {
   set_has_data();
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:Communication.Messages.CustomMessage.data)
+  // @@protoc_insertion_point(field_set_pointer:Communication.Messages.CustomMessage_.data)
 }
-inline ::std::string* CustomMessage::mutable_data() {
+inline ::std::string* CustomMessage_::mutable_data() {
   set_has_data();
-  // @@protoc_insertion_point(field_mutable:Communication.Messages.CustomMessage.data)
+  // @@protoc_insertion_point(field_mutable:Communication.Messages.CustomMessage_.data)
   return data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* CustomMessage::release_data() {
-  // @@protoc_insertion_point(field_release:Communication.Messages.CustomMessage.data)
+inline ::std::string* CustomMessage_::release_data() {
+  // @@protoc_insertion_point(field_release:Communication.Messages.CustomMessage_.data)
   clear_has_data();
   return data_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void CustomMessage::set_allocated_data(::std::string* data) {
+inline void CustomMessage_::set_allocated_data(::std::string* data) {
   if (data != NULL) {
     set_has_data();
   } else {
     clear_has_data();
   }
   data_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), data);
-  // @@protoc_insertion_point(field_set_allocated:Communication.Messages.CustomMessage.data)
+  // @@protoc_insertion_point(field_set_allocated:Communication.Messages.CustomMessage_.data)
 }
 
 // -------------------------------------------------------------------
 
-// ShapeUpdateInfo
+// ShapeUpdateInfo_
 
-// repeated .Communication.Messages.Shape changedShapes = 1;
-inline int ShapeUpdateInfo::changedshapes_size() const {
+// repeated .Communication.Messages.Shape_ changedShapes = 1;
+inline int ShapeUpdateInfo_::changedshapes_size() const {
   return changedshapes_.size();
 }
-inline void ShapeUpdateInfo::clear_changedshapes() {
+inline void ShapeUpdateInfo_::clear_changedshapes() {
   changedshapes_.Clear();
 }
-inline const ::Communication::Messages::Shape& ShapeUpdateInfo::changedshapes(int index) const {
-  // @@protoc_insertion_point(field_get:Communication.Messages.ShapeUpdateInfo.changedShapes)
+inline const ::Communication::Messages::Shape_& ShapeUpdateInfo_::changedshapes(int index) const {
+  // @@protoc_insertion_point(field_get:Communication.Messages.ShapeUpdateInfo_.changedShapes)
   return changedshapes_.Get(index);
 }
-inline ::Communication::Messages::Shape* ShapeUpdateInfo::mutable_changedshapes(int index) {
-  // @@protoc_insertion_point(field_mutable:Communication.Messages.ShapeUpdateInfo.changedShapes)
+inline ::Communication::Messages::Shape_* ShapeUpdateInfo_::mutable_changedshapes(int index) {
+  // @@protoc_insertion_point(field_mutable:Communication.Messages.ShapeUpdateInfo_.changedShapes)
   return changedshapes_.Mutable(index);
 }
-inline ::Communication::Messages::Shape* ShapeUpdateInfo::add_changedshapes() {
-  // @@protoc_insertion_point(field_add:Communication.Messages.ShapeUpdateInfo.changedShapes)
+inline ::Communication::Messages::Shape_* ShapeUpdateInfo_::add_changedshapes() {
+  // @@protoc_insertion_point(field_add:Communication.Messages.ShapeUpdateInfo_.changedShapes)
   return changedshapes_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape >*
-ShapeUpdateInfo::mutable_changedshapes() {
-  // @@protoc_insertion_point(field_mutable_list:Communication.Messages.ShapeUpdateInfo.changedShapes)
+inline ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape_ >*
+ShapeUpdateInfo_::mutable_changedshapes() {
+  // @@protoc_insertion_point(field_mutable_list:Communication.Messages.ShapeUpdateInfo_.changedShapes)
   return &changedshapes_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape >&
-ShapeUpdateInfo::changedshapes() const {
-  // @@protoc_insertion_point(field_list:Communication.Messages.ShapeUpdateInfo.changedShapes)
+inline const ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape_ >&
+ShapeUpdateInfo_::changedshapes() const {
+  // @@protoc_insertion_point(field_list:Communication.Messages.ShapeUpdateInfo_.changedShapes)
   return changedshapes_;
 }
 
-// repeated .Communication.Messages.Shape newShapes = 2;
-inline int ShapeUpdateInfo::newshapes_size() const {
+// repeated .Communication.Messages.Shape_ newShapes = 2;
+inline int ShapeUpdateInfo_::newshapes_size() const {
   return newshapes_.size();
 }
-inline void ShapeUpdateInfo::clear_newshapes() {
+inline void ShapeUpdateInfo_::clear_newshapes() {
   newshapes_.Clear();
 }
-inline const ::Communication::Messages::Shape& ShapeUpdateInfo::newshapes(int index) const {
-  // @@protoc_insertion_point(field_get:Communication.Messages.ShapeUpdateInfo.newShapes)
+inline const ::Communication::Messages::Shape_& ShapeUpdateInfo_::newshapes(int index) const {
+  // @@protoc_insertion_point(field_get:Communication.Messages.ShapeUpdateInfo_.newShapes)
   return newshapes_.Get(index);
 }
-inline ::Communication::Messages::Shape* ShapeUpdateInfo::mutable_newshapes(int index) {
-  // @@protoc_insertion_point(field_mutable:Communication.Messages.ShapeUpdateInfo.newShapes)
+inline ::Communication::Messages::Shape_* ShapeUpdateInfo_::mutable_newshapes(int index) {
+  // @@protoc_insertion_point(field_mutable:Communication.Messages.ShapeUpdateInfo_.newShapes)
   return newshapes_.Mutable(index);
 }
-inline ::Communication::Messages::Shape* ShapeUpdateInfo::add_newshapes() {
-  // @@protoc_insertion_point(field_add:Communication.Messages.ShapeUpdateInfo.newShapes)
+inline ::Communication::Messages::Shape_* ShapeUpdateInfo_::add_newshapes() {
+  // @@protoc_insertion_point(field_add:Communication.Messages.ShapeUpdateInfo_.newShapes)
   return newshapes_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape >*
-ShapeUpdateInfo::mutable_newshapes() {
-  // @@protoc_insertion_point(field_mutable_list:Communication.Messages.ShapeUpdateInfo.newShapes)
+inline ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape_ >*
+ShapeUpdateInfo_::mutable_newshapes() {
+  // @@protoc_insertion_point(field_mutable_list:Communication.Messages.ShapeUpdateInfo_.newShapes)
   return &newshapes_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape >&
-ShapeUpdateInfo::newshapes() const {
-  // @@protoc_insertion_point(field_list:Communication.Messages.ShapeUpdateInfo.newShapes)
+inline const ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape_ >&
+ShapeUpdateInfo_::newshapes() const {
+  // @@protoc_insertion_point(field_list:Communication.Messages.ShapeUpdateInfo_.newShapes)
   return newshapes_;
 }
 
 // -------------------------------------------------------------------
 
-// Shape
+// Shape_
 
 // required int32 id = 1;
-inline bool Shape::has_id() const {
+inline bool Shape_::has_id() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void Shape::set_has_id() {
+inline void Shape_::set_has_id() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void Shape::clear_has_id() {
+inline void Shape_::clear_has_id() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void Shape::clear_id() {
+inline void Shape_::clear_id() {
   id_ = 0;
   clear_has_id();
 }
-inline ::google::protobuf::int32 Shape::id() const {
-  // @@protoc_insertion_point(field_get:Communication.Messages.Shape.id)
+inline ::google::protobuf::int32 Shape_::id() const {
+  // @@protoc_insertion_point(field_get:Communication.Messages.Shape_.id)
   return id_;
 }
-inline void Shape::set_id(::google::protobuf::int32 value) {
+inline void Shape_::set_id(::google::protobuf::int32 value) {
   set_has_id();
   id_ = value;
-  // @@protoc_insertion_point(field_set:Communication.Messages.Shape.id)
+  // @@protoc_insertion_point(field_set:Communication.Messages.Shape_.id)
 }
 
-// repeated .Communication.Transform.Vector3 vertices = 2;
-inline int Shape::vertices_size() const {
+// repeated .Communication.Transform.Vector3_ vertices = 2;
+inline int Shape_::vertices_size() const {
   return vertices_.size();
 }
-inline void Shape::clear_vertices() {
+inline void Shape_::clear_vertices() {
   vertices_.Clear();
 }
-inline const ::Communication::Transform::Vector3& Shape::vertices(int index) const {
-  // @@protoc_insertion_point(field_get:Communication.Messages.Shape.vertices)
+inline const ::Communication::Transform::Vector3_& Shape_::vertices(int index) const {
+  // @@protoc_insertion_point(field_get:Communication.Messages.Shape_.vertices)
   return vertices_.Get(index);
 }
-inline ::Communication::Transform::Vector3* Shape::mutable_vertices(int index) {
-  // @@protoc_insertion_point(field_mutable:Communication.Messages.Shape.vertices)
+inline ::Communication::Transform::Vector3_* Shape_::mutable_vertices(int index) {
+  // @@protoc_insertion_point(field_mutable:Communication.Messages.Shape_.vertices)
   return vertices_.Mutable(index);
 }
-inline ::Communication::Transform::Vector3* Shape::add_vertices() {
-  // @@protoc_insertion_point(field_add:Communication.Messages.Shape.vertices)
+inline ::Communication::Transform::Vector3_* Shape_::add_vertices() {
+  // @@protoc_insertion_point(field_add:Communication.Messages.Shape_.vertices)
   return vertices_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::Communication::Transform::Vector3 >*
-Shape::mutable_vertices() {
-  // @@protoc_insertion_point(field_mutable_list:Communication.Messages.Shape.vertices)
+inline ::google::protobuf::RepeatedPtrField< ::Communication::Transform::Vector3_ >*
+Shape_::mutable_vertices() {
+  // @@protoc_insertion_point(field_mutable_list:Communication.Messages.Shape_.vertices)
   return &vertices_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::Communication::Transform::Vector3 >&
-Shape::vertices() const {
-  // @@protoc_insertion_point(field_list:Communication.Messages.Shape.vertices)
+inline const ::google::protobuf::RepeatedPtrField< ::Communication::Transform::Vector3_ >&
+Shape_::vertices() const {
+  // @@protoc_insertion_point(field_list:Communication.Messages.Shape_.vertices)
   return vertices_;
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -81,8 +81,8 @@ public:
 
 		std::vector<char> msgData(data.begin() + 4, data.end());
 		Communication::Message result;
-		//if (!result.ParseFromArray(msgData.data(), static_cast<int>(msgData.size())))
-			//LogError("Could not convert from binary data to message");
+		if (!result.ParseFromArray(msgData.data(), static_cast<int>(msgData.size())))
+			LogError("Could not convert from binary data to message");
 
 		return result;
 	}
@@ -90,11 +90,11 @@ public:
 
 int main(int argc, char** argv)
 {
-	//RobotLogger logger;
-	//logger.init();
+	RobotLogger logger;
+	logger.init();
 	GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-	std::string address = argc > 2 ?  argv[1] : "145.93.44.64";
+	std::string address = argc > 2 ?  argv[1] : "145.93.44.255";
 	std::string port = argc > 2 ? argv[2] : "1234";
 
 	//ReceiverSample* _receiver = new ReceiverSample();
@@ -108,8 +108,8 @@ int main(int argc, char** argv)
 	if (link.Connected())
 	{
 		Communication::Message toSend;
-		toSend.set_messagetype(Communication::MessageType::Identification);
-		toSend.set_messagetarget(Communication::MessageTarget::Unity);
+		toSend.set_messagetype(Communication::MessageType_::IdentificationResponse);
+		toSend.set_messagetarget(Communication::MessageTarget_::Unity);
 		toSend.set_id(13);
 	
 		auto r = toSend.mutable_stringdata();
@@ -128,16 +128,15 @@ int main(int argc, char** argv)
 		vertex2->set_y(1.5);
 		vertex2->set_z(1.5);
 
-
 		auto upd2 = toSend.mutable_shapeupdate();
-		auto ch2 = upd->add_changedshapes();
+		auto ch2 = upd2->add_changedshapes();
 		ch2->set_id(5);
 		auto vertex3 = ch2->add_vertices();
 		vertex3->set_x(-5.0);
 		vertex3->set_y(-5.5);
 		vertex3->set_z(-1.0);
 
-		std::cout << link.SendData(_receiver->MessageToBinaryData(toSend));
+		std::cout << link.SendData(_receiver->MessageToBinaryData(toSend)) << '\n';
 
 	}
 
