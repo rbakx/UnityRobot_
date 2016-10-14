@@ -29,7 +29,7 @@ namespace Communication
         /// </summary>
         /// <param name="robotType_"></param>
         /// <returns>The created message</returns>
-        public static IdentificationResponse_ CreateIdentificationResponse(string robotType_)
+        public static IdentificationResponse_ CreateIdentificationResponse_(string robotType_)
         {
             IdentificationResponse_ result = new IdentificationResponse_
             {
@@ -60,7 +60,7 @@ namespace Communication
         /// <param name="customKey">Message key</param>
         /// <param name="customData">Message data</param>
         /// <returns>The created message</returns>
-        public static CustomMessage_ CreateCustomMessage(string customKey, string customData)
+        public static CustomMessage_ CreateCustomMessage_(string customKey, string customData)
         {
             CustomMessage_ result = new CustomMessage_
             {
@@ -77,13 +77,13 @@ namespace Communication
         /// <param name="linear">Linear velocity</param>
         /// <param name="angular">Angular velocity</param>
         /// <returns>The created message.</returns>
-        public static SetVelocity_ CreateSetVelocity(
+        public static SetVelocity_ CreateSetVelocity_(
             UnityEngine.Vector3? linear, UnityEngine.Vector3? angular)
         {
             SetVelocity_ result = new SetVelocity_();
 
-            result.linearVelocity = CreateVector3(linear);
-            result.angularVelocity = CreateVector3(angular);
+            result.linearVelocity = CreateVector3_(linear);
+            result.angularVelocity = CreateVector3_(angular);
 
             return result;
         }
@@ -95,7 +95,7 @@ namespace Communication
         /// <param name="y_"></param>
         /// <param name="z_"></param>
         /// <returns>The created message.</returns>
-        public static Vector3_ CreateVector3(float x_, float y_, float z_)
+        public static Vector3_ CreateVector3_(float x_, float y_, float z_)
         {
             Vector3_ result = new Vector3_
             {
@@ -112,14 +112,14 @@ namespace Communication
         /// </summary>
         /// <param name="vec"></param>
         /// <returns>The created message.</returns>
-        public static Vector3_ CreateVector3(UnityEngine.Vector3? vec)
+        public static Vector3_ CreateVector3_(UnityEngine.Vector3? vec)
         {
             if (vec == null)
             {
                 return null;
             }
 
-            return CreateVector3(vec.Value.x, vec.Value.y, vec.Value.z);
+            return CreateVector3_(vec.Value.x, vec.Value.y, vec.Value.z);
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace Communication
         /// <param name="id_">Shape id</param>
         /// <param name="vertices">Vertices that make up the shape</param>
         /// <returns>The created message</returns>
-        public static Shape_ CreateShape(Int32 id_, IEnumerable<UnityEngine.Vector3> vertices)
+        public static Shape_ CreateShape_(Int32 id_, IEnumerable<UnityEngine.Vector3> vertices)
         {
             Shape_ result = new Shape_
             {
@@ -137,7 +137,7 @@ namespace Communication
 
             foreach (var uVertex in vertices)
             {
-                result.vertices.Add(CreateVector3(uVertex));
+                result.vertices.Add(CreateVector3_(uVertex));
             }
 
             return result;
@@ -149,7 +149,7 @@ namespace Communication
         /// <param name="changedShapes">Collection with changed shapes.</param>
         /// <param name="newShapes">Collection with new shapes.</param>
         /// <returns>The created message.</returns>
-        public static ShapeUpdateInfo_ CreateShapeUpdateInfo(IEnumerable<Shape_> changedShapes,
+        public static ShapeUpdateInfo_ CreateShapeUpdateInfo_(IEnumerable<Shape_> changedShapes,
             IEnumerable<Shape_> newShapes)
         {
             ShapeUpdateInfo_ result = new ShapeUpdateInfo_();
@@ -184,7 +184,7 @@ namespace Communication
                 throw new ArgumentNullException("robotType");
             }
 
-            message.identificationResponse = CreateIdentificationResponse(robotType);
+            message.identificationResponse = CreateIdentificationResponse_(robotType);
         }
 
         /// <summary>
@@ -230,7 +230,7 @@ namespace Communication
                 throw new ArgumentNullException("data");
             }
 
-            message.customMessage = CreateCustomMessage(key, data);
+            message.customMessage = CreateCustomMessage_(key, data);
         }
 
         /// <summary>
@@ -247,7 +247,7 @@ namespace Communication
                 throw new ArgumentNullException("message");
             }
 
-            message.robotVelocity = CreateSetVelocity(linear, angular);
+            message.robotVelocity = CreateSetVelocity_(linear, angular);
         }
 
         /// <summary>
@@ -264,7 +264,17 @@ namespace Communication
                 throw new ArgumentNullException("message");
             }
 
-            message.shapeUpdateInfo = CreateShapeUpdateInfo(changedShapes, newShapes);
+            message.shapeUpdateInfo = CreateShapeUpdateInfo_(changedShapes, newShapes);
+        }
+
+        /// <summary>
+        /// Transforms a proto vector into a unityengine vector
+        /// </summary>
+        /// <param name="vec"></param>
+        /// <returns>Unity vector</returns>
+        public static UnityEngine.Vector3 ToUnityVector(this Vector3_ vec)
+        {
+            return new UnityEngine.Vector3(vec.x, vec.y, vec.z);
         }
     }
 }
