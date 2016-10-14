@@ -135,6 +135,8 @@ public class CustomRobotInspector : Editor
         EditorGUILayout.EndHorizontal();
     }
 
+
+
     private void DrawResetButton(ref Vector3 vec)
     {
         if (GUILayout.Button("Reset"))
