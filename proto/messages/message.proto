@@ -39,7 +39,7 @@ message Message {
 	optional Messages.CustomMessage_ customMessage = 7;
 
 	// Vision -> Unity
-	optional Messages.ShapeUpdateInfo_ shapeUpdate = 8;
+	optional Messages.ShapeUpdateInfo_ shapeUpdateInfo = 8;
 
 
 	optional string stringData = 9;

@@ -69,13 +69,13 @@ namespace Communication
       get { return _customMessage; }
       set { _customMessage = value; }
     }
-    private Communication.Messages.ShapeUpdateInfo_ _shapeUpdate = null;
-    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"shapeUpdate", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    private Communication.Messages.ShapeUpdateInfo_ _shapeUpdateInfo = null;
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"shapeUpdateInfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public Communication.Messages.ShapeUpdateInfo_ shapeUpdate
+    public Communication.Messages.ShapeUpdateInfo_ shapeUpdateInfo
     {
-      get { return _shapeUpdate; }
-      set { _shapeUpdate = value; }
+      get { return _shapeUpdateInfo; }
+      set { _shapeUpdateInfo = value; }
     }
     private string _stringData = "";
     [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"stringData", DataFormat = global::ProtoBuf.DataFormat.Default)]
