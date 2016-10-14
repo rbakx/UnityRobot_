@@ -10,13 +10,13 @@
 using namespace cv;
 using namespace std;
 
-Recorder::Recorder(Settings &settings)
-    : deviceNumber(settings.getDeviceProperties().number),
-      vid(settings.getDeviceProperties().vid),
-      pid(settings.getDeviceProperties().pid),
-      width(settings.getRecordingProperties().width),
-      height(settings.getRecordingProperties().height),
-      fps(settings.getRecordingProperties().fps)
+Recorder::Recorder()
+    : deviceNumber(settings->getDeviceProperties().number),
+      vid(settings->getDeviceProperties().vid),
+      pid(settings->getDeviceProperties().pid),
+      width(settings->getRecordingProperties().width),
+      height(settings->getRecordingProperties().height),
+      fps(settings->getRecordingProperties().fps)
 {
     setAutoFocus();
 }

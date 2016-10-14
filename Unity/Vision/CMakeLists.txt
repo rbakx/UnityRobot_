@@ -21,14 +21,23 @@ include_directories(SYSTEM ${LIBUSB1_INCLUDE_DIRS})
 
 set (SOURCE_FILES   main.cpp
                     src/Robot.h
-                    src/RobotDetection/RobotDetection.cpp
-                    src/RobotDetection/RobotDetection.h
+                    src/framereaders/robotmapping/Detector.cpp
+                    src/framereaders/robotmapping/Detector.hpp
                     src/Recorder.cpp src/Recorder.h
                     src/Display.cpp src/Display.h
-                    src/RobotDetection/Calibrator.cpp src/RobotDetection/Calibrator.h
-                    src/Settings.cpp src/Settings.h )
+                    src/framereaders/robotmapping/Calibrator.cpp src/framereaders/robotmapping/Calibrator.h
+                    src/Settings.cpp src/Settings.h
+                    src/framefeeders/CameraFeedSender.cpp src/framefeeders/CameraFeedSender.hpp
+                    src/frames/VideoFeedFrameReceiver.hpp
+                    src/frames/VideoFeedFrameReceiverTargets.cpp src/frames/VideoFeedFrameReceiverTargets.hpp
+                    src/frames/VideoFeedFrameSender.cpp src/frames/VideoFeedFrameSender.hpp
+                    src/framereaders/VideoFrameSaver.cpp src/framereaders/VideoFrameSaver.hpp
+                    src/framefeeders/MediaFeedSender.cpp src/framefeeders/MediaFeedSender.hpp src/framereaders/VideoFrameDisplayer.cpp src/framereaders/VideoFrameDisplayer.hpp
+                    src/framereaders/VideoFrameDisplayer.cpp src/framereaders/VideoFrameDisplayer.hpp
+        )
+
 add_executable(Vision ${SOURCE_FILES})
-target_link_libraries( Vision ${OpenCV_LIBS} uvc usb-1.0)
+target_link_libraries( Vision ${OpenCV_LIBS} uvc usb-1.0 rt pthread)
 
 
 

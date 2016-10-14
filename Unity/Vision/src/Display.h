@@ -2,13 +2,14 @@
 #define ASSIGNMENT_DISPLAY_H
 #include <string>
 
-class Display {
-private:
-    const std::string CAMERA_FILE_PATH = "resources/sample.avi";
+class Display
+{
+    private:
+        const std::string CAMERA_FILE_PATH = "resources/sample.avi";
 
-public:
-    Display();
-    int run();
+    public:
+        Display();
+        int run();
 };
 
 

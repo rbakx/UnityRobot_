@@ -16,6 +16,8 @@ using namespace cv;
 //        x.read(node);
 //}
 
+Settings* settings = nullptr;
+
 void Settings::write(const string fileName) const
 {
     FileStorage fs(fileName, FileStorage::WRITE);

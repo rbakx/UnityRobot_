@@ -3,7 +3,8 @@
 
 #include <opencv2/core/core.hpp>
 
-struct DeviceProperties {
+struct DeviceProperties
+{
     int number;
     int vid;
     int pid;
@@ -12,7 +13,8 @@ struct DeviceProperties {
     DeviceProperties(int number, int vid, int pid) : number(number), vid(vid), pid(pid) {}
 };
 
-struct RecordingProperties {
+struct RecordingProperties
+{
     int width;
     int height;
     int fps;
@@ -21,23 +23,29 @@ struct RecordingProperties {
     RecordingProperties(int width, int height, int fps) : width(width), height(height), fps(fps) {}
 };
 
-class Settings {
-private:
-    Settings() {};
-    DeviceProperties dp;
-    RecordingProperties rp;
+/*
+	PRE: Settings class holds various settings that are used by the Recorder.
+*/
+class Settings
+{
+	private:
+		Settings() {};
+		DeviceProperties dp;
+		RecordingProperties rp;
 
-public:
-    Settings(DeviceProperties dp, RecordingProperties rp) : dp(dp), rp(rp) {};
-    void write(const std::string fileName) const;
-    static Settings* read(const std::string fileName);
+	public:
+		Settings(DeviceProperties dp, RecordingProperties rp) : dp(dp), rp(rp) {};
+		void write(const std::string fileName) const;
+		static Settings* read(const std::string fileName);
 
-    /*
-     * Getters
-     */
-    const DeviceProperties& getDeviceProperties();
-    const RecordingProperties& getRecordingProperties();
+		/*
+		 * Getters
+		 */
+		const DeviceProperties& getDeviceProperties();
+		const RecordingProperties& getRecordingProperties();
 };
+
+extern Settings* settings;
 
 
 #endif //ASSIGNMENT_SETTINGS_H

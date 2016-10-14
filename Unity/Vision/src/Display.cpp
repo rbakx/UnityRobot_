@@ -1,6 +1,6 @@
 #include "Display.h"
 #include <opencv2/opencv.hpp>
-#include "RobotDetection/RobotDetection.h"
+#include "framereaders/robotmapping/Detector.hpp"
 
 using namespace std;
 using namespace cv;
@@ -28,7 +28,7 @@ int Display::run()
         return -1;
     }
 
-    RobotDetection rd("sample.yml"); //TODO: fix dis
+    //RobotDetection rd("sample.yml"); //TODO: fix dis
     Mat frame;
 
     while(true)
@@ -42,7 +42,7 @@ int Display::run()
         }
 
         imshow("Original", frame); //show original
-        rd.passNewFrame(frame);
+        //rd.passNewFrame(frame);
 
         if (waitKey(24) == 27) //Display images in 30fps and when ASCII key 27 (ESC) is pressed, quit application
             break;
