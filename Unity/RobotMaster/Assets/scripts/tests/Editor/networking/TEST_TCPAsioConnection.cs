@@ -6,125 +6,129 @@ using System.Threading;
 using UnityEngine;
 using UnityEditor;
 
-[TestFixture]
-public class TEST_TCPAsioConnection
+namespace NetworkingTests
 {
-    private TestIncomingDataLinkSubscriberCopy _subscriber;
-    private TCPDataLinkListener<ProtoBufPresentation> _listener;
 
-
-    [Test]
-    public void AcceptConnection()
+    [TestFixture]
+    public class TEST_TCPAsioConnection
     {
-        if (EditorPrefs.GetBool("test_tcp_asio") == false)
+        private TestIncomingDataLinkSubscriberCopy _subscriber;
+        private TCPDataLinkListener<ProtoBufPresentation> _listener;
+
+
+        [Test]
+        public void AcceptConnection()
         {
-            Debug.LogWarning("[TEST_TCPAsioConnection.AcceptConnection] Test is disabled, you can enable this test via the menu option \"Testing\"");
-            Assert.That(true);
-            return;
-        }
-
-        Debug.LogWarning("[TEST_TCPAsioConnection.AcceptConnection] This test will only pass when a tcp client is manually connected to the listener started in this test.");
-
-        _subscriber = new TestIncomingDataLinkSubscriberCopy();
-
-        _listener = new TCPDataLinkListener<ProtoBufPresentation>(_subscriber);
-        //use public IP address not localhost/127.0.0.1
-        //use eduroam(same network)
-        try
-        {
-            Assert.True(_listener.Start("145.93.45.166", 1234));
-        }
-        catch (SocketException ex)
-        {
-            Assert.That(false, "Invalid ip address\n" + ex.Message);
-        }
-
-
-        int sleepCount = 0;
-
-        while (!_subscriber.Connected)
-        {
-            if (sleepCount > 500)
+            if (EditorPrefs.GetBool("test_tcp_asio") == false)
             {
-                Assert.True(false, "Failed to connect within timeout.");
-                break;
+                Debug.LogWarning("[TEST_TCPAsioConnection.AcceptConnection] Test is disabled, you can enable this test via the menu option \"Testing\"");
+                Assert.That(true);
+                return;
             }
 
-            Thread.Sleep(20);
+            Debug.LogWarning("[TEST_TCPAsioConnection.AcceptConnection] This test will only pass when a tcp client is manually connected to the listener started in this test.");
 
-            sleepCount++;
+            _subscriber = new TestIncomingDataLinkSubscriberCopy();
+
+            _listener = new TCPDataLinkListener<ProtoBufPresentation>(_subscriber);
+            //use public IP address not localhost/127.0.0.1
+            //use eduroam(same network)
+            try
+            {
+                Assert.True(_listener.Start("145.93.45.166", 1234));
+            }
+            catch (SocketException ex)
+            {
+                Assert.That(false, "Invalid ip address\n" + ex.Message);
+            }
+
+
+            int sleepCount = 0;
+
+            while (!_subscriber.Connected)
+            {
+                if (sleepCount > 500)
+                {
+                    Assert.True(false, "Failed to connect within timeout.");
+                    break;
+                }
+
+                Thread.Sleep(20);
+
+                sleepCount++;
+            }
+            Debug.Log("Actually connected");
+            //Thread.Sleep(8000);
+
+            Assert.IsTrue(_subscriber.Connected);
+            Assert.NotNull(_subscriber.DataLink);
+            Assert.IsTrue(_subscriber.DataLink.Connected());
+
+            if (_subscriber.Connected)
+            {
+                Thread.Sleep(3000);
+            }
         }
-        Debug.Log("Actually connected");
-        //Thread.Sleep(8000);
 
-        Assert.IsTrue(_subscriber.Connected);
-        Assert.NotNull(_subscriber.DataLink);
-        Assert.IsTrue(_subscriber.DataLink.Connected());
-
-        if (_subscriber.Connected)
+        [TearDown]
+        public void Cleanup()
         {
-            Thread.Sleep(3000);
+            //  _incomingClient.Close();
+            if (_subscriber != null)
+            {
+                _subscriber.Cleanup();
+            }
+            if (_listener != null)
+            {
+                _listener.Stop();
+            }
         }
     }
 
-    [TearDown]
-    public void Cleanup()
+    public class TestIncomingDataLinkSubscriberCopy : IIncomingDataLinkSubscriber, IMessageReceiver
     {
-        //  _incomingClient.Close();
-        if (_subscriber != null)
+        public volatile bool Connected = false;
+
+        public volatile IDataLink DataLink;
+
+        public void IncomingNewDataLink(IDataLink dataLink, IPresentationProtocol usedProtocol)
         {
-            _subscriber.Cleanup();
+            this.DataLink = dataLink;
+            usedProtocol.SetReceiver(this);
+            Connected = true;
+            Debug.Log("Incoming impl");
         }
-        if (_listener != null)
+
+        public void IncomingMessage(Message newMessage, IDataLink datalink)
         {
-            _listener.Stop();
+            Debug.Log(newMessage.stringData);
         }
-    }
-}
 
-public class TestIncomingDataLinkSubscriberCopy : IIncomingDataLinkSubscriber, IMessageReceiver
-{
-    public volatile bool Connected = false;
-
-    public volatile IDataLink DataLink;
-
-    public void IncomingNewDataLink(IDataLink dataLink, IPresentationProtocol usedProtocol)
-    {
-        this.DataLink = dataLink;
-        usedProtocol.SetReceiver(this);
-        Connected = true;
-        Debug.Log("Incoming impl");
-    }
-
-    public void IncomingMessage(Message newMessage, IDataLink datalink)
-    {
-        Debug.Log(newMessage.stringData);
-    }
-
-    public void Cleanup()
-    {
-        if (this.DataLink != null)
+        public void Cleanup()
         {
-            this.DataLink.Dispose();
+            if (this.DataLink != null)
+            {
+                this.DataLink.Dispose();
+            }
         }
     }
-}
 
-// Menu item for toggeling this test.
-public class Tcp_Asio_Test_Toggle : EditorWindow
-{
-
-    [MenuItem("Testing/toggle tcp_asio test")]
-    static void Toggle_Tcp_Asio_Test()
+    // Menu item for toggeling this test.
+    public class Tcp_Asio_Test_Toggle : EditorWindow
     {
-        bool current = EditorPrefs.GetBool("test_tcp_asio");
-        bool newState = !current;
 
-        EditorPrefs.SetBool("test_tcp_asio", newState);
+        [MenuItem("Testing/toggle tcp_asio test")]
+        static void Toggle_Tcp_Asio_Test()
+        {
+            bool current = EditorPrefs.GetBool("test_tcp_asio");
+            bool newState = !current;
 
-        EditorUtility.DisplayDialog(
-            "Tcp-Asio test toggle",
-            "Tcp-Asio tests are now " + (newState ? "enabled" : "disabled") + ".",
-            "OK");
+            EditorPrefs.SetBool("test_tcp_asio", newState);
+
+            EditorUtility.DisplayDialog(
+                "Tcp-Asio test toggle",
+                "Tcp-Asio tests are now " + (newState ? "enabled" : "disabled") + ".",
+                "OK");
+        }
     }
 }
