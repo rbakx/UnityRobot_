@@ -4,24 +4,51 @@ import "messages/messages.proto";
 
 package Communication;
 
+// Target or "direction" of a message
 enum MessageTarget_ {
-	Robot = 0;
-	Unity = 1;
-	Vision = 2; // We probably won't need this
+	Robot = 0;  // Unity -> Robot
+	Unity = 1;  // Robot -> Unity || Vision -> Unity
+	Vision = 2; // ? -> Vision (This will probably not be needed)
 }
 
+// This type/enum is used to identify  the type and therefore 
+// contents of a message. 
+//
+// 	For example: when the MessageType is set to VelocityChange, 
+//	the receiver expects the robotVelocity member to be filled in.
+// 
+//  Some message types don't need any data, like the 
+// 	IdentificationRequest type. These types do not have a 
+//	corresponding member.
 enum MessageType_ {
 	// Unity -> Robot
-	IdentificationRequest = 0;
+
+	// When Unity detects a new robot a request for identification will be send.
+	IdentificationRequest = 0; 
+
+	// Used to changed the linear and/or angular velocity of a robot.
 	VelocityChange = 1;
+
+	// Used to make the robot show some kind of signal.
 	Indicate = 2;
 
+
 	// Robot -> Unity
+
+	// A robot's response to a Identification Request message. The response 
+	// contains information about the new robot.
 	IdentificationResponse = 3;
+
+	// Send an error message from a robot to Unity. The error will be shown
+	// in the Unity editor.
 	LogError = 4;
-	CustomMessage = 5;
+
+	// Message type for custom messages/events. This can be used to interact
+	// with robot specific functions.
+	CustomEvent = 5; // This might be two ways
 
 	// Vision -> Unity
+	// A notification from vision with all new and changed shapes.
 	ShapeUpdate = 6;
 }
 

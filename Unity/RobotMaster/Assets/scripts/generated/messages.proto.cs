@@ -139,6 +139,21 @@ namespace Communication.Messages
       get { return _vertices; }
     }
   
+    private readonly global::System.Collections.Generic.List<uint> _indices = new global::System.Collections.Generic.List<uint>();
+    [global::ProtoBuf.ProtoMember(3, Name=@"indices", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public global::System.Collections.Generic.List<uint> indices
+    {
+      get { return _indices; }
+    }
+  
+    private Communication.Transform.Transform_ _transform = null;
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"transform", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public Communication.Transform.Transform_ transform
+    {
+      get { return _transform; }
+      set { _transform = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
