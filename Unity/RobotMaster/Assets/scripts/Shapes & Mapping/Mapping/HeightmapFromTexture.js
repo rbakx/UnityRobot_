@@ -1,5 +1,5 @@
 ﻿@MenuItem ("Terrain/Heightmap From Texture")
- 
+
 static function ApplyHeightmap () 
 {
     var heightmap : Texture2D = Selection.activeObject as Texture2D;
@@ -23,20 +23,26 @@ static function ApplyHeightmap ()
     {
         // Resize using nearest-neighbor scaling if texture has no filtering
         if (heightmap.filterMode == FilterMode.Point) 
-        {
-            var dx : float = parseFloat(heightmapWidth)/terrainWidth;
-            var dy : float = parseFloat(heightmapHeight)/terrainWidth;
-            for (y = 0; y < terrainWidth; y++) 
+        { 
+            var dx: float;
+            var dy: float;
+            dx = parseFloat(heightmapWidth)/terrainWidth;
+            dy = parseFloat(heightmapHeight)/terrainWidth;
+            var Y: int;
+            Y = 0;
+            for (Y = 0; Y < terrainWidth; Y++) 
             {
-                if (y%20 == 0) 
+                if (Y%20 == 0) 
                 {
-                    EditorUtility.DisplayProgressBar("Resize", "Calculating texture", Mathf.InverseLerp(0.0, terrainWidth, y));
+                    EditorUtility.DisplayProgressBar("Resize", "Calculating texture", Mathf.InverseLerp(0.0, terrainWidth, Y));
                 }
-                var thisY = parseInt(dy*y)*heightmapWidth;
-                var yw = y*terrainWidth;
-                for (x = 0; x < terrainWidth; x++) 
+                var thisY = parseInt(dy*Y)*heightmapWidth;
+                var yw = Y*terrainWidth;
+                var X: int;
+                X = 0;
+                for (X = 0; X < terrainWidth; X++) 
                 {
-                    map[yw + x] = mapColors[thisY + dx*x];
+                    map[yw + X] = mapColors[thisY + dx*X];
                 }
             }
         }
@@ -45,6 +51,7 @@ static function ApplyHeightmap ()
         {
             var ratioX = 1.0/(parseFloat(terrainWidth)/(heightmapWidth-1));
             var ratioY = 1.0/(parseFloat(terrainWidth)/(heightmapHeight-1));
+            var y : int;
             for (y = 0; y < terrainWidth; y++) 
             {
                 if (y%20 == 0) 
@@ -55,6 +62,7 @@ static function ApplyHeightmap ()
                 var y1 = yy*heightmapWidth;
                 var y2 = (yy+1)*heightmapWidth;
                 yw = y*terrainWidth;
+                var x : int;
                 for (x = 0; x < terrainWidth; x++) 
                 {
                     var xx = Mathf.Floor(x*ratioX);
