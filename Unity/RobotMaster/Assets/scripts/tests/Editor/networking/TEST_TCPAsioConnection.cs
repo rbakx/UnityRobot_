@@ -117,18 +117,38 @@ namespace NetworkingTests
     public class Tcp_Asio_Test_Toggle : EditorWindow
     {
 
-        [MenuItem("Testing/toggle tcp_asio test")]
-        static void Toggle_Tcp_Asio_Test()
+        [MenuItem("Testing/Enable tcp_asio test")]
+        static void Enable_Tcp_Asio_Test()
         {
-            bool current = EditorPrefs.GetBool("test_tcp_asio");
-            bool newState = !current;
-
-            EditorPrefs.SetBool("test_tcp_asio", newState);
+            EditorPrefs.SetBool("test_tcp_asio", true);
 
             EditorUtility.DisplayDialog(
-                "Tcp-Asio test toggle",
-                "Tcp-Asio tests are now " + (newState ? "enabled" : "disabled") + ".",
+                "Tcp-Asio test enable",
+                "Tcp-Asio tests are now enabled.",
                 "OK");
         }
+
+		[MenuItem("Testing/Disable tcp_asio test")]
+		static void Disable_Tcp_Asio_Test()
+		{
+			EditorPrefs.SetBool("test_tcp_asio", false);
+
+			EditorUtility.DisplayDialog(
+				"Tcp-Asio test disable",
+				"Tcp-Asio tests are now disabled.",
+				"OK");
+		}
+
+		[MenuItem("Testing/Enable tcp_asio test", true)]
+		static bool Enable_Tcp_Asio_Test_Validate()
+		{
+			return EditorPrefs.GetBool("test_tcp_asio") == false;
+		}
+
+		[MenuItem("Testing/Disable tcp_asio test", true)]
+		static bool Disable_Tcp_Asio_Test_Validate()
+		{
+			return EditorPrefs.GetBool("test_tcp_asio") == true;
+		}
     }
 }

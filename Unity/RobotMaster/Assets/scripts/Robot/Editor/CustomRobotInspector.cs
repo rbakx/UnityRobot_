@@ -78,7 +78,7 @@ public class CustomRobotInspector : Editor
                     message.SetLogError(_errorMsg);
                     break;
 
-                case MessageType_.CustomEvent:
+                case MessageType_.CustomMessage:
                     validMessage = true;
 
                     DrawTextBox("Key", ref _customKey);

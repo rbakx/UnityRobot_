@@ -4,6 +4,9 @@ import "messages/transform.proto";
 
 package Communication.Messages;
 
+// When linear or angular velocity are not null they will
+// Be changed for the robot. When one of them is set to 
+// null, this part of the velocity will not be changed.
 message SetVelocity_ {
 	optional Transform.Vector3_ linearVelocity = 1;
 	optional Transform.Vector3_ angularVelocity = 2;
@@ -30,4 +33,8 @@ message ShapeUpdateInfo_ {
 message Shape_ {
 	required int32 id = 1;
 	repeated Transform.Vector3_ vertices = 2;
+	repeated uint32 indices = 3;
+	
+	// We might not need this in the end
+	optional Transform.Transform_ transform = 4;
 }

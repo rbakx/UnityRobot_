@@ -100,6 +100,8 @@ GameObject:
   - 4: {fileID: 37783704}
   - 114: {fileID: 37783706}
   - 114: {fileID: 37783705}
+  - 114: {fileID: 37783707}
+  - 114: {fileID: 37783708}
   m_Layer: 2
   m_Name: Mapping
   m_TagString: Untagged
@@ -142,6 +144,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65443ee9ae1cd5644bbb5933da55caba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &37783707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 37783703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 011ec940ab851d046b46ebf2d38b4bfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heightmap: {fileID: 2800000, guid: 5e915c6c50830874085684e1649b3fb8, type: 3}
+  darkImg: 1
+  threshold: 0.8
+--- !u!114 &37783708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 37783703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73a91d40da9a5844796f4d4b64693c0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  V2E:
+  - {x: 1, y: 6}
+  - {x: 6, y: 1}
+  - {x: 7, y: 8}
+  - {x: 6, y: 10}
+  - {x: 5, y: 11}
+  - {x: 3, y: 9}
+  - {x: -1, y: -1}
+  - {x: 12, y: 3}
+  - {x: 14, y: 1}
+  - {x: 13, y: 6}
+  mesh: {fileID: 0}
 --- !u!1001 &159484678
 Prefab:
   m_ObjectHideFlags: 0
@@ -1991,7 +2030,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2013677912}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 37783707}
+        m_MethodName: ApplyHeightmap
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &2013677912

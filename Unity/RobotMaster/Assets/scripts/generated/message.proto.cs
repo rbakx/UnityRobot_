@@ -123,8 +123,8 @@ namespace Communication
       [global::ProtoBuf.ProtoEnum(Name=@"LogError", Value=4)]
       LogError = 4,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"CustomEvent", Value=5)]
-      CustomEvent = 5,
+      [global::ProtoBuf.ProtoEnum(Name=@"CustomMessage", Value=5)]
+      CustomMessage = 5,
             
       [global::ProtoBuf.ProtoEnum(Name=@"ShapeUpdate", Value=6)]
       ShapeUpdate = 6
