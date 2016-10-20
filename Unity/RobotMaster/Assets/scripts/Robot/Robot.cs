@@ -12,7 +12,7 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
 
     private bool _moving;
 
-    private RecognisedShape _shape;
+    public RecognisedShape shape;
     private Communicator _communicator;
 
     void Awake()
@@ -21,6 +21,7 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
         ProtoBufPresentation pp = new ProtoBufPresentation();
         LocalDataLink dl = new LocalDataLink();
         Communicator c = new Communicator(dl, pp);
+        shape = null;
 
         _communicator = c;
     }
@@ -154,5 +155,10 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
                     newMessage.customMessage.key + ", " + newMessage.customMessage.data + ")");
                 break;
         }
+    }
+
+    public bool IsConnected()
+    {
+        return _communicator.GetDataLink().Connected();
     }
 }

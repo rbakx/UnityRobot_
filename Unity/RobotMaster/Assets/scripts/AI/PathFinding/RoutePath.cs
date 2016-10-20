@@ -5,12 +5,12 @@ using System.Collections.Generic;
 public class RoutePath : MonoBehaviour
 {
 
-    private List<Vector3> waypoints;
+    //private List<Vector3> waypoints;
      
 	// Use this for initialization
 	void Start ()
 	{
-	    waypoints = new List<Vector3>();
+	    //waypoints = new List<Vector3>();
 	}
 	
 	// Update is called once per frame

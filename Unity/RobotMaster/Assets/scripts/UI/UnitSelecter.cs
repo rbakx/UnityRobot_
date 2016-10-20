@@ -40,7 +40,7 @@ public class UnitSelecter : MonoBehaviour
     void LookforTarget()
     {
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Vector3 direction = this.transform.TransformDirection(Vector3.forward);
+        //Vector3 direction = this.transform.TransformDirection(Vector3.forward);
         if (!selected)
         {
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, unitLayer) && hit.transform.tag == "Unit")
