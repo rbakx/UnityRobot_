@@ -22,6 +22,7 @@ void Settings::write(const string fileName) const
                << "width" << rp.width
                << "height" << rp.height
                << "fps" << rp.fps
+			   << "autofocus" << rp.autofocus
             << "}"
         << "}";
 
@@ -44,7 +45,13 @@ Settings* Settings::read(const string fileName)
 
 	settingsObj->gp = GeneralProperties(generalNode["port"], generalNode["sampleName"]);
     settingsObj->dp = DeviceProperties(deviceNode["number"], deviceNode["pid"], deviceNode["vid"]);
-    settingsObj->rp = RecordingProperties(recordingNode["width"], recordingNode["height"], recordingNode["fps"]);
+
+	FileNode autofocusNode = recordingNode["autofocus"];
+    settingsObj->rp = RecordingProperties(recordingNode["width"],
+										  recordingNode["height"],
+										  recordingNode["fps"],
+										  autofocusNode.isNone() ? true : (int)autofocusNode
+	);
 
     fs.release();
 

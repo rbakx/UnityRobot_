@@ -28,9 +28,10 @@ struct RecordingProperties
     int width;
     int height;
     int fps;
+	bool autofocus;
 
-    RecordingProperties() : width(-1), height(-1), fps(-1) {}
-    RecordingProperties(int width, int height, int fps) : width(width), height(height), fps(fps) {}
+    RecordingProperties() : width(-1), height(-1), fps(-1), autofocus(true) {}
+    RecordingProperties(int width, int height, int fps, bool autofocus) : width(width), height(height), fps(fps), autofocus(autofocus) {}
 };
 
 /*

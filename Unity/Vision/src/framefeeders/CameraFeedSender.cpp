@@ -44,7 +44,8 @@ CameraFeedSender::CameraFeedSender(VideoFeedFrameReceiver* target) : VideoFeedFr
 	}
 
 	//TODO: Make a bool in config.yml to enable/disable autofocus as it might be not supported for the webcam
-    disableAutoFocus();
+	if(!settings->getRecordingProperties().autofocus)
+    	disableAutoFocus();
 	
 	if(!_cap.isOpened())  // check if we succeeded
     {

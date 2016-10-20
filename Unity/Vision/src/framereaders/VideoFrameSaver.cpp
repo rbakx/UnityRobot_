@@ -1,4 +1,3 @@
-#include <geos_c.h>
 #include "VideoFrameSaver.hpp"
 #include "../Settings.h"
 
