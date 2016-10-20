@@ -22,7 +22,6 @@ using namespace framereaders;
 using namespace robotmapping;
 
 void processCommandLineArguments(int argc, char* argv[]);
-void calibrateAndSave(Calibrator& calibrator);
 void printHelp(const string& executablePath);
 void configure();
 
