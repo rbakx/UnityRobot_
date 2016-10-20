@@ -31,17 +31,24 @@ CameraFeedSender::CameraFeedSender(VideoFeedFrameReceiver* target) : VideoFeedFr
 		throw invalid_argument("[CameraFeedSender] No proper framerate (FPS) was found. Expected 1-999, got from settings : " + to_string(_fps));
 	}
 
-	/*
-	 *
-	 *  TODO: Add validation of settings, like fps must be > 0
-	 */
+	if(_width <= 0 || _height <= 0)
+	{
+		throw invalid_argument("[CameraFeedSender] No proper recording dimensions (width, height) were found.\n"
+									   "Expected bigger than 0, got from settings: " + to_string(_width) + ", " + to_string(_height));
+	}
+
+	if(_vid == -1 || _pid == -1)
+	{
+		throw invalid_argument("[CameraFeedSender] No valid VID and/or PID were entered.\n"
+									   "Expected bigger than 0, got from settings: " + to_string(_vid) + ", " + to_string(_pid));
+	}
 
 	//TODO: Make a bool in config.yml to enable/disable autofocus as it might be not supported for the webcam
     disableAutoFocus();
 	
 	if(!_cap.isOpened())  // check if we succeeded
     {
-        throw runtime_error("[CameraFeedSender] CameraFeedSender - camera could not be opened!");
+        throw runtime_error("[CameraFeedSender] Camera at index " + to_string(settings->getDeviceProperties().number) + " could not be opened!");
     }
 		
     //Set video source to FullHD@24fps(
