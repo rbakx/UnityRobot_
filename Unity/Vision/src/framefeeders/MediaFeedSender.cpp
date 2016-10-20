@@ -9,7 +9,7 @@ using namespace framefeeders;
 
 MediaFeedSender::MediaFeedSender(VideoFeedFrameReceiver* target, const string& filePath)
 		: VideoFeedFrameSender(target),
-		  _vc(filePath),
+		  _vc(VideoCapture(filePath)),
 		  _fps_capture_frame_delay_ns(0)
 {
 
@@ -20,6 +20,13 @@ MediaFeedSender::MediaFeedSender(VideoFeedFrameReceiver* target, const string& f
 	{
 		throw invalid_argument("[MediaFeedSender] No proper framerate (FPS) was found. Expected 1-999, got from inputted file : " + to_string(framerate));
 	}
+
+	signalObjectsSetup();
+}
+
+MediaFeedSender::~MediaFeedSender()
+{
+	signalObjectsAboutToDestructed();
 }
 
 bool MediaFeedSender::FeedReading() noexcept

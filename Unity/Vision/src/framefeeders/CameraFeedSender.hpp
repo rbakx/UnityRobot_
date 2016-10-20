@@ -29,5 +29,6 @@ namespace framefeeders
 		public:
 		
 			CameraFeedSender(frames::VideoFeedFrameReceiver* target);
+		  	~CameraFeedSender();
 	};
 }

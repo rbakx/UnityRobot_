@@ -50,6 +50,13 @@ CameraFeedSender::CameraFeedSender(VideoFeedFrameReceiver* target) : VideoFeedFr
     _cap.set(CV_CAP_PROP_FRAME_HEIGHT, _height);
     _cap.set(CV_CAP_PROP_FPS, _fps); //Warning: This doesn't work for at least the Logitech C930e
     //cap.set(CV_CAP_PROP_AUTOFOCUS, 0); //Warning: This doesn't work for at least the Logitech C930e
+
+    signalObjectsSetup();
+}
+
+CameraFeedSender::~CameraFeedSender()
+{
+	signalObjectsAboutToDestructed();
 }
 
 void CameraFeedSender::disableAutoFocus()

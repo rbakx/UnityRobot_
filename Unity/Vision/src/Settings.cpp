@@ -3,19 +3,6 @@
 using namespace std;
 using namespace cv;
 
-////These write and read functions must be defined for the serialization in FileStorage to work
-//static void write(FileStorage& fs, const std::string&, const Settings& x)
-//{
-//    x.write(fs);
-//}
-//
-//static void read(const FileNode& node, Settings& x, const Settings& default_value = Settings()){
-//    if(node.empty())
-//        x = default_value;
-//    else
-//        x.read(node);
-//}
-
 Settings* settings = nullptr;
 
 void Settings::write(const string fileName) const
@@ -48,18 +35,25 @@ Settings* Settings::read(const string fileName)
     FileStorage fs(fileName, FileStorage::READ);
 
     FileNode settingsNode = fs["Settings"];
+	FileNode generalNode = settingsNode["General"];
     FileNode deviceNode = settingsNode["Device"];
     FileNode recordingNode = settingsNode["Recording"];
 
-    if(deviceNode.isNone() || recordingNode.isNone()) //We couldn't find the properties in the file
+    if(generalNode.isNone() || deviceNode.isNone() || recordingNode.isNone()) //We couldn't find the properties in the file
         throw runtime_error("Settings are incomplete!");
 
+	settingsObj->gp = GeneralProperties(generalNode["port"], generalNode["sampleName"]);
     settingsObj->dp = DeviceProperties(deviceNode["number"], deviceNode["pid"], deviceNode["vid"]);
     settingsObj->rp = RecordingProperties(recordingNode["width"], recordingNode["height"], recordingNode["fps"]);
 
     fs.release();
 
     return settingsObj;
+}
+
+const GeneralProperties& Settings::getGeneralProperties()
+{
+    return gp;
 }
 
 const DeviceProperties& Settings::getDeviceProperties()

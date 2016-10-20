@@ -23,7 +23,7 @@ namespace framereaders
 
 		~VideoFrameSaver();
 
-		void StartSaving(const std::string &filename) noexcept;
+		void StartSaving(const std::string &filename);
 
 		void StopSaving() noexcept;
 

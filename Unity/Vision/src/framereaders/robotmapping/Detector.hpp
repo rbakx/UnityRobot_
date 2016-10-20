@@ -10,20 +10,20 @@ namespace robotmapping
     class Detector : public frames::VideoFeedFrameReceiver
     {
         private:
-            cv::Mat bufferFrame, currentFrame;
-            cv::Ptr<cv::ORB> orb;
-            cv::Ptr<cv::DescriptorMatcher> matcher;
+            cv::Mat _bufferFrame, _currentFrame;
+            cv::Ptr<cv::ORB> _orb;
+            cv::Ptr<cv::DescriptorMatcher> _matcher;
 
-            cv::Mat trainDescriptor;
-            std::vector<cv::KeyPoint> trainKeypoints;
-            cv::Mat trainSample;
+            cv::Mat _trainDescriptor;
+            std::vector<cv::KeyPoint> _trainKeypoints;
+            cv::Mat _trainSample;
 
-            std::vector<Robot> robots;
+            std::vector<Robot> _robots;
 
             void processImage();
 
         public:
-            Detector(const std::string fileName);
+            Detector();
 
             const std::vector<Robot>& getRobots() const;
 

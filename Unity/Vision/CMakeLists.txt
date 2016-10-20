@@ -23,9 +23,7 @@ set (SOURCE_FILES   main.cpp
                     src/Robot.h
                     src/framereaders/robotmapping/Detector.cpp
                     src/framereaders/robotmapping/Detector.hpp
-                    src/Recorder.cpp src/Recorder.h
-                    src/Display.cpp src/Display.h
-                    src/framereaders/robotmapping/Calibrator.cpp src/framereaders/robotmapping/Calibrator.h
+                    src/framereaders/robotmapping/Calibrator.cpp src/framereaders/robotmapping/Calibrator.hpp
                     src/Settings.cpp src/Settings.h
                     src/framefeeders/CameraFeedSender.cpp src/framefeeders/CameraFeedSender.hpp
                     src/frames/VideoFeedFrameReceiver.hpp

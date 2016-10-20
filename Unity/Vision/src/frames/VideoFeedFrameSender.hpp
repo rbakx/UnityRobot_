@@ -1,7 +1,6 @@
 #pragma once
 
 #include <thread>
-
 #include "VideoFeedFrameReceiver.hpp"
 
 namespace frames
@@ -23,10 +22,14 @@ namespace frames
 				
 				NOTE: Initialisation and de-initalisation should be managed by the derived class!
 			*/
+
+			void stopFeederReaderThread() noexcept;
 			
 		protected:
 		
 			void PushFrameToTarget(const cv::Mat& frame) const noexcept;
+		    void signalObjectsSetup() noexcept;
+			void signalObjectsAboutToDestructed() noexcept;
 		
 		public:
 		

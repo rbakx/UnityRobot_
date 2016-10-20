@@ -1,4 +1,5 @@
 #include "Detector.hpp"
+#include "../../Settings.h"
 
 using namespace cv;
 using namespace std;
@@ -9,14 +10,15 @@ void Detector::processImage()
     Mat queryDescriptor;
 
     vector<KeyPoint> keypoints;
-    orb->detect(currentFrame, keypoints);
-	orb->compute(currentFrame, keypoints, queryDescriptor);
+    _orb->detect(_currentFrame, keypoints);
+	_orb->compute(_currentFrame, keypoints, queryDescriptor);
 
     vector<DMatch> matches;
-    matcher->match(queryDescriptor, trainDescriptor, matches);
+    _matcher->match(queryDescriptor, _trainDescriptor, matches);
 
     DMatch *bestMatch = nullptr;
-    for(auto &match : matches) {
+    for(auto &match : matches)
+    {
         if(bestMatch == nullptr)
             bestMatch = &match;
         else if(match.distance < bestMatch->distance)
@@ -24,7 +26,7 @@ void Detector::processImage()
     }
 
     //TODO: Label the movement blobs instead of just drawing circles
-    Mat result = currentFrame.clone();
+    Mat result = _currentFrame.clone();
 //    for(auto &match : matches)
 //    {
 //        circle(result, keypoints[match.imgIdx].pt, 10, Scalar(0, 255, 0), 10);
@@ -35,12 +37,19 @@ void Detector::processImage()
 	imshow("Result", result);
 }
 
-Detector::Detector(const string fileName)
+Detector::Detector()
 {
-    orb = ORB::create();
+    _orb = ORB::create();
+
+	string fileName = settings->getGeneralProperties().sampleName;
+
+	if(strcmp(fileName.c_str(), "") == 0)
+		throw invalid_argument("[Detector] sampleName in config.yml is invalid.");
 
     FileStorage fs2(fileName, FileStorage::READ);
 
+	if(!fs2.isOpened())
+		throw invalid_argument("[Detector] sample provided in config.yml is inaccessible.");
 
     FileNode descriptorNode = fs2["Descriptors"];
     FileNode keypointsNode = fs2["Keypoints"];
@@ -49,28 +58,32 @@ Detector::Detector(const string fileName)
     if(descriptorNode.isNone() || keypointsNode.isNone() || sampleNode.isNone()) //We couldn't find the descriptors in the file
         throw runtime_error("Sample is not complete!");
 
-    read(descriptorNode, trainDescriptor);
-    read(keypointsNode, trainKeypoints);
-    read(sampleNode, trainSample);
+    read(descriptorNode, _trainDescriptor);
+    read(keypointsNode, _trainKeypoints);
+    read(sampleNode, _trainSample);
 
     fs2.release();
 
     cout << "Read sample from file" << endl;
 
-    matcher = new cv::BFMatcher(cv::NORM_HAMMING, true);
+    _matcher = new cv::BFMatcher(cv::NORM_HAMMING, true);
 }
 
 const vector<Robot>&Detector::getRobots() const
 {
-    return robots;
+	/*
+	 * TODO: This doesn't work yet, as we are currently only labeling blobs.
+	 * 		 We need to implement this next
+	 */
+    return _robots;
 }
 
 void Detector::OnIncomingFrame(const Mat& frame) noexcept
 {
-    bufferFrame = currentFrame.clone();
-    currentFrame = frame.clone();
+    _bufferFrame = _currentFrame.clone();
+    _currentFrame = frame.clone();
 
-    if(bufferFrame.empty())
+    if(_bufferFrame.empty())
         return;
 
     processImage();

@@ -16,5 +16,6 @@ namespace framefeeders
 
         public:
             MediaFeedSender(frames::VideoFeedFrameReceiver* target, const std::string& filePath);
+			virtual ~MediaFeedSender();
     };
 }

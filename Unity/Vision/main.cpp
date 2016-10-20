@@ -11,7 +11,8 @@
 
 #include "src/framereaders/VideoFrameSaver.hpp"
 #include "src/framereaders/VideoFrameDisplayer.hpp"
-#include "src/framereaders/robotmapping/Calibrator.h"
+#include "src/framereaders/robotmapping/Calibrator.hpp"
+#include "src/framereaders/robotmapping/Detector.hpp"
 
 
 using namespace std;
@@ -28,7 +29,6 @@ void configure();
 CameraFeedSender* videofeeder = nullptr;
 MediaFeedSender* mediafeeder = nullptr;
 VideoFeedFrameReceiverTargets receivers;
-VideoFrameSaver* videosaver = nullptr;
 
 
 int main(int argc, char* argv[])
@@ -39,8 +39,6 @@ int main(int argc, char* argv[])
 
 	delete videofeeder;
 	delete mediafeeder;
-
-	delete videosaver;
 
 	return 0;
 }
@@ -57,76 +55,92 @@ void processCommandLineArguments(int argc, char* argv[])
 		 */
 	}
 
+	if(argc >= 3)
+	{
+		mediafeeder = new MediaFeedSender(&receivers, argv[2]);
+
+		/*
+		 *  POST: If argument + file path is provided, we will load the file path as a media file feed.
+		 */
+	}
+	else
+	{
+		videofeeder = new CameraFeedSender(&receivers);
+
+		/*
+		 *	POST: If only an argument such as 'start' is supplied through command line,
+		 *	then start detecting from camera feed.
+		 */
+	}
+
 	if(strcmp(argv[1], "start") == 0)
 	{
-		videosaver = new VideoFrameSaver();
-		receivers.add(videosaver);
+		Detector detector;
+		receivers.add(&detector);
 
 		VideoFrameDisplayer display;
 		receivers.add(&display);
 
-		if(argc >= 3)
-		{
-			mediafeeder = new MediaFeedSender(&receivers, argv[2]);
-
-			/*
-			 *  POST: If start argument + file path is provided, we will load the file path as a media file feed.
-			 */
-		}
-		else
-		{
-			videofeeder = new CameraFeedSender(&receivers);
-
-			/*
-			 *	POST: If only start argument is supplied through command line, then start detecting from camera feed.
-			 */
-		}
-
-		videosaver->StartSaving("video.avi");
-
-		cout << "Press enter to stop recording" << endl;
+		cout << "Press enter to stop detecting" << endl;
 		cin.ignore(1);
 
-		videosaver->StopSaving();
-		receivers.remove(videosaver);
-
+		receivers.remove(&detector);
 		receivers.remove(&display);
 	}
 	else if(strcmp(argv[1], "calibrate") == 0)
 	{
-		if(argc > 2)
-		{
-			Calibrator calibrator(argv[2]);		
-			
-			calibrateAndSave(calibrator);
-			
-			/*
-				POST: There is an option passed for the calibrator. This is supposed to be the path to a replayable media file.
-			*/
-		}
-		else
-		{
-			//Calibrator calibrator(recorder);
+		Calibrator calibrator;
+		receivers.add(&calibrator);
 
-			//calibrateAndSave(calibrator);
-			
-			/*
-				TODO: Will now still throw an exception as it is not implemented yet
-			*/
+		VideoFrameDisplayer displayer;
+		receivers.add(&displayer);
+
+		cout << "Press enter to start calibrating" << endl;
+		cin.ignore(1);
+		calibrator.Start();
+
+		cout << "Press enter to stop calibrating" << endl;
+		cin.ignore(1);
+		calibrator.Stop();
+
+		string filePath = "";
+		cout << "Please provide a file name where you want to store the calibration results:" << endl;
+		getline(cin, filePath);
+
+		if(filePath.length() > 0)
+		{
+			filePath.append(".yml");
+
+			//TODO: Find way to read status of writing
+			/*if(calibrator.writeToFile(filePath))
+			{
+				callibration_incomplete = true;
+			}*/
+
+			calibrator.WriteToFile(filePath);
 		}
-		
+
+		receivers.remove(&calibrator);
+		receivers.remove(&displayer);
 	}
 	else if(strcmp(argv[1], "record") == 0)
 	{
-		videosaver = new VideoFrameSaver();
-		videofeeder = new CameraFeedSender(videosaver);
+		VideoFrameSaver videosaver;
+		receivers.add(&videosaver);
 
-		videosaver->StartSaving("video.avi");
+		string fileName = "";
+		cout << "Please provide a file name where you want to store recording:" << endl;
+		getline(cin, fileName);
+		fileName += ".avi";
+
+
+		cout << "Press enter to start recording" << endl;
+		cin.ignore(1);
+		videosaver.StartSaving(fileName);
 
 		cout << "Press enter to stop recording" << endl;
 		cin.ignore(1);
-
-		videosaver->StopSaving();
+		videosaver.StopSaving();
 		
 		/*
 			POST: Start the video recorder and save after recording
@@ -139,33 +153,6 @@ void processCommandLineArguments(int argc, char* argv[])
 	else
 	{
 		printHelp(argv[0]); //argv[0] contains the relative path from prompt (command line) to executable
-	}
-}
-
-void calibrateAndSave(Calibrator& calibrator)
-{
-	bool calibration_incomplete = true;
-	string filePath = "";
-	
-    while(calibration_incomplete)
-	{
-		cout << "Please provide a file name where you want to store the calibration results:" << endl;
-			
-		getline(cin, filePath);
-
-		if(filePath.length() > 0)
-		{
-			filePath.append(".yml");
-
-			//TODO: Find way to read status of writing
-			/*if(calibrator.writeToFile(filePath))
-			{	
-				callibration_incomplete = true;
-			}*/
-
-			calibrator.writeToFile((filePath));
-			calibration_incomplete = false;
-		}
 	}
 }
 
@@ -189,7 +176,8 @@ void configure()
 	//TODO: Make this use the config.yml's pid and vid
 
     #ifdef __linux__
-        if(getuid()) {
+        if(getuid())
+		{
             cout << "You must run this command as a root user as we need to write to /etc/udev/rules.d/" << endl;
             return;
         }

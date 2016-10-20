@@ -19,7 +19,7 @@ VideoFrameSaver::~VideoFrameSaver()
 	_writer.release();
 }
 
-void VideoFrameSaver::StartSaving(const string& filename) noexcept
+void VideoFrameSaver::StartSaving(const string& filename)
 {
 	//TODO: CHECK FILEPATH for stupidity
 	
