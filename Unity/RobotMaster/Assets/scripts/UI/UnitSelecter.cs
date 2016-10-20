@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEditor;
 
-public class UnitSelecter : MonoBehaviour {
+public class UnitSelecter : MonoBehaviour
+{
 
     Ray ray;
     private RaycastHit hit;
@@ -11,18 +13,29 @@ public class UnitSelecter : MonoBehaviour {
 
     public LayerMask unitLayer;
     public LayerMask terrainLayer;
-    
-    void Start ()
+
+    void Start()
     {
         selected = false;
     }
-	
-	void Update () {
-	    if (Input.GetMouseButtonDown(0))
-	    {
-	        LookforTarget();
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            LookforTarget();
         }
-	}
+        if (selected && Input.GetKeyDown(KeyCode.Escape))
+        {
+            selected = false;
+            SelectedUnit.GetComponent<RobotSelect>().isSelected = false;
+            if (SelectedUnit.GetComponent<Robot>().GetMoving())
+            {
+                MoveUnit(SelectedUnit, SelectedUnit.gameObject.transform.position);
+            }
+            SelectedUnit = null;
+        }
+    }
 
     void LookforTarget()
     {
@@ -30,30 +43,32 @@ public class UnitSelecter : MonoBehaviour {
         Vector3 direction = this.transform.TransformDirection(Vector3.forward);
         if (!selected)
         {
-            if(Physics.Raycast(ray, out hit, Mathf.Infinity, unitLayer) && hit.transform.tag == "Unit")
-                {
-                    
-                    hit.collider.gameObject.GetComponent<RobotSelect>().isSelected = true;
-                    selected = true;
-                    SelectedUnit = hit.collider.gameObject;
-                }
-                
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, unitLayer) && hit.transform.tag == "Unit")
+            {
+
+                hit.collider.gameObject.GetComponent<RobotSelect>().isSelected = true;
+                selected = true;
+                SelectedUnit = hit.collider.gameObject;
             }
+
+        }
         else
         {
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, terrainLayer))
             {
-                Debug.Log("nothing selected");
+                Vector3 point = hit.point;
+                Debug.Log("World point " + point);
+                MoveUnit(SelectedUnit, point);
                 selected = false;
                 SelectedUnit.GetComponent<RobotSelect>().isSelected = false;
                 SelectedUnit = null;
             }
         }
-        Debug.DrawRay(ray.origin, ray.direction,Color.black);
+        Debug.DrawRay(ray.origin, ray.direction, Color.black);
     }
 
-    void SelectUnit()
+    void MoveUnit(GameObject unit, Vector3 p)
     {
-        
+        unit.gameObject.GetComponent<Robot>().MoveMe(p);
     }
 }

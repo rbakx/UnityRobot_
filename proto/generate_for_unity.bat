@@ -1,6 +1,7 @@
 @echo off
 
-del ..\Unity\RobotMaster\Assets\scripts\generated\*.proto.cs
+rd /s /q ..\Unity\RobotMaster\Assets\scripts\generated
+mkdir ..\Unity\RobotMaster\Assets\scripts\generated
 
 for /r %%i in (messages/*.proto) do (
 	echo Generating code for: messages\%%~nxi

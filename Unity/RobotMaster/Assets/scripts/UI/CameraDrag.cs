@@ -5,6 +5,9 @@ public class CameraDrag : MonoBehaviour
 {
     private bool rotatable;
 
+    public GameObject staticCam;
+    public GameObject dragCam;
+
     public float DragSpeed = 4;
     private Vector3 dragOrigin;
 
@@ -16,6 +19,7 @@ public class CameraDrag : MonoBehaviour
     void Start ()
 	{
 	    rotatable = true;
+        staticCam.GetComponent<Camera>().orthographic = true;
 	}
 	
 	// Update is called once per frame
@@ -72,5 +76,21 @@ public class CameraDrag : MonoBehaviour
     public void setRotatable(bool rot)
     {
         rotatable = rot;
+    }
+
+    public void SwitchView()
+    {
+        if (rotatable)
+        {
+            staticCam.SetActive(true);
+            dragCam.SetActive(false);
+            rotatable = false;
+        }
+        else
+        {
+            dragCam.SetActive(true);
+            staticCam.SetActive(false);
+            rotatable = true;
+        }
     }
 }

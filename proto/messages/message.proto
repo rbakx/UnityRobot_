@@ -1,13 +1,8 @@
 syntax = "proto2";
 
-package UnityRobot.Communication;
-
-enum MessageType {
-	HARTBEATN = 0;
-	REQUEST = 1;
-}
+package Communication;
 
 message Message {
-	optional int32 id = 1;
-	optional MessageType type = 2;
+	optional int32 target = 1;
+	optional string data = 2;
 }
