@@ -149,7 +149,7 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
                 Debug.LogError(newMessage.error.message);
                 break;
 
-            case MessageType_.CustomEvent:
+            case MessageType_.CustomMessage:
                 Debug.Log("Custom event for robot " + _name + ": (" +
                     newMessage.customMessage.key + ", " + newMessage.customMessage.data + ")");
                 break;

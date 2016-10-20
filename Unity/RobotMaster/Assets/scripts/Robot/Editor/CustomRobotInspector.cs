@@ -55,7 +55,7 @@ public class CustomRobotInspector : Editor
             EditorGUILayout.BeginHorizontal();
             {
                 EditorGUILayout.LabelField("Message Type:");
-                _messageType = (Communication.MessageType_)EditorGUILayout.EnumPopup(_messageType);
+                _messageType = (MessageType_)EditorGUILayout.EnumPopup(_messageType);
             }
             EditorGUILayout.EndHorizontal();
 
@@ -65,20 +65,20 @@ public class CustomRobotInspector : Editor
 
             switch (_messageType)
             {
-                case Communication.MessageType_.IdentificationResponse:
+                case MessageType_.IdentificationResponse:
                     validMessage = true;
                     DrawTextBox("Robot type", ref _robotType);
                     message.SetIdentificationResponse(_robotType);
                     break;
 
-                case Communication.MessageType_.LogError:
+                case MessageType_.LogError:
                     validMessage = true;
 
                     DrawTextBox("Error message", ref _errorMsg);
                     message.SetLogError(_errorMsg);
                     break;
 
-                case Communication.MessageType_.CustomEvent:
+                case MessageType_.CustomMessage:
                     validMessage = true;
 
                     DrawTextBox("Key", ref _customKey);
@@ -134,6 +134,8 @@ public class CustomRobotInspector : Editor
         }
         EditorGUILayout.EndHorizontal();
     }
+
+
 
     private void DrawResetButton(ref Vector3 vec)
     {
