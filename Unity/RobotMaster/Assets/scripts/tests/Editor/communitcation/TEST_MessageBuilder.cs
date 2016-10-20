@@ -34,11 +34,11 @@ namespace CommunicationTests
         }
 
         [Test]
-        public void CreateError()
+        public void CreateError_()
         {
             string errorMsg = "Test error Message";
 
-            Error_ result = MessageBuilder.CreateError(errorMsg);
+            Error_ result = MessageBuilder.CreateError_(errorMsg);
 
             Assert.AreEqual(result.message, errorMsg);
         }
@@ -46,7 +46,7 @@ namespace CommunicationTests
         [Test]
         public void CreateCustomMessage_()
         {
-            string key = "testkey";
+            string key = "test key";
             string data = "test data";
 
             CustomMessage_ result = MessageBuilder.CreateCustomMessage_(key, data);
@@ -204,6 +204,153 @@ namespace CommunicationTests
                 {
                     Assert.AreEqual(newShapes[i].vertices[j].ToUnityVector(),
                         result.newShapes[i].vertices[j].ToUnityVector());
+                }
+            }
+        }
+
+        [Test]
+        public static void SetIdentificationResponse()
+        {
+            Message result = new Message();
+
+            result.SetIdentificationResponse("robot type");
+
+            Assert.IsNotNull(result.identificationResponse);
+            Assert.IsNotNull(result.identificationResponse.robotType);
+
+            Assert.AreEqual("robot type", result.identificationResponse.robotType);
+        }
+
+        [Test]
+        public static void SetLogError()
+        {
+            Message result = new Message();
+
+            result.SetLogError("error message");
+
+            Assert.IsNotNull(result.error);
+            Assert.IsNotNull(result.error.message);
+
+            Assert.AreEqual("error message", result.error.message);
+        }
+
+        [Test]
+        public static void SetCustomMessage()
+        {
+            Message result = new Message();
+
+            result.SetCustomMessage("custom key", "custom data");
+
+            Assert.IsNotNull(result.customMessage);
+            Assert.IsNotNull(result.customMessage.key);
+            Assert.IsNotNull(result.customMessage.data);
+
+            Assert.AreEqual("custom key", result.customMessage.key);
+            Assert.AreEqual("custom data", result.customMessage.data);
+        }
+
+        [Test]
+        public static void SetVelocity()
+        {
+            Message result = new Message();
+
+            Vector3 linear = new Vector3(1.1f, 2.2f, 3.3f);
+            Vector3 angular = new Vector3(4.4f, 5.5f, 6.6f);
+
+            result.SetVelocity(linear, angular);
+
+            Assert.IsNotNull(result.robotVelocity);
+            Assert.IsNotNull(result.robotVelocity.linearVelocity);
+            Assert.IsNotNull(result.robotVelocity.linearVelocity);
+
+            Assert.AreEqual(linear, result.robotVelocity.linearVelocity.ToUnityVector());
+            Assert.AreEqual(angular, result.robotVelocity.angularVelocity.ToUnityVector());
+        }
+
+        [Test]
+        public static void SetVelocity_nullargs()
+        {
+            Vector3 linear = new Vector3(1.1f, 2.2f, 3.3f);
+            Vector3 angular = new Vector3(4.4f, 5.5f, 6.6f);
+
+            Message result = new Message();
+            result.SetVelocity(null, null);
+
+            Assert.IsNotNull(result.robotVelocity);
+            Assert.IsNull(result.robotVelocity.linearVelocity);
+            Assert.IsNull(result.robotVelocity.angularVelocity);
+
+            result.SetVelocity(linear, null);
+
+            Assert.IsNotNull(result.robotVelocity);
+            Assert.IsNotNull(result.robotVelocity.linearVelocity);
+            Assert.IsNull(result.robotVelocity.angularVelocity);
+
+            Assert.AreEqual(linear, result.robotVelocity.linearVelocity.ToUnityVector());
+
+            result.SetVelocity(null, angular);
+
+            Assert.IsNotNull(result.robotVelocity);
+            Assert.IsNull(result.robotVelocity.linearVelocity);
+            Assert.IsNotNull(result.robotVelocity.angularVelocity);
+
+            Assert.AreEqual(angular, result.robotVelocity.angularVelocity.ToUnityVector());
+        }
+
+        [Test]
+        public static void SetShapeUpdateInfo()
+        {
+            List<Vector3> vert1 = new List<Vector3>();
+            List<Vector3> vert2 = new List<Vector3>();
+            List<Vector3> vert3 = new List<Vector3>();
+            List<Vector3> vert4 = new List<Vector3>();
+
+            vert1.Add(new Vector3(1, 1, 1));
+            vert2.Add(new Vector3(2, 2, 2));
+            vert3.Add(new Vector3(3, 3, 3));
+            vert4.Add(new Vector3(4, 4, 4));
+
+
+            Shape_ shape1 = MessageBuilder.CreateShape_(1, vert1);
+            Shape_ shape2 = MessageBuilder.CreateShape_(2, vert2);
+            Shape_ shape3 = MessageBuilder.CreateShape_(3, vert3);
+            Shape_ shape4 = MessageBuilder.CreateShape_(4, vert3);
+
+            List<Shape_> changedShapes = new List<Shape_>();
+            List<Shape_> newShapes = new List<Shape_>();
+
+            changedShapes.Add(shape1);
+            changedShapes.Add(shape2);
+            newShapes.Add(shape3);
+            newShapes.Add(shape4);
+
+            Message result = new Message();
+            result.SetShapeUpdateInfo(changedShapes, newShapes);
+
+            Assert.AreEqual(changedShapes.Count, result.shapeUpdateInfo.changedShapes.Count);
+            Assert.AreEqual(newShapes.Count, result.shapeUpdateInfo.newShapes.Count);
+
+            for (int i = 0; i < changedShapes.Count; i++)
+            {
+                Assert.AreEqual(changedShapes[i].id, result.shapeUpdateInfo.changedShapes[i].id);
+                Assert.AreEqual(changedShapes[i].vertices.Count, result.shapeUpdateInfo.changedShapes[i].vertices.Count);
+
+                for (int j = 0; j < changedShapes[i].vertices.Count; j++)
+                {
+                    Assert.AreEqual(changedShapes[i].vertices[j].ToUnityVector(),
+                        result.shapeUpdateInfo.changedShapes[i].vertices[j].ToUnityVector());
+                }
+            }
+
+            for (int i = 0; i < newShapes.Count; i++)
+            {
+                Assert.AreEqual(newShapes[i].id, result.shapeUpdateInfo.newShapes[i].id);
+                Assert.AreEqual(newShapes[i].vertices.Count, result.shapeUpdateInfo.newShapes[i].vertices.Count);
+
+                for (int j = 0; j < newShapes[i].vertices.Count; j++)
+                {
+                    Assert.AreEqual(newShapes[i].vertices[j].ToUnityVector(),
+                        result.shapeUpdateInfo.newShapes[i].vertices[j].ToUnityVector());
                 }
             }
         }

@@ -44,7 +44,7 @@ namespace Communication
         /// </summary>
         /// <param name="errorMsg"></param>
         /// <returns>The created message</returns>
-        public static Error_ CreateError(string errorMsg)
+        public static Error_ CreateError_(string errorMsg)
         {
             Error_ result = new Error_
             {
@@ -204,7 +204,7 @@ namespace Communication
                 throw new ArgumentNullException("errorMsg");
             }
 
-            message.error = CreateError(errorMsg);
+            message.error = CreateError_(errorMsg);
         }
 
         /// <summary>
