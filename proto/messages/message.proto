@@ -19,7 +19,7 @@ enum MessageType_ {
 	// Robot -> Unity
 	IdentificationResponse = 3;
 	LogError = 4;
-	CustomEvent = 5;
+	CustomMessage = 5;
 
 	// Vision -> Unity
 	ShapeUpdate = 6;
