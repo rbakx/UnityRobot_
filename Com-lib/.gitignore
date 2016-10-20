@@ -12,6 +12,8 @@
 *.lastbuildstate
 *.ilk
 
+# Logs
+UnityRobot_CommLib/logs/
 # Temp objects
 *.tmp
 

@@ -98,14 +98,15 @@ void TCPSocketDataLink::StartReading()
 
 		if (buffersize > 0)
 		{
-			std::vector<char> incomingDataString(buffersize);
-			memcpy(incomingDataString.data(), socketBuffer.data(), buffersize);
-
+			//std::vector<char> incomingDataString(buffersize);
+			//memcpy(incomingDataString.data(), socketBuffer.data(), buffersize);
+			std::vector<char> incomingDataString;
+			std::copy(socketBuffer.begin(), socketBuffer.begin() + buffersize, std::back_inserter(incomingDataString));
 			m_receiver->IncomingData(incomingDataString, this);
 		}
 	}
 	
-	std::cout << "end of stream" << std::endl;
+	//std::cout << "end of stream" << std::endl;
 
 	m_Socket.close();
 }
@@ -126,7 +127,7 @@ bool TCPSocketDataLink::SendData(const std::string& data) noexcept
 
 	charVectorArray.reserve(data.length());
 
-	std::cout << data.length() << std::endl;
+	//std::cout << std::to_string(data.length()) << std::endl;
 
 	for (size_t length = 0; length < data.length(); length++)
 	{

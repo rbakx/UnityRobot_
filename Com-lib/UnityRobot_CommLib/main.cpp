@@ -9,6 +9,7 @@ using namespace Networking;
 #include <mutex>
 #include "RobotLogger.h"
 #include <message.pb.h>
+#include "MessageBuilder.h"
 /*
 	Just a temporary class for testing connection with unity
 */
@@ -49,7 +50,10 @@ public:
 	//};
 	void IncomingData(const std::vector<char>& data, IDataLink* dlink) override
 	{
-		
+		receivedData.clear();
+		receivedData.append(data.data(), data.size());
+		//receivedData = std::string(data.data());
+		lock.unlock();
 	}
 
 	void IncomingMessage(const Communication::Message& newMessage, IDataLink* dlink) override
@@ -69,7 +73,7 @@ public:
 		result.push_back((size & 0xFF000000) >> 24);
 		std::copy(msgStr.begin(), msgStr.end(), std::back_inserter(result));
 
-		std::cout << result.data() << std::endl;
+		std::cout << "Size of sent data is: " << result.size() << '\n';
 
 		return result;
 	}
@@ -88,13 +92,15 @@ public:
 	}
 };
 
+using Msg = Communication::Message;
+using MsgBuilder = Networking::MessageBuilder;
 int main(int argc, char** argv)
 {
 	RobotLogger logger;
 	logger.init();
 	GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-	std::string address = argc > 2 ?  argv[1] : "145.93.44.255";
+	std::string address = argc > 2 ?  argv[1] : "145.93.45.7";
 	std::string port = argc > 2 ? argv[2] : "1234";
 
 	//ReceiverSample* _receiver = new ReceiverSample();
@@ -107,39 +113,56 @@ int main(int argc, char** argv)
 
 	if (link.Connected())
 	{
-		Communication::Message toSend;
-		toSend.set_messagetype(Communication::MessageType_::IdentificationResponse);
-		toSend.set_messagetarget(Communication::MessageTarget_::Unity);
-		toSend.set_id(13);
-	
-		auto r = toSend.mutable_stringdata();
-		r->append("stupid_robot");
+		
+		Msg toSend = MsgBuilder::create(Communication::MessageType_::IdentificationResponse, Communication::MessageTarget_::Unity, 13);
+		MsgBuilder::addStringData(toSend, "stupid robot");
+		MsgBuilder::addChangedShape(toSend, 3, { { 5.0, 5.5, 1.0 }, {1.0, 1.5, 1.5} });
+		MsgBuilder::addChangedShape(toSend, 5, { {-5.0, -5.5, -1.0} });
 
-		auto upd = toSend.mutable_shapeupdate();
-		auto ch = upd->add_changedshapes();
-		ch->set_id(3);
-		auto vertex = ch->add_vertices();
-		vertex->set_x(5.0);
-		vertex->set_y(5.5);
-		vertex->set_z(1.0);
+		std::cout << "Send result: " << std::boolalpha << link.SendData(_receiver->MessageToBinaryData(toSend)) << '\n';
 
-		auto vertex2 = ch->add_vertices();
-		vertex2->set_x(1.0);
-		vertex2->set_y(1.5);
-		vertex2->set_z(1.5);
+		_receiver->lock.lock();
 
-		auto upd2 = toSend.mutable_shapeupdate();
-		auto ch2 = upd2->add_changedshapes();
-		ch2->set_id(5);
-		auto vertex3 = ch2->add_vertices();
-		vertex3->set_x(-5.0);
-		vertex3->set_y(-5.5);
-		vertex3->set_z(-1.0);
+		if(_receiver->lock.try_lock_for(std::chrono::milliseconds(4000)))
+		{
+			if(_receiver->receivedData.size())	
+			{	
+				LogInfo(std::string("received " + std::to_string(_receiver->receivedData.size()) + " bytes"));
+				std::vector<char> result;
+				int a = 0;
+				std::copy(_receiver->receivedData.begin(), _receiver->receivedData.end(), std::back_inserter(result));
+				auto msg = _receiver->BinaryDataToMessage(result, a);
 
-		std::cout << link.SendData(_receiver->MessageToBinaryData(toSend)) << '\n';
+				std::cout << "Message received\nSize is: " << msg.ByteSize() << '\n';
+				std::cout << "Target: " << msg.messagetarget() << " type: " << msg.messagetype() << '\n';
+
+				for(int i = 0; i < msg.shapeupdate().changedshapes_size(); i++)
+				{
+					auto shape = msg.shapeupdate().changedshapes().Get(i);
+					std::cout << "id: " << shape.id() << '\n';
+					std::cout << "vertices are " << shape.vertices_size() << '\n';
+					for(int j = 0; j < shape.vertices_size(); j++)
+					{
+						auto vertex = shape.vertices().Get(j);
+						std::cout << "xyz: " << vertex.x() << " " << vertex.y() << " " << vertex.z() << '\n';
+					}
+				}
+
+
+			}
+			else
+			{
+				//std::cout << _receiver->receivedData.size();
+			}
+		}
+		else
+			std::cout << "lock" << _receiver->receivedData.size();
+
+		_receiver->lock.unlock();
 
 	}
 
+	std::cout << "\nPress enter to exit.";
 	std::cin.ignore(1);
 
 	return 0;
