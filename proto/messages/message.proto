@@ -45,7 +45,7 @@ enum MessageType_ {
 
 	// Message type for custom messages/events. This can be used to interact
 	// with robot specific functions.
-	CustomEvent = 5; // This might be two ways
+	CustomMessage = 5; // This might be two ways
 
 	// Vision -> Unity
 	// A notification from vision with all new and changed shapes.
