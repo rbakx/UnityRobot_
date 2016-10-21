@@ -108,7 +108,7 @@ namespace Communication
         /// <param name="angular">Angular velocity</param>
         /// <returns>The created message.</returns>
         public static SetVelocity_ CreateSetVelocity_(
-            UnityEngine.Vector3? linear, UnityEngine.Vector3? angular)
+            Vector3? linear, Vector3? angular)
         {
             SetVelocity_ result = new SetVelocity_();
 
@@ -142,7 +142,7 @@ namespace Communication
         /// </summary>
         /// <param name="vec"></param>
         /// <returns>The created message.</returns>
-        public static Vector3_ CreateVector3_(UnityEngine.Vector3? vec)
+        public static Vector3_ CreateVector3_(Vector3? vec)
         {
             if (vec == null)
             {
@@ -152,13 +152,8 @@ namespace Communication
             return CreateVector3_(vec.Value.x, vec.Value.y, vec.Value.z);
         }
 
-        public static Quaternion_ CreateQuaternion_(UnityEngine.Quaternion quat)
+        public static Quaternion_ CreateQuaternion_(Quaternion quat)
         {
-            if (quat == null)
-            {
-                throw new ArgumentNullException("quat");
-            }
-
             Quaternion_ result = new Quaternion_
             {
                 x = quat.x,
@@ -193,7 +188,7 @@ namespace Communication
         /// <param name="vertices">Vertices that make up the shape</param>
         /// <param name="indices">Indices indicating in which order to draw the vertices</param>
         /// <returns>The created shape</returns>
-        public static Shape_ CreateShape_(Int32 id_, ICollection<UnityEngine.Vector3> vertices,
+        public static Shape_ CreateShape_(Int32 id_, ICollection<Vector3> vertices,
             ICollection<UInt32> indices, UnityEngine.Transform transform = null)
         {
             if (vertices == null)
@@ -362,7 +357,7 @@ namespace Communication
         /// <param name="linear"></param>
         /// <param name="angular"></param>
         public static void SetVelocity(this Message message,
-            UnityEngine.Vector3? linear, UnityEngine.Vector3? angular)
+            Vector3? linear, Vector3? angular)
         {
             if (message == null)
             {
@@ -404,9 +399,9 @@ namespace Communication
         /// </summary>
         /// <param name="vec"></param>
         /// <returns>Unity vector</returns>
-        public static UnityEngine.Vector3 ToUnityVector(this Vector3_ vec)
+        public static Vector3 ToUnityVector(this Vector3_ vec)
         {
-            return new UnityEngine.Vector3(vec.x, vec.y, vec.z);
+            return new Vector3(vec.x, vec.y, vec.z);
         }
     }
 }
