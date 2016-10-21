@@ -41,7 +41,7 @@ bool MediaFeedSender::FeedReading() noexcept
 
 	PushFrameToTarget(frame);
 
-	this_thread::__sleep_for(chrono::seconds(0), chrono::nanoseconds(_fps_capture_frame_delay_ns));
+	this_thread::sleep_for(chrono::nanoseconds(_fps_capture_frame_delay_ns));
 
 	return true;
 }
