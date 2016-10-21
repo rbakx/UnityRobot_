@@ -5,9 +5,9 @@ using System;
 
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
-public class RTMapper : MonoBehaviour
+public class RealtimeMapper : MonoBehaviour
 {
-    public float Height = 2.0f;
+    public float Height = 1.0f;
     public Vector3[] ReceivedData;
 
     private Vector3[] _shiftedVertices;
