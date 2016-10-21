@@ -124,15 +124,13 @@ void TCPSocketDataLink::ReadCallback(const asio::error_code& error, size_t bytes
 bool TCPSocketDataLink::SendData(const std::string& data) noexcept
 {
 	std::vector<char> charVectorArray;
-
 	charVectorArray.reserve(data.length());
+	//for (size_t length = 0; length < data.length(); length++)
+	//{
+	//	charVectorArray.push_back(data[length]);
+	//}
 
-	//std::cout << std::to_string(data.length()) << std::endl;
-
-	for (size_t length = 0; length < data.length(); length++)
-	{
-		charVectorArray.push_back(data[length]);
-	}
+	std::copy(data.begin(), data.end(), std::back_inserter(charVectorArray));
 
 	return SendData(charVectorArray);
 }
