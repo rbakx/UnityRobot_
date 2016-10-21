@@ -33,7 +33,7 @@ After you installed the packages, add the `bin` folder inside your installation 
 
 Now we will install CMake, [which is easy as cake](https://cmake.org/install/).
 
-Next, we have to install OpenCV. As we will **not** be using Visual Studio for this, we need to build the OpenCV source by ourselves. [This](http://docs.opencv.org/2.4/doc/tutorials/introduction/windows_install/windows_install.html) tutorial guides you through it. It's recommended by me to let it extract somewhere where you can find it easily, such as in `C:\opencv`. Then, browse via the command line to the `sources` folder and type:
+Next, we have to install OpenCV. As we will **not** be using Visual Studio for this, we need to build the OpenCV source by ourselves. [This tutorial](http://docs.opencv.org/2.4/doc/tutorials/introduction/windows_install/windows_install.html#cpptutwindowsmakeown) guides you through it. It's recommended by me to let it extract somewhere where you can find it easily, such as in `C:\opencv`. Then, browse via the command line to the `sources` folder and type:
 ```bash
   cmake -G "MinGW Makefiles"
 ```
