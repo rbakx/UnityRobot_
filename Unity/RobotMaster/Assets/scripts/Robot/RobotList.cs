@@ -40,9 +40,13 @@ public class RobotList : MonoBehaviour
 
     public void Add(Robot robot)
     {
-        if(!_robots.Contains(robot))
+        if(robot != null && !_robots.Contains(robot))
         {
             _robots.Add(robot);
+
+            // The little hacking that could
+            //TODO: remove
+            robot.SetLinearVelocity(new Vector3(10.0F, 0.0F, 0.0F));
         }
     }
 

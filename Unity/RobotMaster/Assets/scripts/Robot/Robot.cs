@@ -39,7 +39,7 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
         transform.Translate(_velocity * Time.deltaTime);
     }
 
-    public void Init(Communicator communicator, int id, string name = "", string type = "")
+    public void Init(Communicator communicator, uint id, string name = "", string type = "")
     {
         _communicator = communicator;
         _name = name;
