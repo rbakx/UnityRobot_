@@ -1,0 +1,4 @@
+# Hashes of file build rules.
+011a257f591bae291bc9d907d29ccd1d message.pb.cc
+ea65a817def8fbc7fac54235d691bef0 messages.pb.cc
+699a3c48c45fa680453350a2d27e8c99 transform.pb.cc

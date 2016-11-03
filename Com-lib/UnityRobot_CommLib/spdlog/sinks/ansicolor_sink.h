@@ -5,8 +5,8 @@
 
 #pragma once
 
-#include <spdlog/sinks/base_sink.h>
-#include <spdlog/common.h>
+#include "sinks/base_sink.h"
+#include "common.h"
 
 #include <string>
 #include <map>
@@ -113,4 +113,3 @@ inline ansicolor_sink::~ansicolor_sink()
 
 } // namespace sinks
 } // namespace spdlog
-

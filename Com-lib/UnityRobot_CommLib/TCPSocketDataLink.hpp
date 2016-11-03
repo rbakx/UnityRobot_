@@ -1,6 +1,6 @@
 #pragma once
 
-#define ASIO_STANDALONE 
+//#define ASIO_STANDALONE
 #define ASIO_HAS_STD_CHRONO
 #define ASIO_HAS_STD_ADDRESSOF
 #define ASIO_HAS_STD_ARRAY
@@ -15,8 +15,8 @@
 #include <asio/io_service.hpp>
 #include <asio/ip/tcp.hpp>
 
-#include <IDataLink.hpp>
-#include <IDataStreamReceiver.hpp>
+#include "IDataLink.hpp"
+#include "IDataStreamReceiver.hpp"
 
 namespace UnityRobot
 {

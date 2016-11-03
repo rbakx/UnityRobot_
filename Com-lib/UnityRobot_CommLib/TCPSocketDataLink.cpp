@@ -1,4 +1,4 @@
-#include <TCPSocketDataLink.hpp>
+#include "TCPSocketDataLink.hpp"
 
 #include <asio/impl/connect.hpp>
 #include <asio/impl/write.hpp>
@@ -105,7 +105,7 @@ void TCPSocketDataLink::StartReading()
 			m_receiver->IncomingData(incomingDataString, this);
 		}
 	}
-	
+
 	//std::cout << "end of stream" << std::endl;
 
 	m_Socket.close();
@@ -115,7 +115,7 @@ void TCPSocketDataLink::ReadCallback(const asio::error_code& error, size_t bytes
 {
 	if(error)
 	{
-		
+
 		//logstuff
 		return;
 	}

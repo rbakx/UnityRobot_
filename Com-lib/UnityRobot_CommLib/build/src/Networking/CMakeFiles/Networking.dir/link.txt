@@ -1,0 +1,2 @@
+/usr/bin/ar qc libNetworking.a  
+/usr/bin/ranlib libNetworking.a

@@ -1,6 +1,6 @@
-#include <TCPSocketDataLink.hpp>
-#include <IDataStreamReceiver.hpp>
-#include <IPresentationProtocol.hpp>
+#include "TCPSocketDataLink.hpp"
+#include "IDataStreamReceiver.hpp"
+#include "IPresentationProtocol.hpp"
 using namespace UnityRobot;
 using namespace Networking;
 
@@ -25,7 +25,7 @@ public:
 	void IncomingData(const std::vector<char>& data, IDataLink* ) override
 	{
 		std::cout << "incoming!" << std::endl;
-		
+
 		receivedData.clear();
 		receivedData.append(data.data(), data.size());
 		lock.unlock();
@@ -58,7 +58,7 @@ public:
 
 	void IncomingMessage(const Communication::Message& newMessage, IDataLink* dlink) override
 	{
-		
+
 	}
 
 	std::vector<char> MessageToBinaryData(const Communication::Message& message) const noexcept override
@@ -100,7 +100,7 @@ int main(int argc, char** argv)
 	logger.init();
 	GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-	std::string address = argc > 2 ?  argv[1] : "145.93.45.7";
+	std::string address = argc > 2 ?  argv[1] : "145.93.119.1";
 	std::string port = argc > 2 ? argv[2] : "1234";
 
 	//ReceiverSample* _receiver = new ReceiverSample();
@@ -113,7 +113,7 @@ int main(int argc, char** argv)
 
 	if (link.Connected())
 	{
-		
+
 		Msg toSend = MsgBuilder::create(Communication::MessageType_::IdentificationResponse, Communication::MessageTarget_::Unity, 13);
 		MsgBuilder::addStringData(toSend, "stupid robot");
 		MsgBuilder::addChangedShape(toSend, 3, { { 5.0, 5.5, 1.0 }, {1.0, 1.5, 1.5} });
@@ -125,8 +125,8 @@ int main(int argc, char** argv)
 
 		if(_receiver->lock.try_lock_for(std::chrono::milliseconds(4000)))
 		{
-			if(_receiver->receivedData.size())	
-			{	
+			if(_receiver->receivedData.size())
+			{
 				LogInfo(std::string("received " + std::to_string(_receiver->receivedData.size()) + " bytes"));
 				std::vector<char> result;
 				int a = 0;
@@ -136,9 +136,9 @@ int main(int argc, char** argv)
 				std::cout << "Message received\nSize is: " << msg.ByteSize() << '\n';
 				std::cout << "Target: " << msg.messagetarget() << " type: " << msg.messagetype() << '\n';
 
-				for(int i = 0; i < msg.shapeupdate().changedshapes_size(); i++)
+				for(int i = 0; i < msg.shapeupdateinfo().changedshapes_size(); i++)
 				{
-					auto shape = msg.shapeupdate().changedshapes().Get(i);
+					auto shape = msg.shapeupdateinfo().changedshapes().Get(i);
 					std::cout << "id: " << shape.id() << '\n';
 					std::cout << "vertices are " << shape.vertices_size() << '\n';
 					for(int j = 0; j < shape.vertices_size(); j++)
