@@ -3,119 +3,85 @@ using System.Collections.Generic;
 
 public class Triangulator
 {
-    private List<Vector2> m_points = new List<Vector2>();
+    /// 
 
-    public Triangulator(Vector2[] points)
+    public static void GenerateSurfaceTriangles(Vector3[] points, out Vector3[] vertices, out int[] triangles)
     {
-        m_points = new List<Vector2>(points);
+        vertices = null;
+        triangles = null;
+
+        if (points == null || points.Length < 3)
+        {
+            Debug.Log("Define 2D polygon in 'poly' in the the Inspector");
+            return;
+        }
+
+        Vector3 center = FindCenter(points);
+
+        vertices = new Vector3[points.Length + 1];
+        vertices[0] = Vector3.zero;
+
+        for (int i = 0; i < points.Length; i++)
+        {
+            vertices[i + 1] = points[i] - center;
+
+            Debug.Log(points[i]);
+        }
+
+        triangles = new int[points.Length * 3];
+
+        for (int i = 0; i < points.Length - 1; i++)
+        {
+            triangles[i * 3] = i + 2;
+            triangles[i * 3 + 1] = 0;
+            triangles[i * 3 + 2] = i + 1;
+        }
+
+        triangles[(points.Length - 1) * 3] = 1;
+        triangles[(points.Length - 1) * 3 + 1] = 0;
+        triangles[(points.Length - 1) * 3 + 2] = points.Length;
     }
 
-    public int[] Triangulate()
+    public static Vector3 FindCenter(Vector3[] points)
     {
-        List<int> indices = new List<int>();
-
-        int n = m_points.Count;
-        if (n < 3)
-            return indices.ToArray();
-
-        int[] V = new int[n];
-        if (Area() > 0)
+        Vector3 center = Vector3.zero;
+        foreach (Vector3 v3 in points)
         {
-            for (int v = 0; v < n; v++)
-                V[v] = v;
+            center += v3;
         }
-        else
-        {
-            for (int v = 0; v < n; v++)
-                V[v] = (n - 1) - v;
-        }
-
-        int nv = n;
-        int count = 2 * nv;
-        for (int m = 0, v = nv - 1; nv > 2;)
-        {
-            if ((count--) <= 0)
-                return indices.ToArray();
-
-            int u = v;
-            if (nv <= u)
-                u = 0;
-            v = u + 1;
-            if (nv <= v)
-                v = 0;
-            int w = v + 1;
-            if (nv <= w)
-                w = 0;
-
-            if (Snip(u, v, w, nv, V))
-            {
-                int a, b, c, s, t;
-                a = V[u];
-                b = V[v];
-                c = V[w];
-                indices.Add(a);
-                indices.Add(b);
-                indices.Add(c);
-                m++;
-                for (s = v, t = v + 1; t < nv; s++, t++)
-                    V[s] = V[t];
-                nv--;
-                count = 2 * nv;
-            }
-        }
-
-        indices.Reverse();
-        return indices.ToArray();
+        return center / points.Length;
     }
 
-    private float Area()
+    public static Vector2[] BuildUVs(Vector3[] vertices)
     {
-        int n = m_points.Count;
-        float A = 0.0f;
-        for (int p = n - 1, q = 0; q < n; p = q++)
+
+        float xMin = Mathf.Infinity;
+        float yMin = Mathf.Infinity;
+        float xMax = -Mathf.Infinity;
+        float yMax = -Mathf.Infinity;
+
+        foreach (Vector3 v3 in vertices)
         {
-            Vector2 pval = m_points[p];
-            Vector2 qval = m_points[q];
-            A += pval.x * qval.y - qval.x * pval.y;
+            if (v3.x < xMin)
+                xMin = v3.x;
+            if (v3.y < yMin)
+                yMin = v3.y;
+            if (v3.x > xMax)
+                xMax = v3.x;
+            if (v3.y > yMax)
+                yMax = v3.y;
         }
-        return (A * 0.5f);
-    }
 
-    private bool Snip(int u, int v, int w, int n, int[] V)
-    {
-        int p;
-        Vector2 A = m_points[V[u]];
-        Vector2 B = m_points[V[v]];
-        Vector2 C = m_points[V[w]];
-        if (Mathf.Epsilon > (((B.x - A.x) * (C.y - A.y)) - ((B.y - A.y) * (C.x - A.x))))
-            return false;
-        for (p = 0; p < n; p++)
+        float xRange = xMax - xMin;
+        float yRange = yMax - yMin;
+
+        Vector2[] uvs = new Vector2[vertices.Length];
+        for (int i = 0; i < vertices.Length; i++)
         {
-            if ((p == u) || (p == v) || (p == w))
-                continue;
-            Vector2 P = m_points[V[p]];
-            if (InsideTriangle(A, B, C, P))
-                return false;
+            uvs[i].x = (vertices[i].x - xMin) / xRange;
+            uvs[i].y = (vertices[i].y - yMin) / yRange;
+
         }
-        return true;
-    }
-
-    private bool InsideTriangle(Vector2 A, Vector2 B, Vector2 C, Vector2 P)
-    {
-        float ax, ay, bx, by, cx, cy, apx, apy, bpx, bpy, cpx, cpy;
-        float cCROSSap, bCROSScp, aCROSSbp;
-
-        ax = C.x - B.x; ay = C.y - B.y;
-        bx = A.x - C.x; by = A.y - C.y;
-        cx = B.x - A.x; cy = B.y - A.y;
-        apx = P.x - A.x; apy = P.y - A.y;
-        bpx = P.x - B.x; bpy = P.y - B.y;
-        cpx = P.x - C.x; cpy = P.y - C.y;
-
-        aCROSSbp = ax * bpy - ay * bpx;
-        cCROSSap = cx * apy - cy * apx;
-        bCROSScp = bx * cpy - by * cpx;
-
-        return ((aCROSSbp >= 0.0f) && (bCROSScp >= 0.0f) && (cCROSSap >= 0.0f));
+        return uvs;
     }
 }
