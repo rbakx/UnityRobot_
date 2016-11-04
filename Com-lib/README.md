@@ -19,6 +19,7 @@ We will assume you are capable enough to install Visual Studio and/or CMake.
 The project was written for cross-platform compilation, so you have a choice!
 ###### Windows
 To install the Google Test Framework, follow these steps:
+
 1.  Download the Google Test framework archive
 2.  Extract to `C:\gtest`
 3.  Build the Framework Libraries
@@ -27,6 +28,7 @@ To install the Google Test Framework, follow these steps:
 6.  Build Solution
 
 We will now install Asio:
+
 1.  Download the Asio archive
 2.  Extract it in, for example, `C:\asio`
 3.  Now [create the user environment variable](http://www.computerhope.com/issues/ch000549.htm) `ASIO_DIR` and point to the `C:\asio\include` folder
@@ -34,6 +36,7 @@ We will now install Asio:
 
 ###### Linux
 To install the Google Test Framework, follow these steps:
+
 1.  Download the Google Test Framework archive
 2.  Extract it anywhere you want
 3.  Run `sudo apt-get install autoconf automake libtool curl make g++ unzip` to install the required tools
@@ -41,6 +44,7 @@ To install the Google Test Framework, follow these steps:
 4.  Run `make` and afterwards run `sudo make install`
 
 We will now install Asio:
+
 1.  Download the Asio archive
 2.  Extract it anywhere you want
 3.  Run `./configure` in this folder
