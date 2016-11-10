@@ -9,10 +9,10 @@ public class DebugPointsToModelBuilder : MonoBehaviour
     public List<Vector2> surface;
     public bool UpdateModel = false;
 
-    void Update()
-    {
-        StartCoroutine("CheckForUpdateModel");
-    }
+	void Start()
+	{
+		StartCoroutine("CheckForUpdateModel");
+	}
 
     IEnumerator CheckForUpdateModel()
     {

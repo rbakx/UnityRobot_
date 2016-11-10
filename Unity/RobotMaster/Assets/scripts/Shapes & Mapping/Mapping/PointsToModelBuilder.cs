@@ -10,6 +10,12 @@ public class PointsToModelBuilder : MonoBehaviour
     public float Height = 1.0f;
 
     private Mesh _mesh;
+	private MeshFilter _meshFilter;
+
+	void Awake()
+	{
+		_meshFilter = GetComponent<MeshFilter>();
+	}
 
     void Start()
     {
@@ -30,6 +36,7 @@ public class PointsToModelBuilder : MonoBehaviour
 
         ApplyMesh(_vertices, _uvs, _triangles);
     }
+
     /*
         ShiftPlane converts a 3d surface to a 3D object with a defined height
     */
@@ -103,15 +110,14 @@ public class PointsToModelBuilder : MonoBehaviour
     private void CreateMesh()
     {
         _mesh = new Mesh();
-        MeshFilter mf = GetComponent<MeshFilter>();
 
-        if (mf == null)//Will never happen with requiredcomponent
+		if (_meshFilter== null)//Will never happen with requiredcomponent
         {
             Debug.LogWarning("A mesh filter is required");
             return;
         }
         _mesh.name = "Generated mesh";
-        mf.mesh = _mesh;
+		_meshFilter.mesh = _mesh;
 
         MeshRenderer mr = GetComponent<MeshRenderer>();
 
@@ -124,11 +130,16 @@ public class PointsToModelBuilder : MonoBehaviour
 
     private void ApplyMesh(Vector3[] vertices, Vector2[] uv_mapping_surface, int[] triangles)
     {
+		_mesh.triangles = null;
+		_mesh.vertices = null;
+
         _mesh.vertices = vertices;
-        _mesh.triangles = triangles;
+		_mesh.triangles = triangles;
         //_mesh.uv = uv_mapping_surface;
 
-        _mesh.RecalculateNormals();
-        _mesh.RecalculateBounds();
+		_mesh.RecalculateNormals();
+		_mesh.RecalculateBounds();
+
+		_meshFilter.mesh = _mesh;
     }
 }

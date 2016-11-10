@@ -24,8 +24,6 @@ public class Triangulator
         for (int i = 0; i < points.Length; i++)
         {
             vertices[i + 1] = points[i] - center;
-
-            Debug.Log(points[i]);
         }
 
         triangles = new int[points.Length * 3];
