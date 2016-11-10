@@ -8,13 +8,21 @@ using System;
 public class PointsToModelBuilder : MonoBehaviour
 {
     public float Height = 1.0f;
+	public Material MeshMaterial;
 
     private Mesh _mesh;
 	private MeshFilter _meshFilter;
+	private MeshRenderer _meshRenderer;
+	private MeshCollider _meshCollider;
 
 	void Awake()
 	{
 		_meshFilter = GetComponent<MeshFilter>();
+		_meshRenderer = GetComponent<MeshRenderer>();
+
+		_meshCollider = gameObject.AddComponent<MeshCollider>();
+
+		_meshRenderer.material = MeshMaterial;
 	}
 
     void Start()
@@ -141,5 +149,6 @@ public class PointsToModelBuilder : MonoBehaviour
 		_mesh.RecalculateBounds();
 
 		_meshFilter.mesh = _mesh;
+		_meshCollider.sharedMesh = _mesh;
     }
 }
