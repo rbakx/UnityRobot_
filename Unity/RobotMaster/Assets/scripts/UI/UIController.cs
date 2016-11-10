@@ -18,8 +18,8 @@ public class UIController : MonoBehaviour
 
     public void TogglePanel(GameObject panel)
     {
-        panel.SetActive(!panel.active);
-        if (panel.active)
+		panel.SetActive(!panel.activeSelf);
+        if (panel.activeSelf)
         {
             MenuButton.GetComponentInChildren<Text>().text = "Close Command Menu";
         }

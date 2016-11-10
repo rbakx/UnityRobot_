@@ -49,8 +49,6 @@ public class DebugPointsToModelBuilder : MonoBehaviour
         surface.Add(new Vector2(4.5f, 0));
         surface.Add(new Vector2(3,-1));
         surface.Add(new Vector2(1.5f, 0));
-
-        Debug.Log("Number of vertices:" + surface.Count);
         UpdateModel = true;
     }
 
@@ -67,8 +65,6 @@ public class DebugPointsToModelBuilder : MonoBehaviour
         surface.Add(new Vector2(3, 1));
         surface.Add(new Vector2(1.5f, 0));
         surface.Add(new Vector2(2, 2));
-
-        Debug.Log("Number of vertices:" + surface.Count);
 
         UpdateModel = true;
     }
