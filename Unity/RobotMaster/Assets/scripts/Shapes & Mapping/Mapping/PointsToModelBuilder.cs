@@ -95,8 +95,6 @@ public class PointsToModelBuilder : MonoBehaviour
 
     private void CalculateSurfaceTriangles(Vector3[] points, out Vector3[] vertices, out int[] triangles, out Vector2[] UVs)
     {
-        Vector2[] p = new Vector2[1];
-
         Triangulator.GenerateSurfaceTriangles(points, out vertices, out triangles);
         UVs = Triangulator.BuildUVs(vertices);
     }
