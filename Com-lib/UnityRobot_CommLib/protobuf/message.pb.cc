@@ -46,7 +46,7 @@ void protobuf_AssignDesc_message_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Message, identificationresponse_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Message, error_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Message, custommessage_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Message, shapeupdate_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Message, shapeupdateinfo_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Message, stringdata_),
   };
   Message_reflection_ =
@@ -96,7 +96,7 @@ void protobuf_AddDesc_message_2eproto() {
   ::Communication::Messages::protobuf_AddDesc_messages_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\rmessage.proto\022\rCommunication\032\016messages"
-    ".proto\"\314\003\n\007Message\022\n\n\002id\030\001 \002(\005\0224\n\rmessag"
+    ".proto\"\320\003\n\007Message\022\n\n\002id\030\001 \002(\005\0224\n\rmessag"
     "eTarget\030\002 \002(\0162\035.Communication.MessageTar"
     "get_\0220\n\013messageType\030\003 \002(\0162\033.Communicatio"
     "n.MessageType_\022;\n\rrobotVelocity\030\004 \001(\0132$."
@@ -105,14 +105,15 @@ void protobuf_AddDesc_message_2eproto() {
     "ion.Messages.IdentificationResponse_\022-\n\005"
     "error\030\006 \001(\0132\036.Communication.Messages.Err"
     "or_\022=\n\rcustomMessage\030\007 \001(\0132&.Communicati"
-    "on.Messages.CustomMessage_\022=\n\013shapeUpdat"
-    "e\030\010 \001(\0132(.Communication.Messages.ShapeUp"
-    "dateInfo_\022\022\n\nstringData\030\t \001(\t*2\n\016Message"
-    "Target_\022\t\n\005Robot\020\000\022\t\n\005Unity\020\001\022\n\n\006Vision\020"
-    "\002*\227\001\n\014MessageType_\022\031\n\025IdentificationRequ"
-    "est\020\000\022\022\n\016VelocityChange\020\001\022\014\n\010Indicate\020\002\022"
-    "\032\n\026IdentificationResponse\020\003\022\014\n\010LogError\020"
-    "\004\022\017\n\013CustomEvent\020\005\022\017\n\013ShapeUpdate\020\006", 715);
+    "on.Messages.CustomMessage_\022A\n\017shapeUpdat"
+    "eInfo\030\010 \001(\0132(.Communication.Messages.Sha"
+    "peUpdateInfo_\022\022\n\nstringData\030\t \001(\t*2\n\016Mes"
+    "sageTarget_\022\t\n\005Robot\020\000\022\t\n\005Unity\020\001\022\n\n\006Vis"
+    "ion\020\002*\231\001\n\014MessageType_\022\031\n\025Identification"
+    "Request\020\000\022\022\n\016VelocityChange\020\001\022\014\n\010Indicat"
+    "e\020\002\022\032\n\026IdentificationResponse\020\003\022\014\n\010LogEr"
+    "ror\020\004\022\021\n\rCustomMessage\020\005\022\017\n\013ShapeUpdate\020"
+    "\006", 721);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "message.proto", &protobuf_RegisterTypes);
   Message::default_instance_ = new Message();
@@ -171,7 +172,7 @@ const int Message::kRobotVelocityFieldNumber;
 const int Message::kIdentificationResponseFieldNumber;
 const int Message::kErrorFieldNumber;
 const int Message::kCustomMessageFieldNumber;
-const int Message::kShapeUpdateFieldNumber;
+const int Message::kShapeUpdateInfoFieldNumber;
 const int Message::kStringDataFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -186,7 +187,7 @@ void Message::InitAsDefaultInstance() {
   identificationresponse_ = const_cast< ::Communication::Messages::IdentificationResponse_*>(&::Communication::Messages::IdentificationResponse_::default_instance());
   error_ = const_cast< ::Communication::Messages::Error_*>(&::Communication::Messages::Error_::default_instance());
   custommessage_ = const_cast< ::Communication::Messages::CustomMessage_*>(&::Communication::Messages::CustomMessage_::default_instance());
-  shapeupdate_ = const_cast< ::Communication::Messages::ShapeUpdateInfo_*>(&::Communication::Messages::ShapeUpdateInfo_::default_instance());
+  shapeupdateinfo_ = const_cast< ::Communication::Messages::ShapeUpdateInfo_*>(&::Communication::Messages::ShapeUpdateInfo_::default_instance());
 }
 
 Message::Message(const Message& from)
@@ -207,7 +208,7 @@ void Message::SharedCtor() {
   identificationresponse_ = NULL;
   error_ = NULL;
   custommessage_ = NULL;
-  shapeupdate_ = NULL;
+  shapeupdateinfo_ = NULL;
   stringdata_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -224,7 +225,7 @@ void Message::SharedDtor() {
     delete identificationresponse_;
     delete error_;
     delete custommessage_;
-    delete shapeupdate_;
+    delete shapeupdateinfo_;
   }
 }
 
@@ -286,8 +287,8 @@ void Message::Clear() {
     if (has_custommessage()) {
       if (custommessage_ != NULL) custommessage_->::Communication::Messages::CustomMessage_::Clear();
     }
-    if (has_shapeupdate()) {
-      if (shapeupdate_ != NULL) shapeupdate_->::Communication::Messages::ShapeUpdateInfo_::Clear();
+    if (has_shapeupdateinfo()) {
+      if (shapeupdateinfo_ != NULL) shapeupdateinfo_->::Communication::Messages::ShapeUpdateInfo_::Clear();
     }
   }
   if (has_stringdata()) {
@@ -415,16 +416,16 @@ bool Message::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(66)) goto parse_shapeUpdate;
+        if (input->ExpectTag(66)) goto parse_shapeUpdateInfo;
         break;
       }
 
-      // optional .Communication.Messages.ShapeUpdateInfo_ shapeUpdate = 8;
+      // optional .Communication.Messages.ShapeUpdateInfo_ shapeUpdateInfo = 8;
       case 8: {
         if (tag == 66) {
-         parse_shapeUpdate:
+         parse_shapeUpdateInfo:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_shapeupdate()));
+               input, mutable_shapeupdateinfo()));
         } else {
           goto handle_unusual;
         }
@@ -515,10 +516,10 @@ void Message::SerializeWithCachedSizes(
       7, *this->custommessage_, output);
   }
 
-  // optional .Communication.Messages.ShapeUpdateInfo_ shapeUpdate = 8;
-  if (has_shapeupdate()) {
+  // optional .Communication.Messages.ShapeUpdateInfo_ shapeUpdateInfo = 8;
+  if (has_shapeupdateinfo()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      8, *this->shapeupdate_, output);
+      8, *this->shapeupdateinfo_, output);
   }
 
   // optional string stringData = 9;
@@ -587,11 +588,11 @@ void Message::SerializeWithCachedSizes(
         7, *this->custommessage_, false, target);
   }
 
-  // optional .Communication.Messages.ShapeUpdateInfo_ shapeUpdate = 8;
-  if (has_shapeupdate()) {
+  // optional .Communication.Messages.ShapeUpdateInfo_ shapeUpdateInfo = 8;
+  if (has_shapeupdateinfo()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        8, *this->shapeupdate_, false, target);
+        8, *this->shapeupdateinfo_, false, target);
   }
 
   // optional string stringData = 9;
@@ -688,11 +689,11 @@ int Message::ByteSize() const {
           *this->custommessage_);
     }
 
-    // optional .Communication.Messages.ShapeUpdateInfo_ shapeUpdate = 8;
-    if (has_shapeupdate()) {
+    // optional .Communication.Messages.ShapeUpdateInfo_ shapeUpdateInfo = 8;
+    if (has_shapeupdateinfo()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          *this->shapeupdate_);
+          *this->shapeupdateinfo_);
     }
 
   }
@@ -758,8 +759,8 @@ void Message::MergeFrom(const Message& from) {
     if (from.has_custommessage()) {
       mutable_custommessage()->::Communication::Messages::CustomMessage_::MergeFrom(from.custommessage());
     }
-    if (from.has_shapeupdate()) {
-      mutable_shapeupdate()->::Communication::Messages::ShapeUpdateInfo_::MergeFrom(from.shapeupdate());
+    if (from.has_shapeupdateinfo()) {
+      mutable_shapeupdateinfo()->::Communication::Messages::ShapeUpdateInfo_::MergeFrom(from.shapeupdateinfo());
     }
   }
   if (from._has_bits_[8 / 32] & (0xffu << (8 % 32))) {
@@ -802,8 +803,8 @@ bool Message::IsInitialized() const {
   if (has_custommessage()) {
     if (!this->custommessage_->IsInitialized()) return false;
   }
-  if (has_shapeupdate()) {
-    if (!this->shapeupdate_->IsInitialized()) return false;
+  if (has_shapeupdateinfo()) {
+    if (!this->shapeupdateinfo_->IsInitialized()) return false;
   }
   return true;
 }
@@ -820,7 +821,7 @@ void Message::InternalSwap(Message* other) {
   std::swap(identificationresponse_, other->identificationresponse_);
   std::swap(error_, other->error_);
   std::swap(custommessage_, other->custommessage_);
-  std::swap(shapeupdate_, other->shapeupdate_);
+  std::swap(shapeupdateinfo_, other->shapeupdateinfo_);
   stringdata_.Swap(&other->stringdata_);
   std::swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
@@ -1088,48 +1089,48 @@ void Message::set_allocated_custommessage(::Communication::Messages::CustomMessa
   // @@protoc_insertion_point(field_set_allocated:Communication.Message.customMessage)
 }
 
-// optional .Communication.Messages.ShapeUpdateInfo_ shapeUpdate = 8;
-bool Message::has_shapeupdate() const {
+// optional .Communication.Messages.ShapeUpdateInfo_ shapeUpdateInfo = 8;
+bool Message::has_shapeupdateinfo() const {
   return (_has_bits_[0] & 0x00000080u) != 0;
 }
-void Message::set_has_shapeupdate() {
+void Message::set_has_shapeupdateinfo() {
   _has_bits_[0] |= 0x00000080u;
 }
-void Message::clear_has_shapeupdate() {
+void Message::clear_has_shapeupdateinfo() {
   _has_bits_[0] &= ~0x00000080u;
 }
-void Message::clear_shapeupdate() {
-  if (shapeupdate_ != NULL) shapeupdate_->::Communication::Messages::ShapeUpdateInfo_::Clear();
-  clear_has_shapeupdate();
+void Message::clear_shapeupdateinfo() {
+  if (shapeupdateinfo_ != NULL) shapeupdateinfo_->::Communication::Messages::ShapeUpdateInfo_::Clear();
+  clear_has_shapeupdateinfo();
 }
-const ::Communication::Messages::ShapeUpdateInfo_& Message::shapeupdate() const {
-  // @@protoc_insertion_point(field_get:Communication.Message.shapeUpdate)
-  return shapeupdate_ != NULL ? *shapeupdate_ : *default_instance_->shapeupdate_;
+const ::Communication::Messages::ShapeUpdateInfo_& Message::shapeupdateinfo() const {
+  // @@protoc_insertion_point(field_get:Communication.Message.shapeUpdateInfo)
+  return shapeupdateinfo_ != NULL ? *shapeupdateinfo_ : *default_instance_->shapeupdateinfo_;
 }
-::Communication::Messages::ShapeUpdateInfo_* Message::mutable_shapeupdate() {
-  set_has_shapeupdate();
-  if (shapeupdate_ == NULL) {
-    shapeupdate_ = new ::Communication::Messages::ShapeUpdateInfo_;
+::Communication::Messages::ShapeUpdateInfo_* Message::mutable_shapeupdateinfo() {
+  set_has_shapeupdateinfo();
+  if (shapeupdateinfo_ == NULL) {
+    shapeupdateinfo_ = new ::Communication::Messages::ShapeUpdateInfo_;
   }
-  // @@protoc_insertion_point(field_mutable:Communication.Message.shapeUpdate)
-  return shapeupdate_;
+  // @@protoc_insertion_point(field_mutable:Communication.Message.shapeUpdateInfo)
+  return shapeupdateinfo_;
 }
-::Communication::Messages::ShapeUpdateInfo_* Message::release_shapeupdate() {
-  // @@protoc_insertion_point(field_release:Communication.Message.shapeUpdate)
-  clear_has_shapeupdate();
-  ::Communication::Messages::ShapeUpdateInfo_* temp = shapeupdate_;
-  shapeupdate_ = NULL;
+::Communication::Messages::ShapeUpdateInfo_* Message::release_shapeupdateinfo() {
+  // @@protoc_insertion_point(field_release:Communication.Message.shapeUpdateInfo)
+  clear_has_shapeupdateinfo();
+  ::Communication::Messages::ShapeUpdateInfo_* temp = shapeupdateinfo_;
+  shapeupdateinfo_ = NULL;
   return temp;
 }
-void Message::set_allocated_shapeupdate(::Communication::Messages::ShapeUpdateInfo_* shapeupdate) {
-  delete shapeupdate_;
-  shapeupdate_ = shapeupdate;
-  if (shapeupdate) {
-    set_has_shapeupdate();
+void Message::set_allocated_shapeupdateinfo(::Communication::Messages::ShapeUpdateInfo_* shapeupdateinfo) {
+  delete shapeupdateinfo_;
+  shapeupdateinfo_ = shapeupdateinfo;
+  if (shapeupdateinfo) {
+    set_has_shapeupdateinfo();
   } else {
-    clear_has_shapeupdate();
+    clear_has_shapeupdateinfo();
   }
-  // @@protoc_insertion_point(field_set_allocated:Communication.Message.shapeUpdate)
+  // @@protoc_insertion_point(field_set_allocated:Communication.Message.shapeUpdateInfo)
 }
 
 // optional string stringData = 9;

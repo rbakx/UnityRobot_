@@ -130,9 +130,11 @@ void protobuf_AssignDesc_messages_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ShapeUpdateInfo_, _internal_metadata_),
       -1);
   Shape__descriptor_ = file->message_type(5);
-  static const int Shape__offsets_[2] = {
+  static const int Shape__offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Shape_, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Shape_, vertices_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Shape_, indices_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Shape_, transform_),
   };
   Shape__reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -208,9 +210,11 @@ void protobuf_AddDesc_messages_2eproto() {
     "age_\022\013\n\003key\030\001 \002(\t\022\014\n\004data\030\002 \001(\t\"|\n\020Shape"
     "UpdateInfo_\0225\n\rchangedShapes\030\001 \003(\0132\036.Com"
     "munication.Messages.Shape_\0221\n\tnewShapes\030"
-    "\002 \003(\0132\036.Communication.Messages.Shape_\"I\n"
-    "\006Shape_\022\n\n\002id\030\001 \002(\005\0223\n\010vertices\030\002 \003(\0132!."
-    "Communication.Transform.Vector3_", 512);
+    "\002 \003(\0132\036.Communication.Messages.Shape_\"\222\001"
+    "\n\006Shape_\022\n\n\002id\030\001 \002(\005\0223\n\010vertices\030\002 \003(\0132!"
+    ".Communication.Transform.Vector3_\022\017\n\007ind"
+    "ices\030\003 \003(\r\0226\n\ttransform\030\004 \001(\0132#.Communic"
+    "ation.Transform.Transform_", 586);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "messages.proto", &protobuf_RegisterTypes);
   SetVelocity_::default_instance_ = new SetVelocity_();
@@ -2059,6 +2063,8 @@ ShapeUpdateInfo_::newshapes() const {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Shape_::kIdFieldNumber;
 const int Shape_::kVerticesFieldNumber;
+const int Shape_::kIndicesFieldNumber;
+const int Shape_::kTransformFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 Shape_::Shape_()
@@ -2068,6 +2074,7 @@ Shape_::Shape_()
 }
 
 void Shape_::InitAsDefaultInstance() {
+  transform_ = const_cast< ::Communication::Transform::Transform_*>(&::Communication::Transform::Transform_::default_instance());
 }
 
 Shape_::Shape_(const Shape_& from)
@@ -2081,6 +2088,7 @@ Shape_::Shape_(const Shape_& from)
 void Shape_::SharedCtor() {
   _cached_size_ = 0;
   id_ = 0;
+  transform_ = NULL;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -2091,6 +2099,7 @@ Shape_::~Shape_() {
 
 void Shape_::SharedDtor() {
   if (this != default_instance_) {
+    delete transform_;
   }
 }
 
@@ -2121,8 +2130,14 @@ Shape_* Shape_::New(::google::protobuf::Arena* arena) const {
 
 void Shape_::Clear() {
 // @@protoc_insertion_point(message_clear_start:Communication.Messages.Shape_)
-  id_ = 0;
+  if (_has_bits_[0 / 32] & 9u) {
+    id_ = 0;
+    if (has_transform()) {
+      if (transform_ != NULL) transform_->::Communication::Transform::Transform_::Clear();
+    }
+  }
   vertices_.Clear();
+  indices_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   if (_internal_metadata_.have_unknown_fields()) {
     mutable_unknown_fields()->Clear();
@@ -2166,6 +2181,38 @@ bool Shape_::MergePartialFromCodedStream(
         }
         if (input->ExpectTag(18)) goto parse_loop_vertices;
         input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectTag(24)) goto parse_indices;
+        break;
+      }
+
+      // repeated uint32 indices = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_indices:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 1, 24, input, this->mutable_indices())));
+        } else if (tag == 26) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, this->mutable_indices())));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_indices;
+        if (input->ExpectTag(34)) goto parse_transform;
+        break;
+      }
+
+      // optional .Communication.Transform.Transform_ transform = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_transform:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_transform()));
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -2206,6 +2253,18 @@ void Shape_::SerializeWithCachedSizes(
       2, this->vertices(i), output);
   }
 
+  // repeated uint32 indices = 3;
+  for (int i = 0; i < this->indices_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(
+      3, this->indices(i), output);
+  }
+
+  // optional .Communication.Transform.Transform_ transform = 4;
+  if (has_transform()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, *this->transform_, output);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -2229,6 +2288,19 @@ void Shape_::SerializeWithCachedSizes(
         2, this->vertices(i), false, target);
   }
 
+  // repeated uint32 indices = 3;
+  for (int i = 0; i < this->indices_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteUInt32ToArray(3, this->indices(i), target);
+  }
+
+  // optional .Communication.Transform.Transform_ transform = 4;
+  if (has_transform()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        4, *this->transform_, false, target);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -2247,12 +2319,29 @@ int Shape_::ByteSize() const {
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->id());
   }
+  // optional .Communication.Transform.Transform_ transform = 4;
+  if (has_transform()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->transform_);
+  }
+
   // repeated .Communication.Transform.Vector3_ vertices = 2;
   total_size += 1 * this->vertices_size();
   for (int i = 0; i < this->vertices_size(); i++) {
     total_size +=
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         this->vertices(i));
+  }
+
+  // repeated uint32 indices = 3;
+  {
+    int data_size = 0;
+    for (int i = 0; i < this->indices_size(); i++) {
+      data_size += ::google::protobuf::internal::WireFormatLite::
+        UInt32Size(this->indices(i));
+    }
+    total_size += 1 * this->indices_size() + data_size;
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -2289,9 +2378,13 @@ void Shape_::MergeFrom(const Shape_& from) {
     ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
   }
   vertices_.MergeFrom(from.vertices_);
+  indices_.MergeFrom(from.indices_);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_id()) {
       set_id(from.id());
+    }
+    if (from.has_transform()) {
+      mutable_transform()->::Communication::Transform::Transform_::MergeFrom(from.transform());
     }
   }
   if (from._internal_metadata_.have_unknown_fields()) {
@@ -2317,6 +2410,9 @@ bool Shape_::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
 
   if (!::google::protobuf::internal::AllAreInitialized(this->vertices())) return false;
+  if (has_transform()) {
+    if (!this->transform_->IsInitialized()) return false;
+  }
   return true;
 }
 
@@ -2327,6 +2423,8 @@ void Shape_::Swap(Shape_* other) {
 void Shape_::InternalSwap(Shape_* other) {
   std::swap(id_, other->id_);
   vertices_.UnsafeArenaSwap(&other->vertices_);
+  indices_.UnsafeArenaSwap(&other->indices_);
+  std::swap(transform_, other->transform_);
   std::swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
@@ -2395,6 +2493,80 @@ const ::google::protobuf::RepeatedPtrField< ::Communication::Transform::Vector3_
 Shape_::vertices() const {
   // @@protoc_insertion_point(field_list:Communication.Messages.Shape_.vertices)
   return vertices_;
+}
+
+// repeated uint32 indices = 3;
+int Shape_::indices_size() const {
+  return indices_.size();
+}
+void Shape_::clear_indices() {
+  indices_.Clear();
+}
+ ::google::protobuf::uint32 Shape_::indices(int index) const {
+  // @@protoc_insertion_point(field_get:Communication.Messages.Shape_.indices)
+  return indices_.Get(index);
+}
+ void Shape_::set_indices(int index, ::google::protobuf::uint32 value) {
+  indices_.Set(index, value);
+  // @@protoc_insertion_point(field_set:Communication.Messages.Shape_.indices)
+}
+ void Shape_::add_indices(::google::protobuf::uint32 value) {
+  indices_.Add(value);
+  // @@protoc_insertion_point(field_add:Communication.Messages.Shape_.indices)
+}
+ const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
+Shape_::indices() const {
+  // @@protoc_insertion_point(field_list:Communication.Messages.Shape_.indices)
+  return indices_;
+}
+ ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
+Shape_::mutable_indices() {
+  // @@protoc_insertion_point(field_mutable_list:Communication.Messages.Shape_.indices)
+  return &indices_;
+}
+
+// optional .Communication.Transform.Transform_ transform = 4;
+bool Shape_::has_transform() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+void Shape_::set_has_transform() {
+  _has_bits_[0] |= 0x00000008u;
+}
+void Shape_::clear_has_transform() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+void Shape_::clear_transform() {
+  if (transform_ != NULL) transform_->::Communication::Transform::Transform_::Clear();
+  clear_has_transform();
+}
+const ::Communication::Transform::Transform_& Shape_::transform() const {
+  // @@protoc_insertion_point(field_get:Communication.Messages.Shape_.transform)
+  return transform_ != NULL ? *transform_ : *default_instance_->transform_;
+}
+::Communication::Transform::Transform_* Shape_::mutable_transform() {
+  set_has_transform();
+  if (transform_ == NULL) {
+    transform_ = new ::Communication::Transform::Transform_;
+  }
+  // @@protoc_insertion_point(field_mutable:Communication.Messages.Shape_.transform)
+  return transform_;
+}
+::Communication::Transform::Transform_* Shape_::release_transform() {
+  // @@protoc_insertion_point(field_release:Communication.Messages.Shape_.transform)
+  clear_has_transform();
+  ::Communication::Transform::Transform_* temp = transform_;
+  transform_ = NULL;
+  return temp;
+}
+void Shape_::set_allocated_transform(::Communication::Transform::Transform_* transform) {
+  delete transform_;
+  transform_ = transform;
+  if (transform) {
+    set_has_transform();
+  } else {
+    clear_has_transform();
+  }
+  // @@protoc_insertion_point(field_set_allocated:Communication.Messages.Shape_.transform)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

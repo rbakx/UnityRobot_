@@ -10,6 +10,7 @@ using namespace Networking;
 #include "RobotLogger.h"
 #include <message.pb.h>
 #include "MessageBuilder.h"
+#include "naobroker/NaoRobot.hpp"
 /*
 	Just a temporary class for testing connection with unity
 */
@@ -52,7 +53,7 @@ public:
 	{
 		receivedData.clear();
 		receivedData.append(data.data(), data.size());
-		//receivedData = std::string(data.data());
+
 		lock.unlock();
 	}
 
@@ -100,7 +101,7 @@ int main(int argc, char** argv)
 	logger.init();
 	GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-	std::string address = argc > 2 ?  argv[1] : "145.93.45.7";
+	std::string address = argc > 2 ?  argv[1] : "145.93.44.207";
 	std::string port = argc > 2 ? argv[2] : "1234";
 
 	//ReceiverSample* _receiver = new ReceiverSample();
@@ -126,7 +127,7 @@ int main(int argc, char** argv)
 		if(_receiver->lock.try_lock_for(std::chrono::milliseconds(4000)))
 		{
 			if(_receiver->receivedData.size())	
-			{	
+			{
 				LogInfo(std::string("received " + std::to_string(_receiver->receivedData.size()) + " bytes"));
 				std::vector<char> result;
 				int a = 0;
@@ -136,9 +137,9 @@ int main(int argc, char** argv)
 				std::cout << "Message received\nSize is: " << msg.ByteSize() << '\n';
 				std::cout << "Target: " << msg.messagetarget() << " type: " << msg.messagetype() << '\n';
 
-				for(int i = 0; i < msg.shapeupdate().changedshapes_size(); i++)
+				for(int i = 0; i < msg.shapeupdateinfo().changedshapes_size(); i++)
 				{
-					auto shape = msg.shapeupdate().changedshapes().Get(i);
+					auto shape = msg.shapeupdateinfo().changedshapes().Get(i);
 					std::cout << "id: " << shape.id() << '\n';
 					std::cout << "vertices are " << shape.vertices_size() << '\n';
 					for(int j = 0; j < shape.vertices_size(); j++)

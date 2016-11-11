@@ -1,50 +1,73 @@
 syntax = "proto2";
 
-import "messages/messages.proto";
+import "messages.proto";
 
 package Communication;
 
-enum MessageTarget {
-	Robot = 0;
-	Unity = 1;
-	Vision = 2; // We probably won't need this
+// Target or "direction" of a message
+enum MessageTarget_ {
+	Robot = 0;  // Unity -> Robot
+	Unity = 1;  // Robot -> Unity || Vision -> Unity
+	Vision = 2; // ? -> Vision (This will probably not be needed)
 }
 
-enum MessageType {
+// This type/enum is used to identify  the type and therefore
+// contents of a message.
+//
+// 	For example: when the MessageType is set to VelocityChange,
+//	the receiver expects the robotVelocity member to be filled in.
+//
+//  Some message types don't need any data, like the
+// 	IdentificationRequest type. These types do not have a
+//	corresponding member.
+enum MessageType_ {
 	// Unity -> Robot
+
+	// When Unity detects a new robot a request for identification will be send.
 	IdentificationRequest = 0;
+
+	// Used to changed the linear and/or angular velocity of a robot.
 	VelocityChange = 1;
-	RotationChange = 2;
-	StopMoving = 3;
-	Indicate = 4;
+
+	// Used to make the robot show some kind of signal.
+	Indicate = 2;
+
 
 	// Robot -> Unity
-	Identification = 5;
-	LogError = 6;
-	CustomEvent = 7;
+
+	// A robot's response to a Identification Request message. The response
+	// contains information about the new robot.
+	IdentificationResponse = 3;
+
+	// Send an error message from a robot to Unity. The error will be shown
+	// in the Unity editor.
+	LogError = 4;
+
+	// Message type for custom messages/events. This can be used to interact
+	// with robot specific functions.
+	CustomMessage = 5; // This might be two ways
 
 	// Vision -> Unity
-	ShapeUpdate = 8;
+	// A notification from vision with all new and changed shapes.
+	ShapeUpdate = 6;
 }
 
 message Message {
-	required int32 id =3;
-	required MessageTarget messageTarget = 1;
-	required MessageType messageType = 2;
+	required int32 id = 1;
+	required MessageTarget_ messageTarget = 2;
+	required MessageType_ messageType = 3;
 
 	// Unity -> Robot
-	optional Messages.SetVelocity robotVelocity = 5;
-	optional Messages.SetRotation robotRotation = 6;
-	// StopMoving is just a signal, we don't need additional info
+	optional Messages.SetVelocity_ robotVelocity = 4;
 
 	// Robot -> Unity
-	optional Messages.IdentificationResponse identificationResponse = 7;
-	optional Messages.Error error = 8;
-	optional Messages.CustomMessage customMessage = 9;
+	optional Messages.IdentificationResponse_ identificationResponse = 5;
+	optional Messages.Error_ error = 6;
+	optional Messages.CustomMessage_ customMessage = 7;
 
 	// Vision -> Unity
-	optional Messages.ShapeUpdateInfo shapeUpdate = 10;
+	optional Messages.ShapeUpdateInfo_ shapeUpdateInfo = 8;
 
 
-	optional string stringData = 11;
+	optional string stringData = 9;
 }
