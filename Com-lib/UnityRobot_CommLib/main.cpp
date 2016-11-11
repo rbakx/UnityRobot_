@@ -136,9 +136,9 @@ int main(int argc, char** argv)
 				std::cout << "Message received\nSize is: " << msg.ByteSize() << '\n';
 				std::cout << "Target: " << msg.messagetarget() << " type: " << msg.messagetype() << '\n';
 
-				for(int i = 0; i < msg.shapeupdateinfo().changedshapes_size(); i++)
+				for(int i = 0; i < msg.shapeupdate().changedshapes_size(); i++)
 				{
-					auto shape = msg.shapeupdateinfo().changedshapes().Get(i);
+					auto shape = msg.shapeupdate().changedshapes().Get(i);
 					std::cout << "id: " << shape.id() << '\n';
 					std::cout << "vertices are " << shape.vertices_size() << '\n';
 					for(int j = 0; j < shape.vertices_size(); j++)

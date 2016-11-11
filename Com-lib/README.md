@@ -10,15 +10,18 @@ This README is built-up in the following way:
 ## Installation
 
 #### Requirements
-- Visual Studio or CMake
+- MSVC or CMake
 - [Google Test 1.8.0](https://github.com/google/googletest/archive/release-1.8.0.zip)
 - [Asio (non-boost) 1.10.6](https://sourceforge.net/projects/asio/files/asio/1.10.6%20%28Stable%29/asio-1.10.6.zip/download)
+- [Protocol Buffers 3.1.0](https://github.com/google/protobuf/releases/download/v3.1.0/protobuf-cpp-3.1.0.zip)
 
 #### Walkthrough
-We will assume you are capable enough to install Visual Studio and/or CMake.
+We will assume you are capable enough to install MSVC and/or CMake.
 The project was written for cross-platform compilation, so you have a choice!
 ###### Windows
 To install the Google Test Framework, follow these steps:
+
+*//TODO: I don't like this copy-paste from Marco's README, but I didn't check this myself yet:*
 
 1.  Download the Google Test framework archive
 2.  Extract to `C:\gtest`
@@ -32,16 +35,19 @@ We will now install Asio:
 1.  Download the Asio archive
 2.  Extract it in, for example, `C:\asio`
 3.  Now [create the user environment variable](http://www.computerhope.com/issues/ch000549.htm) `ASIO_DIR` and point to the `C:\asio\include` folder
-4.  If you have an instance of Visual Studio already running, restart Visual Studio in order to reload the user environment variables.
+4.  If you have an instance of Visual Studio already running, restart Visual Studio in order to reload the user environment variables
+
+Lastly, we will install Protocol Buffers:
+
 
 ###### Linux
 To install the Google Test Framework, follow these steps:
 
-1.  Download the Google Test Framework archive
-2.  Extract it anywhere you want
-3.  Run `sudo apt-get install autoconf automake libtool curl make g++ unzip` to install the required tools
-3.  Use `cmake` to generate the Makefile
-4.  Run `make` and afterwards run `sudo make install`
+1.  Run `sudo apt-get install autoconf automake libtool curl make g++ unzip` to install the required tools
+2.  Download the Google Test Framework archive
+3.  Extract it anywhere you want
+4.  Use `cmake` to generate the Makefile
+5.  Run `make` and afterwards run `sudo make install`
 
 We will now install Asio:
 
@@ -49,6 +55,15 @@ We will now install Asio:
 2.  Extract it anywhere you want
 3.  Run `./configure` in this folder
 4.  Now run `make` and afterwards run `sudo make install`
+
+Next, we will install Protocol Buffers:
+
+1.  Run `sudo apt-get install autoconf automake libtool curl make g++ unzip` to install the required tools if you haven't done so already when installing the Google Test Framework.
+2.  Download the protobuf archive
+3.  Extract it anywhere you want
+4.  Run `./configure` in this folder
+5.  Go into the `src` folder
+5.  Run `make` and afterwards run `sudo make install`
 
 Finally, run `sudo ldconfig` to refresh shared library cache.
 

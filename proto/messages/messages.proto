@@ -1,36 +1,40 @@
 syntax = "proto2";
 
-import "messages/transform.proto";
+import "transform.proto";
 
 package Communication.Messages;
 
-message SetVelocity {
-	required Transform.Vector3 velocity = 1;
+// When linear or angular velocity are not null they will
+// Be changed for the robot. When one of them is set to
+// null, this part of the velocity will not be changed.
+message SetVelocity_ {
+	optional Transform.Vector3_ linearVelocity = 1;
+	optional Transform.Vector3_ angularVelocity = 2;
 }
 
-message SetRotation {
-	required Transform.Vector3 rotation = 1;
-}
-
-message IdentificationResponse {
+message IdentificationResponse_ {
 	required string robotType = 1;
 }
 
-message Error {
+message Error_ {
 	required string message = 1;
 }
 
-message CustomMessage {
+message CustomMessage_ {
 	required string key = 1;
 	optional string data = 2;
 }
 
-message ShapeUpdateInfo {
-	repeated Shape changedShapes = 1;
-	repeated Shape newShapes = 2;
+message ShapeUpdateInfo_ {
+	repeated Shape_ changedShapes = 1;
+	repeated Shape_ newShapes = 2;
 }
 
-message Shape {
+message Shape_ {
 	required int32 id = 1;
-	repeated Transform.Vector3 vertices = 2;
+	repeated Transform.Vector3_ vertices = 2;
+	repeated uint32 indices = 3;
+
+	// We might not need this in the end
+	optional Transform.Transform_ transform = 4;
 }

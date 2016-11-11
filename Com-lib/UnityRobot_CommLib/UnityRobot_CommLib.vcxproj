@@ -69,7 +69,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LibraryPath>C:\Users\Phoenix\Documents\Minor\Proj\Repo\UnityRobot\Com-lib\UnityRobot_CommLib\protobuf;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(PROTOBUF_DIR)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -86,7 +86,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalOptions>/D_WIN32_WINNT=0x0501 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\asio1.10.6\include;src\Networking;C:\Users\Phoenix\Documents\Minor\Proj\Repo\UnityRobot\Com-lib\UnityRobot_CommLib\protobuf</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(PROTOBUF_DIR)\src;$(ASIO_DIR);$(ProjectDir);$(ProjectDir)spdlog;$(ProjectDir)proto;src\Networking</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4996;4267</DisableSpecificWarnings>
     </ClCompile>
@@ -127,9 +127,9 @@
   <ItemGroup>
     <ClInclude Include="LogFileCreator.h" />
     <ClInclude Include="MessageBuilder.h" />
-    <ClInclude Include="protobuf\message.pb.h" />
-    <ClInclude Include="protobuf\messages.pb.h" />
-    <ClInclude Include="protobuf\transform.pb.h" />
+    <ClInclude Include="proto\message.pb.h" />
+    <ClInclude Include="proto\messages.pb.h" />
+    <ClInclude Include="proto\transform.pb.h" />
     <ClInclude Include="RobotLogger.h" />
     <ClInclude Include="TCPSocketDataLink.hpp" />
   </ItemGroup>
@@ -137,9 +137,9 @@
     <ClCompile Include="LogFileCreator.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MessageBuilder.cpp" />
-    <ClCompile Include="protobuf\message.pb.cc" />
-    <ClCompile Include="protobuf\messages.pb.cc" />
-    <ClCompile Include="protobuf\transform.pb.cc" />
+    <ClCompile Include="proto\message.pb.cc" />
+    <ClCompile Include="proto\messages.pb.cc" />
+    <ClCompile Include="proto\transform.pb.cc" />
     <ClCompile Include="RobotLogger.cpp" />
     <ClCompile Include="TCPSocketDataLink.cpp" />
   </ItemGroup>
