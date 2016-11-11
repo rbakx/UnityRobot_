@@ -23,15 +23,7 @@ public class DebugPointsToModelBuilder : MonoBehaviour
                 PointsToModelBuilder builder = GetComponent<PointsToModelBuilder>();
 
                 List<Vector2> _sf = surface;
-
-                List<Vector3> SurfaceV3 = new List<Vector3>(_sf.Count);
-
-                foreach (Vector2 val in _sf)
-                {
-                    SurfaceV3.Add(new Vector3(val.x, 0.0F, val.y));
-                }
-
-                builder.UpdateMesh(SurfaceV3);
+                builder.UpdateMesh(_sf);
                 UpdateModel = false;
             }
 
