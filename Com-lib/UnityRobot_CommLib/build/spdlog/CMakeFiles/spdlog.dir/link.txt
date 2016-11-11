@@ -1,1 +1,0 @@
-/usr/bin/g++  -fPIC  -std=c++11 -DASIO_STANDALONE=YES  -shared -Wl,-soname,libspdlog.so -o libspdlog.so  

@@ -1,3 +1,6 @@
+# Build folder
+UnityRobot_CommLib/build
+
 # Compiled Object files
 *.slo
 *.lo
