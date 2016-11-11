@@ -98,7 +98,7 @@
       <DisableSpecificWarnings>4996;4267</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>libprotobufd.lib;movehead_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libprotobufd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

@@ -10,7 +10,6 @@ using namespace Networking;
 #include "RobotLogger.h"
 #include <message.pb.h>
 #include "MessageBuilder.h"
-#include "naobroker/NaoRobot.hpp"
 /*
 	Just a temporary class for testing connection with unity
 */

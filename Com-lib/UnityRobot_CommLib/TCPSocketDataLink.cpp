@@ -68,7 +68,7 @@ void TCPSocketDataLink::Connect()
 	try
 	{
 		asio::connect(m_Socket, m_Resolver.resolve({ m_AdrressStr, m_SocketStr }));
-
+		m_Socket.remote_endpoint().address();
 		if (Connected())
 		{
 			m_TCPReaderThread = std::thread([this]()
