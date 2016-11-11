@@ -43,11 +43,17 @@ public class UIController : MonoBehaviour
         }
     }
 
+    public void CancelAction()
+    {
+        
+    }
+
     public void MenuBtnAction()
     {
         if (MenuOpen)
         {
             ClosePanels(panels);
+            CancelAction();
             MenuOpen = false;
         }
         else
@@ -57,11 +63,38 @@ public class UIController : MonoBehaviour
         }
     }
 
+    public void BackBtnAction()
+    {
+        ClosePanels(panels);
+        TogglePanel(panels[0]);
+        MenuOpen = true;
+    }
+
     public void MoveBtnAction()
     {
         //close current panel
         ClosePanels(panels);
         //open the move pop up menu
         TogglePanel(panels[2]);
+        MenuOpen = true;
     }
+
+    public void InfoBtnAction()
+    {
+        //close current panel
+        ClosePanels(panels);
+        //open the info pop up menu
+        TogglePanel(panels[3]);
+        MenuOpen = true;
+    }
+
+    public void AIModeBtnAction()
+    {
+        //close current panel
+        ClosePanels(panels);
+        //open the info pop up menu
+        TogglePanel(panels[4]);
+        MenuOpen = true;
+    }
+
 }
