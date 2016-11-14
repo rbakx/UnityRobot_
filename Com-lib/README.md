@@ -5,6 +5,8 @@ This README is built-up in the following way:
 - [Installation](#installation)
   - [Requirements](#requirements)
   - [Walkthrough](#walkthrough)
+    - [Windows](#windows)
+    - [Linux](#linux)
 - [Running](#running)
 
 ## Installation
