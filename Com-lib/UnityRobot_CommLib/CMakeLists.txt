@@ -21,11 +21,23 @@ find_package(Protobuf REQUIRED)
 include_directories(${PROTOBUF_INCLUDE_DIRS})
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS
-                        proto/message.proto
-                        proto/messages.proto
-                        proto/transform.proto
-                     )
+#protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS
+#                        proto/message.proto
+#                        proto/messages.proto
+#                        proto/transform.proto
+#                     )
+
+#set(PROTO_SRCS	proto/message.pb.cc
+#								proto/messages.pb.cc
+#								proto/transform.pb.cc
+#	 )
+#
+#set(PROTO_HDRS	proto/message.pb.h
+#								proto/messages.pb.h
+#								proto/transform.pb.h
+#	 )
+
+add_subdirectory(proto)
 
 add_subdirectory(spdlog)
 add_subdirectory(src/Networking)
@@ -43,5 +55,6 @@ target_link_libraries(  ComLib
                         ${PROTOBUF_LIBRARIES}
                         spdlog
                         ${GTEST_BOTH_LIBRARIES}
+												proto
                         Networking
                       )

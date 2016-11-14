@@ -8,7 +8,7 @@ using namespace Networking;
 #include <string>
 #include <mutex>
 #include "RobotLogger.h"
-#include <message.pb.h>
+#include "message.pb.h"
 #include "MessageBuilder.h"
 /*
 	Just a temporary class for testing connection with unity
