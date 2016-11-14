@@ -49,25 +49,25 @@ void MessageBuilder::addShapeUpdateInfo(Communication::Message& msg)
 
 void MessageBuilder::addChangedShape(Communication::Message& msg, int32_t id, std::initializer_list<Communication::Transform::Vector3_> vertices)
 {
-	auto shapeUpdate = msg.mutable_shapeupdate();
+	auto shapeUpdate = msg.mutable_shapeupdateinfo();
 	addShape(shapeUpdate->add_changedshapes(), id, vertices);
 }
 
 void MessageBuilder::addChangedShape(Communication::Message& msg, int32_t id, std::initializer_list<std::array<float, 3>> vertices)
 {
-	auto shapeUpdate = msg.mutable_shapeupdate();
+	auto shapeUpdate = msg.mutable_shapeupdateinfo();
 	addShape(shapeUpdate->add_changedshapes(), id, vertices);
 }
 
 void MessageBuilder::addNewShape(Communication::Message& msg, int32_t id, std::initializer_list<Communication::Transform::Vector3_> vertices)
 {
-	auto shapeUpdate = msg.mutable_shapeupdate();
+	auto shapeUpdate = msg.mutable_shapeupdateinfo();
 	addShape(shapeUpdate->add_newshapes(), id, vertices);
 }
 
 void MessageBuilder::addNewShape(Communication::Message& msg, int32_t id, std::initializer_list<std::array<float, 3>> vertices)
 {
-	auto shapeUpdate = msg.mutable_shapeupdate();
+	auto shapeUpdate = msg.mutable_shapeupdateinfo();
 	addShape(shapeUpdate->add_newshapes(), id, vertices);
 }
 

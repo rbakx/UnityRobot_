@@ -21,7 +21,7 @@ void RobotLogger::setFlushThreshold(spdlog::level::level_enum l) const
 	m_logger->flush_on(l);
 }
 
-	void RobotLogger::setPattern(const std::string& pattern) const
+void RobotLogger::setPattern(const std::string& pattern) const
 {
 	m_logger->set_pattern(pattern);
 }
