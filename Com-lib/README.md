@@ -13,7 +13,7 @@ This README is built-up in the following way:
 - MSVC or CMake
 - [Google Test 1.8.0](https://github.com/google/googletest/archive/release-1.8.0.zip)
 - [Asio (non-boost) 1.10.6](https://sourceforge.net/projects/asio/files/asio/1.10.6%20%28Stable%29/asio-1.10.6.zip/download)
-- [Protocol Buffers 3.1.0](https://github.com/google/protobuf/releases/download/v3.1.0/protobuf-cpp-3.1.0.zip)
+- [Protocol Buffers 3.0.2](https://github.com/google/protobuf/releases/download/v3.0.2/protobuf-cpp-3.0.2.zip)
 
 #### Walkthrough
 We will assume you are capable enough to install MSVC and/or CMake.
@@ -34,11 +34,17 @@ We will now install Asio:
 
 1.  Download the Asio archive
 2.  Extract it in, for example, `C:\asio`
-3.  Now [create the user environment variable](http://www.computerhope.com/issues/ch000549.htm) `ASIO_DIR` and point to the `C:\asio\include` folder
-4.  If you have an instance of Visual Studio already running, restart Visual Studio in order to reload the user environment variables
+3.  Now [create the user environment variable](http://www.computerhope.com/issues/ch000549.htm) `ASIO_DIR` and point it to the `C:\asio\include` folder
 
 Lastly, we will install Protocol Buffers:
 
+1.  Download the protobuf archive
+2.  Extract it in, for example, `C:\protobuf`
+3.  Create a folder within `C:\protobuf` called `lib`
+4.  Download and extract the archive (x86/[x64](https://drive.google.com/open?id=0ByRP9F3xvboOWkdDdW51aVdlZ1k)) to this `lib` folder. This archive contains pre-compiled libraries we built for you.
+3.  Create a user environment variable called `PROTOBUF_DIR` and point it to the `C:\protobuf` folder
+
+If you have an instance of Visual Studio already running, restart Visual Studio in order to reload the user environment variables!
 
 ###### Linux
 To install the Google Test Framework, follow these steps:
