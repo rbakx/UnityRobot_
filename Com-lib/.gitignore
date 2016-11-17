@@ -1,6 +1,9 @@
 # Build folder
 UnityRobot_CommLib/build
 
+# Visual Studio user configuration file
+*.vcxproj.user
+
 # Compiled Object files
 *.slo
 *.lo
