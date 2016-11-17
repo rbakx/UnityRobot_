@@ -43,7 +43,10 @@ Lastly, we will install Protocol Buffers:
 1.  Download the protobuf archive
 2.  Extract it in, for example, `C:\protobuf`
 3.  Create a folder within `C:\protobuf` called `lib`
-4.  Download and extract the archive (x86/[x64](https://drive.google.com/open?id=0ByRP9F3xvboOWkdDdW51aVdlZ1k)) to this `lib` folder. This archive contains pre-compiled libraries we built for you.
+4.  Download and extract the archive
+([x86](https://drive.google.com/open?id=0B4kc2adgtRMLLTBHZGZaYnc0N28)/
+[x64](https://drive.google.com/open?id=0ByRP9F3xvboOWkdDdW51aVdlZ1k))
+to this `lib` folder. This archive contains pre-compiled libraries we built for you.
 3.  Create a user environment variable called `PROTOBUF_DIR` and point it to the `C:\protobuf` folder
 
 If you have an instance of Visual Studio already running, restart Visual Studio in order to reload the user environment variables!
