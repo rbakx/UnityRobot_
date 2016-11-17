@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include <spdlog/details/log_msg.h>
+#include "details/log_msg.h"
 
 namespace spdlog
 {
@@ -47,4 +47,3 @@ inline level::level_enum sink::level() const
 
 }
 }
-

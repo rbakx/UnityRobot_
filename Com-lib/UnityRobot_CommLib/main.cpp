@@ -1,6 +1,6 @@
-#include <TCPSocketDataLink.hpp>
-#include <IDataStreamReceiver.hpp>
-#include <IPresentationProtocol.hpp>
+#include "TCPSocketDataLink.hpp"
+#include "IDataStreamReceiver.hpp"
+#include "IPresentationProtocol.hpp"
 using namespace UnityRobot;
 using namespace Networking;
 
@@ -8,7 +8,7 @@ using namespace Networking;
 #include <string>
 #include <mutex>
 #include "RobotLogger.h"
-#include <message.pb.h>
+#include "message.pb.h"
 #include "MessageBuilder.h"
 /*
 	Just a temporary class for testing connection with unity
@@ -25,7 +25,7 @@ public:
 	void IncomingData(const std::vector<char>& data, IDataLink* ) override
 	{
 		std::cout << "incoming!" << std::endl;
-		
+
 		receivedData.clear();
 		receivedData.append(data.data(), data.size());
 		lock.unlock();
@@ -58,7 +58,7 @@ public:
 
 	void IncomingMessage(const Communication::Message& newMessage, IDataLink* dlink) override
 	{
-		
+
 	}
 
 	std::vector<char> MessageToBinaryData(const Communication::Message& message) const noexcept override
@@ -113,7 +113,7 @@ int main(int argc, char** argv)
 
 	if (link.Connected())
 	{
-		
+
 		Msg toSend = MsgBuilder::create(Communication::MessageType_::IdentificationResponse, Communication::MessageTarget_::Unity, 13);
 		MsgBuilder::addStringData(toSend, "stupid robot");
 		MsgBuilder::addChangedShape(toSend, 3, { { 5.0, 5.5, 1.0 }, {1.0, 1.5, 1.5} });
@@ -125,7 +125,7 @@ int main(int argc, char** argv)
 
 		if(_receiver->lock.try_lock_for(std::chrono::milliseconds(4000)))
 		{
-			if(_receiver->receivedData.size())	
+			if(_receiver->receivedData.size())
 			{
 				LogInfo(std::string("received " + std::to_string(_receiver->receivedData.size()) + " bytes"));
 				std::vector<char> result;

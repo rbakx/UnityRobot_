@@ -1,0 +1,3 @@
+/media/shared/OneDrive/Documents/Studie/Fontys/Q11/PROJ/UnityRobot/Com-lib/UnityRobot_CommLib/spdlog/build/CMakeFiles/edit_cache.dir
+/media/shared/OneDrive/Documents/Studie/Fontys/Q11/PROJ/UnityRobot/Com-lib/UnityRobot_CommLib/spdlog/build/CMakeFiles/rebuild_cache.dir
+/media/shared/OneDrive/Documents/Studie/Fontys/Q11/PROJ/UnityRobot/Com-lib/UnityRobot_CommLib/spdlog/build/CMakeFiles/spdlog.dir

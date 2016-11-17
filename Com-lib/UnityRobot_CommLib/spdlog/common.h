@@ -11,14 +11,14 @@
 #include <memory>
 #include <atomic>
 #include <exception>
-#include<functional>
+#include <functional>
 
 #if defined(_WIN32) && defined(SPDLOG_WCHAR_FILENAMES)
 #include <codecvt>
 #include <locale>
 #endif
 
-#include <spdlog/details/null_mutex.h>
+#include "details/null_mutex.h"
 
 //visual studio upto 2013 does not support noexcept nor constexpr
 #if defined(_MSC_VER) && (_MSC_VER < 1900)
@@ -38,7 +38,7 @@
 #endif
 
 
-#include <spdlog/fmt/fmt.h>
+#include "fmt/fmt.h"
 
 namespace spdlog
 {

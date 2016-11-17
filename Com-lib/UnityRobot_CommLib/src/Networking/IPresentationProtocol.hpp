@@ -3,7 +3,7 @@
 #include <vector>
 #include <stdint.h>
 
-#include <message.pb.h>
+#include "message.pb.h"
 
 namespace Networking {
 
