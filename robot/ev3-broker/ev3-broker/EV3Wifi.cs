@@ -39,6 +39,9 @@ namespace EV3WifiLib
         private ManualResetEvent receiveDone = new ManualResetEvent(false);
 
         private bool _connected = false;
+        private bool _connecting = false;
+
+        private Mutex _tcpMutex = new Mutex();
 
         // Make connection to EV3.
         public String Connect()
@@ -53,6 +56,7 @@ namespace EV3WifiLib
                 string res = StartTCPClient();
                 if (res == "ok")
                 {
+                    _connecting = false;
                     _connected = true;
                 }
                 return res;
@@ -71,9 +75,11 @@ namespace EV3WifiLib
             try
             {
                 // Release the socket.
+                _tcpMutex.WaitOne();
                 tcpSocket.Shutdown(SocketShutdown.Both);
                 tcpSocket.Close();
                 _connected = false;
+                _tcpMutex.ReleaseMutex();
             }
             catch (Exception e)
             {
@@ -91,6 +97,7 @@ namespace EV3WifiLib
                 // Get the actual message and fill out the source.
                 message = udpsocket.EndReceive(result, ref source);
                 // Schedule the next receivsee operation once reading is done.
+
                 udpsocket.BeginReceive(new AsyncCallback(OnUdpData), udpsocket);
             }
             catch (Exception e)
@@ -112,7 +119,7 @@ namespace EV3WifiLib
 
                 Boolean UdpConfirmed = false;
                 // Busy waiting until returned message contains a valid Serial number.
-                while (UdpConfirmed == false  )
+                while (UdpConfirmed == false)
                 {
                     String msgStr = Encoding.ASCII.GetString(message, 0, message.Length);
                     Regex regex = new Regex("Serial-Number: (.*)");
@@ -122,6 +129,7 @@ namespace EV3WifiLib
                         serialNumber = match.Groups[1].Value;
                         byte[] msg = Encoding.ASCII.GetBytes("hi");
                         udpSocket.Send(msg, msg.Length, source);
+                        Console.WriteLine("Found EV3: " + serialNumber);
                         UdpConfirmed = true;
                     }
                 }
@@ -137,6 +145,8 @@ namespace EV3WifiLib
         // Send a TCP connection request to th eEV3. The IP address is known from the previous UDP broadcast.
         private String StartTCPClient()
         {
+            _connecting = true;
+
             // Connect to a remote device.
             try
             {
@@ -284,6 +294,7 @@ namespace EV3WifiLib
                 response = "";  // lear response to indicate it is handled
                 // Initiate the next message retrieval from the EV3.
                 startReceiveMessage(project, mbox);
+
                 return tmpResponse;
             }
             catch (Exception e)
@@ -296,7 +307,8 @@ namespace EV3WifiLib
         // Callback method for receicing TCP data.
         private void ReceiveCallback(IAsyncResult ar)
         {
-            if (!_connected)
+            _tcpMutex.WaitOne();
+            if (!_connected && !_connecting)
             {
                 return;
             }
@@ -359,6 +371,7 @@ namespace EV3WifiLib
                 response = e.ToString();
                 Console.WriteLine(e.ToString());
             }
+            _tcpMutex.ReleaseMutex();
         }
 
         // Send TCP string data.

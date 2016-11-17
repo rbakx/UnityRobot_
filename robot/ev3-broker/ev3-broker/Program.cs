@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using EV3WifiLib;
+using System.Threading;
 
 namespace ev3_broker
 {
@@ -34,23 +35,22 @@ namespace ev3_broker
             Console.Out.Flush();
 
 
-            //while (true)
-            //{
-            //    ev3.SendMessage("get_button", "STATUS");
-            //    string res = ev3.ReceiveMessage("EV3Wifi", "BUTTON");
-            //    Console.WriteLine("Button: ", res);
-            //    Console.Out.Flush();
+            while (true)
+            {
+                ev3.SendMessage("get_button", "STATUS");
+                Thread.Sleep(200);
+                string res = ev3.ReceiveMessage("EV3Wifi", "BUTTON");
+                Console.WriteLine("Button: " + res);
+                Console.Out.Flush();
 
-            //    ConsoleKeyInfo cki = Console.ReadKey();
-            //    if (cki.Key == ConsoleKey.Escape)
-            //    {
-            //        break;
-            //    }
-            //}
+                ConsoleKeyInfo cki = Console.ReadKey();
+                if (cki.Key == ConsoleKey.Escape)
+                {
+                    break;
+                }
+            }
 
             ev3.Disconnect();
-
-            Console.ReadLine();
         }
     }
 }
