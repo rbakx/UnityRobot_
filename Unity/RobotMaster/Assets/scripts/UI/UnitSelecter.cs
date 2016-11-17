@@ -9,6 +9,7 @@ public class UnitSelecter : MonoBehaviour
     private RaycastHit hit;
 
     private bool selected;
+    public bool selecting;
     public GameObject SelectedUnit;
 
     public LayerMask unitLayer;
@@ -17,11 +18,12 @@ public class UnitSelecter : MonoBehaviour
     void Start()
     {
         selected = false;
+        selecting = false;
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && selecting)
         {
             LookforTarget();
         }
