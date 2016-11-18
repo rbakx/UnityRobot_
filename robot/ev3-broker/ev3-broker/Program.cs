@@ -26,7 +26,28 @@ namespace ev3_broker
                     Console.WriteLine("EV3 detected: " + ev3.SerialNumber);
                 }
 
-                bool result = ev3.SendMessage("DISPLAY", "ABC");
+                while (true)
+                {
+                    Console.Write("speed: ");
+                    string speedStr = Console.ReadLine();
+
+                    float speed = 0;
+                    if (!float.TryParse(speedStr, out speed))
+                    {
+                        Console.WriteLine("Invalid input");
+                    }
+                    else if (!ev3.SendMessage("SPEED", speed))
+                    {
+                        Console.WriteLine("Message send failed");
+                    }
+
+                    Console.WriteLine("Press esc to quit, any other key to continue");
+                    ConsoleKeyInfo cki = Console.ReadKey();
+                    if (cki.Key == ConsoleKey.Escape)
+                    {
+                        break;
+                    }
+                }
             }
 
 

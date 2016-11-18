@@ -85,8 +85,31 @@ namespace ev3_broker
             }
         }
 
-        // TODO: the message should be a char[]
         public bool SendMessage(string mailBox, string message)
+        {
+            if (message == null)
+            {
+                throw new ArgumentNullException("message");
+            }
+            if (message.Length < 1)
+            {
+                throw new ArgumentException("message can't be an empty string", "message");
+            }
+
+            byte[] messageData = new byte[message.Length + 1];
+            Array.Copy(Encoding.ASCII.GetBytes(message), messageData, message.Length);
+            messageData[messageData.Length - 1] = (byte)'\0';
+
+            return SendMessage(mailBox, messageData);
+        }
+
+        public bool SendMessage(string mailBox, float message)
+        {
+            byte[] messageData = BitConverter.GetBytes(message);
+            return SendMessage(mailBox, messageData);
+        }
+        
+        public bool SendMessage(string mailBox, byte[] messageData)
         {
             if (mailBox == null)
             {
@@ -97,19 +120,15 @@ namespace ev3_broker
                 throw new ArgumentException("mailBox can't be an empty string", "mailBox");
             }
 
-            if (message == null)
+            if (messageData == null)
             {
-                throw new ArgumentNullException("message");
-            }
-            if (message.Length < 1)
-            {
-                throw new ArgumentException("message can't be an empty string", "message");
+                throw new ArgumentNullException("messageData");
             }
 
             try
             {
                 byte[] msgData;
-                int msgLen = 11 + mailBox.Length + message.Length;
+                int msgLen = 10 + mailBox.Length + messageData.Length;
                 msgData = new byte[msgLen];
 
                 // Message header
@@ -135,9 +154,7 @@ namespace ev3_broker
                 // [n+2..n+3] Message length (including null terminator)
                 msgData[7 + mailBox.Length + 1] = (byte)(msgData.Length + 1);
                 // [n+4..n+m] Message
-                Array.Copy(Encoding.ASCII.GetBytes(message), 0, msgData, 7 + mailBox.Length + 3, message.Length);
-                // [n+m+1] // Null terminator for message
-                msgData[7 + mailBox.Length + 3 + message.Length] = (byte)'\0';
+                Array.Copy(messageData, 0, msgData, 7 + mailBox.Length + 3, messageData.Length);
 
                 return _tcpDataLink.SendData(msgData);
             }
