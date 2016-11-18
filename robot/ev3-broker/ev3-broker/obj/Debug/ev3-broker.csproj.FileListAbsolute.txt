@@ -1,6 +1,0 @@
-C:\Users\jorri\Desktop\school\UnityRobot\robot\ev3-broker\ev3-broker\bin\Debug\ev3-broker.exe.config
-C:\Users\jorri\Desktop\school\UnityRobot\robot\ev3-broker\ev3-broker\obj\Debug\ev3-broker.csprojResolveAssemblyReference.cache
-C:\Users\jorri\Desktop\school\UnityRobot\robot\ev3-broker\ev3-broker\bin\Debug\ev3-broker.exe
-C:\Users\jorri\Desktop\school\UnityRobot\robot\ev3-broker\ev3-broker\bin\Debug\ev3-broker.pdb
-C:\Users\jorri\Desktop\school\UnityRobot\robot\ev3-broker\ev3-broker\obj\Debug\ev3-broker.exe
-C:\Users\jorri\Desktop\school\UnityRobot\robot\ev3-broker\ev3-broker\obj\Debug\ev3-broker.pdb
