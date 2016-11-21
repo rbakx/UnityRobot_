@@ -8,311 +8,377 @@ using System.Threading;
 
 namespace ev3_broker
 {
-    class EV3 : IDisposable
-    {
-        private enum EV3Command : byte
-        {
-            SYSTEM_COMMAND_REPLY = 0x01,
-            SYSTEM_COMMAND_NO_REPLY = 0x81,
+	class EV3 : IDisposable
+	{
+		private enum EV3Command : byte
+		{
+			DIRECT_COMMAND_REPLY = 0x00,
 
-            WRITEMAILBOX = 0x9e,
-        }
+			OPFILE = 0xc0,
+			OPFILE_OPEN_READ = 0x01,
+			OPFILE_READ_TEXT = 0x04,
+			OPFILE_CLOSE = 0x07,
 
-        /// <summary>
-        /// The DataStreamReceiver is used so that the actual callback in the EV3 
-        /// class can be private.
-        /// </summary>
-        private class DataStreamReceiver : IDataStreamReceiver
-        {
-            public delegate void OnIncomingData(byte[] data);
+			SYSTEM_COMMAND_NO_REPLY = 0x81,
 
-            private OnIncomingData _incomingDataCallback;
+			WRITEMAILBOX = 0x9e,
 
-            public DataStreamReceiver(OnIncomingData incomingDataCallback)
-            {
-                if (incomingDataCallback == null)
-                {
-                    throw new ArgumentNullException("incomingDataCallback");
-                }
+			LOCAL_CONSTANT_STRING = 0x84,
+		}
 
-                _incomingDataCallback = incomingDataCallback;
-            }
+		/// <summary>
+		/// The DataStreamReceiver is used so that the actual callback in the EV3 
+		/// class can be private.
+		/// </summary>
+		private class DataStreamReceiver : IDataStreamReceiver
+		{
+			public delegate void OnIncomingData (byte[] data);
 
-            public void IncomingData(byte[] data, IDataLink datalink)
-            {
-                _incomingDataCallback(data);
-            }
-        }
+			private OnIncomingData _incomingDataCallback;
 
-        private const short EV3_UDP_BROADCAST_PORT = 3015;
-        private const string EV3_UDP_RESPONSE_MSG = "hi";
+			public DataStreamReceiver (OnIncomingData incomingDataCallback)
+			{
+				if (incomingDataCallback == null)
+				{
+					throw new ArgumentNullException ("incomingDataCallback");
+				}
 
-        private string _serialNumber;
-        private string _projectName;
-        private string _lastMessage;
-        private TCPDataLink _tcpDataLink;
-        private Semaphore _receiveSem;
+				_incomingDataCallback = incomingDataCallback;
+			}
 
-        private bool _disposed = false;
+			public void IncomingData (byte[] data, IDataLink datalink)
+			{
+				_incomingDataCallback (data);
+			}
+		}
 
-        public string SerialNumber { get { return _serialNumber; } }
+		private const short EV3_UDP_BROADCAST_PORT = 3015;
+		private const string EV3_UDP_RESPONSE_MSG = "hi";
+		private const byte EV3_RESPONSE_LOCALS_GLOBALS = 0xfb;
+		// 251 global variables, for a response of 256 bytes
 
-        public EV3(string projectName)
-        {
-            if (projectName == null)
-            {
-                throw new ArgumentNullException("projectName");
-            }
-            if (projectName.Length < 1)
-            {
-                throw new ArgumentException("projectName can't be an empty string", "projectName");
-            }
+		private string _serialNumber;
+		private string _projectName;
+		private string _lastMessage;
+		private TCPDataLink _tcpDataLink;
+		private Semaphore _receiveSem;
 
-            _projectName = projectName;
-            _receiveSem = new Semaphore(0, 1);
-        }
+		private bool _disposed = false;
 
-        public bool Connect(int timeout = 5000)
-        {
-            IPEndPoint ev3Endpoint = NegotiateUdp(timeout);
-            if (ev3Endpoint != null)
-            {
-                return StartTcp(ev3Endpoint);
-            }
-            else
-            {
-                return false;
-            }
-        }
+		public string SerialNumber { get { return _serialNumber; } }
 
-        public bool SendMessage(string mailBox, string message)
-        {
-            if (message == null)
-            {
-                throw new ArgumentNullException("message");
-            }
-            if (message.Length < 1)
-            {
-                throw new ArgumentException("message can't be an empty string", "message");
-            }
+		public EV3 (string projectName)
+		{
+			if (projectName == null)
+			{
+				throw new ArgumentNullException ("projectName");
+			}
+			if (projectName.Length < 1)
+			{
+				throw new ArgumentException ("projectName can't be an empty string", "projectName");
+			}
 
-            byte[] messageData = new byte[message.Length + 1];
-            Array.Copy(Encoding.ASCII.GetBytes(message), messageData, message.Length);
-            messageData[messageData.Length - 1] = (byte)'\0';
+			_projectName = projectName;
+			_receiveSem = new Semaphore (0, 1);
+		}
 
-            return SendMessage(mailBox, messageData);
-        }
+		public bool Connect (int timeout = 5000)
+		{
+			IPEndPoint ev3Endpoint = NegotiateUdp (timeout);
+			if (ev3Endpoint != null)
+			{
+				return StartTcp (ev3Endpoint);
+			} else
+			{
+				return false;
+			}
+		}
 
-        public bool SendMessage(string mailBox, float message)
-        {
-            byte[] messageData = BitConverter.GetBytes(message);
-            return SendMessage(mailBox, messageData);
-        }
-        
-        public bool SendMessage(string mailBox, byte[] messageData)
-        {
-            if (mailBox == null)
-            {
-                throw new ArgumentNullException("mailBox");
-            }
-            if (mailBox.Length < 1)
-            {
-                throw new ArgumentException("mailBox can't be an empty string", "mailBox");
-            }
+		public bool SendMessage (string mailBox, string message)
+		{
+			if (message == null)
+			{
+				throw new ArgumentNullException ("message");
+			}
+			if (message.Length < 1)
+			{
+				throw new ArgumentException ("message can't be an empty string", "message");
+			}
 
-            if (messageData == null)
-            {
-                throw new ArgumentNullException("messageData");
-            }
+			byte[] messageData = new byte[message.Length + 1];
+			Array.Copy (Encoding.ASCII.GetBytes (message), messageData, message.Length);
+			messageData [messageData.Length - 1] = (byte)'\0';
 
-            try
-            {
-                byte[] msgData;
-                int msgLen = 10 + mailBox.Length + messageData.Length;
-                msgData = new byte[msgLen];
+			return SendMessage (mailBox, messageData);
+		}
 
-                // Message header
+		public bool SendMessage (string mailBox, float message)
+		{
+			byte[] messageData = BitConverter.GetBytes (message);
+			return SendMessage (mailBox, messageData);
+		}
+
+		public bool SendMessage (string mailBox, byte[] messageData)
+		{
+			if (mailBox == null)
+			{
+				throw new ArgumentNullException ("mailBox");
+			}
+			if (mailBox.Length < 1)
+			{
+				throw new ArgumentException ("mailBox can't be an empty string", "mailBox");
+			}
+
+			if (messageData == null)
+			{
+				throw new ArgumentNullException ("messageData");
+			}
+
+			try
+			{
+				byte[] msgData;
+				int msgLen = 10 + mailBox.Length + messageData.Length;
+				msgData = new byte[msgLen];
+
+				// Message header
+				Array.Copy (
+					new byte[] {
+						(byte)(msgLen - 2),                       // [0] Message length (excluding 2 length bytes)
+						0x0,                                      // [1] Message length
+						0x0,                                      // [2] Message counter (unused)
+						0x0,                                      // [3] Message counter (unused)
+						(byte)EV3Command.SYSTEM_COMMAND_NO_REPLY, // [4] Command type
+						(byte)EV3Command.WRITEMAILBOX,            // [5] System command
+						(byte)(mailBox.Length + 1),               // [6] Mailbox name length (including null terminator)
+					},
+					msgData,
+					7);
+
+				// [7..n] Mailbox name
+				Array.Copy (Encoding.ASCII.GetBytes (mailBox), 0, msgData, 7, mailBox.Length);
+				// [n + 1] null terminator for mailbox name
+				msgData [7 + mailBox.Length] = (byte)'\0';
+
+				// [n+2..n+3] Message length (including null terminator)
+				msgData [7 + mailBox.Length + 1] = (byte)(msgData.Length + 1);
+				// [n+4..n+m] Message
+				Array.Copy (messageData, 0, msgData, 7 + mailBox.Length + 3, messageData.Length);
+
+				return _tcpDataLink.SendData (msgData);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine (e.Message);
+				return false;
+			}
+		}
+
+		// NOTE: Max reply size is 256 bytes
+		public string ReceiveMessage (string mailBox)
+		{
+			if (mailBox == null)
+			{
+				throw new ArgumentNullException ("mailBox");
+			}
+			if (mailBox.Length < 1)
+			{
+				throw new ArgumentException ("Mailbox can't be an empty string", "mailBox");
+			}
+			       
+			string fileName = string.Format ("../prjs/{0}/{1}.rtf", _projectName, mailBox);
+
+			try
+			{
+				byte[] msgData;
+				int msgLen = 22 + fileName.Length;
+				msgData = new byte[msgLen];
+
+				Array.Copy (
+					new byte[] {				
+						(byte)(msgLen - 2),                     // [0] Message length (excluding 2 length bytes)
+						0x0,			                        // [1] Message length
+						0x0,                                    // [2] Message counter (unused)
+						0x0,                                    // [3] Message counter (unused)
+						(byte)EV3Command.DIRECT_COMMAND_REPLY,  // [4] Command type
+						EV3_RESPONSE_LOCALS_GLOBALS,            // [5] Number of globals and locals reserved for response	
+						0x0,                                    // [6] Number of gloabls and locals
+						(byte)EV3Command.OPFILE,                // [7] Command
+						(byte)EV3Command.OPFILE_OPEN_READ, 	    // [8] Subcommand
+						(byte)EV3Command.LOCAL_CONSTANT_STRING, // [9] Indicate a string will follow
+					},
+					msgData,
+					10
+				);
+				
+				// [10..n] filename string
+				Array.Copy (Encoding.ASCII.GetBytes (fileName), 0, msgData, 10, fileName.Length);
+
+				// [n+1] // Zero terminator for filename string
+				msgData [10 + fileName.Length] = (byte)'\0';
+
                 Array.Copy(
                     new byte[]
                     {
-                        (byte)(msgLen-2),                         // [0] Message length (excluding 2 length bytes)
-                        0x0,                                      // [1] Message length
-                        0x0,                                      // [2] Message counter (unused)
-                        0x0,                                      // [3] Message counter (unused)
-                        (byte)EV3Command.SYSTEM_COMMAND_NO_REPLY, // [4] Command type
-                        (byte)EV3Command.WRITEMAILBOX,            // [5] System command
-                        (byte)(mailBox.Length + 1),               // [6] Mailbox name length (including null terminator)
+        				0x60,                              // [n+2] Returned file handle offset: 0
+        				0x64,                              // [n+3] Returned file size offset: 4
+        				(byte)EV3Command.OPFILE,           // [n+4] Next command in stream
+        				(byte)EV3Command.OPFILE_READ_TEXT, // [n+5] Subcommand
+        				0x60,                              // [n+6] File handle location
+        				0x00,                              // [n+7] Delimiter code: no delimiter
+        				0xf0,                              // [n+8] Max string length to read: 240
+        				0x68,                              // [n+9] Returned string offset: 8
+        				(byte)EV3Command.OPFILE,           // [n+10] Next command 
+        				(byte)EV3Command.OPFILE_CLOSE,     // [n+11] Subcommand
+        				0x60,                              // [n+12] File handle location
                     },
-                    msgData,
-                    7);
+				0,
+				msgData,
+				11 + fileName.Length,
+				11
+                );
 
-                // [7..n] Mailbox name
-                Array.Copy(Encoding.ASCII.GetBytes(mailBox), 0, msgData, 7, mailBox.Length);
-                // [n + 1] null terminator for mailbox name
-                msgData[7 + mailBox.Length] = (byte)'\0';
+				_tcpDataLink.SendData(msgData);
+				_receiveSem.WaitOne ();
 
-                // [n+2..n+3] Message length (including null terminator)
-                msgData[7 + mailBox.Length + 1] = (byte)(msgData.Length + 1);
-                // [n+4..n+m] Message
-                Array.Copy(messageData, 0, msgData, 7 + mailBox.Length + 3, messageData.Length);
+				return _lastMessage;
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine (e.Message);
+			}
 
-                return _tcpDataLink.SendData(msgData);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                return false;
-            }
+			return null;
+		}
 
-            return false;
-        }
+		private IPEndPoint NegotiateUdp (int timeout)
+		{
+			using (UdpClient udpClient = new UdpClient (EV3_UDP_BROADCAST_PORT))
+			{
+				try
+				{
+					udpClient.Client.ReceiveTimeout = timeout;
 
-        public string ReceiveMessage(string mailBox)
-        {
-            if (mailBox == null)
-            {
-                throw new ArgumentNullException("mailBox");
-            }
-            if (mailBox.Length < 1)
-            {
-                throw new ArgumentException("Mailbox can't be an empty string", "mailBox");
-            }
+					IPEndPoint ev3Endpoint = null;
+					byte[] msgData = udpClient.Receive (ref ev3Endpoint);
 
-            _receiveSem.WaitOne();
-            
-            return null;
-        }
+					if (ParseUdpBroadcast (msgData) &&
+					    SendUdpResponse (udpClient, ev3Endpoint))
+					{
+						return ev3Endpoint;
+					}
+				}
+				catch (SocketException)
+				{
+					return null;
+				}
+				catch (Exception e)
+				{
+					Console.WriteLine (e.Message);
+					return null;
+				}
+			}
 
-        private IPEndPoint NegotiateUdp(int timeout)
-        {
-            using (UdpClient udpClient = new UdpClient(EV3_UDP_BROADCAST_PORT))
-            {
-                try
-                {
-                    udpClient.Client.ReceiveTimeout = timeout;
+			return null;
+		}
 
-                    IPEndPoint ev3Endpoint = null;
-                    byte[] msgData = udpClient.Receive(ref ev3Endpoint);
+		// TODO: receive the tcp port from msgStr here
+		private bool ParseUdpBroadcast (byte[] udpData)
+		{
+			if (udpData == null)
+			{
+				throw new ArgumentNullException ("udpData");
+			}
 
-                    if (ParseUdpBroadcast(msgData) &&
-                        SendUdpResponse(udpClient, ev3Endpoint))
-                    {
-                        return ev3Endpoint;
-                    }
-                }
-                catch (SocketException)
-                {
-                    return null;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                    return null;
-                }
-            }
+			string msgStr = Encoding.ASCII.GetString (udpData);
+			Regex regex = new Regex ("Serial-Number: (.*)");
+			Match match = regex.Match (msgStr);
 
-            return null;
-        }
+			if (match.Success)
+			{
+				_serialNumber = match.Groups [1].Value;
+				return true;
+			}
 
-        // TODO: receive the tcp port from msgStr here
-        private bool ParseUdpBroadcast(byte[] udpData)
-        {
-            if (udpData == null)
-            {
-                throw new ArgumentNullException("udpData");
-            }
+			return false;
+		}
 
-            string msgStr = Encoding.ASCII.GetString(udpData);
-            Regex regex = new Regex("Serial-Number: (.*)");
-            Match match = regex.Match(msgStr);
+		private bool SendUdpResponse (UdpClient udpClient, IPEndPoint destEndpoint)
+		{
+			if (udpClient == null)
+			{
+				throw new ArgumentNullException ("udpClient");
+			}
 
-            if (match.Success)
-            {
-                _serialNumber = match.Groups[1].Value;
-                return true;
-            }
+			if (destEndpoint == null)
+			{
+				throw new ArgumentNullException ("destEndpoint");
+			}
 
-            return false;
-        }
+			byte[] respData = Encoding.ASCII.GetBytes (EV3_UDP_RESPONSE_MSG);
 
-        private bool SendUdpResponse(UdpClient udpClient, IPEndPoint destEndpoint)
-        {
-            if (udpClient == null)
-            {
-                throw new ArgumentNullException("udpClient");
-            }
+			try
+			{
+				udpClient.Send (respData, respData.Length, destEndpoint);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine (e.Message);
+				return false;
+			}
 
-            if (destEndpoint == null)
-            {
-                throw new ArgumentNullException("destEndpoint");
-            }
+			return true;
+		}
 
-            byte[] respData = Encoding.ASCII.GetBytes(EV3_UDP_RESPONSE_MSG);
+		private bool StartTcp (IPEndPoint ev3Endpoint)
+		{
+			if (ev3Endpoint == null)
+			{
+				throw new ArgumentNullException ("ev3Endpoint");
+			}
 
-            try
-            {
-                udpClient.Send(respData, respData.Length, destEndpoint);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                return false;
-            }
+			try
+			{
+				TcpClient tcpClient = new TcpClient ();
+				tcpClient.Connect (new IPEndPoint (ev3Endpoint.Address, 5555));
 
-            return true;
-        }
+				_tcpDataLink = new TCPDataLink (tcpClient);
+				_tcpDataLink.SetReceiver (new DataStreamReceiver (OnIncomingData));
 
-        private bool StartTcp(IPEndPoint ev3Endpoint)
-        {
-            if (ev3Endpoint == null)
-            {
-                throw new ArgumentNullException("ev3Endpoint");
-            }
+				string str = "GET /target?sn=" + _serialNumber + " VMTP1.0\nProtocol: EV3";
+				_tcpDataLink.SendData (str);
+				_receiveSem.WaitOne ();
 
-            try
-            {
-                TcpClient tcpClient = new TcpClient();
-                tcpClient.Connect(new IPEndPoint(ev3Endpoint.Address, 5555));
+				Console.WriteLine ("TCP Test response: " + _lastMessage.TrimEnd ());
+			}
+			catch (SocketException)
+			{
+				return false;
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine (e.Message);
+				return false;
+			}
 
-                _tcpDataLink = new TCPDataLink(tcpClient);
-                _tcpDataLink.SetReceiver(new DataStreamReceiver(OnIncomingData));
+			return true;
+		}
 
-                string str = "GET /target?sn=" + _serialNumber + " VMTP1.0\nProtocol: EV3";
-                _tcpDataLink.SendData(str);
-                _receiveSem.WaitOne();
+		private void OnIncomingData (byte[] data)
+		{
+			if (data.Length > 0)
+			{
+				_lastMessage = Encoding.ASCII.GetString (data);
+				_receiveSem.Release ();
+			}
+		}
 
-                Console.WriteLine("TCP Test response: " + _lastMessage.TrimEnd());
-            }
-            catch (SocketException)
-            {
-                return false;
-            }
-
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                return false;
-            }
-
-            return true;
-        }
-
-        private void OnIncomingData(byte[] data)
-        {
-            if (data.Length > 0)
-            {
-                _lastMessage = Encoding.ASCII.GetString(data);
-                _receiveSem.Release();
-            }
-        }
-
-        public void Dispose()
-        {
-            if (!_disposed)
-            {
-                _disposed = true;
-                _tcpDataLink.Dispose();
-            }
-        }
-    }
+		public void Dispose ()
+		{
+			if (!_disposed)
+			{
+				_disposed = true;
+				_tcpDataLink.Dispose ();
+			}
+		}
+	}
 }
