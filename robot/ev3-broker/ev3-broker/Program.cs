@@ -73,7 +73,7 @@ namespace ev3_broker
                         Console.WriteLine("wha");
                     }
                     ev3.SendMessage("STATUS", "get_button");
-                    string result = ev3.ReceiveString("BUTTON");
+                    bool result = ev3.ReceiveBool("BUTTON");
 
                     Console.WriteLine(result);
                 }

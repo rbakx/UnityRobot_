@@ -244,6 +244,21 @@ namespace ev3_broker
             return null;
         }
 
+        public bool ReceiveBool(string mailBox, int timeout = -1)
+        {
+            string received = ReceiveString(mailBox, timeout);
+
+            int result;
+            if (int.TryParse(received, out result))
+            {
+                return result == 1;
+            }
+            else
+            {
+                throw new Exception("Received message not a bool");
+            }
+        }
+
         private IPEndPoint NegotiateUdp(int timeout = -1)
         {
             using (UdpClient udpClient = new UdpClient(EV3_UDP_BROADCAST_PORT))
