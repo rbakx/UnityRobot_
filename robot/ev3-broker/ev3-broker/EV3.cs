@@ -62,17 +62,16 @@ namespace ev3_broker
 
         private const short EV3_UDP_BROADCAST_PORT = 3015;
         private const string EV3_UDP_RESPONSE_MSG = "hi";
-        private const byte EV3_RESPONSE_LOCALS_GLOBALS = 0xfb;
-        // 251 global variables, for a response of 256 bytes
+        private const byte EV3_RESPONSE_LOCALS_GLOBALS = 0xfb;  // 251 global variables, for a response of 256 bytes
 
         private string _serialNumber;
-        private int _tcpPort;
         private string _projectName;
         private string _lastMessage;
-        private TCPDataLink _tcpDataLink;
-        private Semaphore _receiveSem;
 
+        private short _tcpPort;
+        private TCPDataLink _tcpDataLink;
         private DataStreamReceiver _dataStreamReceiver;
+        private Semaphore _receiveSem;
 
         private bool _disposed = false;
 
@@ -89,28 +88,25 @@ namespace ev3_broker
                 throw new ArgumentException("projectName can't be an empty string", "projectName");
             }
 
-            _projectName = projectName;
-            _receiveSem = new Semaphore(0, 1);
-            _dataStreamReceiver = new DataStreamReceiver(OnIncomingData);
-
-            _tcpDataLink = null;
-            _tcpPort = -1;
-
-            _lastMessage = null;
             _serialNumber = null;
+            _projectName = projectName;
+            _lastMessage = null;
+
+            _tcpPort = -1;
+            _tcpDataLink = null;
+            _dataStreamReceiver = new DataStreamReceiver(OnIncomingData);
+            _receiveSem = new Semaphore(0, 1);
         }
 
-        public bool Connect(int timeout = 5000)
+        public bool Connect(int timeout = -1)
         {
             IPEndPoint ev3Endpoint = NegotiateUdp(timeout);
             if (ev3Endpoint != null)
             {
-                return StartTcp(ev3Endpoint);
+                return StartTcp(ev3Endpoint, timeout);
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
         }
 
         public bool SendMessage(string mailBox, string message)
@@ -160,18 +156,13 @@ namespace ev3_broker
                 msgData = new byte[msgLen];
 
                 // Message header
-                Array.Copy(
-                    new byte[] {
-                        (byte)(msgLen - 2),                       // [0] Message length (excluding 2 length bytes)
-						0x0,                                      // [1] Message length
-						0x0,                                      // [2] Message counter (unused)
-						0x0,                                      // [3] Message counter (unused)
-						(byte)EV3Command.SYSTEM_COMMAND_NO_REPLY, // [4] Command type
-						(byte)EV3Command.WRITEMAILBOX,            // [5] System command
-						(byte)(mailBox.Length + 1),               // [6] Mailbox name length (including null terminator)
-					},
-                    msgData,
-                    7);
+                msgData[0] = (byte)(msgLen - 2);                       //  Message length (excluding 2 length bytes)
+                msgData[1] = 0x0;                                      //  Message length
+                msgData[2] = 0x0;                                      //  Message counter (unused)
+                msgData[3] = 0x0;                                      //  Message counter (unused)
+                msgData[4] = (byte)EV3Command.SYSTEM_COMMAND_NO_REPLY; //  Command type
+                msgData[5] = (byte)EV3Command.WRITEMAILBOX;            //  System command
+                msgData[6] = (byte)(mailBox.Length + 1);               //  Mailbox name length (including null terminator)
 
                 // [7..n] Mailbox name
                 Array.Copy(Encoding.ASCII.GetBytes(mailBox), 0, msgData, 7, mailBox.Length);
@@ -192,8 +183,7 @@ namespace ev3_broker
             }
         }
 
-        // NOTE: Max reply size is 256 bytes
-        public string ReceiveMessage(string mailBox)
+        public string ReceiveString(string mailBox, int timeout = -1)
         {
             if (mailBox == null)
             {
@@ -212,54 +202,39 @@ namespace ev3_broker
                 int msgLen = 22 + fileName.Length;
                 msgData = new byte[msgLen];
 
-                Array.Copy(
-                    new byte[] {
-                        (byte)(msgLen - 2),                     // [0] Message length (excluding 2 length bytes)
-						0x0,			                        // [1] Message length
-						0x0,                                    // [2] Message counter (unused)
-						0x0,                                    // [3] Message counter (unused)
-						(byte)EV3Command.DIRECT_COMMAND_REPLY,  // [4] Command type
-						EV3_RESPONSE_LOCALS_GLOBALS,            // [5] Number of globals and locals reserved for response	
-						0x0,                                    // [6] Number of gloabls and locals
-						(byte)EV3Command.OPFILE,                // [7] Command
-						(byte)EV3Command.OPFILE_OPEN_READ, 	    // [8] Subcommand
-						(byte)EV3Command.LOCAL_CONSTANT_STRING, // [9] Indicate a string will follow
-					},
-                    msgData,
-                    10
-                );
+                msgData[0] = (byte)(msgLen - 2);                     //  Message length (excluding 2 length bytes)
+                msgData[1] = 0x0;                                    //  Message length
+                msgData[2] = 0x0;                                    //  Message counter (unused)
+                msgData[3] = 0x0;                                    //  Message counter (unused)
+                msgData[4] = (byte)EV3Command.DIRECT_COMMAND_REPLY;  //  Command type
+                msgData[5] = EV3_RESPONSE_LOCALS_GLOBALS;            //  Number of globals and locals reserved for response	
+                msgData[6] = 0x0;                                    //  Number of globals and locals
+                msgData[7] = (byte)EV3Command.OPFILE;                //  Command
+                msgData[8] = (byte)EV3Command.OPFILE_OPEN_READ;      //  Subcommand
+                msgData[9] = (byte)EV3Command.LOCAL_CONSTANT_STRING; //  Indicate a string will follow
 
                 // [10..n] filename string
                 Array.Copy(Encoding.ASCII.GetBytes(fileName), 0, msgData, 10, fileName.Length);
-
-                // [n+1] // Zero terminator for filename string
                 msgData[10 + fileName.Length] = (byte)'\0';
 
-                Array.Copy(
-                    new byte[]
-                    {
-                        0x60,                              // [n+2] Returned file handle offset: 0
-        				0x64,                              // [n+3] Returned file size offset: 4
-        				(byte)EV3Command.OPFILE,           // [n+4] Next command in stream
-        				(byte)EV3Command.OPFILE_READ_TEXT, // [n+5] Subcommand
-        				0x60,                              // [n+6] File handle location
-        				0x00,                              // [n+7] Delimiter code: no delimiter
-        				0xf0,                              // [n+8] Max string length to read: 240
-        				0x68,                              // [n+9] Returned string offset: 8
-        				(byte)EV3Command.OPFILE,           // [n+10] Next command 
-        				(byte)EV3Command.OPFILE_CLOSE,     // [n+11] Subcommand
-        				0x60,                              // [n+12] File handle location
-                    },
-                    0,
-                    msgData,
-                    11 + fileName.Length,
-                    11
-                );
+                int n = 10 + fileName.Length;
+
+                msgData[n + 1] = 0x60;                              // Returned file handle offset: 0
+                msgData[n + 2] = 0x64;                              // Returned file size offset: 4
+                msgData[n + 3] = (byte)EV3Command.OPFILE;           // Next command in stream
+                msgData[n + 4] = (byte)EV3Command.OPFILE_READ_TEXT; // Subcommand
+                msgData[n + 5] = 0x60;                              // File handle location
+                msgData[n + 6] = 0x00;                              // Delimiter code: no delimiter
+                msgData[n + 7] = 0xf0;                              // Max string length to read: 240
+                msgData[n + 8] = 0x68;                              // Returned string offset: 8
+                msgData[n + 9] = (byte)EV3Command.OPFILE;           // Next command 
+                msgData[n + 10] = (byte)EV3Command.OPFILE_CLOSE;    // Subcommand
+                msgData[n + 11] = 0x60;                             // File handle location
 
                 _tcpDataLink.SendData(msgData);
-                _receiveSem.WaitOne();
+                _receiveSem.WaitOne(timeout);
 
-                return _lastMessage.TrimEnd();
+                return _lastMessage;
             }
             catch (Exception e)
             {
@@ -269,7 +244,7 @@ namespace ev3_broker
             return null;
         }
 
-        private IPEndPoint NegotiateUdp(int timeout)
+        private IPEndPoint NegotiateUdp(int timeout = -1)
         {
             using (UdpClient udpClient = new UdpClient(EV3_UDP_BROADCAST_PORT))
             {
@@ -300,7 +275,6 @@ namespace ev3_broker
             return null;
         }
 
-        // TODO: receive the tcp port from msgStr here
         private bool ParseUdpBroadcast(byte[] udpData)
         {
             if (udpData == null)
@@ -326,7 +300,7 @@ namespace ev3_broker
             if (match.Success)
             {
                 string tcpPortStr = match.Groups[1].Value.TrimEnd();
-                bool success = int.TryParse(tcpPortStr, out _tcpPort);
+                bool success = short.TryParse(tcpPortStr, out _tcpPort);
 
                 if (!success)
                 {
@@ -369,7 +343,7 @@ namespace ev3_broker
             return true;
         }
 
-        private bool StartTcp(IPEndPoint ev3Endpoint)
+        private bool StartTcp(IPEndPoint ev3Endpoint, int timeout = -1)
         {
             if (ev3Endpoint == null)
             {
@@ -391,9 +365,9 @@ namespace ev3_broker
 
                 string str = "GET /target?sn=" + _serialNumber + " VMTP1.0\nProtocol: EV3";
                 _tcpDataLink.SendData(str);
-                _receiveSem.WaitOne();
-                
-                _dataStreamReceiver.SetCallback(OnIncomingTCPData);
+                _receiveSem.WaitOne(timeout);
+
+                _dataStreamReceiver.SetCallback(OnIncomingTcpData);
 
                 Console.WriteLine("TCP Test response: " + _lastMessage.TrimEnd());
             }
@@ -419,7 +393,7 @@ namespace ev3_broker
             }
         }
 
-        private void OnIncomingTCPData(byte[] data)
+        private void OnIncomingTcpData(byte[] data)
         {
             if (data.Length > 0)
             {
