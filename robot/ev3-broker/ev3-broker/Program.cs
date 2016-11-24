@@ -13,6 +13,20 @@ namespace ev3_broker
             Environment.Exit(41);
         }
 
+        static bool CurrentKey(ConsoleKey key)
+        {
+            if (Console.KeyAvailable)
+            {
+                ConsoleKeyInfo cKey = Console.ReadKey(true);
+
+                return key == cKey.Key;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         static void Main(string[] args)
         {
             using (EV3 ev3 = new EV3("EV3Wifi"))
@@ -26,33 +40,40 @@ namespace ev3_broker
                     Console.WriteLine("EV3 detected: " + ev3.SerialNumber);
                 }
 
+                ev3.SendMessage("DISPLAY", "Reading button");
+
                 while (true)
                 {
-                    Console.Write("speed: ");
-                    string speedStr = Console.ReadLine();
+                    ev3.SendMessage("STATUS", "get_button");
+                    string result = ev3.ReceiveMessage("BUTTON");
 
-                    float speed = 0;
-                    if (!float.TryParse(speedStr, out speed))
-                    {
-                        Console.WriteLine("Invalid input");
-                    }
-                    else if (!ev3.SendMessage("SPEED", speed))
-                    {
-                        Console.WriteLine("Message send failed");
-                    }
+                    Console.WriteLine(result);
 
-                    Console.WriteLine("Press esc to quit, any other key to continue");
-                    ConsoleKeyInfo cki = Console.ReadKey();
-                    if (cki.Key == ConsoleKey.Escape)
+                    //Console.Write("speed: ");
+
+                    //string speedStr = Console.ReadLine();
+
+                    //float speed = 0;
+                    //if (!float.TryParse(speedStr, out speed))
+                    //{
+                    //    Console.WriteLine("Invalid input");
+                    //}
+                    //else if (!ev3.SendMessage("SPEED", speed))
+                    //{
+                    //    Console.WriteLine("Message send failed");
+                    //}
+
+
+                    
+                    if (CurrentKey(ConsoleKey.Escape))
                     {
                         break;
                     }
                 }
             }
 
+            Console.ReadLine();
 
-
-            //Console.ReadLine();
 
             //EV3Wifi ev3 = new EV3Wifi();
             //string conStatus = ev3.Connect();
