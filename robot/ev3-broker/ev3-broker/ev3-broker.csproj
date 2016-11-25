@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EV3.cs" />
+    <Compile Include="EV3Robot.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -57,6 +58,10 @@
     <ProjectReference Include="..\..\..\networking\networking\networking.csproj">
       <Project>{9f57e83a-805e-4bf4-8f12-6c69fa604a6a}</Project>
       <Name>networking</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\broker\broker\broker.csproj">
+      <Project>{7a1e23ad-4aeb-4b1e-8b81-fc00a83654e6}</Project>
+      <Name>broker</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

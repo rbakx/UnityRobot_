@@ -28,7 +28,7 @@ namespace broker
             Message message = MessageBuilder.CreateMessage(messageId, 
                 MessageTarget_.Unity, MessageType_.IdentificationResponse);
 
-            message.identificationResponse.robotType = _robotType.ToString();
+            message.SetIdentificationResponse(_robotType.ToString());
 
             _communicator.SendCommand(message);
         }
@@ -38,7 +38,7 @@ namespace broker
             Message message = MessageBuilder.CreateMessage(
                 MessageTarget_.Unity, MessageType_.LogError);
 
-            message.error.message = "Custom message is not implemented";
+            message.SetLogError("Custom message is not implemented");
 
             _communicator.SendCommand(message);
         }

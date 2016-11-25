@@ -152,6 +152,18 @@ namespace Communication
             return result;
         }
 
+        public static Vector3_ CreateVector(float xIn, float yIn, float zIn)
+        {
+            Vector3_ result = new Vector3_
+            {
+                x = xIn,
+                y = yIn,
+                z = zIn,
+            };
+
+            return result;
+        }
+
         /// <summary>
         /// Set the identification response of a message.
         /// </summary>

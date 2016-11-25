@@ -1,83 +1,70 @@
-﻿using System;
+﻿using broker;
+using Communication;
+using Communication.Transform;
+using Networking;
+using System;
+using System.Net.Sockets;
 using System.Threading;
 
 namespace ev3_broker
 {
     class Program
     {
-        volatile static bool running = true;
-
-        static void fatalError(string msg)
-        {
-            Console.WriteLine(msg);
-            Console.ReadLine();
-            Environment.Exit(41);
-        }
-
-        static bool CurrentKey(ConsoleKey key)
-        {
-            if (Console.KeyAvailable)
-            {
-                ConsoleKeyInfo cKey = Console.ReadKey(true);
-
-                return key == cKey.Key;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         static void Main(string[] args)
         {
-            Thread ev3Thread = new Thread(EV3Work);
-            ev3Thread.Start();
-
-            while (running)
+            using (EV3Robot ev3 = new EV3Robot(null, "ev3 robot"))
             {
-                if (Console.KeyAvailable)
+                while (true)
                 {
-                    ConsoleKeyInfo cKey = Console.ReadKey(true);
-
-                    switch (cKey.Key)
-                    {
-                        case ConsoleKey.Escape:
-                            running = false;
-                            break;
-                    }
+                    ev3.Indicate();
+                    Console.ReadLine();
                 }
+                
+
+                //ev3.VelocitySet(MessageBuilder.CreateVector(20, 0, 0), MessageBuilder.CreateVector(0, 0, 0));
+                //Console.ReadLine();
+                ////ev3.VelocitySet(MessageBuilder.CreateVector(0, 0, 0), MessageBuilder.CreateVector(0, 0, -20));
+                //Console.ReadLine();
+                //ev3.VelocitySet(MessageBuilder.CreateVector(0, 0, 0), MessageBuilder.CreateVector(0, 0, 0));
+
             }
 
-            ev3Thread.Join();
-        }
+            ////Gets the hostname and port from the command line parameters to connect to the robot in question (in this case the Nao)
+            //string hostname = args.Length > 0 ? args[0] : "127.0.0.1";
+            //int port = args.Length > 1 ? Int32.Parse(args[1]) : 1234;
 
-        static void EV3Work()
-        {
-            using (EV3 ev3 = new EV3("EV3Wifi"))
-            {
-                if (!ev3.Connect(5000))
-                {
-                    fatalError("No EV3 devices detected.");
-                }
-                else
-                {
-                    Console.WriteLine("EV3 detected: " + ev3.SerialNumber);
-                }
+            ////Creates a connection to the robot using the specified hostname and port
+            //TcpClient tcpClient;
+            //try
+            //{
+            //    tcpClient = new TcpClient(hostname, port);
+            //}
+            //catch (SocketException ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //    return;
+            //}
 
-                ev3.SendMessage("DISPLAY", "Reading button");
+            //IDataLink dl = new TCPDataLink(tcpClient);
+            //IPresentationProtocol pp = new ProtoBufPresentation();
 
-                while (running)
-                {
-                    if (running ==false)
-                    {
-                        Console.WriteLine("wha");
-                    }
-                    ev3.SendMessage("STATUS", "get_button");
-                    bool result = ev3.ReceiveBool("BUTTON");
+            //Communicator communicator = new Communicator(dl, pp);
 
-                    Console.WriteLine(result);
-                }
-            }
+            //EV3Robot nao = new EV3Robot(communicator, "My little robot");
+            //MessageActionMapper map = new MessageActionMapper(nao);
+            //pp.SetReceiver(map);
+
+
+            ////Waiting for user input before closing
+            //Console.WriteLine("Press enter to close the connection.");
+            //while (true)
+            //{
+            //    if (Console.ReadKey().Key == ConsoleKey.Enter)
+            //        break;
+            //}
+
+            ////Clean up
+            //tcpClient.Close();
         }
     }
 }
