@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="communication\MessageBuilder.cs" />
     <Compile Include="networking\Communicator.cs" />
     <Compile Include="networking\IDataLink.cs" />
     <Compile Include="networking\IDataLinkListener.cs" />
