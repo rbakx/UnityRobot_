@@ -62,10 +62,21 @@ namespace ev3_broker
 
         private const short EV3_UDP_BROADCAST_PORT = 3015;
         private const string EV3_UDP_RESPONSE_MSG = "hi";
-        private const byte EV3_RESPONSE_LOCALS_GLOBALS = 0xfb;  // 251 global variables, for a response of 256 bytes
+        
+        /// <summary>
+        /// Reservation (allocation) of global and local variables.
+        /// When requesting a response from the EV3, this will be the number of
+        /// bytes reserved for global data in the response (251).        
+        /// /// </summary>
+        private const byte EV3_NUM_RESPONSE_GLOBALS = 0xfb;  
 
         private string _serialNumber;
-        private string _projectName;
+
+        /// <summary>
+        /// The name of the project on the EV3, used to access the receive mailbox
+        /// </summary>
+        private string _ev3ProjectName;
+
         private string _lastMessage;
 
         private short _tcpPort;
@@ -89,7 +100,7 @@ namespace ev3_broker
             }
 
             _serialNumber = null;
-            _projectName = projectName;
+            _ev3ProjectName = projectName;
             _lastMessage = null;
 
             _tcpPort = -1;
@@ -97,18 +108,24 @@ namespace ev3_broker
             _dataStreamReceiver = new DataStreamReceiver(OnIncomingData);
             _receiveSem = new Semaphore(0, 1);
         }
-
+        
+        /// <summary>
+        /// Listens for a udp broadcast from a EV3, and tries to connect to it
+        /// TODO: This will not handle multiple broadcasting EV3's</summary>
+        /// <param name="timeout"></param>
+        /// <returns></returns>
         public bool Connect(int timeout = -1)
         {
-            IPEndPoint ev3Endpoint = NegotiateUdp(timeout);
+            IPEndPoint ev3Endpoint = ListenForSingleUdpBroadcast(timeout);
             if (ev3Endpoint != null)
             {
-                return StartTcp(ev3Endpoint, timeout);
+                return EstablishTcpConnection(ev3Endpoint, timeout);
             }
 
             return false;
         }
 
+        // Sending strings for testing
         public bool SendMessage(string mailBox, string message)
         {
             if (message == null)
@@ -127,6 +144,7 @@ namespace ev3_broker
             return SendMessage(mailBox, messageData);
         }
 
+        // Sending floats for testing
         public bool SendMessage(string mailBox, float message)
         {
             byte[] messageData = BitConverter.GetBytes(message);
@@ -194,7 +212,7 @@ namespace ev3_broker
                 throw new ArgumentException("Mailbox can't be an empty string", "mailBox");
             }
 
-            string fileName = string.Format("../prjs/{0}/{1}.rtf", _projectName, mailBox);
+            string fileName = string.Format("../prjs/{0}/{1}.rtf", _ev3ProjectName, mailBox);
 
             try
             {
@@ -207,8 +225,8 @@ namespace ev3_broker
                 msgData[2] = 0x0;                                    //  Message counter (unused)
                 msgData[3] = 0x0;                                    //  Message counter (unused)
                 msgData[4] = (byte)EV3Command.DIRECT_COMMAND_REPLY;  //  Command type
-                msgData[5] = EV3_RESPONSE_LOCALS_GLOBALS;            //  Number of globals and locals reserved for response	
-                msgData[6] = 0x0;                                    //  Number of globals and locals
+                msgData[5] = EV3_NUM_RESPONSE_GLOBALS;                   //  Number of globals and locals reserved for response	
+                msgData[6] = 0x0;                                    //  Number of globals and locals (locals)
                 msgData[7] = (byte)EV3Command.OPFILE;                //  Command
                 msgData[8] = (byte)EV3Command.OPFILE_OPEN_READ;      //  Subcommand
                 msgData[9] = (byte)EV3Command.LOCAL_CONSTANT_STRING; //  Indicate a string will follow
@@ -244,6 +262,7 @@ namespace ev3_broker
             return null;
         }
 
+        // Test for receiving booleans
         public bool ReceiveBool(string mailBox, int timeout = -1)
         {
             string received = ReceiveString(mailBox, timeout);
@@ -259,7 +278,7 @@ namespace ev3_broker
             }
         }
 
-        private IPEndPoint NegotiateUdp(int timeout = -1)
+        private IPEndPoint ListenForSingleUdpBroadcast(int timeout = -1)
         {
             using (UdpClient udpClient = new UdpClient(EV3_UDP_BROADCAST_PORT))
             {
@@ -358,7 +377,7 @@ namespace ev3_broker
             return true;
         }
 
-        private bool StartTcp(IPEndPoint ev3Endpoint, int timeout = -1)
+        private bool EstablishTcpConnection(IPEndPoint ev3Endpoint, int timeout = -1)
         {
             if (ev3Endpoint == null)
             {
