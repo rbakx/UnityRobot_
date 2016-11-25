@@ -53,9 +53,9 @@ class Settings
 		/*
 		 * Getters
 		 */
-		const GeneralProperties& getGeneralProperties();
-		const DeviceProperties& getDeviceProperties();
-		const RecordingProperties& getRecordingProperties();
+		const GeneralProperties& getGeneralProperties() const;
+		const DeviceProperties& getDeviceProperties() const;
+		const RecordingProperties& getRecordingProperties() const;
 };
 
 extern Settings* settings;

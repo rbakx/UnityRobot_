@@ -5,7 +5,14 @@
 
 #include <stdexcept>
 
-#include "libuvc/libuvc.h"
+#ifdef _WIN32
+	#pragma warning(push)
+	#pragma warning(disable: 4200)
+	#include "libuvc/libuvc.h"
+	#pragma warning(pop)
+#else
+	#include "libuvc/libuvc.h"
+#endif
 
 #include "CameraFeedSender.hpp"
 
@@ -22,7 +29,7 @@ CameraFeedSender::CameraFeedSender(VideoFeedFrameReceiver* target) : VideoFeedFr
       _width(settings->getRecordingProperties().width),
       _height(settings->getRecordingProperties().height),
       _fps(settings->getRecordingProperties().fps),
-	  _fps_capture_frame_delay_ns(1000000000L / _fps)
+	  _fps_capture_frame_delay_ns(1000000000L / static_cast<unsigned long>(_fps))
 
 {
 
@@ -43,23 +50,22 @@ CameraFeedSender::CameraFeedSender(VideoFeedFrameReceiver* target) : VideoFeedFr
 									   "Expected bigger than 0, got from settings: " + to_string(_vid) + ", " + to_string(_pid));
 	}
 
-	//TODO: Make a bool in config.yml to enable/disable autofocus as it might be not supported for the webcam
 	if(!settings->getRecordingProperties().autofocus)
-    	disableAutoFocus();
+		disableAutoFocus();
 	
 	if(!_cap.isOpened())  // check if we succeeded
-    {
-        throw runtime_error("[CameraFeedSender] Camera at index " + to_string(settings->getDeviceProperties().number) + " could not be opened!");
-    }
+	{
+		throw runtime_error("[CameraFeedSender] Camera at index " + to_string(settings->getDeviceProperties().number) + " could not be opened!");
+	}
 		
-    //Set video source to FullHD@24fps(
-    //cap.set(CV_CAP_PROP_FOURCC, CODEC);
-    _cap.set(CV_CAP_PROP_FRAME_WIDTH, _width);
-    _cap.set(CV_CAP_PROP_FRAME_HEIGHT, _height);
-    _cap.set(CV_CAP_PROP_FPS, _fps); //Warning: This doesn't work for at least the Logitech C930e
-    //cap.set(CV_CAP_PROP_AUTOFOCUS, 0); //Warning: This doesn't work for at least the Logitech C930e
+	//Set video source to FullHD@24fps(
+	//cap.set(CV_CAP_PROP_FOURCC, CODEC);
+	_cap.set(CV_CAP_PROP_FRAME_WIDTH, _width);
+	_cap.set(CV_CAP_PROP_FRAME_HEIGHT, _height);
+	_cap.set(CV_CAP_PROP_FPS, _fps); //Warning: This doesn't work for at least the Logitech C930e
+	//cap.set(CV_CAP_PROP_AUTOFOCUS, 0); //Warning: This doesn't work for at least the Logitech C930e
 
-    signalObjectsSetup();
+	signalObjectsSetup();
 }
 
 CameraFeedSender::~CameraFeedSender()
@@ -73,60 +79,63 @@ void CameraFeedSender::disableAutoFocus()
 		PRE:
 		UVC is a library used to find a usb video device, to disable change autofocus.
 	*/
-    uvc_context_t *ctx;
-    uvc_device_handle_t *devh;
-    uvc_device_t *dev;
-    uvc_error_t res;
+	uvc_context_t *ctx;
+	uvc_device_handle_t *devh;
+	uvc_device_t *dev;
+	uvc_error_t res;
 
-    res = uvc_init(&ctx, NULL);
+	res = uvc_init(&ctx, NULL);
 
-    if (res < 0) {
-        uvc_perror(res, "uvc_init");
-        return;
-    }
+	if (res < 0) {
+		uvc_perror(res, "uvc_init");
+		return;
+	}
 
-    /* Locates the attached UVC device, stores in dev */
-    res = uvc_find_device(
-            ctx, &dev,
-            _vid, _pid, NULL); /* filter devices: vendor_id, product_id, "serial_num" */
+	/* Locates the attached UVC device, stores in dev */
+	res = uvc_find_device(
+			ctx, &dev,
+			_vid, _pid, NULL); /* filter devices: vendor_id, product_id, "serial_num" */
 
-    if (res < 0) {
-        uvc_perror(res, "uvc_find_device"); /* no devices found */
-        return;
-    }
-
-
-        /* Try to open the device: requires exclusive access */
-    res = uvc_open(dev, &devh);
-
-    if (res < 0) {
-        uvc_perror(res, "uvc_open"); /* unable to open device */
-        return;
-    }
+	if (res < 0) {
+		uvc_perror(res, "uvc_find_device"); /* no devices found */
+		return;
+	}
 
 
-    res = uvc_set_focus_auto(devh, 0);
+		/* Try to open the device: requires exclusive access */
+	res = uvc_open(dev, &devh);
 
-    uvc_close(devh);
+	if (res < 0) {
+		uvc_perror(res, "uvc_open"); /* unable to open device */
+		return;
+	}
 
-    /* Release the device descriptor */
-    uvc_unref_device(dev);
-    /* Close the UVC context. This closes and cleans up any existing device handles,
-    * and it closes the libusb context if one was not provided. */
-    uvc_exit(ctx);
+
+	res = uvc_set_focus_auto(devh, 0);
+
+	uvc_close(devh);
+
+	/* Release the device descriptor */
+	uvc_unref_device(dev);
+	/* Close the UVC context. This closes and cleans up any existing device handles,
+	* and it closes the libusb context if one was not provided. */
+	uvc_exit(ctx);
 }
 
 bool CameraFeedSender::FeedReading() noexcept
 {
-    Mat frame;
-    _cap >> frame;
+	Mat frame;
+	_cap >> frame;
 
-    if(!frame.empty())
-    {
-        PushFrameToTarget(frame);
-    }
+	if(!frame.empty())
+	{
+		PushFrameToTarget(frame);
+	}
 
-    this_thread::__sleep_for(chrono::seconds(0), chrono::nanoseconds(_fps_capture_frame_delay_ns));
-	
+	#ifdef __linux__
+		this_thread::__sleep_for(chrono::seconds(0), chrono::nanoseconds(_fps_capture_frame_delay_ns));
+	#else
+		this_thread::sleep_for(chrono::nanoseconds(_fps_capture_frame_delay_ns));
+	#endif
 	return true;
 }

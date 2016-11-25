@@ -1,4 +1,5 @@
 #include "VideoFeedFrameReceiverTargets.hpp"
+#include <mutex>
 
 using namespace std;
 using namespace cv;
@@ -16,6 +17,8 @@ size_t VideoFeedFrameReceiverTargets::getTargetIndexByPointer(VideoFeedFrameRece
 
 void VideoFeedFrameReceiverTargets::OnIncomingFrame(const Mat& frame) noexcept
 {
+	std::mutex lock;
+	lock_guard<mutex> frame_guard(lock);
 	for(auto videoFeedFrameReceiver : _targets)
 	{
 		videoFeedFrameReceiver->OnIncomingFrame(frame);

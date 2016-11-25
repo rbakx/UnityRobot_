@@ -2,7 +2,7 @@
 Settings:
    General:
       port: 1234                #Port for the socket connection to Unity3D
-      sampleName: sample.yml    #Cannot be a path as far as I know
+      sampleName: sample.yml
    Device:
       number: 1                 #The camera number, laptops have their integrated webcam at index 0. Therefore the first externel webcam will be at index 1.
       vid: 0x046d               #For the Logitech C930e

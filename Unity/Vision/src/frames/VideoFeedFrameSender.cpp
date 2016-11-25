@@ -6,7 +6,7 @@ using namespace std;
 using namespace cv;
 using namespace frames;
 
-VideoFeedFrameSender::VideoFeedFrameSender(VideoFeedFrameReceiver* target) noexcept : _target(target), _framesFeederThread(nullptr), _threadContinueRunning(false)
+VideoFeedFrameSender::VideoFeedFrameSender(VideoFeedFrameReceiver* target) : _target(target), _framesFeederThread(nullptr), _threadContinueRunning(false)
 {
 	if(_target == nullptr)
 	{

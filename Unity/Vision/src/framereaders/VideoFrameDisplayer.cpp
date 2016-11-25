@@ -10,20 +10,19 @@ VideoFrameDisplayer::VideoFrameDisplayer(const string& windowName,
 		: _WINDOW_NAME(windowName),
 		  _threadContinueRunning(true)
 {
-	namedWindow(_WINDOW_NAME, WINDOW_NORMAL);
-	resizeWindow(_WINDOW_NAME, windowWidth, windowHeight);
-
 	_displayThread = new thread([=]()
-	 {
-		 while(this->_threadContinueRunning)
-		 {
-			 if(newFrame)
-			 {
-				 newFrame = false;
-				 this->threadDisplayMethod();
-			 }
-		 }
-	 });
+	{
+		namedWindow(_WINDOW_NAME, WINDOW_NORMAL);
+		resizeWindow(_WINDOW_NAME, windowWidth, windowHeight);
+		while(this->_threadContinueRunning)
+		{
+			if(newFrame)
+			{
+				newFrame = false;
+				this->threadDisplayMethod();
+			}
+		}
+	});
 }
 
 VideoFrameDisplayer::~VideoFrameDisplayer()
@@ -32,6 +31,7 @@ VideoFrameDisplayer::~VideoFrameDisplayer()
 	{
 		_threadContinueRunning = false;
 		_displayThread->join();
+		destroyWindow(_WINDOW_NAME);
 	}
 
 	delete _displayThread;
@@ -46,6 +46,9 @@ void VideoFrameDisplayer::OnIncomingFrame(const Mat& frame) noexcept
 
 void VideoFrameDisplayer::threadDisplayMethod() noexcept
 {
+	if (_frame.empty())
+		return;
+
 	{
 		lock_guard<mutex> frame_guard(_lock);
 		imshow(_WINDOW_NAME, _frame);

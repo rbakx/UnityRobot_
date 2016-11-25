@@ -33,7 +33,7 @@ namespace frames
 		
 		public:
 		
-			VideoFeedFrameSender(VideoFeedFrameReceiver* target) noexcept;
+			VideoFeedFrameSender(VideoFeedFrameReceiver* target);
 			~VideoFeedFrameSender();
 	};
 }
