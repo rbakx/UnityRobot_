@@ -17,6 +17,19 @@ namespace Communication
         {
             Message result = new Message
             {
+                id = -1,
+                messageTarget = target,
+                messageType = type,
+            };
+
+            return result;
+        }
+
+        public static Message CreateMessage(int id, MessageTarget_ target, MessageType_ type)
+        {
+            Message result = new Message
+            {
+                id = id,
                 messageTarget = target,
                 messageType = type,
             };

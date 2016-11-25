@@ -25,12 +25,8 @@ namespace broker
 
         public void IdentificationRequest(int messageId)
         {
-            Message message = new Message
-            {
-                id = messageId,
-                messageTarget = MessageTarget_.Unity,
-                messageType = MessageType_.IdentificationResponse
-            };
+            Message message = MessageBuilder.CreateMessage(messageId, 
+                MessageTarget_.Unity, MessageType_.IdentificationResponse);
 
             message.identificationResponse.robotType = _robotType.ToString();
 
@@ -39,13 +35,9 @@ namespace broker
 
         public virtual void OnNonStandardMessage(Message incomingMessage)
         {
-            Message message = new Message
-            {
-                id = incomingMessage.id,
-                messageTarget = MessageTarget_.Unity,
-                messageType = MessageType_.LogError
-            };
-            
+            Message message = MessageBuilder.CreateMessage(
+                MessageTarget_.Unity, MessageType_.LogError);
+
             message.error.message = "Custom message is not implemented";
 
             _communicator.SendCommand(message);
