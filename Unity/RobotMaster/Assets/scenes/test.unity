@@ -804,7 +804,11 @@ MonoBehaviour:
   - {fileID: 879617715}
   - {fileID: 914352690}
   - {fileID: 1348464409}
+  ManualPanels: []
+  MinionControl: {fileID: 1661236280}
+  SelectedRobot: {fileID: 0}
   MenuOpen: 0
+  robotFound: 0
 --- !u!1 &333370764
 GameObject:
   m_ObjectHideFlags: 0
@@ -3970,8 +3974,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f431a3f4a5d41f499fb3e5ee2506c89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selected: 0
   selecting: 0
+  RobotFound: 0
   SelectedUnit: {fileID: 0}
+  UIControl: {fileID: 262718678}
   unitLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -3996,6 +4003,11 @@ MonoBehaviour:
   Mindstorm: {fileID: 1000011209214698, guid: 42019464f97006542a03766ceb3920a7, type: 2}
   Location: {x: 0, y: 0, z: 0}
   Rotation: {x: 0, y: 0, z: 0, w: 0}
+  RobotNames:
+  - hanz
+  - fritz
+  - adolf
+  - shaneequa
 --- !u!114 &1661236284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5577,7 +5589,7 @@ Light:
   serializedVersion: 7
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.25
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10

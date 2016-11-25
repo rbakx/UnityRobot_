@@ -17,6 +17,8 @@ public class MinionHandler : MonoBehaviour
 
     private GameObject newRobot;
 
+    public string[] RobotNames;
+
     void Start()
     {
         RobotList = new List<GameObject>();
@@ -39,10 +41,11 @@ public class MinionHandler : MonoBehaviour
     public void SetMsg(string msg)
     {
         Message = msg;
-        if(HandleMsg(Message))
+
+        if (HandleMsg(Message))
         {
-            StartCoroutine(SleepNAdd(0.5f,"Hanz"));
-            
+            int activeRobots = RobotList.Count;
+            StartCoroutine(SleepNAdd(0.6f, RobotNames[activeRobots]));
         }
     }
 
@@ -59,6 +62,7 @@ public class MinionHandler : MonoBehaviour
         robot.GetComponent<Robot>().SetName(name);
 
         RobotList.Add(robot);
+        Debug.Log(robot.GetComponent<Robot>().GetRobotName());
     }
 
     //handle incoming message, return true if msg was succesfully handled
@@ -67,13 +71,16 @@ public class MinionHandler : MonoBehaviour
         //add new robot (params: name, type, location)
         if (message == "Register Nao")
         {
-            Location = new Vector3(0, 0, 0);
+            //testing purposes
+            Vector3 position = new Vector3(Random.Range(-100.0f, 100.0f), 3, Random.Range(-100.0f, 100.0f));
+            Location = position;
             Rotation = new Quaternion(0, 0, 0, 0);
-            newRobot = (GameObject)Instantiate(Nao, Location, Rotation );
+            newRobot = (GameObject)Instantiate(Nao, Location, Rotation);
+
             return true;
 
         }
         return false;
-    }      
+    }
 }
 

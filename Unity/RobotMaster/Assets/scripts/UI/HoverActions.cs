@@ -12,7 +12,6 @@ public class HoverActions : MonoBehaviour, IPointerEnterHandler
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("button found");
         TextToChange.GetComponent<Text>().text = "Function description: " + TextToInsert;
     }
 }

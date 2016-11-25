@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
 {
-    private string _name;
+    public string _name;
     private string _type;
     private Vector3 _velocity;
     private Vector3 _rotationVelocity;

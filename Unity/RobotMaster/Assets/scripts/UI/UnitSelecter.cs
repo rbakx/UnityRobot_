@@ -8,9 +8,12 @@ public class UnitSelecter : MonoBehaviour
     Ray ray;
     private RaycastHit hit;
 
-    private bool selected;
+    public bool selected;
     public bool selecting;
+    public bool RobotFound = false;
     public GameObject SelectedUnit;
+
+    public UIController UIControl;
 
     public LayerMask unitLayer;
     public LayerMask terrainLayer;
@@ -39,7 +42,7 @@ public class UnitSelecter : MonoBehaviour
         }
     }
 
-    void LookforTarget()
+    public GameObject LookforTarget()
     {
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         //Vector3 direction = this.transform.TransformDirection(Vector3.forward);
@@ -51,10 +54,13 @@ public class UnitSelecter : MonoBehaviour
                 hit.collider.gameObject.GetComponent<RobotSelect>().isSelected = true;
                 selected = true;
                 SelectedUnit = hit.collider.gameObject;
+                RobotFound = true;
+                UIControl.robotFound = true;
+                return SelectedUnit;
             }
 
         }
-        else
+        /*else
         {
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, terrainLayer))
             {
@@ -65,8 +71,9 @@ public class UnitSelecter : MonoBehaviour
                 SelectedUnit.GetComponent<RobotSelect>().isSelected = false;
                 SelectedUnit = null;
             }
-        }
+        }*/
         Debug.DrawRay(ray.origin, ray.direction, Color.black);
+        return null;
     }
 
     void MoveUnit(GameObject unit, Vector3 p)
