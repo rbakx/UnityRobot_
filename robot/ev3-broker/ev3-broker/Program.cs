@@ -1,11 +1,12 @@
-﻿using EV3WifiLib;
-using System;
+﻿using System;
 using System.Threading;
 
 namespace ev3_broker
 {
     class Program
     {
+        volatile static bool running = true;
+
         static void fatalError(string msg)
         {
             Console.WriteLine(msg);
@@ -13,7 +14,44 @@ namespace ev3_broker
             Environment.Exit(41);
         }
 
+        static bool CurrentKey(ConsoleKey key)
+        {
+            if (Console.KeyAvailable)
+            {
+                ConsoleKeyInfo cKey = Console.ReadKey(true);
+
+                return key == cKey.Key;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         static void Main(string[] args)
+        {
+            Thread ev3Thread = new Thread(EV3Work);
+            ev3Thread.Start();
+
+            while (running)
+            {
+                if (Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo cKey = Console.ReadKey(true);
+
+                    switch (cKey.Key)
+                    {
+                        case ConsoleKey.Escape:
+                            running = false;
+                            break;
+                    }
+                }
+            }
+
+            ev3Thread.Join();
+        }
+
+        static void EV3Work()
         {
             using (EV3 ev3 = new EV3("EV3Wifi"))
             {
@@ -26,67 +64,20 @@ namespace ev3_broker
                     Console.WriteLine("EV3 detected: " + ev3.SerialNumber);
                 }
 
-                while (true)
+                ev3.SendMessage("DISPLAY", "Reading button");
+
+                while (running)
                 {
-                    Console.Write("speed: ");
-                    string speedStr = Console.ReadLine();
+                    if (running ==false)
+                    {
+                        Console.WriteLine("wha");
+                    }
+                    ev3.SendMessage("STATUS", "get_button");
+                    bool result = ev3.ReceiveBool("BUTTON");
 
-                    float speed = 0;
-                    if (!float.TryParse(speedStr, out speed))
-                    {
-                        Console.WriteLine("Invalid input");
-                    }
-                    else if (!ev3.SendMessage("SPEED", speed))
-                    {
-                        Console.WriteLine("Message send failed");
-                    }
-
-                    Console.WriteLine("Press esc to quit, any other key to continue");
-                    ConsoleKeyInfo cki = Console.ReadKey();
-                    if (cki.Key == ConsoleKey.Escape)
-                    {
-                        break;
-                    }
+                    Console.WriteLine(result);
                 }
             }
-
-
-
-            //Console.ReadLine();
-
-            //EV3Wifi ev3 = new EV3Wifi();
-            //string conStatus = ev3.Connect();
-
-            //if (conStatus != "ok")
-            //{
-            //    fatalError("Failed to connect to ev3");
-            //}
-            //else
-            //{
-            //    Console.WriteLine("Ev3 connected");
-            //}
-
-            //Console.Out.Flush();
-
-            //ev3.SendMessage("TEST", "DISPLAY");
-
-
-            //while (true)
-            //{
-            //    ev3.SendMessage("get_button", "STATUS");
-            //    Thread.Sleep(200);
-            //    string res = ev3.ReceiveMessage("EV3Wifi", "BUTTON");
-            //    Console.WriteLine("Button: " + res);
-            //    Console.Out.Flush();
-
-            //    ConsoleKeyInfo cki = Console.ReadKey();
-            //    if (cki.Key == ConsoleKey.Escape)
-            //    {
-            //        break;
-            //    }
-            //}
-
-            //ev3.Disconnect();
         }
     }
 }
