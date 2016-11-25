@@ -52,12 +52,12 @@ CameraFeedSender::CameraFeedSender(VideoFeedFrameReceiver* target) : VideoFeedFr
 
 	if(!settings->getRecordingProperties().autofocus)
 		disableAutoFocus();
-	
+
 	if(!_cap.isOpened())  // check if we succeeded
 	{
 		throw runtime_error("[CameraFeedSender] Camera at index " + to_string(settings->getDeviceProperties().number) + " could not be opened!");
 	}
-		
+
 	//Set video source to FullHD@24fps(
 	//cap.set(CV_CAP_PROP_FOURCC, CODEC);
 	_cap.set(CV_CAP_PROP_FRAME_WIDTH, _width);
@@ -132,10 +132,7 @@ bool CameraFeedSender::FeedReading() noexcept
 		PushFrameToTarget(frame);
 	}
 
-	#ifdef __linux__
-		this_thread::__sleep_for(chrono::seconds(0), chrono::nanoseconds(_fps_capture_frame_delay_ns));
-	#else
-		this_thread::sleep_for(chrono::nanoseconds(_fps_capture_frame_delay_ns));
-	#endif
+	this_thread::sleep_for(chrono::nanoseconds(_fps_capture_frame_delay_ns));
+
 	return true;
 }

@@ -163,7 +163,7 @@ void printHelp(const string& executablePath)
     cout << endl;
     cout << "Commands:\t\t(note: case sensitive!)" << endl;
 	cout << "  start      		Starts using camera feed as information source." << endl;
-	cout << "  start [file]     Starts playing a video file as information source." << endl;
+	cout << "  start [file]		Starts playing a video file as information source." << endl;
     cout << "  record     		Writes camera output to an .avi file with autofocus disabled, useful to create sample data." << endl;
     cout << "  calibrate  		Extracts features and stores them to a binary file to be used in the main program." << endl; //TODO: Better description
     cout << "  configure  		Will write a file to /etc/udev/rules.d/ in order to obtain write access to the webcam." << endl;

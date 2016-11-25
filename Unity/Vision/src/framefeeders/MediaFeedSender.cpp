@@ -18,7 +18,7 @@ MediaFeedSender::MediaFeedSender(VideoFeedFrameReceiver* target, const string& f
 
 	if(_fps_capture_frame_delay_ns <= 1000L || framerate <= 0.0F || framerate >= 1000.0F)
 	{
-		throw invalid_argument("[MediaFeedSender] No proper framerate (FPS) was found. Expected 1-999, got from inputted file : " + 
+		throw invalid_argument("[MediaFeedSender] No proper framerate (FPS) was found. Expected 1-999, got from inputted file : " +
 			to_string(framerate));
 	}
 
@@ -41,7 +41,6 @@ bool MediaFeedSender::FeedReading() noexcept
 	}
 
 	PushFrameToTarget(frame);
-
 	this_thread::sleep_for(chrono::nanoseconds(_fps_capture_frame_delay_ns));
 
 	return true;
