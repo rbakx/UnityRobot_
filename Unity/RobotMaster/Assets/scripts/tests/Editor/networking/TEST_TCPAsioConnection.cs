@@ -1,8 +1,11 @@
-﻿using Networking;
+﻿using System.Collections.Generic;
+using Networking;
 using Communication;
 using NUnit.Framework;
 using System.Net.Sockets;
 using System.Threading;
+using Communication.Messages;
+using Communication.Transform;
 using UnityEngine;
 using UnityEditor;
 
@@ -35,7 +38,7 @@ namespace NetworkingTests
             //use eduroam(same network)
             try
             {
-                Assert.True(_listener.Start("145.93.45.166", 1234));
+                Assert.True(_listener.Start("145.93.45.16", 1234));
             }
             catch (SocketException ex)
             {
@@ -67,6 +70,51 @@ namespace NetworkingTests
             if (_subscriber.Connected)
             {
                 Thread.Sleep(3000);
+				Communicator comm = new Communicator(_subscriber.DataLink, new ProtoBufPresentation());
+				Communication.Message m = new Message
+				{
+					messageType = Communication.MessageType_.ShapeUpdate,
+					messageTarget = Communication.MessageTarget_.Robot,
+					id = 5
+				};
+
+				Shape_ sh = new Shape_();
+				sh.id = 15;
+				Vector3_ v = new Vector3_
+				{
+					x = 3.0f,
+					y = 3.0f,
+					z = 4.0f
+				};
+
+				Vector3_ v1 = new Vector3_
+				{
+					x = -1.0f,
+					y = -3.0f,
+					z = -5.5f
+				};
+				sh.vertices.Add(v);
+				sh.vertices.Add(v1);
+
+				Shape_ sh2 = new Shape_();
+				sh2.id = 2;
+				Vector3_ v2 = new Vector3_
+				{
+					x = 3.4f,
+					y = 3.1f,
+					z = 4.7f
+				};
+				sh2.vertices.Add(v2);
+
+				m.shapeUpdateInfo = new ShapeUpdateInfo_();
+				//m.shapeUpdateInfo.changedShapes = new List<Shape_>();
+				m.shapeUpdateInfo.changedShapes.Add(sh);
+				m.shapeUpdateInfo.changedShapes.Add(sh2);
+				m.customMessage = new CustomMessage_();
+				m.customMessage.key = "asdf";
+				m.customMessage.data = "asdf data";
+
+				Assert.IsTrue(comm.SendCommand(m));
             }
         }
 
@@ -102,6 +150,15 @@ namespace NetworkingTests
         public void IncomingMessage(Message newMessage, IDataLink datalink)
         {
             Debug.Log(newMessage.stringData);
+			foreach (var shape in newMessage.shapeUpdateInfo.changedShapes)
+			{
+				Debug.Log(shape.id);
+				foreach (var vertex in shape.vertices)
+				{
+					Debug.Log(string.Format("x:{0}, y:{1}, z:{2}", vertex.x, vertex.y, vertex.z));
+				}
+
+			}
         }
 
         public void Cleanup()
