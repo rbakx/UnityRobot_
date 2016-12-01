@@ -1,4 +1,5 @@
-﻿using Communication;
+﻿using System;
+using Communication;
 
 namespace Networking
 {

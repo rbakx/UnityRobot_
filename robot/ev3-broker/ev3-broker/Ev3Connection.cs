@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace ev3_broker
 {
-    class EV3 : IDisposable
+    class Ev3Connection : IDisposable
     {
         private enum EV3Command : byte
         {
@@ -88,7 +88,7 @@ namespace ev3_broker
 
         public string SerialNumber { get { return _serialNumber; } }
 
-        public EV3(string projectName)
+        public Ev3Connection(string projectName)
         {
             if (projectName == null)
             {

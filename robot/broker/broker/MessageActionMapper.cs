@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Communication;
+﻿using Communication;
 using Networking;
+using System;
 
 namespace broker
 {
@@ -19,7 +15,7 @@ namespace broker
 
         public void IncomingMessage(Message newMessage, IDataLink dataLink)
         {
-            Console.WriteLine(newMessage.stringData);
+            Console.WriteLine("Received message: {0}", newMessage.messageType.ToString());
 
             switch (newMessage.messageType)
             {

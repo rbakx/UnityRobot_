@@ -7,17 +7,17 @@ namespace ev3_broker
 {
     class EV3Robot : GeneralTypeRobot, IDisposable
     {
-        private EV3 _ev3Connection;
+        private Ev3Connection _ev3Connection;
 
         private bool _disposed = false;
 
-        public EV3Robot(Communicator communicator, string name) : base(communicator, name, TypeRobot.Mindstorm)
+        public EV3Robot(Communicator communicator, string name, Ev3Connection ev3Connection) : base(communicator, name, TypeRobot.Mindstorm)
         {
-            _ev3Connection = new EV3("EV3Wifi");
-            if (!_ev3Connection.Connect(5000))
+            if (ev3Connection == null)
             {
-                throw new Exception("Failed to connect with ev3");
+                throw new ArgumentNullException("ev3Connection");
             }
+            _ev3Connection = ev3Connection;
         }
 
         public override void Indicate()
