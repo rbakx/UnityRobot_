@@ -1,6 +1,6 @@
 #ifdef __linux__
-    #include <sys/stat.h>
-    #include "libusb-1.0/libusb.h"
+	#include <sys/stat.h>
+	#include "libusb-1.0/libusb.h"
 #endif
 
 #include <stdexcept>
@@ -23,14 +23,13 @@ using namespace frames;
 using namespace framefeeders;
 
 CameraFeedSender::CameraFeedSender(VideoFeedFrameReceiver* target) : VideoFeedFrameSender(target),
-	  _cap(VideoCapture(settings->getDeviceProperties().number)),
-      _vid(settings->getDeviceProperties().vid),
-      _pid(settings->getDeviceProperties().pid),
-      _width(settings->getRecordingProperties().width),
-      _height(settings->getRecordingProperties().height),
-      _fps(settings->getRecordingProperties().fps),
-	  _fps_capture_frame_delay_ns(1000000000L / static_cast<unsigned long>(_fps))
-
+	_vid(settings->getDeviceProperties().vid),
+	_pid(settings->getDeviceProperties().pid),
+	_width(settings->getRecordingProperties().width),
+	_height(settings->getRecordingProperties().height),
+	_fps(settings->getRecordingProperties().fps),
+	_fps_capture_frame_delay_ns(1000000000L / static_cast<unsigned long>(_fps)),
+	_cap(VideoCapture(settings->getDeviceProperties().number))
 {
 
 	if(_fps_capture_frame_delay_ns <= 1000L || _fps <= 0.0F || _fps >= 1000.0F)
@@ -102,7 +101,7 @@ void CameraFeedSender::disableAutoFocus()
 	}
 
 
-		/* Try to open the device: requires exclusive access */
+	/* Try to open the device: requires exclusive access */
 	res = uvc_open(dev, &devh);
 
 	if (res < 0) {
