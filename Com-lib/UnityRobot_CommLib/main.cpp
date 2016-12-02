@@ -10,6 +10,7 @@ using namespace Networking;
 #include "RobotLogger.h"
 #include <message.pb.h>
 #include "MessageBuilder.h"
+#include "ProtobufPresentation.h"
 /*
 	Just a temporary class for testing connection with unity
 */
@@ -32,66 +33,6 @@ public:
 	};
 };
 
-class PresentationSample : public IPresentationProtocol
-{
-public:
-	std::timed_mutex lock;
-	std::string receivedData;
-
-	//virtual ~ReceiverSample() { };
-	//
-	//void IncomingData(const std::vector<char>& data, IDataLink*) override
-	//{
-	//	std::cout << "incoming!" << std::endl;
-	//
-	//	receivedData.clear();
-	//	receivedData.append(data.data(), data.size());
-	//	lock.unlock();
-	//};
-	void IncomingData(const std::vector<char>& data, IDataLink* dlink) override
-	{
-		receivedData.clear();
-		receivedData.append(data.data(), data.size());
-
-		lock.unlock();
-	}
-
-	void IncomingMessage(const Communication::Message& newMessage, IDataLink* dlink) override
-	{
-		
-	}
-
-	std::vector<char> MessageToBinaryData(const Communication::Message& message) const noexcept override
-	{
-		int size = message.ByteSize();
-		auto msgStr = message.SerializeAsString();
-
-		std::vector<char> result;
-		result.push_back(size & 0xFF);
-		result.push_back((size & 0xFF00) >> 8);
-		result.push_back((size & 0xFF0000) >> 16);
-		result.push_back((size & 0xFF000000) >> 24);
-		std::copy(msgStr.begin(), msgStr.end(), std::back_inserter(result));
-
-		std::cout << "Size of sent data is: " << result.size() << '\n';
-
-		return result;
-	}
-
-	Communication::Message BinaryDataToMessage(const std::vector<char>& data, int32_t& countedProcessedBytes) const override
-	{
-		int size = data[0] | (data[1] << 8) | (data[2] << 16) | (data[3] << 24);
-		countedProcessedBytes = size;
-
-		std::vector<char> msgData(data.begin() + 4, data.end());
-		Communication::Message result;
-		if (!result.ParseFromArray(msgData.data(), static_cast<int>(msgData.size())))
-			LogError("Could not convert from binary data to message");
-
-		return result;
-	}
-};
-
 using Msg = Communication::Message;
 using MsgBuilder = Networking::MessageBuilder;
 int main(int argc, char** argv)
@@ -100,11 +41,11 @@ int main(int argc, char** argv)
 	logger.init();
 	GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-	std::string address = argc > 2 ?  argv[1] : "145.93.44.207";
+	std::string address = argc > 2 ?  argv[1] : "145.93.45.16";
 	std::string port = argc > 2 ? argv[2] : "1234";
 
 	//ReceiverSample* _receiver = new ReceiverSample();
-	PresentationSample* _receiver = new PresentationSample();
+	auto _receiver = new ProtobufPresentation();
 	TCPSocketDataLink link(address, port, std::unique_ptr<IDataStreamReceiver>(_receiver));
 
 	link.Connect();
