@@ -102,6 +102,11 @@ namespace Networking
 						datalink._receiver.IncomingData (buffer.ToArray (), datalink);
 					}
 				}
+                else
+                {
+                    // Don't waste cpu time when no data is available
+                    Thread.Sleep(1);
+                }
 			}
 		}
 
