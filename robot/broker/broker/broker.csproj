@@ -49,6 +49,7 @@
     <Compile Include="GeneralTypeRobot.cs" />
     <Compile Include="MessageActionMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RobotBroker.cs" />
     <Compile Include="TypeRobot.cs" />
   </ItemGroup>
   <ItemGroup>
