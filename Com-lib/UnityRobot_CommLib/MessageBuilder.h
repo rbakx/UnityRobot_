@@ -1,5 +1,6 @@
 #pragma once
-#include <message.pb.h>
+#include "proto/message.pb.h"
+
 namespace Networking
 {
 

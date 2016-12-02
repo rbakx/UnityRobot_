@@ -69,22 +69,25 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LibraryPath>C:\Users\Phoenix\Documents\Minor\Proj\Repo\UnityRobot\Com-lib\UnityRobot_CommLib\protobuf;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(PROTOBUF_DIR)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>C:\Users\Phoenix\Documents\Minor\Proj\Repo\UnityRobot\Com-lib\UnityRobot_CommLib\naobroker;C:\Users\Phoenix\Documents\Minor\Proj\Repo\UnityRobot\Com-lib\UnityRobot_CommLib\protobuf;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
+    <LibraryPath>$(PROTOBUF_DIR)\lib;$(LibraryPath)</LibraryPath>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\Phoenix\Documents\Minor\Proj\Repo\UnityRobot\Com-lib\UnityRobot_CommLib\naobroker;$(ProjectDir);$(ASIO_DIR);src\Networking;C:\Users\Phoenix\Documents\Minor\Proj\Repo\UnityRobot\Com-lib\UnityRobot_CommLib\protobuf</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(PROTOBUF_DIR)\src;$(ASIO_DIR);$(ProjectDir);$(ProjectDir)spdlog;$(ProjectDir)proto;src\Networking</AdditionalIncludeDirectories>
       <AdditionalOptions>/D_WIN32_WINNT=0x0501 %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4996;4267</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>libprotobufd32.lib;movehead_d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libprotobufd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -93,7 +96,9 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalOptions>/D_WIN32_WINNT=0x0501 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ASIO_DIR);src\Networking;$(ProjectDir)protobuf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+
+      <AdditionalIncludeDirectories>$(PROTOBUF_DIR)\src;$(ASIO_DIR);$(ProjectDir);$(ProjectDir)spdlog;$(ProjectDir)proto;src\Networking</AdditionalIncludeDirectories>
+
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4996;4267</DisableSpecificWarnings>
     </ClCompile>
@@ -135,9 +140,9 @@
     <ClInclude Include="LogFileCreator.h" />
     <ClInclude Include="MessageBuilder.h" />
     <ClInclude Include="ProtobufPresentation.h" />
-    <ClInclude Include="protobuf\message.pb.h" />
-    <ClInclude Include="protobuf\messages.pb.h" />
-    <ClInclude Include="protobuf\transform.pb.h" />
+    <ClInclude Include="proto\message.pb.h" />
+    <ClInclude Include="proto\messages.pb.h" />
+    <ClInclude Include="proto\transform.pb.h" />
     <ClInclude Include="RobotLogger.h" />
     <ClInclude Include="TCPSocketDataLink.hpp" />
   </ItemGroup>
@@ -146,9 +151,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MessageBuilder.cpp" />
     <ClCompile Include="ProtobufPresentation.cpp" />
-    <ClCompile Include="protobuf\message.pb.cc" />
-    <ClCompile Include="protobuf\messages.pb.cc" />
-    <ClCompile Include="protobuf\transform.pb.cc" />
+    <ClCompile Include="proto\message.pb.cc" />
+    <ClCompile Include="proto\messages.pb.cc" />
+    <ClCompile Include="proto\transform.pb.cc" />
     <ClCompile Include="RobotLogger.cpp" />
     <ClCompile Include="TCPSocketDataLink.cpp" />
   </ItemGroup>

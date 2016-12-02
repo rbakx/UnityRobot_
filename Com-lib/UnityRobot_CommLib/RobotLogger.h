@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
-#include <spdlog/logger.h>
-#include <spdlog/details/spdlog_impl.h>
+#include "spdlog/logger.h"
+#include "spdlog/details/spdlog_impl.h"
 
 #define LogInfo(logText)\
 do\
