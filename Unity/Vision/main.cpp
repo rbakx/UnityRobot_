@@ -32,7 +32,7 @@ VideoFeedFrameReceiverTargets receivers;
 
 int main(int argc, char* argv[])
 {
-	settings = Settings::read("./resources/config.yml"); //TODO Fix s.t. absolute path is given here
+	settings = Settings::read();
 
 	processCommandLineArguments(argc, argv);
 

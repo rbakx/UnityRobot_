@@ -1,12 +1,43 @@
 #include "Settings.h"
 
+//For getting the executable directory
+#ifdef _WIN32
+	#define WIN32_LEAN_AND_MEAN
+	#include <string>
+	#include <windows.h>
+#elif __linux__
+	#include <linux/limits.h>
+	#include <unistd.h>
+#include <iostream>
+
+#endif
+
 using namespace std;
 using namespace cv;
 
 Settings* settings = nullptr;
 
+string Settings::getExecutableDirectory()
+{
+	string path;
+
+	#ifdef _WIN32
+		char result[ MAX_PATH ];
+		path = string( result, GetModuleFileName( NULL, result, MAX_PATH ) );
+	#elif  __linux__
+		char result[ PATH_MAX ];
+		ssize_t count = readlink( "/proc/self/exe", result, PATH_MAX );
+		path = string( result, (count > 0) ? count : 0 );
+	#endif
+
+	unsigned long lastSlash = path.find_last_of('/');
+	return path.substr(0, lastSlash + 1);
+}
+
+
 void Settings::write(const string fileName) const
 {
+	//TODO: Either remove this method, or update contents
 	FileStorage fs(fileName, FileStorage::WRITE);
 
 	fs  << "Settings"
@@ -29,11 +60,13 @@ void Settings::write(const string fileName) const
 	fs.release();
 }
 
-Settings* Settings::read(const string fileName)
+Settings* Settings::read()
 {
 	Settings* settingsObj = new Settings();
 
-	FileStorage fs(fileName, FileStorage::READ);
+	string configFileLocation = Settings::getExecutableDirectory() + "config.yml";
+	cout << "Reading config file at " << configFileLocation << endl;
+	FileStorage fs(configFileLocation, FileStorage::READ);
 
 	FileNode settingsNode = fs["Settings"];
 	FileNode generalNode = settingsNode["General"];

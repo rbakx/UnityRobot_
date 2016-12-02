@@ -45,10 +45,12 @@ class Settings
 		DeviceProperties dp;
 		RecordingProperties rp;
 
+		static std::string getExecutableDirectory();
+
 	public:
 		Settings(GeneralProperties gp, DeviceProperties dp, RecordingProperties rp) : gp(gp), dp(dp), rp(rp) {};
 		void write(const std::string fileName) const;
-		static Settings* read(const std::string fileName);
+		static Settings* read();
 
 		/*
 		 * Getters
