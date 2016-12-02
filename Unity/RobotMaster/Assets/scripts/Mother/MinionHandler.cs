@@ -2,10 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[RequireComponent(typeof(RobotList))]
 public class MinionHandler : MonoBehaviour
 {
 
-    public List<GameObject> RobotList;
+    public RobotList RobotList;
     public string Message;
     public string thisMsg;
 
@@ -21,7 +22,7 @@ public class MinionHandler : MonoBehaviour
 
     void Start()
     {
-        RobotList = new List<GameObject>();
+        RobotList = GetComponent<RobotList>();
         Message = "";
     }
 
@@ -38,7 +39,7 @@ public class MinionHandler : MonoBehaviour
     }
 
     //dummy code for testing messages
-    public void SetMsg(string msg)
+    /*public void SetMsg(string msg)
     {
         Message = msg;
 
@@ -47,23 +48,7 @@ public class MinionHandler : MonoBehaviour
             int activeRobots = RobotList.Count;
             StartCoroutine(SleepNAdd(0.6f, RobotNames[activeRobots]));
         }
-    }
-
-    //in case of instantiate not ready, wait half second
-    IEnumerator SleepNAdd(float seconds, string name)
-    {
-        yield return new WaitForSeconds(seconds);
-        AddRobotToList(newRobot, name);
-    }
-
-    //add new robot to list
-    void AddRobotToList(GameObject robot, string name)
-    {
-        robot.GetComponent<Robot>().SetName(name);
-
-        RobotList.Add(robot);
-        Debug.Log(robot.GetComponent<Robot>().GetRobotName());
-    }
+    }*/
 
     //handle incoming message, return true if msg was succesfully handled
     public bool HandleMsg(string message)

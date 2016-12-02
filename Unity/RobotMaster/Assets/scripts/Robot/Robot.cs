@@ -17,7 +17,7 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
 
     void Awake()
     {
-        // TODO: Robots should be initialized somewhere else
+        // TODO: Robots should be initialized somewhere else, initialise dummy objects
         ProtoBufPresentation pp = new ProtoBufPresentation();
         LocalDataLink dl = new LocalDataLink();
         Communicator c = new Communicator(dl, pp);

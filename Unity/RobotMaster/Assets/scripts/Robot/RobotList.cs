@@ -43,10 +43,6 @@ public class RobotList : MonoBehaviour
         if(robot != null && !_robots.Contains(robot))
         {
             _robots.Add(robot);
-
-            // The little hacking that could
-            //TODO: remove
-            robot.SetLinearVelocity(new Vector3(10.0F, 0.0F, 0.0F));
         }
     }
 
@@ -58,5 +54,11 @@ public class RobotList : MonoBehaviour
     public Robot Get(int index)
     {
        return _robots[index];
+    }
+
+    public int Count
+    {
+        get
+        { return _robots.Count; }
     }
 }

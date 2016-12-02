@@ -36,7 +36,11 @@ namespace Networking
 			_reading = false;
 		}
 
-		public void SetReceiver (IDataStreamReceiver receiver)
+        ~TCPDataLink()
+            { Dispose(); }
+
+
+        public void SetReceiver (IDataStreamReceiver receiver)
 		{
 			if (receiver == null)
 			{
