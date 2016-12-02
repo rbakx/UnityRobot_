@@ -108,6 +108,11 @@ namespace ev3_broker
             _dataStreamReceiver = new DataStreamReceiver(OnIncomingData);
             _receiveSem = new Semaphore(0, 1);
         }
+
+        ~Ev3Connection()
+        {
+            Dispose();
+        }
         
         /// <summary>
         /// Listens for a udp broadcast from a EV3, and tries to connect to it
@@ -457,7 +462,10 @@ namespace ev3_broker
             if (!_disposed)
             {
                 _disposed = true;
-                _tcpDataLink.Dispose();
+                if (_tcpDataLink != null)
+                {
+                    _tcpDataLink.Dispose();
+                }
             }
         }
     }

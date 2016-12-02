@@ -11,7 +11,7 @@ namespace ev3_broker
         static void Main(string[] args)
         {
             //Gets the hostname and port from the command line parameters to connect to the robot in question(in this case the Nao)
-            string hostname = args.Length > 0 ? args[0] : "192.168.0.102";
+            string hostname = args.Length > 0 ? args[0] : "192.168.0.100";
             ushort port = (ushort)(args.Length > 1 ? Int32.Parse(args[1]) : 1234);
 
             Ev3Connection ev3Con = new Ev3Connection("EV3Wifi");
@@ -27,17 +27,23 @@ namespace ev3_broker
                 {
                     if (broker.Connect(hostname, port, 5000))
                     {
+                        Console.WriteLine("Unity connected");
                         using (EV3Robot ev3 = new EV3Robot(broker.Communicator, "My little robot", ev3Con))
                         {
                             broker.ConnectRobot(ev3);
+
+                            Console.WriteLine("Press enter to stop");
+                            Console.ReadLine();
                         }
                     }
                     else
                     {
                         Console.WriteLine("Failed to connect with unity");
+                        ev3Con.Dispose();
                     }
                 }
             }
+            Console.WriteLine("Press enter to quit");
             Console.ReadLine();
         }
     }

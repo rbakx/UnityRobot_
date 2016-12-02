@@ -68,7 +68,7 @@ namespace broker
             _protocol = new ProtoBufPresentation();
             _dataLink.SetReceiver(_protocol);
 
-            Communicator communicator = new Communicator(_dataLink, _protocol);
+            _communicator = new Communicator(_dataLink, _protocol);
 
             _connected = true;
             return true;
