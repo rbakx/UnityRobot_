@@ -36,6 +36,9 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
         //}
 
         transform.Rotate(_rotationVelocity * Time.deltaTime);
+
+        _velocity = transform.TransformVector(_velocity);
+
         transform.Translate(_velocity * Time.deltaTime);
     }
 

@@ -9,7 +9,7 @@ namespace Networking
 		where T : IPresentationProtocol, new()
 
 	{
-        public const int NO_CONNECTION_PENDING_TIMEOUT = 10; // (ms)
+        public const int NO_CONNECTION_PENDING_TIMEOUT = 2; // (ms)
 
 		private TcpListener _listener;
 		private Thread _listenerThread;
@@ -34,32 +34,41 @@ namespace Networking
 
 		public bool Start(string address, short port)
 		{
-			try
-			{
-				_listener = new TcpListener(IPAddress.Parse(address), (int)port);
-                _listener.Start();
+            if (!_listening)
+            {
+                try
+                {
+                    _listener = new TcpListener(IPAddress.Parse(address), (int)port);
+                    _listener.Start();
 
-				_listenerThread = new Thread(Listen);
-				_listening = true;
-				_listenerThread.Start(this);
-			}
-			catch(ArgumentOutOfRangeException)
-			{
-				return false;
-			}
+                    _listenerThread = new Thread(Listen);
+                    _listenerThread.Start(this);
 
-			return true;
+                    _listening = true;
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    Stop();
+                }          
+            }
+
+			return _listening;
 		}
 
 		public void Stop()
 		{
-			if(_listening)
-			{
-				_listening = false;
-				_listener.Stop();
-				_listenerThread.Join();
-			}
-		}
+			_listening = false;
+
+            if (_listener != null)
+            { _listener.Stop(); }
+
+            if (_listenerThread != null)
+            {
+                _listenerThread.Join();
+
+                _listenerThread = null;
+            }
+        }
 
 		private static void Listen(object obj)
 		{
@@ -77,7 +86,8 @@ namespace Networking
 					listener._subscriber.IncomingNewDataLink(newDataLink, pp);
 				}
 
-                Thread.Sleep(NO_CONNECTION_PENDING_TIMEOUT);
+                if(!listener._listening)
+                    Thread.Sleep(NO_CONNECTION_PENDING_TIMEOUT);
 			}
 		}
 

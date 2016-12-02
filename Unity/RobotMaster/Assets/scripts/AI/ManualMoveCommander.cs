@@ -33,7 +33,7 @@ public class ManualMoveCommander : MonoBehaviour
 
     public void Move()
     {
-        Move(10.0F);
+        Move(50.0F);
     }
 
     public void Move(float x = 0.0F, float y = 0.0F, float z = 0.0F)

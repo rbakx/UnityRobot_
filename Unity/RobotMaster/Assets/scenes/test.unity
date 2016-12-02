@@ -1439,48 +1439,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 540491124}
---- !u!1001 &592877164
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4000011893949772, guid: 30b440e8a857e0e4cb2d62674b7d856a, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 410.22473
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000011893949772, guid: 30b440e8a857e0e4cb2d62674b7d856a, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000011893949772, guid: 30b440e8a857e0e4cb2d62674b7d856a, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 178
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000011893949772, guid: 30b440e8a857e0e4cb2d62674b7d856a, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000011893949772, guid: 30b440e8a857e0e4cb2d62674b7d856a, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000011893949772, guid: 30b440e8a857e0e4cb2d62674b7d856a, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000011893949772, guid: 30b440e8a857e0e4cb2d62674b7d856a, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000011893949772, guid: 30b440e8a857e0e4cb2d62674b7d856a, type: 2}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 30b440e8a857e0e4cb2d62674b7d856a, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &658174546
 GameObject:
   m_ObjectHideFlags: 0
@@ -2623,6 +2581,34 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1042762669}
+--- !u!1 &1073055841
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1073055842}
+  m_Layer: 0
+  m_Name: RobotsObjectContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1073055842
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1073055841}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 410.22473, y: -419.46222, z: 479.7574}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
 --- !u!1 &1137772532
 GameObject:
   m_ObjectHideFlags: 0
@@ -3983,7 +3969,6 @@ GameObject:
   - 4: {fileID: 1661236281}
   - 114: {fileID: 1661236282}
   - 114: {fileID: 1661236284}
-  - 114: {fileID: 1661236283}
   - 114: {fileID: 1661236285}
   m_Layer: 2
   m_Name: UnitControl
@@ -4027,29 +4012,6 @@ MonoBehaviour:
   terrainLayer:
     serializedVersion: 2
     m_Bits: 256
---- !u!114 &1661236283
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1661236280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b00030af97f84704aadf3f8e1b5f7465, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RobotList: []
-  Message: 
-  thisMsg: 
-  Nao: {fileID: 107974, guid: dc4a708a52a96f648b0980fc19b95805, type: 2}
-  Mindstorm: {fileID: 1000011209214698, guid: 42019464f97006542a03766ceb3920a7, type: 2}
-  Location: {x: 0, y: 0, z: 0}
-  Rotation: {x: 0, y: 0, z: 0, w: 0}
-  RobotNames:
-  - hans kazan
-  - destructotron62
-  - ptrieck
-  - kaasblokje
 --- !u!114 &1661236284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4061,8 +4023,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7370ffe906cf97c4798cbfff8d8d5721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RobotRefModel_Default: {fileID: 1000012123632744, guid: 30b440e8a857e0e4cb2d62674b7d856a,
+    type: 2}
+  RobotRefModel_Nao: {fileID: 107974, guid: dc4a708a52a96f648b0980fc19b95805, type: 2}
+  RobotRefModel_NXT: {fileID: 107974, guid: dc4a708a52a96f648b0980fc19b95805, type: 2}
+  robotObjectContainer: {fileID: 1073055841}
   robotList: {fileID: 1661236285}
-  HostAddress: 192.168.0.102
+  HostAddress: 192.168.0.100
   HostPort: 1234
   Host: 1
 --- !u!114 &1661236285
@@ -5417,7 +5384,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1661236283}
+      - m_Target: {fileID: 0}
         m_MethodName: SetMsg
         m_Mode: 5
         m_Arguments:

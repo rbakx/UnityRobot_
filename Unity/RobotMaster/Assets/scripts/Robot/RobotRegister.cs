@@ -8,6 +8,12 @@ using System.Threading;
 
 public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkSubscriber
 {
+    public GameObject RobotRefModel_Default;
+    public GameObject RobotRefModel_Nao;
+    public GameObject RobotRefModel_NXT;
+
+    public GameObject robotObjectContainer;
+
     public RobotList robotList;
     private ShapesUpdater _shapesUpdater;
 
@@ -49,6 +55,21 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
     {
         wasHosting = false;
 
+        if (RobotRefModel_Default == null || RobotRefModel_Default.GetComponent<Robot>() == null)
+        {
+            throw new Exception("Default model object must reference to a prefab with robot script!");
+        }
+
+        if (RobotRefModel_Nao == null || RobotRefModel_Nao.GetComponent<Robot>() == null)
+        {
+            throw new Exception("Nao model object reference to a prefab with robot script!");
+        }
+
+        if(RobotRefModel_NXT == null || RobotRefModel_NXT.GetComponent<Robot>() == null)
+        {
+            throw new Exception("NXT model object reference to a prefab with robot script!");
+        }
+
         communicators = new List<Communicator>();
         listener = new TCPDataLinkListener<ProtoBufPresentation>(this);
         _ev = new ManualResetEvent(true);
@@ -59,25 +80,22 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
 
     IEnumerator CheckIfStillConnected()
     {
-        /*while (true)
+        while (true)
         {
-            for (int i = (_robots.Count - 1); i >= 0; i--)
+            for (int i = (communicators.Count - 1); i >= 0; i--)
             {
-                Robot r = _robots[i];
+                Communicator r = communicators[i];
 
-                if (!r.IsConnected())
+                if (!r.GetDataLink().Connected())
                 {
-                    _robots.Remove(r);
+                    communicators.RemoveAt(i);
 
-                    GameObject.Destroy(r.gameObject, 1.0F);
                     Debug.Log("[communicators]: connection lost");
                 }
             }
 
             yield return new WaitForSeconds(0.5F);
-        }*/
-
-        yield return null;
+        }
     }
 
     /*
@@ -196,22 +214,35 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
                 _ev.Set();
 
                 //TODO: Replace nao with the variable from the message that indicates the type
-                string robotType = "nao".ToLower();
+                string robotType = newMessage.identificationResponse.robotType.ToLower();
 
                 //Get the robot object which contains a Robot component with predefined shape data (this is a reference object)
                 GameObject robotPrefab = null;// GameObject.Find("models/robots/robot_prefab_" + robotType);
 
-
-                /*
-                   If dynamic reference object does not exist, use default
-                */
-                if (robotPrefab == null)
+                switch (robotType)
                 {
-                    robotPrefab = GameObject.Find("robot_prefab_default");
+                    case "nao":
+                    {
+                        robotPrefab = RobotRefModel_Nao;
+                        break;
+                    }
+
+                    case "nxt":
+                    {
+                        robotPrefab = RobotRefModel_NXT;
+                        break;
+                    }
+
+                    default:
+                    {
+                        robotType = "default";
+                        robotPrefab = RobotRefModel_Default;
+                        break;
+                    }
                 }
 
                 // Clone the reference object
-                GameObject robotGameObject = (GameObject)GameObject.Instantiate(robotPrefab, robotPrefab.transform);
+                GameObject robotGameObject = (GameObject)GameObject.Instantiate(robotPrefab, robotPrefab.transform.position, Quaternion.identity, robotObjectContainer.transform);           
 
                 // Check if the object actually has the oh-so-important robot component
                 Robot robot = robotGameObject.GetComponent<Robot>();
@@ -223,7 +254,7 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
                 }
 
                 // Reset and (re-)initialise the robot script
-                robot.Init(connection, ++robotIdentityID, "I, Roboto", robotType);
+                robot.Init(connection, ++robotIdentityID, "Unknown harry", robotType);
 
                 robotList.Add(robot);
 

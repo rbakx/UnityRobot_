@@ -172,47 +172,7 @@ public class UIController : MonoBehaviour
                 //set selecting flag to true;
                 MinionControl.transform.GetComponent<UnitSelecter>().selecting = true;
                 
-                    StartCoroutine(SelectingTarget());
-<<<<<<< HEAD
-                
-                Debug.Log("Is this being blocked?");
-
-                if (SelectedRobot != null && !CheckManualPanelExists(SelectedRobot) && robotFound)
-                {
-                    Debug.Log("oegaboegaboegaboega " + SelectedRobot.GetComponent<Robot>().GetRobotName());
-                    //instantiate the manual robot control menu
-                    manualPanel = (GameObject)GameObject.Instantiate(ManualPanel);
-
-                    manualPanel.transform.FindChild("RobotName").GetComponent<Text>().text =
-                        SelectedRobot.GetComponent<Robot>().GetRobotName();
-
-                    Debug.Log(SelectedRobot.GetComponent<Robot>().GetRobotName());
-
-                    childTransform = manualPanel.transform;
-                    childTransform.SetParent(canvas.transform, false);
-
-                    //add button functions
-                    addBtnFunctions(manualPanel);
-                    Debug.Log(SelectedRobot);
-                    manualPanel.GetComponent<ManualMoveCommander>().SetRobot(SelectedRobot.gameObject);
-
-                    //return the panels to their original states
-                    for (int i = 0; i < panels.Count; i++)
-                    {
-                        panels[i].SetActive(panelStates[i]);
-                    }
-
-                    panels.Add(manualPanel);
-                    ManualPanels.Add(manualPanel);
-                    //TogglePanel(panels[2]);
-                    MenuOpen = false;
-                    robotFound = false;
-                }
-                else
-                {
-                }
-=======
->>>>>>> origin/Unity
+                StartCoroutine(SelectingTarget());
             }
 
         }
@@ -242,12 +202,10 @@ public class UIController : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             if (MinionControl.transform.GetComponent<UnitSelecter>().SelectedUnit != null)
             {
-<<<<<<< HEAD
+
                 SelectedRobot = MinionControl.transform.GetComponent<UnitSelecter>().SelectedUnit.GetComponent<Robot>();
                 Debug.Log("WHOOHOOO");
-=======
-                SelectedRobot = MinionControl.transform.GetComponent<UnitSelecter>().SelectedUnit;
->>>>>>> origin/Unity
+
                 //instantiate the manual robot control menu
                 if (!CheckManualPanelExists(SelectedRobot))
                 {
@@ -261,12 +219,9 @@ public class UIController : MonoBehaviour
 
                     //add button functions
                     addBtnFunctions(manualPanel);
-<<<<<<< HEAD
+
                     manualPanel.GetComponent<ManualMoveCommander>().SetRobot(SelectedRobot.gameObject);
-=======
-                    manualPanel.GetComponent<ManualMoveCommander>().SetRobot(SelectedRobot);
                     ManualPanels.Add(manualPanel);
->>>>>>> origin/Unity
                 }
             }
         }
@@ -300,11 +255,9 @@ public class UIController : MonoBehaviour
 
     public void MinimizeBtnAction(GameObject currentMenu)
     {
-<<<<<<< HEAD
+
         //Debug.Log(currentMenu.name + ": I am a banana");
-=======
-        Debug.Log(currentMenu.name + ": I am a banana");
         //TODO: set panel inactive, spawn minimized icon
->>>>>>> origin/Unity
+
     }
 }
