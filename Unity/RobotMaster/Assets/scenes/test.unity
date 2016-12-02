@@ -4046,10 +4046,10 @@ MonoBehaviour:
   Location: {x: 0, y: 0, z: 0}
   Rotation: {x: 0, y: 0, z: 0, w: 0}
   RobotNames:
-  - hanz
-  - fritz
-  - adolf
-  - shaneequa
+  - hans kazan
+  - destructotron62
+  - ptrieck
+  - kaasblokje
 --- !u!114 &1661236284
 MonoBehaviour:
   m_ObjectHideFlags: 0

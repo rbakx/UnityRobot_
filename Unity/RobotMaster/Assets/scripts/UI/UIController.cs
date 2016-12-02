@@ -173,6 +173,7 @@ public class UIController : MonoBehaviour
                 MinionControl.transform.GetComponent<UnitSelecter>().selecting = true;
                 
                     StartCoroutine(SelectingTarget());
+<<<<<<< HEAD
                 
                 Debug.Log("Is this being blocked?");
 
@@ -210,6 +211,8 @@ public class UIController : MonoBehaviour
                 else
                 {
                 }
+=======
+>>>>>>> origin/Unity
             }
 
         }
@@ -221,9 +224,11 @@ public class UIController : MonoBehaviour
         {
             if (p.GetComponent<ManualMoveCommander>().GetRobotScript() == newRobot)
             {
+                Debug.Log("Yes dis is dog");
                 return true;
             }
         }
+        Debug.Log("No, This is Patrick");
         return false;
     }
 
@@ -237,8 +242,12 @@ public class UIController : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             if (MinionControl.transform.GetComponent<UnitSelecter>().SelectedUnit != null)
             {
+<<<<<<< HEAD
                 SelectedRobot = MinionControl.transform.GetComponent<UnitSelecter>().SelectedUnit.GetComponent<Robot>();
                 Debug.Log("WHOOHOOO");
+=======
+                SelectedRobot = MinionControl.transform.GetComponent<UnitSelecter>().SelectedUnit;
+>>>>>>> origin/Unity
                 //instantiate the manual robot control menu
                 if (!CheckManualPanelExists(SelectedRobot))
                 {
@@ -252,12 +261,13 @@ public class UIController : MonoBehaviour
 
                     //add button functions
                     addBtnFunctions(manualPanel);
+<<<<<<< HEAD
                     manualPanel.GetComponent<ManualMoveCommander>().SetRobot(SelectedRobot.gameObject);
+=======
+                    manualPanel.GetComponent<ManualMoveCommander>().SetRobot(SelectedRobot);
+                    ManualPanels.Add(manualPanel);
+>>>>>>> origin/Unity
                 }
-            }
-            else
-            {
-                Debug.Log("He kutzooi weer niks");
             }
         }
     }
@@ -290,6 +300,11 @@ public class UIController : MonoBehaviour
 
     public void MinimizeBtnAction(GameObject currentMenu)
     {
+<<<<<<< HEAD
         //Debug.Log(currentMenu.name + ": I am a banana");
+=======
+        Debug.Log(currentMenu.name + ": I am a banana");
+        //TODO: set panel inactive, spawn minimized icon
+>>>>>>> origin/Unity
     }
 }

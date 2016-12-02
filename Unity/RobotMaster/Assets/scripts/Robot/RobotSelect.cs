@@ -20,7 +20,7 @@ public class RobotSelect : MonoBehaviour {
 	    if (isSelected && !particleActive)
 	    {
 	        {
-	            particleObject = (GameObject)Instantiate(particle, this.transform.position, this.transform.rotation);
+	            particleObject = (GameObject)Instantiate(particle, this.transform.position + new Vector3(0,42,0), this.transform.rotation);
 	            particleObject.transform.parent = this.gameObject.transform;
 	            particleActive = true;
 	        }
