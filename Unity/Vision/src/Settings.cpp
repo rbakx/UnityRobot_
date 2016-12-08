@@ -13,7 +13,7 @@ void Settings::write(const string fileName) const
 		<< "{"
 			<< "Device"
 			<< "{"
-				<< "number" << dp.number
+				<< "number" << dp.deviceNumber
 				<< "vid" << dp.vid
 				<< "pid" << dp.pid
 			<< "}"
@@ -44,7 +44,7 @@ Settings* Settings::read(const string fileName)
 		throw runtime_error("Settings are incomplete!");
 
 	settingsObj->gp = GeneralProperties(generalNode["port"], generalNode["sampleName"]);
-	settingsObj->dp = DeviceProperties(deviceNode["number"], deviceNode["pid"], deviceNode["vid"]);
+	settingsObj->dp = DeviceProperties(deviceNode["deviceNumber"], deviceNode["pid"], deviceNode["vid"]);
 
 	FileNode autofocusNode = recordingNode["autofocus"];
 	settingsObj->rp = RecordingProperties(recordingNode["width"],
