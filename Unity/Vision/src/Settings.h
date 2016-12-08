@@ -15,12 +15,12 @@ struct GeneralProperties
 
 struct DeviceProperties
 {
-    int number;
+    int deviceNumber;
     int vid;
     int pid;
 
-    DeviceProperties() : number(-1), vid(-1), pid(-1) {}
-    DeviceProperties(int number, int vid, int pid) : number(number), vid(vid), pid(pid) {}
+    DeviceProperties() : deviceNumber(-1), vid(-1), pid(-1) {}
+    DeviceProperties(int deviceNumber, int vid, int pid) : deviceNumber(deviceNumber), vid(vid), pid(pid) {}
 };
 
 struct RecordingProperties
