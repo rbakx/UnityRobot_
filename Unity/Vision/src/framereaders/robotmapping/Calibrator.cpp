@@ -1,4 +1,5 @@
 #include "Calibrator.hpp"
+#include "../../Settings.h"
 
 using namespace std;
 using namespace cv;
@@ -50,7 +51,8 @@ void Calibrator::WriteToFile(const string& fileName)
 	_orb->detect(_currentFrame, _keypoints, _ROImask);
 	_orb->compute(_currentFrame, _keypoints, _descriptors);
 
-    FileStorage fs(fileName, FileStorage::WRITE);
+	string fileLocation = settings->getFilePath() + "samples/" + fileName;
+    FileStorage fs(fileLocation, FileStorage::WRITE);
 
     write(fs, "Descriptors", _descriptors);
     write(fs, "Keypoints", _keypoints);

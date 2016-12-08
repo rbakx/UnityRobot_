@@ -6,44 +6,51 @@ using namespace cv;
 using namespace frames;
 
 VideoFeedFrameReceiverTargets::VideoFeedFrameReceiverTargets() noexcept : _targets(vector<VideoFeedFrameReceiver*>())
-{
-	
-}
+{}
 
-size_t VideoFeedFrameReceiverTargets::getTargetIndexByPointer(VideoFeedFrameReceiver* target) const noexcept
+bool VideoFeedFrameReceiverTargets::isReceiverPresent(const VideoFeedFrameReceiver * const target) const noexcept
 {
-	return (size_t)-1;
+	return std::find(_targets.begin(), _targets.end(), target) != _targets.end();
 }
 
 void VideoFeedFrameReceiverTargets::OnIncomingFrame(const Mat& frame) noexcept
 {
 	std::mutex lock;
 	lock_guard<mutex> frame_guard(lock);
-	for(auto videoFeedFrameReceiver : _targets)
+	for(VideoFeedFrameReceiver * const videoFeedFrameReceiver : _targets)
 	{
 		videoFeedFrameReceiver->OnIncomingFrame(frame);
 	}
 }
 
-void VideoFeedFrameReceiverTargets::add(VideoFeedFrameReceiver* target) noexcept
+void VideoFeedFrameReceiverTargets::add(VideoFeedFrameReceiver * const target) noexcept
 {
-	if(target == nullptr)
-		return;
-	
-	size_t index = getTargetIndexByPointer(target);
-	
-	if(index == ((size_t)-1))
+	if(isReceiverPresent(target))
 	{
-		_targets.push_back(target);
+		cout << "[VideoFeedFrameReceiverTargets] Tried to add already present receiver." << endl;
+		return;
+	}
+
+	_targets.push_back(target);
+}
+
+void VideoFeedFrameReceiverTargets::add(const vector<VideoFeedFrameReceiver*>& targets) noexcept
+{
+	for(auto target : targets)
+	{
+		add(target);
 	}
 }
 
-void VideoFeedFrameReceiverTargets::remove(VideoFeedFrameReceiver* target) noexcept
+void VideoFeedFrameReceiverTargets::remove(const VideoFeedFrameReceiver * const target)
 {
-	size_t index = getTargetIndexByPointer(target);
-	
-	if(index != ((size_t)-1))
+	_targets.erase(std::remove(_targets.begin(), _targets.end(), target), _targets.end());
+}
+
+void VideoFeedFrameReceiverTargets::remove(const vector<VideoFeedFrameReceiver*>& targets) noexcept
+{
+	for(auto target : targets)
 	{
-		_targets.erase(_targets.begin() + index);
+		remove(target);
 	}
 }

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-
 #include "VideoFeedFrameReceiver.hpp"
 
 namespace frames
@@ -10,14 +9,16 @@ namespace frames
 	{
 		private:
 			std::vector<VideoFeedFrameReceiver*> _targets;
-			
-			size_t getTargetIndexByPointer(VideoFeedFrameReceiver* target) const noexcept;
+
+			bool isReceiverPresent(const VideoFeedFrameReceiver * const target) const noexcept;
 			void OnIncomingFrame(const cv::Mat& frame) noexcept;
 		
 		public:
 			VideoFeedFrameReceiverTargets() noexcept;
 
-			void add(VideoFeedFrameReceiver* target) noexcept;
-			void remove(VideoFeedFrameReceiver* target) noexcept;
+			void add(VideoFeedFrameReceiver * const target) noexcept;
+			void add(const std::vector<VideoFeedFrameReceiver*>& targets) noexcept;
+			void remove(const VideoFeedFrameReceiver * const target);
+			void remove(const std::vector<VideoFeedFrameReceiver*>& targets) noexcept;
 	};
 }

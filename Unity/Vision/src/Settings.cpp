@@ -9,6 +9,7 @@
 	#include <linux/limits.h>
 	#include <unistd.h>
 #include <iostream>
+#include <opencv2/core/types_c.h>
 
 #endif
 
@@ -17,7 +18,7 @@ using namespace cv;
 
 Settings* settings = nullptr;
 
-string Settings::getExecutableDirectory()
+void Settings::obtainExecutableDirectory()
 {
 	string path;
 
@@ -31,9 +32,20 @@ string Settings::getExecutableDirectory()
 	#endif
 
 	unsigned long lastSlash = path.find_last_of('/');
-	return path.substr(0, lastSlash + 1);
+
+	filePath = path.substr(0, lastSlash + 1);
 }
 
+Settings::Settings()
+{
+	obtainExecutableDirectory();
+}
+
+Settings::Settings(GeneralProperties gp, DeviceProperties dp, RecordingProperties rp)
+		: gp(gp), dp(dp), rp(rp)
+{
+	obtainExecutableDirectory();
+}
 
 void Settings::write(const string fileName) const
 {
@@ -64,7 +76,7 @@ Settings* Settings::read()
 {
 	Settings* settingsObj = new Settings();
 
-	string configFileLocation = Settings::getExecutableDirectory() + "config.yml";
+	string configFileLocation = settingsObj->filePath + "config.yml";
 	cout << "Reading config file at " << configFileLocation << endl;
 	FileStorage fs(configFileLocation, FileStorage::READ);
 
@@ -76,7 +88,17 @@ Settings* Settings::read()
 	if(generalNode.isNone() || deviceNode.isNone() || recordingNode.isNone()) //We couldn't find the properties in the file
 		throw runtime_error("Settings are incomplete!");
 
-	settingsObj->gp = GeneralProperties(generalNode["port"], generalNode["sampleName"]);
+
+	FileNode sampleNamesNode = generalNode["sampleNames"];
+	vector<string> sampleNames;
+
+	// iterate through a sampleNames using FileNodeIterator
+	for(const auto& node : sampleNamesNode)
+	{
+		sampleNames.push_back(node);
+	}
+
+	settingsObj->gp = GeneralProperties(generalNode["port"], sampleNames);
 	settingsObj->dp = DeviceProperties(deviceNode["number"], deviceNode["pid"], deviceNode["vid"]);
 
 	FileNode autofocusNode = recordingNode["autofocus"];
@@ -104,4 +126,9 @@ const DeviceProperties& Settings::getDeviceProperties() const
 const RecordingProperties& Settings::getRecordingProperties() const
 {
 	return rp;
+}
+
+const std::string& Settings::getFilePath() const
+{
+	return filePath;
 }
