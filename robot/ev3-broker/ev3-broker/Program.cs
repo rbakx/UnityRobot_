@@ -23,24 +23,24 @@ namespace ev3_broker
             {
                 Console.WriteLine("Ev3 connected");
 
-                using (UnityRobotBroker broker = new UnityRobotBroker())
-                {
-                    if (broker.Connect(hostname, port, 5000))
-                    {
-                        Console.WriteLine("Unity connected");
-                        using (EV3Robot ev3 = new EV3Robot(broker.Communicator, "My little robot", ev3Con))
-                        {
-                            broker.AssignRobot(ev3);
+                Communicator communicator = null;
 
-                            Console.WriteLine("Press enter to stop");
-                            Console.ReadLine();
-                        }
-                    }
-                    else
+                if (Tools.ConnectToUnity(out communicator, hostname, port, 5000))
+                {
+                    Console.WriteLine("Unity connected");
+
+                    using (EV3Robot ev3 = new EV3Robot(communicator, "My little robot", ev3Con))
                     {
-                        Console.WriteLine("Failed to connect with unity");
-                        ev3Con.Dispose();
+                        Tools.AssignRobot(communicator, ev3);
+
+                        Console.WriteLine("Press enter to stop");
+                        Console.ReadLine();
                     }
+                }
+                else
+                {
+                    Console.WriteLine("Failed to connect with unity");
+                    ev3Con.Dispose();
                 }
             }
             Console.WriteLine("Press enter to quit");
