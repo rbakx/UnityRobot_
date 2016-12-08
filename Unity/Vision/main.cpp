@@ -76,6 +76,7 @@ void processCommandLineArguments(int argc, char* argv[])
 	{
 		//Starts all detectors
 		vector<VideoFeedFrameReceiver*> detectors = Detector::createReceiversFromSettings();
+		receivers.add(detectors);
 
 		VideoFrameDisplayer display;
 		receivers.add(&display);

@@ -11,6 +11,8 @@ namespace robotmapping
 	class Detector : public frames::VideoFeedFrameReceiver
 	{
 		private:
+			const std::string _sampleName;
+
 			cv::Mat _bufferFrame, _currentFrame;
 			cv::Ptr<cv::ORB> _orb;
 			cv::Ptr<cv::DescriptorMatcher> _matcher;
@@ -24,7 +26,7 @@ namespace robotmapping
 			void processImage();
 
 		public:
-			Detector(std::string sampleName);
+			Detector(const std::string& sampleName);
 			static std::vector<frames::VideoFeedFrameReceiver*> createReceiversFromSettings();
 
 			std::vector<Robot> getRobots() const noexcept;

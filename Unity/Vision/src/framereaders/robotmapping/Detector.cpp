@@ -34,10 +34,11 @@ void Detector::processImage()
 
     circle(result, keypoints[bestMatch->queryIdx].pt, 10, Scalar(0, 255, 0), 10);
 
-	imshow("Result", result);
+	imshow("Result " + _sampleName, result);
 }
 
-Detector::Detector(string sampleName)
+Detector::Detector(const string& sampleName)
+	: _sampleName(sampleName)
 {
     _orb = ORB::create();
 
