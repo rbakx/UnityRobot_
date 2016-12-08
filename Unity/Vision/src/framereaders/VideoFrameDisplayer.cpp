@@ -8,14 +8,14 @@ VideoFrameDisplayer::VideoFrameDisplayer(const string& windowName,
 										 int windowWidth,
 										 int windowHeight)
 		: _WINDOW_NAME(windowName),
-		  _threadContinueRunning(true),
-		  _windowWidth(windowWidth),
-		  _windowHeight(windowHeight)
+		  _WINDOW_WIDTH(windowWidth),
+		  _WINDOW_HEIGHT(windowHeight),
+		  _threadContinueRunning(true)
 {
 	_displayThread = new thread([=]()
 	{
 		namedWindow(_WINDOW_NAME, WINDOW_NORMAL);
-		resizeWindow(_WINDOW_NAME, _windowWidth, _windowHeight);
+		resizeWindow(_WINDOW_NAME, _WINDOW_WIDTH, _WINDOW_HEIGHT);
 		while(this->_threadContinueRunning)
 		{
 			if(newFrame)

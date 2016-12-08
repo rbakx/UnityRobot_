@@ -37,26 +37,26 @@ void Detector::processImage()
 	imshow("Result", result);
 }
 
-Detector::Detector()
+Detector::Detector(string sampleName)
 {
     _orb = ORB::create();
 
-	string fileName = settings->getGeneralProperties().sampleName;
+	if(strcmp(sampleName.c_str(), "") == 0)
+		throw invalid_argument("[Detector] Empty sampleName in config.yml is invalid.");
 
-	if(strcmp(fileName.c_str(), "") == 0)
-		throw invalid_argument("[Detector] sampleName in config.yml is invalid.");
+	string sampleFilePath = settings->getFilePath() + "samples/" + sampleName + ".yml";
 
-    FileStorage fs2(fileName, FileStorage::READ);
+    FileStorage fs2(sampleFilePath, FileStorage::READ);
 
 	if(!fs2.isOpened())
-		throw invalid_argument("[Detector] sample provided in config.yml is inaccessible.");
+		throw invalid_argument("[Detector] sample '" + sampleName + "' provided in config.yml is inaccessible at " + sampleFilePath + ".");
 
     FileNode descriptorNode = fs2["Descriptors"];
     FileNode keypointsNode = fs2["Keypoints"];
     FileNode sampleNode = fs2["Sample"];
 
     if(descriptorNode.isNone() || keypointsNode.isNone() || sampleNode.isNone()) //We couldn't find the descriptors in the file
-        throw runtime_error("Sample is not complete!");
+        throw runtime_error("[Detector] Sample '" + sampleName + "' is not complete!");
 
     read(descriptorNode, _trainDescriptor);
     read(keypointsNode, _trainKeypoints);
@@ -64,12 +64,25 @@ Detector::Detector()
 
     fs2.release();
 
-    cout << "Read sample from file" << endl;
+    cout << "[Detector] Read sample '" + sampleName + "' from file." << endl;
 
     _matcher = new cv::BFMatcher(cv::NORM_HAMMING, true);
 }
 
-const vector<Robot>&Detector::getRobots() const
+vector<frames::VideoFeedFrameReceiver*> Detector::createReceiversFromSettings()
+{
+	vector<string> sampleNames = settings->getGeneralProperties().sampleNames;
+	vector<frames::VideoFeedFrameReceiver*> detectors;
+
+	for(const string& sampleName : sampleNames)
+	{
+		detectors.emplace_back(new Detector(sampleName));
+	}
+
+	return detectors;
+}
+
+vector<Robot> Detector::getRobots() const noexcept
 {
 	/*
 	 * TODO: This doesn't work yet, as we are currently only labeling blobs.

@@ -1,5 +1,4 @@
-#ifndef ASSIGNMENT_SETTINGS_H
-#define ASSIGNMENT_SETTINGS_H
+#pragma once
 
 #include <opencv2/core/core.hpp>
 #include <string>
@@ -7,20 +6,20 @@
 struct GeneralProperties
 {
 	int port;
-	std::string sampleName;
+	std::vector<std::string> sampleNames;
 
-	GeneralProperties() : port(-1), sampleName("") {}
-	GeneralProperties(int port, std::string sampleName) : port(port), sampleName(sampleName) {}
+	GeneralProperties() : port(-1), sampleNames({}) {}
+	GeneralProperties(int port, std::vector<std::string> sampleNames) : port(port), sampleNames(sampleNames) {}
 };
 
 struct DeviceProperties
 {
-    int deviceNumber;
+    int number;
     int vid;
     int pid;
 
-    DeviceProperties() : deviceNumber(-1), vid(-1), pid(-1) {}
-    DeviceProperties(int deviceNumber, int vid, int pid) : deviceNumber(deviceNumber), vid(vid), pid(pid) {}
+    DeviceProperties() : number(-1), vid(-1), pid(-1) {}
+    DeviceProperties(int number, int vid, int pid) : number(number), vid(vid), pid(pid) {}
 };
 
 struct RecordingProperties
@@ -40,15 +39,18 @@ struct RecordingProperties
 class Settings
 {
 	private:
-		Settings() {};
+		Settings();
 		GeneralProperties gp;
 		DeviceProperties dp;
 		RecordingProperties rp;
+		std::string filePath;
+
+		void obtainExecutableDirectory();
 
 	public:
-		Settings(GeneralProperties gp, DeviceProperties dp, RecordingProperties rp) : gp(gp), dp(dp), rp(rp) {};
+		Settings(GeneralProperties gp, DeviceProperties dp, RecordingProperties rp);
 		void write(const std::string fileName) const;
-		static Settings* read(const std::string fileName);
+		static Settings* read();
 
 		/*
 		 * Getters
@@ -56,9 +58,7 @@ class Settings
 		const GeneralProperties& getGeneralProperties() const;
 		const DeviceProperties& getDeviceProperties() const;
 		const RecordingProperties& getRecordingProperties() const;
+		const std::string& getFilePath() const;
 };
 
 extern Settings* settings;
-
-
-#endif //ASSIGNMENT_SETTINGS_H

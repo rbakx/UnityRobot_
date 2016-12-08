@@ -32,7 +32,7 @@ VideoFeedFrameReceiverTargets receivers;
 
 int main(int argc, char* argv[])
 {
-	settings = Settings::read("./resources/config.yml"); //TODO Fix s.t. absolute path is given here
+	settings = Settings::read();
 
 	processCommandLineArguments(argc, argv);
 
@@ -74,8 +74,8 @@ void processCommandLineArguments(int argc, char* argv[])
 
 	if(strcmp(argv[1], "start") == 0)
 	{
-		Detector detector;
-		receivers.add(&detector);
+		//Starts all detectors
+		vector<VideoFeedFrameReceiver*> detectors = Detector::createReceiversFromSettings();
 
 		VideoFrameDisplayer display;
 		receivers.add(&display);
@@ -83,7 +83,8 @@ void processCommandLineArguments(int argc, char* argv[])
 		cout << "Press enter to stop detecting" << endl;
 		cin.ignore(1);
 
-		receivers.remove(&detector);
+		//Stops all detectors and remove the displayer
+		receivers.remove(detectors);
 		receivers.remove(&display);
 	}
 	else if(strcmp(argv[1], "calibrate") == 0)
