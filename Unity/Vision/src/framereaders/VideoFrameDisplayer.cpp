@@ -5,15 +5,17 @@ using namespace cv;
 using namespace framereaders;
 
 VideoFrameDisplayer::VideoFrameDisplayer(const string& windowName,
-										 const int windowWidth,
-										 const int windowHeight)
+										 int windowWidth,
+										 int windowHeight)
 		: _WINDOW_NAME(windowName),
+		  _WINDOW_WIDTH(windowWidth),
+		  _WINDOW_HEIGHT(windowHeight),
 		  _threadContinueRunning(true)
 {
 	_displayThread = new thread([=]()
 	{
 		namedWindow(_WINDOW_NAME, WINDOW_NORMAL);
-		resizeWindow(_WINDOW_NAME, windowWidth, windowHeight);
+		resizeWindow(_WINDOW_NAME, _WINDOW_WIDTH, _WINDOW_HEIGHT);
 		while(this->_threadContinueRunning)
 		{
 			if(newFrame)

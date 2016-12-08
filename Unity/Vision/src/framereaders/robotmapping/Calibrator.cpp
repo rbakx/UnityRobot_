@@ -16,16 +16,15 @@ void Calibrator::updateROI()
 	if(_bufferFrame.empty())
 		return;
 
-	Mat grayBuffer, grayCurrent;
+	Mat grayBuffer, grayCurrent, filteredImage;
+
 	cvtColor(_bufferFrame, grayBuffer, CV_BGR2GRAY);
 	cvtColor(_currentFrame, grayCurrent, CV_BGR2GRAY);
 
-	Mat diffImage, thresholdImage;
-	absdiff(grayBuffer, grayCurrent, diffImage);
-	threshold(diffImage, thresholdImage, 10, 255, CV_THRESH_BINARY); //TODO: Make this adaptive? --> no. Document dis
+	absdiff(grayBuffer, grayCurrent, filteredImage);
+	threshold(filteredImage, filteredImage, 10, 255, CV_THRESH_BINARY); //TODO: Make this adaptive? --> no. Document dis
 
-	Mat filteredImage;
-	medianBlur(thresholdImage, filteredImage, 5);
+	medianBlur(filteredImage, filteredImage, 5);
 
 	if(countNonZero(filteredImage) < 1) //Check if there is something moving, otherwise boundingRect will throw an exception
 		return;
