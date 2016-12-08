@@ -15,7 +15,7 @@ VideoFrameSaver::VideoFrameSaver() : _writer(VideoWriter()),
 
 VideoFrameSaver::~VideoFrameSaver()
 {
-	_writer.release();
+	StopSaving();
 }
 
 void VideoFrameSaver::StartSaving(const string& filename)
