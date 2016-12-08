@@ -17,6 +17,12 @@ namespace ev3_broker
             {
                 throw new ArgumentNullException("ev3Connection");
             }
+
+			if (!ev3Connection.Connected ())
+			{
+				throw new InvalidOperationException("ev3 Connection is closed");
+			}
+
             _ev3Connection = ev3Connection;
         }
 
@@ -43,6 +49,7 @@ namespace ev3_broker
             if(!_disposed)
             {
                 _disposed = true;
+				_communicator.GetDataLink().Dispose();
                 _ev3Connection.Dispose();
             }
         }

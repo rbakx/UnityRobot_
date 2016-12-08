@@ -23,14 +23,14 @@ namespace ev3_broker
             {
                 Console.WriteLine("Ev3 connected");
 
-                using (RobotBroker broker = new RobotBroker())
+                using (UnityRobotBroker broker = new UnityRobotBroker())
                 {
                     if (broker.Connect(hostname, port, 5000))
                     {
                         Console.WriteLine("Unity connected");
                         using (EV3Robot ev3 = new EV3Robot(broker.Communicator, "My little robot", ev3Con))
                         {
-                            broker.ConnectRobot(ev3);
+                            broker.AssignRobot(ev3);
 
                             Console.WriteLine("Press enter to stop");
                             Console.ReadLine();

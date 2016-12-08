@@ -84,6 +84,7 @@ namespace ev3_broker
         private DataStreamReceiver _dataStreamReceiver;
         private Semaphore _receiveSem;
 
+		private bool _connected = false;
         private bool _disposed = false;
 
         public string SerialNumber { get { return _serialNumber; } }
@@ -113,6 +114,11 @@ namespace ev3_broker
         {
             Dispose();
         }
+
+		public bool Connected()
+		{
+			return _connected;
+		}
         
         /// <summary>
         /// Listens for a udp broadcast from a EV3, and tries to connect to it
@@ -121,13 +127,16 @@ namespace ev3_broker
         /// <returns></returns>
         public bool Connect(int timeout = -1)
         {
-            IPEndPoint ev3Endpoint = ListenForSingleUdpBroadcast(timeout);
-            if (ev3Endpoint != null)
-            {
-                return EstablishTcpConnection(ev3Endpoint, timeout);
-            }
+			if (!_connected && !_disposed)
+			{
+				IPEndPoint ev3Endpoint = ListenForSingleUdpBroadcast (timeout);
+				if (ev3Endpoint != null)
+				{
+					_connected = EstablishTcpConnection (ev3Endpoint, timeout);
+				}
+			}
 
-            return false;
+			return _connected;
         }
 
         // Sending strings for testing
@@ -462,7 +471,8 @@ namespace ev3_broker
             if (!_disposed)
             {
                 _disposed = true;
-                if (_tcpDataLink != null)
+				_connected = false;
+				if (_tcpDataLink != null)
                 {
                     _tcpDataLink.Dispose();
                 }

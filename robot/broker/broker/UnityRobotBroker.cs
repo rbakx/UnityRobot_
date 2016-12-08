@@ -9,28 +9,24 @@ using System.Threading.Tasks;
 
 namespace broker
 {
-    public class RobotBroker : IDisposable
+    public class UnityRobotBroker : IDisposable
     {
         private bool _connected;
 
         private GeneralTypeRobot _robot;
-
-        private IPresentationProtocol _protocol;
-        private IDataLink _dataLink;
         private Communicator _communicator;
+		IPresentationProtocol _protocol;
 
         private bool _disposed;
 
         public Communicator Communicator { get { return _communicator; } }
 
-        public RobotBroker()
+        public UnityRobotBroker()
         {
             _connected = false;
 
             _robot = null;
 
-            _protocol = null;
-            _dataLink = null;
             _communicator = null;
 
             _disposed = false;
@@ -64,7 +60,7 @@ namespace broker
                 wh.Close();
             }
 
-            _dataLink = new TCPDataLink(tcpClient);
+            IDataLink _dataLink = new TCPDataLink(tcpClient);
             _protocol = new ProtoBufPresentation();
             _dataLink.SetReceiver(_protocol);
 
@@ -74,7 +70,7 @@ namespace broker
             return true;
         }
 
-        public bool ConnectRobot(GeneralTypeRobot robot)
+        public bool AssignRobot(GeneralTypeRobot robot)
         {
             if (robot == null)
             {
@@ -83,7 +79,7 @@ namespace broker
 
             if (!_connected)
             {
-                throw new InvalidOperationException("Can't connect robot without being connected");
+                throw new InvalidOperationException("Can't assign robot without being connected");
             }
 
             _robot = robot;
@@ -97,9 +93,9 @@ namespace broker
         {
             if (!_disposed)
             {
-                if (_connected && _dataLink != null)
+				if (_connected && _communicator.GetDataLink() != null)
                 {
-                    _dataLink.Dispose();
+					_communicator.GetDataLink().Dispose();
                 }
 
                 _disposed = true;

@@ -1,5 +1,6 @@
 ﻿using Communication;
 using Networking;
+using System;
 
 namespace broker
 {
@@ -12,6 +13,21 @@ namespace broker
 
         public GeneralTypeRobot(Communicator communicator, string name, TypeRobot type)
         {
+			if (communicator == null)
+			{
+				throw new ArgumentNullException("communicator");
+			}
+
+			if (!communicator.GetDataLink().Connected())
+			{
+				throw new InvalidOperationException("Datalink in communicator not connected");
+			}
+
+			if (name == null)
+			{
+				throw new ArgumentNullException("name");
+			}
+
             _robotName = name;
             _robotType = type;
 
