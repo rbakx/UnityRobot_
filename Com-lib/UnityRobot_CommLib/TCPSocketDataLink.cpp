@@ -1,10 +1,7 @@
 #include "TCPSocketDataLink.hpp"
 
-#include <asio/impl/connect.hpp>
-#include <asio/impl/write.hpp>
-#include <asio/io_service.hpp>
 #include <stdexcept>
-#include <iostream>
+#include <asio/io_service.hpp>
 #include "RobotLogger.h"
 
 namespace UnityRobot {
@@ -77,11 +74,9 @@ void TCPSocketDataLink::Connect()
 			});
 		}
 	}
-	catch (std::exception& )
+	catch (std::exception& e)
 	{
-		//e.what();
-		//LOG : CONNECTION FAILED!
-
+		LogError(e.what());
 		m_Socket.close();
 	}
 }
@@ -98,15 +93,11 @@ void TCPSocketDataLink::StartReading()
 
 		if (buffersize > 0)
 		{
-			//std::vector<char> incomingDataString(buffersize);
-			//memcpy(incomingDataString.data(), socketBuffer.data(), buffersize);
 			std::vector<char> incomingDataString;
 			std::copy(socketBuffer.begin(), socketBuffer.begin() + buffersize, std::back_inserter(incomingDataString));
 			m_receiver->IncomingData(incomingDataString, this);
 		}
 	}
-
-	//std::cout << "end of stream" << std::endl;
 
 	m_Socket.close();
 }
@@ -125,10 +116,6 @@ bool TCPSocketDataLink::SendData(const std::string& data) noexcept
 {
 	std::vector<char> charVectorArray;
 	charVectorArray.reserve(data.length());
-	//for (size_t length = 0; length < data.length(); length++)
-	//{
-	//	charVectorArray.push_back(data[length]);
-	//}
 
 	std::copy(data.begin(), data.end(), std::back_inserter(charVectorArray));
 

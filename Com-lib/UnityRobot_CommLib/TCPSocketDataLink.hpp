@@ -28,11 +28,11 @@ public:
 	TCPSocketDataLink(std::string address, std::string socket, std::unique_ptr<Networking::IDataStreamReceiver>&& receiver);
 	virtual ~TCPSocketDataLink();
 
-	void Connect();
+	void Connect() override;
 
-	bool SendData(const std::string& data) noexcept;
-	bool SendData(const std::vector<char>& data) noexcept;
-	bool Connected() const noexcept;
+	bool SendData(const std::string& data) noexcept override;
+	bool SendData(const std::vector<char>& data) noexcept override;
+	bool Connected() const noexcept override;
 
 private:
 

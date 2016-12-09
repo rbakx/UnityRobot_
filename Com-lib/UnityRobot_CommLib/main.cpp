@@ -1,6 +1,9 @@
+//#include <vld.h>
 #include "TCPSocketDataLink.hpp"
 #include "IDataStreamReceiver.hpp"
 #include "IPresentationProtocol.hpp"
+
+
 using namespace UnityRobot;
 using namespace Networking;
 
@@ -11,6 +14,8 @@ using namespace Networking;
 #include "message.pb.h"
 #include "MessageBuilder.h"
 #include "ProtobufPresentation.h"
+#include "communicator.h"
+
 /*
 	Just a temporary class for testing connection with unity
 */
@@ -38,19 +43,20 @@ using Msg = Communication::Message;
 using MsgBuilder = Networking::MessageBuilder;
 int main(int argc, char** argv)
 {
-	RobotLogger logger;
-	logger.init();
+	//VLDEnable();
+	//RobotLogger logger;
+	//logger.init();
+	RobotLogger::init();
 	GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-	std::string address = argc > 2 ?  argv[1] : "145.93.45.16";
+	std::string address = argc > 2 ?  argv[1] : "145.93.44.232";
 	std::string port = argc > 2 ? argv[2] : "1234";
 
 	//ReceiverSample* _receiver = new ReceiverSample();
 	auto _receiver = new ProtobufPresentation();
 	TCPSocketDataLink link(address, port, std::unique_ptr<IDataStreamReceiver>(_receiver));
-
+	UnityRobot::Communicator comm(*_receiver, link);
 	link.Connect();
-
 	std::cout << "Connected: " << ((link.Connected()) ? "SUCCEEDED" : "FAILED") << std::endl;
 
 	if (link.Connected())
@@ -61,7 +67,8 @@ int main(int argc, char** argv)
 		MsgBuilder::addChangedShape(toSend, 3, { { 5.0, 5.5, 1.0 }, {1.0, 1.5, 1.5} });
 		MsgBuilder::addChangedShape(toSend, 5, { {-5.0, -5.5, -1.0} });
 
-		std::cout << "Send result: " << std::boolalpha << link.SendData(_receiver->MessageToBinaryData(toSend)) << '\n';
+		//std::cout << "Send result: " << std::boolalpha << link.SendData(_receiver->MessageToBinaryData(toSend)) << '\n';
+		std::cout << "Send result: " << std::boolalpha << comm.sendCommand(toSend) << '\n';
 
 		_receiver->lock.lock();
 

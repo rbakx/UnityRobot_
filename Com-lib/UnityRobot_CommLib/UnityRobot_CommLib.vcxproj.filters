@@ -39,6 +39,9 @@
     <ClInclude Include="ProtobufPresentation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="communicator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LogFileCreator.cpp">
@@ -66,6 +69,9 @@
       <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="ProtobufPresentation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="communicator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
