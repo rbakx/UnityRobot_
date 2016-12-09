@@ -62,13 +62,13 @@ namespace ev3_broker
 
         private const short EV3_UDP_BROADCAST_PORT = 3015;
         private const string EV3_UDP_RESPONSE_MSG = "hi";
-        
+
         /// <summary>
         /// Reservation (allocation) of global and local variables.
         /// When requesting a response from the EV3, this will be the number of
         /// bytes reserved for global data in the response (251).        
         /// /// </summary>
-        private const byte EV3_NUM_RESPONSE_GLOBALS = 0xfb;  
+        private const byte EV3_NUM_RESPONSE_GLOBALS = 0xfb;
 
         private string _serialNumber;
 
@@ -81,15 +81,13 @@ namespace ev3_broker
 
         private short _tcpPort;
         private TCPDataLink _tcpDataLink;
-        private DataStreamReceiver _dataStreamReceiver;
         private Semaphore _receiveSem;
-
-		private bool _connected = false;
+        
         private bool _disposed = false;
 
         public string SerialNumber { get { return _serialNumber; } }
 
-        public Ev3Connection(string projectName)
+        public Ev3Connection(string projectName, TCPDataLink datalink)
         {
             if (projectName == null)
             {
@@ -99,14 +97,18 @@ namespace ev3_broker
             {
                 throw new ArgumentException("projectName can't be an empty string", "projectName");
             }
+            if (datalink == null)
+            {
+                throw new ArgumentNullException("datalink");
+            }
 
             _serialNumber = null;
             _ev3ProjectName = projectName;
             _lastMessage = null;
 
             _tcpPort = -1;
-            _tcpDataLink = null;
-            _dataStreamReceiver = new DataStreamReceiver(OnIncomingData);
+            _tcpDataLink = datalink;
+            _tcpDataLink.SetReceiver(new DataStreamReceiver(OnIncomingTcpData));
             _receiveSem = new Semaphore(0, 1);
         }
 
@@ -115,30 +117,12 @@ namespace ev3_broker
             Dispose();
         }
 
-		public bool Connected()
-		{
-			return _connected;
-		}
-        
-        /// <summary>
-        /// Listens for a udp broadcast from a EV3, and tries to connect to it
-        /// TODO: This will not handle multiple broadcasting EV3's</summary>
-        /// <param name="timeout"></param>
-        /// <returns></returns>
-        public bool Connect(int timeout = -1)
+        public bool Connected()
         {
-			if (!_connected && !_disposed)
-			{
-				IPEndPoint ev3Endpoint = ListenForSingleUdpBroadcast (timeout);
-				if (ev3Endpoint != null)
-				{
-                    Console.WriteLine("Found ev3 with ip: " + ev3Endpoint.Address);
-					_connected = EstablishTcpConnection (ev3Endpoint, timeout);
-				}
-			}
-
-			return _connected;
+            return _tcpDataLink.Connected();
         }
+
+
 
         // Sending strings for testing
         public bool SendMessage(string mailBox, string message)
@@ -392,53 +376,53 @@ namespace ev3_broker
             return true;
         }
 
-        private bool EstablishTcpConnection(IPEndPoint ev3Endpoint, int timeout = -1)
-        {
-            if (ev3Endpoint == null)
-            {
-                throw new ArgumentNullException("ev3Endpoint");
-            }
+        //private bool EstablishTcpConnection(IPEndPoint ev3Endpoint, int timeout = -1)
+        //{
+        //    if (ev3Endpoint == null)
+        //    {
+        //        throw new ArgumentNullException("ev3Endpoint");
+        //    }
 
-            if (_tcpPort < 1)
-            {
-                throw new Exception("_tcpPort not set");
-            }
+        //    if (_tcpPort < 1)
+        //    {
+        //        throw new Exception("_tcpPort not set");
+        //    }
 
-            try
-            {
-                TcpClient tcpClient = new TcpClient();
-                tcpClient.Connect(new IPEndPoint(ev3Endpoint.Address, _tcpPort));
+        //    try
+        //    {
+        //        TcpClient tcpClient = new TcpClient();
+        //        tcpClient.Connect(new IPEndPoint(ev3Endpoint.Address, _tcpPort));
 
-                _tcpDataLink = new TCPDataLink(tcpClient);
-                _tcpDataLink.SetReceiver(_dataStreamReceiver);
+        //        _tcpDataLink = new TCPDataLink(tcpClient);
+        //        _tcpDataLink.SetReceiver(_dataStreamReceiver);
 
-                string str = "GET /target?sn=" + _serialNumber + " VMTP1.0\nProtocol: EV3";
-                _tcpDataLink.SendData(str);
-                _receiveSem.WaitOne(timeout);
+        //        string str = "GET /target?sn=" + _serialNumber + " VMTP1.0\nProtocol: EV3";
+        //        _tcpDataLink.SendData(str);
+        //        _receiveSem.WaitOne(timeout);
 
-                _dataStreamReceiver.SetCallback(OnIncomingTcpData);
+        //        _dataStreamReceiver.SetCallback(OnIncomingTcpData);
 
-                if (_lastMessage != null)
-                {
-                    Console.WriteLine("TCP Test response: " + _lastMessage.TrimEnd());
-                }
-                else
-                {
-                    throw new Exception("Could not get tcp response from ev3: " + ev3Endpoint.Address);
-                }
-            }
-            catch (SocketException)
-            {
-                return false;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                return false;
-            }
+        //        if (_lastMessage != null)
+        //        {
+        //            Console.WriteLine("TCP Test response: " + _lastMessage.TrimEnd());
+        //        }
+        //        else
+        //        {
+        //            throw new Exception("Could not get tcp response from ev3: " + ev3Endpoint.Address);
+        //        }
+        //    }
+        //    catch (SocketException)
+        //    {
+        //        return false;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine(e.Message);
+        //        return false;
+        //    }
 
-            return true;
-        }
+        //    return true;
+        //}
 
         private void OnIncomingData(byte[] data)
         {
@@ -476,15 +460,8 @@ namespace ev3_broker
 
         public void Dispose()
         {
-            if (!_disposed)
-            {
-                _disposed = true;
-				_connected = false;
-				if (_tcpDataLink != null)
-                {
-                    _tcpDataLink.Dispose();
-                }
-            }
+            _tcpDataLink.Dispose();
+            _disposed = true;
         }
     }
 }

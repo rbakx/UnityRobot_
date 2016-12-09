@@ -1,8 +1,9 @@
 ﻿using Communication;
+using System;
 
 namespace Networking
 {
-    public class Communicator : IMessageSender
+    public class Communicator : IMessageSender, IDisposable
     {
         private IPresentationProtocol _pp;
         private IDataLink _datalink;
@@ -21,6 +22,11 @@ namespace Networking
 
             _pp = pP;
             _datalink = dataLink;
+        }
+
+        ~Communicator()
+        {
+            Dispose();
         }
 
         public IDataLink GetDataLink()
@@ -48,6 +54,11 @@ namespace Networking
             }
 
             return success;
+        }
+
+        public void Dispose()
+        {
+            _datalink.Dispose();
         }
     }
 }

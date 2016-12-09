@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Ev3Connection.cs" />
     <Compile Include="EV3Robot.cs" />
+    <Compile Include="EV3ServiceListener.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

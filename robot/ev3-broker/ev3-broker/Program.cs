@@ -2,50 +2,50 @@
 using Communication;
 using Networking;
 using System;
+using System.Collections.Generic;
+using System.Net;
 using System.Net.Sockets;
 
 namespace ev3_broker
 {
     class Program
     {
+        class Receiver : IRobotServiceEventsReceiver, IDisposable
+        {
+            private List<EV3Robot> _robots;
+
+            public Receiver()
+            {
+                _robots = new List<EV3Robot>();
+            }
+            
+            public void OnRobotConnect(GeneralTypeRobot robot)
+            {
+                Console.WriteLine("robot connected");
+                _robots.Add(robot as EV3Robot);
+            }
+
+            public void Dispose()
+            {
+                foreach (var rob in _robots)
+                {
+                    rob.Dispose();
+                }
+            }
+        }
         static void Main(string[] args)
         {
-            //Gets the hostname and port from the command line parameters to connect to the robot in question(in this case the Nao)
-            string hostname = args.Length > 0 ? args[0] : "192.168.0.101";
-            ushort port = (ushort)(args.Length > 1 ? Int32.Parse(args[1]) : 1234);
 
-            Ev3Connection ev3Con = new Ev3Connection("EV3Wifi");
-            if (!ev3Con.Connect(5000))
-            {
-                Console.WriteLine("Failed to connect with EV3");
-                ev3Con.Dispose();
-            }
-            else
-            {
-                Console.WriteLine("Ev3 connected");
+           Receiver receiver = new Receiver();
+            EV3ServiceListener listener = new EV3ServiceListener(receiver,
+                IPAddress.Parse("192.168.0.101"), 1234);
+            listener.StartListening();
 
-                Communicator communicator = null;
-
-                if (Tools.ConnectToUnity(out communicator, hostname, port, 5000))
-                {
-                    Console.WriteLine("Unity connected");
-
-                    using (EV3Robot ev3 = new EV3Robot(communicator, "My little robot", ev3Con))
-                    {
-                        Tools.AssignRobot(communicator, ev3);
-
-                        Console.WriteLine("Press enter to stop");
-                        Console.ReadLine();
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Failed to connect with unity");
-                    ev3Con.Dispose();
-                }
-            }
             Console.WriteLine("Press enter to quit");
             Console.ReadLine();
+            listener.StopListening();
+            receiver.Dispose();
+            Console.WriteLine("Exiting program.");
         }
     }
 }

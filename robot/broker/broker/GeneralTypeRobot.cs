@@ -4,7 +4,7 @@ using System;
 
 namespace broker
 {
-    public abstract class GeneralTypeRobot
+    public abstract class GeneralTypeRobot : IDisposable
     {
         private string _robotName;
         private TypeRobot _robotType;
@@ -34,6 +34,11 @@ namespace broker
             _communicator = communicator;
         }
 
+        ~GeneralTypeRobot()
+        {
+            Dispose();
+        }
+
         public void IdentificationRequest(int messageId)
         {
             Message message = MessageBuilder.CreateMessage(messageId, 
@@ -56,5 +61,10 @@ namespace broker
 
         public abstract void Indicate();
         public abstract void VelocitySet(Communication.Transform.Vector3_ linear, Communication.Transform.Vector3_ angular);
+
+        public void Dispose()
+        {
+            _communicator.Dispose();
+        }
     }
 }

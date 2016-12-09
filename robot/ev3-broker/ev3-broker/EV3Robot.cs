@@ -9,8 +9,6 @@ namespace ev3_broker
     {
         private Ev3Connection _ev3Connection;
 
-        private bool _disposed = false;
-
         public EV3Robot(Communicator communicator, string name, Ev3Connection ev3Connection) : base(communicator, name, TypeRobot.Mindstorm)
         {
             if (ev3Connection == null)
@@ -18,12 +16,17 @@ namespace ev3_broker
                 throw new ArgumentNullException("ev3Connection");
             }
 
-			if (!ev3Connection.Connected ())
-			{
-				throw new InvalidOperationException("ev3 Connection is closed");
-			}
+            if (!ev3Connection.Connected())
+            {
+                throw new InvalidOperationException("ev3 Connection is closed");
+            }
 
             _ev3Connection = ev3Connection;
+        }
+
+        ~EV3Robot()
+        {
+            Dispose();
         }
 
         public override void Indicate()
@@ -44,14 +47,10 @@ namespace ev3_broker
             }
         }
 
-        public void Dispose()
+        public new void Dispose()
         {
-            if(!_disposed)
-            {
-                _disposed = true;
-				_communicator.GetDataLink().Dispose();
-                _ev3Connection.Dispose();
-            }
+            base.Dispose();
+            _ev3Connection.Dispose();
         }
     }
 }
