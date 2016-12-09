@@ -10,51 +10,49 @@ VideoFrameDisplayer::VideoFrameDisplayer(const string& windowName,
 		: _WINDOW_NAME(windowName),
 		  _WINDOW_WIDTH(windowWidth),
 		  _WINDOW_HEIGHT(windowHeight),
-		  _threadContinueRunning(true)
+		  ShouldStop(false)
 {
-	_displayThread = new thread([=]()
-	{
-		namedWindow(_WINDOW_NAME, WINDOW_NORMAL);
-		resizeWindow(_WINDOW_NAME, _WINDOW_WIDTH, _WINDOW_HEIGHT);
-		while(this->_threadContinueRunning)
-		{
-			if(newFrame)
-			{
-				newFrame = false;
-				this->threadDisplayMethod();
-			}
-		}
-	});
+	namedWindow(_WINDOW_NAME, WINDOW_NORMAL);
+	resizeWindow(_WINDOW_NAME, _WINDOW_WIDTH, _WINDOW_HEIGHT);
 }
+
+VideoFrameDisplayer::VideoFrameDisplayer(const VideoFrameDisplayer& copy)
+	: _WINDOW_NAME(copy._WINDOW_NAME),
+	  _WINDOW_WIDTH(copy._WINDOW_WIDTH),
+	  _WINDOW_HEIGHT(copy._WINDOW_HEIGHT),
+	  _frame(copy._frame),
+	  _newFrame(copy._newFrame),
+	  ShouldStop(copy.ShouldStop)
+{}
 
 VideoFrameDisplayer::~VideoFrameDisplayer()
 {
-	if(_displayThread->joinable())
-	{
-		_threadContinueRunning = false;
-		_displayThread->join();
-		destroyWindow(_WINDOW_NAME);
-	}
-
-	delete _displayThread;
+	destroyWindow(_WINDOW_NAME);
+	ShouldStop = true;
 }
 
 void VideoFrameDisplayer::OnIncomingFrame(const Mat& frame) noexcept
 {
 	lock_guard<mutex> frame_guard(_lock);
 	_frame = frame.clone();
-	newFrame = true;
+	_newFrame = true;
 }
 
-void VideoFrameDisplayer::threadDisplayMethod() noexcept
+void VideoFrameDisplayer::operator()()
 {
-	if (_frame.empty())
-		return;
-
+	while(!ShouldStop)
 	{
-		lock_guard<mutex> frame_guard(_lock);
-		imshow(_WINDOW_NAME, _frame);
-	}
+		if(_newFrame)
+		{
+			lock_guard<mutex> frame_guard(_lock);
+			_newFrame = false;
 
-	waitKey(1);
+			if(_frame.empty())
+				continue;
+
+			imshow(_WINDOW_NAME, _frame);
+
+			waitKey(1);
+		}
+	}
 }
