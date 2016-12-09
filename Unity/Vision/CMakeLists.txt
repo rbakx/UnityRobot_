@@ -19,20 +19,21 @@ find_package( libuvc REQUIRED )
 #pkg_search_module(LIBUSB1 REQUIRED libusb-1.0)
 include_directories(SYSTEM ${LIBUSB1_INCLUDE_DIRS})
 
-set (SOURCE_FILES   main.cpp
-                    src/Robot.h
-                    src/framereaders/robotmapping/Detector.cpp
-                    src/framereaders/robotmapping/Detector.hpp
-                    src/framereaders/robotmapping/Calibrator.cpp src/framereaders/robotmapping/Calibrator.hpp
-                    src/Settings.cpp src/Settings.h
-                    src/framefeeders/CameraFeedSender.cpp src/framefeeders/CameraFeedSender.hpp
-                    src/frames/VideoFeedFrameReceiver.hpp
-                    src/frames/VideoFeedFrameReceiverTargets.cpp src/frames/VideoFeedFrameReceiverTargets.hpp
-                    src/frames/VideoFeedFrameSender.cpp src/frames/VideoFeedFrameSender.hpp
-                    src/framereaders/VideoFrameSaver.cpp src/framereaders/VideoFrameSaver.hpp
-                    src/framefeeders/MediaFeedSender.cpp src/framefeeders/MediaFeedSender.hpp src/framereaders/VideoFrameDisplayer.cpp src/framereaders/VideoFrameDisplayer.hpp
-                    src/framereaders/VideoFrameDisplayer.cpp src/framereaders/VideoFrameDisplayer.hpp
-        )
+set (SOURCE_FILES	main.cpp
+					src/Robot.h
+					src/framereaders/robotmapping/Detector.cpp
+					src/framereaders/robotmapping/Detector.hpp
+					src/framereaders/robotmapping/Calibrator.cpp src/framereaders/robotmapping/Calibrator.hpp
+					src/Settings.cpp src/Settings.h
+					src/Runnable.cpp src/Runnable.hpp
+					src/framefeeders/CameraFeedSender.cpp src/framefeeders/CameraFeedSender.hpp
+					src/frames/VideoFeedFrameReceiver.hpp
+					src/frames/VideoFeedFrameReceiverTargets.cpp src/frames/VideoFeedFrameReceiverTargets.hpp
+					src/frames/VideoFeedFrameSender.cpp src/frames/VideoFeedFrameSender.hpp
+					src/framereaders/VideoFrameSaver.cpp src/framereaders/VideoFrameSaver.hpp
+					src/framefeeders/MediaFeedSender.cpp src/framefeeders/MediaFeedSender.hpp src/framereaders/VideoFrameDisplayer.cpp src/framereaders/VideoFrameDisplayer.hpp
+					src/framereaders/VideoFrameDisplayer.cpp src/framereaders/VideoFrameDisplayer.hpp
+		)
 
 add_executable(Vision ${SOURCE_FILES})
 target_link_libraries( Vision ${OpenCV_LIBS} uvc usb-1.0 rt pthread)

@@ -78,12 +78,9 @@ void processCommandLineArguments(int argc, char* argv[])
 		vector<VideoFeedFrameReceiver*> detectors = Detector::createReceiversFromSettings();
 		receivers.add(detectors);
 
-
 		VideoFrameDisplayer display;
-		std::thread t([&display]() {
-			display.operator()();
-		});
 		receivers.add(&display);
+		display.start();
 
 		cout << "Press enter to stop detecting" << endl;
 		cin.ignore(1);
@@ -91,8 +88,7 @@ void processCommandLineArguments(int argc, char* argv[])
 		//Stops all detectors and remove the displayer
 		receivers.remove(detectors);
 		receivers.remove(&display);
-		display.ShouldStop = true;
-		t.join();
+		display.stop();
 	}
 	else if(strcmp(argv[1], "calibrate") == 0)
 	{

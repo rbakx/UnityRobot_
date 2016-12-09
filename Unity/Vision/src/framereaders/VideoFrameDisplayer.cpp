@@ -9,8 +9,7 @@ VideoFrameDisplayer::VideoFrameDisplayer(const string& windowName,
 										 int windowHeight)
 		: _WINDOW_NAME(windowName),
 		  _WINDOW_WIDTH(windowWidth),
-		  _WINDOW_HEIGHT(windowHeight),
-		  ShouldStop(false)
+		  _WINDOW_HEIGHT(windowHeight)
 {
 	namedWindow(_WINDOW_NAME, WINDOW_NORMAL);
 	resizeWindow(_WINDOW_NAME, _WINDOW_WIDTH, _WINDOW_HEIGHT);
@@ -21,14 +20,12 @@ VideoFrameDisplayer::VideoFrameDisplayer(const VideoFrameDisplayer& copy)
 	  _WINDOW_WIDTH(copy._WINDOW_WIDTH),
 	  _WINDOW_HEIGHT(copy._WINDOW_HEIGHT),
 	  _frame(copy._frame),
-	  _newFrame(copy._newFrame),
-	  ShouldStop(copy.ShouldStop)
+	  _newFrame(copy._newFrame)
 {}
 
 VideoFrameDisplayer::~VideoFrameDisplayer()
 {
 	destroyWindow(_WINDOW_NAME);
-	ShouldStop = true;
 }
 
 void VideoFrameDisplayer::OnIncomingFrame(const Mat& frame) noexcept
@@ -38,21 +35,18 @@ void VideoFrameDisplayer::OnIncomingFrame(const Mat& frame) noexcept
 	_newFrame = true;
 }
 
-void VideoFrameDisplayer::operator()()
+void VideoFrameDisplayer::run()
 {
-	while(!ShouldStop)
+	if(_newFrame)
 	{
-		if(_newFrame)
-		{
-			lock_guard<mutex> frame_guard(_lock);
-			_newFrame = false;
+		lock_guard<mutex> frame_guard(_lock);
+		_newFrame = false;
 
-			if(_frame.empty())
-				continue;
+		if(_frame.empty())
+			return;
 
-			imshow(_WINDOW_NAME, _frame);
+		imshow(_WINDOW_NAME, _frame);
 
-			waitKey(1);
-		}
+		waitKey(1);
 	}
 }
