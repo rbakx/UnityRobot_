@@ -20,7 +20,7 @@ class nao(object):
 		
 	def Connect(self, ip, port):
 		
-		success = True
+		success = False
 		
 		port = int(port)
 	
@@ -170,7 +170,7 @@ def nao_tss_say(responseId, text=""):
 
 def nao_connect(responseId, ip, port=9559):
 	
-	localRobotIdentifier = 0
+	localRobotIdentifier = -1
 	
 	ip = str(ip)
 	port = int(port)
@@ -182,6 +182,8 @@ def nao_connect(responseId, ip, port=9559):
 	success = robot.Connect(ip, port)
 	
 	if success:
+	
+		print "Connected"
 		
 		robots.append(robot)
 		global robotsIdentityNumber;
@@ -190,6 +192,9 @@ def nao_connect(responseId, ip, port=9559):
 		robotsIdentityNumber = (localRobotIdentifier + 1)
 		
 		robot.identity = localRobotIdentifier
+	else:
+	
+		print "Failed to connect"
 	
 	return str(responseId) + "|" + str(localRobotIdentifier)
 
