@@ -1,5 +1,4 @@
 ﻿using Communication;
-using Communication.Messages;
 using Networking;
 using UnityEngine;
 
@@ -43,23 +42,22 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
         //transform.Translate(_velocity * Time.deltaTime);
 
     }
-
-<<<<<<< HEAD
+    
     public void SetDestination(Vector3 dest)
     {
         _destination = dest;
-    }
 
-    public Vector3 GetDestination()
-    {
-        return _destination;
-=======
         transform.Rotate(_rotationVelocity * Time.deltaTime);
 
         _velocity = transform.TransformVector(_velocity);
 
         transform.Translate(_velocity * Time.deltaTime);
->>>>>>> 10e0e505a8ce5fc10d18dfd56ed15bc831ea6512
+    }
+
+    public Vector3 GetDestination()
+    {
+        return _destination;
+
     }
 
     public void Init(Communicator communicator, uint id, string name = "", string type = "")

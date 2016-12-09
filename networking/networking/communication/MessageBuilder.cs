@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Communication
 {
-    public static partial class MessageBuilder
+    public static class MessageBuilder
     {
         /// <summary>
         /// Create a message with a target and type.
