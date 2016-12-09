@@ -6,6 +6,7 @@ public class RobotList : MonoBehaviour
 {
 
     private List<Robot> _robots;
+    private bool doConnectivityChecks = true;
 
     public RobotList()
     {
@@ -17,9 +18,14 @@ public class RobotList : MonoBehaviour
 
     }
 
+    void OnDestroy()
+    {
+        doConnectivityChecks = false;
+    }
+
     IEnumerator CheckIfStillConnected()
     {
-        while(true)
+        while(doConnectivityChecks)
         {
             for(int i = (_robots.Count-1); i >=0 ;i--)
             {
@@ -27,14 +33,14 @@ public class RobotList : MonoBehaviour
 
                 if(!r.IsConnected())
                 {
-                    _robots.Remove(r);
+                    _robots.RemoveAt(i);
 
                     GameObject.Destroy(r.gameObject, 1.0F);
                     Debug.Log("[RobotList]: robot got disconnected! " + r.name + " [" + r.GetRobotType() + "]");
                 }
             }
 
-            yield return new WaitForSeconds(0.5F);
+            yield return new WaitForSeconds(0.05F);
         }
     }
 
@@ -43,10 +49,6 @@ public class RobotList : MonoBehaviour
         if(robot != null && !_robots.Contains(robot))
         {
             _robots.Add(robot);
-
-            // The little hacking that could
-            //TODO: remove
-            robot.SetLinearVelocity(new Vector3(10.0F, 0.0F, 0.0F));
         }
     }
 
@@ -58,5 +60,11 @@ public class RobotList : MonoBehaviour
     public Robot Get(int index)
     {
        return _robots[index];
+    }
+
+    public int Count
+    {
+        get
+        { return _robots.Count; }
     }
 }

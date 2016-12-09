@@ -15,7 +15,7 @@ public class UIController : MonoBehaviour
     public List<GameObject> ManualPanels;
 
     public GameObject MinionControl;
-    public GameObject SelectedRobot;
+    public Robot SelectedRobot;
 
     public bool MenuOpen = false;
     public bool robotFound = false;
@@ -53,7 +53,7 @@ public class UIController : MonoBehaviour
         }
     }
 
-    private List<GameObject> activeRobots = new List<GameObject>();
+    private RobotList activeRobots = null;
 
     //TODO: Send cancellation msg to robot
     public void CancelAction()
@@ -98,7 +98,7 @@ public class UIController : MonoBehaviour
         SelectedRobot = null;
         panelStates = null;
 
-        activeRobots = MinionControl.GetComponent<MinionHandler>().RobotList;
+        activeRobots = MinionControl.GetComponent<RobotList>();
 
         //if a robot is available
         if (activeRobots.Count < 1)
@@ -128,12 +128,12 @@ public class UIController : MonoBehaviour
             ClosePanels(panels);
             MenuOpen = false;
 
-            if (activeRobots.Count == 1 && !CheckManualPanelExists(activeRobots[0]))
+            if (activeRobots.Count == 1 && !CheckManualPanelExists(activeRobots.Get(0)))
             {
                 //instantiate the manual robot control menu
                 manualPanel = (GameObject)GameObject.Instantiate(ManualPanel);
 
-                SelectedRobot = activeRobots[0];
+                SelectedRobot = activeRobots.Get(0);
 
                 manualPanel.gameObject.transform.Find("RobotName").GetComponent<Text>().text =
                     SelectedRobot.GetComponent<Robot>().GetRobotName();
@@ -147,7 +147,7 @@ public class UIController : MonoBehaviour
                 Debug.Log(SelectedRobot);
                 ManualMoveCommander commander = manualPanel.GetComponent<ManualMoveCommander>();
 
-                commander.SetRobot(SelectedRobot);
+                commander.SetRobot(SelectedRobot.gameObject);
                 Debug.Log("set robot: ");
                 Debug.Log(commander.GetRobot());
 
@@ -173,17 +173,17 @@ public class UIController : MonoBehaviour
                 //set selectingRobot flag to true;
                 MinionControl.transform.GetComponent<UnitSelecter>().selectingRobot = true;
                 
-                    StartCoroutine(SelectingTarget());
+                StartCoroutine(SelectingTarget());
             }
 
         }
     }
 
-    public bool CheckManualPanelExists(GameObject newRobot)
+    public bool CheckManualPanelExists(Robot newRobot)
     {
         foreach (GameObject p in ManualPanels)
         {
-            if (p.GetComponent<ManualMoveCommander>().GetRobot() == newRobot)
+            if (p.GetComponent<ManualMoveCommander>().GetRobotScript() == newRobot)
             {
                 Debug.Log("Yes dis is dog");
                 return true;
@@ -203,7 +203,10 @@ public class UIController : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             if (MinionControl.transform.GetComponent<UnitSelecter>().SelectedUnit != null)
             {
-                SelectedRobot = MinionControl.transform.GetComponent<UnitSelecter>().SelectedUnit;
+
+                SelectedRobot = MinionControl.transform.GetComponent<UnitSelecter>().SelectedUnit.GetComponent<Robot>();
+                Debug.Log("WHOOHOOO");
+
                 //instantiate the manual robot control menu
                 if (!CheckManualPanelExists(SelectedRobot))
                 {
@@ -217,7 +220,8 @@ public class UIController : MonoBehaviour
 
                     //add button functions
                     addBtnFunctions(manualPanel);
-                    manualPanel.GetComponent<ManualMoveCommander>().SetRobot(SelectedRobot);
+
+                    manualPanel.GetComponent<ManualMoveCommander>().SetRobot(SelectedRobot.gameObject);
                     ManualPanels.Add(manualPanel);
                 }
             }
@@ -256,7 +260,9 @@ public class UIController : MonoBehaviour
 
     public void MinimizeBtnAction(GameObject currentMenu)
     {
-        Debug.Log(currentMenu.name + ": I am a banana");
+
+        //Debug.Log(currentMenu.name + ": I am a banana");
         //TODO: set panel inactive, spawn minimized icon
+
     }
 }

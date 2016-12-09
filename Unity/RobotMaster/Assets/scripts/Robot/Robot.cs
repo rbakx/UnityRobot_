@@ -18,7 +18,7 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
 
     void Awake()
     {
-        // TODO: Robots should be initialized somewhere else
+        // TODO: Robots should be initialized somewhere else, initialise dummy objects
         ProtoBufPresentation pp = new ProtoBufPresentation();
         LocalDataLink dl = new LocalDataLink();
         Communicator c = new Communicator(dl, pp);
@@ -44,6 +44,7 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
 
     }
 
+<<<<<<< HEAD
     public void SetDestination(Vector3 dest)
     {
         _destination = dest;
@@ -52,6 +53,13 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
     public Vector3 GetDestination()
     {
         return _destination;
+=======
+        transform.Rotate(_rotationVelocity * Time.deltaTime);
+
+        _velocity = transform.TransformVector(_velocity);
+
+        transform.Translate(_velocity * Time.deltaTime);
+>>>>>>> 10e0e505a8ce5fc10d18dfd56ed15bc831ea6512
     }
 
     public void Init(Communicator communicator, uint id, string name = "", string type = "")

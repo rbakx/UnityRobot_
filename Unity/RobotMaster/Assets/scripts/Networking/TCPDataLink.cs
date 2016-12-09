@@ -36,7 +36,11 @@ namespace Networking
 			_reading = false;
 		}
 
-		public void SetReceiver (IDataStreamReceiver receiver)
+        ~TCPDataLink()
+            { Dispose(); }
+
+
+        public void SetReceiver (IDataStreamReceiver receiver)
 		{
 			if (receiver == null)
 			{
@@ -102,6 +106,10 @@ namespace Networking
 						datalink._receiver.IncomingData (buffer.ToArray (), datalink);
 					}
 				}
+                else
+                {
+                    Thread.Sleep(1);
+                }
 			}
 		}
 
@@ -118,6 +126,7 @@ namespace Networking
                 if (_readerThread != null)
                 {
                     _readerThread.Join();
+                    _readerThread = null;
                 }
 			}
 		}
