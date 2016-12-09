@@ -4,6 +4,22 @@ using namespace std;
 using namespace cv;
 using namespace framereaders;
 
+void VideoFrameDisplayer::run()
+{
+	if(_newFrame)
+	{
+		lock_guard<mutex> frame_guard(_lock);
+		_newFrame = false;
+
+		if(_frame.empty())
+			return;
+
+		imshow(_WINDOW_NAME, _frame);
+
+		waitKey(1);
+	}
+}
+
 VideoFrameDisplayer::VideoFrameDisplayer(const string& windowName,
 										 int windowWidth,
 										 int windowHeight)
@@ -33,20 +49,4 @@ void VideoFrameDisplayer::OnIncomingFrame(const Mat& frame) noexcept
 	lock_guard<mutex> frame_guard(_lock);
 	_frame = frame.clone();
 	_newFrame = true;
-}
-
-void VideoFrameDisplayer::run()
-{
-	if(_newFrame)
-	{
-		lock_guard<mutex> frame_guard(_lock);
-		_newFrame = false;
-
-		if(_frame.empty())
-			return;
-
-		imshow(_WINDOW_NAME, _frame);
-
-		waitKey(1);
-	}
 }

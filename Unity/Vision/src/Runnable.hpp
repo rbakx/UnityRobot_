@@ -14,6 +14,6 @@ private:
 
 public:
 	Runnable();
-	void start();
-	void stop();
+	void Start();
+	void Stop();
 };

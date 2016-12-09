@@ -80,7 +80,7 @@ void processCommandLineArguments(int argc, char* argv[])
 
 		VideoFrameDisplayer display;
 		receivers.add(&display);
-		display.start();
+		display.Start();
 
 		cout << "Press enter to stop detecting" << endl;
 		cin.ignore(1);
@@ -88,7 +88,7 @@ void processCommandLineArguments(int argc, char* argv[])
 		//Stops all detectors and remove the displayer
 		receivers.remove(detectors);
 		receivers.remove(&display);
-		display.stop();
+		display.Stop();
 	}
 	else if(strcmp(argv[1], "calibrate") == 0)
 	{

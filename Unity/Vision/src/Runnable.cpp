@@ -7,7 +7,7 @@
 Runnable::Runnable()
 {}
 
-void Runnable::start()
+void Runnable::Start()
 {
 	_running = true;
 
@@ -19,7 +19,7 @@ void Runnable::start()
 	});
 }
 
-void Runnable::stop()
+void Runnable::Stop()
 {
 	_running = false;
 	_t.join();
