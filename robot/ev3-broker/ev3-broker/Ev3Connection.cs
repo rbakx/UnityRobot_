@@ -132,6 +132,7 @@ namespace ev3_broker
 				IPEndPoint ev3Endpoint = ListenForSingleUdpBroadcast (timeout);
 				if (ev3Endpoint != null)
 				{
+                    Console.WriteLine("Found ev3 with ip: " + ev3Endpoint.Address);
 					_connected = EstablishTcpConnection (ev3Endpoint, timeout);
 				}
 			}
@@ -417,7 +418,14 @@ namespace ev3_broker
 
                 _dataStreamReceiver.SetCallback(OnIncomingTcpData);
 
-                Console.WriteLine("TCP Test response: " + _lastMessage.TrimEnd());
+                if (_lastMessage != null)
+                {
+                    Console.WriteLine("TCP Test response: " + _lastMessage.TrimEnd());
+                }
+                else
+                {
+                    throw new Exception("Could not get tcp response from ev3: " + ev3Endpoint.Address);
+                }
             }
             catch (SocketException)
             {
