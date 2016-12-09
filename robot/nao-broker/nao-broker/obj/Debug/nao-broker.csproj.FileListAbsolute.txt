@@ -1,2 +1,0 @@
-D:\OneDrive\Documents\Studie\Fontys\Q12\PROJ\branches\Broker\robot\nao-broker\nao-broker\nao-broker\bin\Debug\nao-broker.exe.config
-D:\OneDrive\Documents\Studie\Fontys\Q12\PROJ\branches\Broker\robot\nao-broker\nao-broker\bin\Debug\nao-broker.exe.config
