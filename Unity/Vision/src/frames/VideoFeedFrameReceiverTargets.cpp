@@ -15,8 +15,7 @@ bool VideoFeedFrameReceiverTargets::isReceiverPresent(const VideoFeedFrameReceiv
 
 void VideoFeedFrameReceiverTargets::OnIncomingFrame(const Mat& frame) noexcept
 {
-	std::mutex lock;
-	lock_guard<mutex> frame_guard(lock);
+	lock_guard<mutex> frame_guard(_lock);
 	for(VideoFeedFrameReceiver * const videoFeedFrameReceiver : _targets)
 	{
 		videoFeedFrameReceiver->OnIncomingFrame(frame);
@@ -31,6 +30,7 @@ void VideoFeedFrameReceiverTargets::add(VideoFeedFrameReceiver * const target) n
 		return;
 	}
 
+	lock_guard<mutex> frame_guard(_lock);
 	_targets.push_back(target);
 }
 
@@ -44,6 +44,7 @@ void VideoFeedFrameReceiverTargets::add(const vector<VideoFeedFrameReceiver*>& t
 
 void VideoFeedFrameReceiverTargets::remove(const VideoFeedFrameReceiver * const target)
 {
+	lock_guard<mutex> frame_guard(_lock);
 	_targets.erase(std::remove(_targets.begin(), _targets.end(), target), _targets.end());
 }
 

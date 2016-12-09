@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <mutex>
 #include "VideoFeedFrameReceiver.hpp"
 
 namespace frames
@@ -9,6 +10,7 @@ namespace frames
 	{
 		private:
 			std::vector<VideoFeedFrameReceiver*> _targets;
+			std::mutex _lock;
 
 			bool isReceiverPresent(const VideoFeedFrameReceiver * const target) const noexcept;
 			void OnIncomingFrame(const cv::Mat& frame) noexcept;
