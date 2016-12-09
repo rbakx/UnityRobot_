@@ -141,7 +141,7 @@ namespace UnityTest
             {
                 var comparer = assertionComponent.Action as ComparerBase;
 
-                var otherStrVal = "(no value selected)";
+                var otherStrVal = "(no value RobotSelected)";
                 EditorGUILayout.BeginVertical();
                 EditorGUILayout.BeginHorizontal(GUILayout.MaxWidth(300));
                 switch (comparer.compareToType)
@@ -233,7 +233,7 @@ namespace UnityTest
             }
             else
             {
-                contentString = "(no value selected)";
+                contentString = "(no value RobotSelected)";
                 styleThisPath = Styles.redLabel;
             }
 

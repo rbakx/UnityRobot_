@@ -7,6 +7,7 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
 {
     public string _name;
     private string _type;
+    private Vector3 _destination;
     private Vector3 _velocity;
     private Vector3 _rotationVelocity;
 
@@ -28,15 +29,29 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
 
     void Update()
     {
-        //if (_moving && transform.position != _destination)
-        //{
-        //    transform.position = Vector3.MoveTowards(transform.position, _destination, 2f * Time.deltaTime);
-        //    transform.position = transform.position;
-        //    Debug.Log("hans is een steen");
-        //}
+        if (_moving && transform.position != _destination)
+        {
+            //rotate towards goal
+            transform.Rotate(_rotationVelocity * Time.deltaTime);
 
-        transform.Rotate(_rotationVelocity * Time.deltaTime);
-        transform.Translate(_velocity * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, _destination, 2f * Time.deltaTime);
+            //transform.position = transform.position;
+            Debug.Log("hans is een steen");
+        }
+
+        //transform.Rotate(_rotationVelocity * Time.deltaTime);
+        //transform.Translate(_velocity * Time.deltaTime);
+
+    }
+
+    public void SetDestination(Vector3 dest)
+    {
+        _destination = dest;
+    }
+
+    public Vector3 GetDestination()
+    {
+        return _destination;
     }
 
     public void Init(Communicator communicator, uint id, string name = "", string type = "")

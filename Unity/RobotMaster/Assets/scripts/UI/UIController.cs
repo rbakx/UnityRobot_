@@ -64,6 +64,7 @@ public class UIController : MonoBehaviour
     public void XBtnAction(GameObject thisMenu)
     {
         panels.Remove(thisMenu);
+        ManualPanels.Remove(thisMenu);
         Destroy(thisMenu, 0.1f);
         Debug.Log("Your mother was a hamster father smelt of elderberries!");
 
@@ -169,8 +170,8 @@ public class UIController : MonoBehaviour
                 // add popup: choose robot
                 Debug.Log("Select your player or RMB to cancel");
 
-                //set selecting flag to true;
-                MinionControl.transform.GetComponent<UnitSelecter>().selecting = true;
+                //set selectingRobot flag to true;
+                MinionControl.transform.GetComponent<UnitSelecter>().selectingRobot = true;
                 
                     StartCoroutine(SelectingTarget());
             }
@@ -195,8 +196,8 @@ public class UIController : MonoBehaviour
 
     public IEnumerator SelectingTarget()
     {
-        MinionControl.transform.GetComponent<UnitSelecter>().selecting = true;
-        MinionControl.transform.GetComponent<UnitSelecter>().selected = false;
+        MinionControl.transform.GetComponent<UnitSelecter>().selectingRobot = true;
+        MinionControl.transform.GetComponent<UnitSelecter>().RobotSelected = false;
         while (MinionControl.transform.GetComponent<UnitSelecter>().SelectedUnit == null)
         {
             yield return new WaitForSeconds(0.1f);
@@ -237,9 +238,13 @@ public class UIController : MonoBehaviour
             {
                 currentChild.gameObject.GetComponent<Button>().onClick.AddListener(() => MinimizeBtnAction(panel));
             }
+            else if (currentChild.name == "SelectDestinationBtn")
+            {
+                currentChild.gameObject.GetComponent<Button>().onClick.AddListener(() => panel.GetComponent<ManualMoveCommander>().DestinationBtnPressed());
+            }
         }
     }
-
+   
     public void AIModeBtnAction()
     {
         //close current panel
