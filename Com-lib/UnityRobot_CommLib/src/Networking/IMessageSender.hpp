@@ -1,16 +1,19 @@
 #pragma once
 
-#include <Message.h>
+namespace Communication
+{
+	class Message;
+}
 
 namespace Networking {
-	
+
 class IMessageSender
 {
 	public:
-	
+
 		virtual ~IMessageSender(){ };
-		
-		virtual void IncomingMessage(const Message& newMessage) = 0;
+
+		virtual bool sendCommand(const Communication::Message& newMessage) const = 0;
 };
-	
+
 }

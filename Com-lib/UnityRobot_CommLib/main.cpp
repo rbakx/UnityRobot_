@@ -52,8 +52,9 @@ int main(int argc, char** argv)
 	TCPSocketDataLink link(address, port, std::unique_ptr<IDataStreamReceiver>(std::make_unique<ProtobufPresentation>()));
 
 	auto _receiver = static_cast<ProtobufPresentation*>(link.getReceiver());
-	UnityRobot::Communicator comm(*_receiver, link);
 	link.Connect();
+	UnityRobot::Communicator comm(*_receiver, link);
+
 	std::cout << "Connected: " << ((link.Connected()) ? "SUCCEEDED" : "FAILED") << std::endl;
 
 	if (link.Connected())

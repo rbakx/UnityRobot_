@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <sstream> //necessary for the macros
 #include "spdlog/logger.h"
 #include "spdlog/details/spdlog_impl.h"
 

@@ -10,6 +10,7 @@ void RobotLogger::init()
 	std::string logPath("logs/" + UnityRobot::LogFileCreator::createLogFileName());
 	m_logger = spdlog::basic_logger_mt("basic_logger", logPath);
 	setPattern("[%l][%Y%b%d %H:%M:%S.%e][ThreadID:%t]\n%v");
+	setFlushThreshold(spdlog::level::err);
 }
 
 void RobotLogger::setLevel(spdlog::level::level_enum l)
