@@ -8,14 +8,14 @@ message Vector3_ {
 	required float z = 3;
 }
 
-message Quaternion_ {
-	required float x = 1;
-	required float y = 2;
-	required float z = 3;
-	required float w = 4;
-}
+//message Quaternion_ {
+//	required float x = 1;
+//	required float y = 2;
+//	required float z = 3;
+//	required float w = 4;
+//}
 
 message Transform_ {
 	required Vector3_ position = 1;
-	required Quaternion_ rotation = 2;
+	optional Vector3_ rotation = 2;
 }

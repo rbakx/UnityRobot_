@@ -139,4 +139,8 @@ bool TCPSocketDataLink::Connected() const noexcept
 	return m_Socket.is_open();
 }
 
+Networking::IDataStreamReceiver* TCPSocketDataLink::getReceiver() const
+{
+	return m_receiver.get();
+}
 }

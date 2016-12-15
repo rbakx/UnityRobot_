@@ -34,6 +34,7 @@ public:
 	bool SendData(const std::vector<char>& data) noexcept override;
 	bool Connected() const noexcept override;
 
+	Networking::IDataStreamReceiver* getReceiver() const;
 private:
 
 	void StartReading();

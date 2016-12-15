@@ -37,7 +37,6 @@ void protobuf_AddDesc_transform_2eproto();
 void protobuf_AssignDesc_transform_2eproto();
 void protobuf_ShutdownFile_transform_2eproto();
 
-class Quaternion_;
 class Transform_;
 class Vector3_;
 
@@ -159,132 +158,6 @@ class Vector3_ : public ::google::protobuf::Message /* @@protoc_insertion_point(
 };
 // -------------------------------------------------------------------
 
-class Quaternion_ : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Communication.Transform.Quaternion_) */ {
- public:
-  Quaternion_();
-  virtual ~Quaternion_();
-
-  Quaternion_(const Quaternion_& from);
-
-  inline Quaternion_& operator=(const Quaternion_& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields();
-  }
-
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields();
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const Quaternion_& default_instance();
-
-  void Swap(Quaternion_* other);
-
-  // implements Message ----------------------------------------------
-
-  inline Quaternion_* New() const { return New(NULL); }
-
-  Quaternion_* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const Quaternion_& from);
-  void MergeFrom(const Quaternion_& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
-      bool deterministic, ::google::protobuf::uint8* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
-    return InternalSerializeWithCachedSizesToArray(false, output);
-  }
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(Quaternion_* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required float x = 1;
-  bool has_x() const;
-  void clear_x();
-  static const int kXFieldNumber = 1;
-  float x() const;
-  void set_x(float value);
-
-  // required float y = 2;
-  bool has_y() const;
-  void clear_y();
-  static const int kYFieldNumber = 2;
-  float y() const;
-  void set_y(float value);
-
-  // required float z = 3;
-  bool has_z() const;
-  void clear_z();
-  static const int kZFieldNumber = 3;
-  float z() const;
-  void set_z(float value);
-
-  // required float w = 4;
-  bool has_w() const;
-  void clear_w();
-  static const int kWFieldNumber = 4;
-  float w() const;
-  void set_w(float value);
-
-  // @@protoc_insertion_point(class_scope:Communication.Transform.Quaternion_)
- private:
-  inline void set_has_x();
-  inline void clear_has_x();
-  inline void set_has_y();
-  inline void clear_has_y();
-  inline void set_has_z();
-  inline void clear_has_z();
-  inline void set_has_w();
-  inline void clear_has_w();
-
-  // helper for ByteSize()
-  int RequiredFieldsByteSizeFallback() const;
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::uint32 _has_bits_[1];
-  mutable int _cached_size_;
-  float x_;
-  float y_;
-  float z_;
-  float w_;
-  friend void  protobuf_AddDesc_transform_2eproto();
-  friend void protobuf_AssignDesc_transform_2eproto();
-  friend void protobuf_ShutdownFile_transform_2eproto();
-
-  void InitAsDefaultInstance();
-  static Quaternion_* default_instance_;
-};
-// -------------------------------------------------------------------
-
 class Transform_ : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Communication.Transform.Transform_) */ {
  public:
   Transform_();
@@ -362,14 +235,14 @@ class Transform_ : public ::google::protobuf::Message /* @@protoc_insertion_poin
   ::Communication::Transform::Vector3_* release_position();
   void set_allocated_position(::Communication::Transform::Vector3_* position);
 
-  // required .Communication.Transform.Quaternion_ rotation = 2;
+  // optional .Communication.Transform.Vector3_ rotation = 2;
   bool has_rotation() const;
   void clear_rotation();
   static const int kRotationFieldNumber = 2;
-  const ::Communication::Transform::Quaternion_& rotation() const;
-  ::Communication::Transform::Quaternion_* mutable_rotation();
-  ::Communication::Transform::Quaternion_* release_rotation();
-  void set_allocated_rotation(::Communication::Transform::Quaternion_* rotation);
+  const ::Communication::Transform::Vector3_& rotation() const;
+  ::Communication::Transform::Vector3_* mutable_rotation();
+  ::Communication::Transform::Vector3_* release_rotation();
+  void set_allocated_rotation(::Communication::Transform::Vector3_* rotation);
 
   // @@protoc_insertion_point(class_scope:Communication.Transform.Transform_)
  private:
@@ -378,14 +251,11 @@ class Transform_ : public ::google::protobuf::Message /* @@protoc_insertion_poin
   inline void set_has_rotation();
   inline void clear_has_rotation();
 
-  // helper for ByteSize()
-  int RequiredFieldsByteSizeFallback() const;
-
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
   ::Communication::Transform::Vector3_* position_;
-  ::Communication::Transform::Quaternion_* rotation_;
+  ::Communication::Transform::Vector3_* rotation_;
   friend void  protobuf_AddDesc_transform_2eproto();
   friend void protobuf_AssignDesc_transform_2eproto();
   friend void protobuf_ShutdownFile_transform_2eproto();
@@ -475,106 +345,6 @@ inline void Vector3_::set_z(float value) {
 
 // -------------------------------------------------------------------
 
-// Quaternion_
-
-// required float x = 1;
-inline bool Quaternion_::has_x() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void Quaternion_::set_has_x() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void Quaternion_::clear_has_x() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void Quaternion_::clear_x() {
-  x_ = 0;
-  clear_has_x();
-}
-inline float Quaternion_::x() const {
-  // @@protoc_insertion_point(field_get:Communication.Transform.Quaternion_.x)
-  return x_;
-}
-inline void Quaternion_::set_x(float value) {
-  set_has_x();
-  x_ = value;
-  // @@protoc_insertion_point(field_set:Communication.Transform.Quaternion_.x)
-}
-
-// required float y = 2;
-inline bool Quaternion_::has_y() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void Quaternion_::set_has_y() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void Quaternion_::clear_has_y() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void Quaternion_::clear_y() {
-  y_ = 0;
-  clear_has_y();
-}
-inline float Quaternion_::y() const {
-  // @@protoc_insertion_point(field_get:Communication.Transform.Quaternion_.y)
-  return y_;
-}
-inline void Quaternion_::set_y(float value) {
-  set_has_y();
-  y_ = value;
-  // @@protoc_insertion_point(field_set:Communication.Transform.Quaternion_.y)
-}
-
-// required float z = 3;
-inline bool Quaternion_::has_z() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void Quaternion_::set_has_z() {
-  _has_bits_[0] |= 0x00000004u;
-}
-inline void Quaternion_::clear_has_z() {
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline void Quaternion_::clear_z() {
-  z_ = 0;
-  clear_has_z();
-}
-inline float Quaternion_::z() const {
-  // @@protoc_insertion_point(field_get:Communication.Transform.Quaternion_.z)
-  return z_;
-}
-inline void Quaternion_::set_z(float value) {
-  set_has_z();
-  z_ = value;
-  // @@protoc_insertion_point(field_set:Communication.Transform.Quaternion_.z)
-}
-
-// required float w = 4;
-inline bool Quaternion_::has_w() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
-}
-inline void Quaternion_::set_has_w() {
-  _has_bits_[0] |= 0x00000008u;
-}
-inline void Quaternion_::clear_has_w() {
-  _has_bits_[0] &= ~0x00000008u;
-}
-inline void Quaternion_::clear_w() {
-  w_ = 0;
-  clear_has_w();
-}
-inline float Quaternion_::w() const {
-  // @@protoc_insertion_point(field_get:Communication.Transform.Quaternion_.w)
-  return w_;
-}
-inline void Quaternion_::set_w(float value) {
-  set_has_w();
-  w_ = value;
-  // @@protoc_insertion_point(field_set:Communication.Transform.Quaternion_.w)
-}
-
-// -------------------------------------------------------------------
-
 // Transform_
 
 // required .Communication.Transform.Vector3_ position = 1;
@@ -621,7 +391,7 @@ inline void Transform_::set_allocated_position(::Communication::Transform::Vecto
   // @@protoc_insertion_point(field_set_allocated:Communication.Transform.Transform_.position)
 }
 
-// required .Communication.Transform.Quaternion_ rotation = 2;
+// optional .Communication.Transform.Vector3_ rotation = 2;
 inline bool Transform_::has_rotation() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -632,29 +402,29 @@ inline void Transform_::clear_has_rotation() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void Transform_::clear_rotation() {
-  if (rotation_ != NULL) rotation_->::Communication::Transform::Quaternion_::Clear();
+  if (rotation_ != NULL) rotation_->::Communication::Transform::Vector3_::Clear();
   clear_has_rotation();
 }
-inline const ::Communication::Transform::Quaternion_& Transform_::rotation() const {
+inline const ::Communication::Transform::Vector3_& Transform_::rotation() const {
   // @@protoc_insertion_point(field_get:Communication.Transform.Transform_.rotation)
   return rotation_ != NULL ? *rotation_ : *default_instance_->rotation_;
 }
-inline ::Communication::Transform::Quaternion_* Transform_::mutable_rotation() {
+inline ::Communication::Transform::Vector3_* Transform_::mutable_rotation() {
   set_has_rotation();
   if (rotation_ == NULL) {
-    rotation_ = new ::Communication::Transform::Quaternion_;
+    rotation_ = new ::Communication::Transform::Vector3_;
   }
   // @@protoc_insertion_point(field_mutable:Communication.Transform.Transform_.rotation)
   return rotation_;
 }
-inline ::Communication::Transform::Quaternion_* Transform_::release_rotation() {
+inline ::Communication::Transform::Vector3_* Transform_::release_rotation() {
   // @@protoc_insertion_point(field_release:Communication.Transform.Transform_.rotation)
   clear_has_rotation();
-  ::Communication::Transform::Quaternion_* temp = rotation_;
+  ::Communication::Transform::Vector3_* temp = rotation_;
   rotation_ = NULL;
   return temp;
 }
-inline void Transform_::set_allocated_rotation(::Communication::Transform::Quaternion_* rotation) {
+inline void Transform_::set_allocated_rotation(::Communication::Transform::Vector3_* rotation) {
   delete rotation_;
   rotation_ = rotation;
   if (rotation) {
@@ -666,8 +436,6 @@ inline void Transform_::set_allocated_rotation(::Communication::Transform::Quate
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 

@@ -114,9 +114,10 @@ void protobuf_AssignDesc_messages_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CustomMessage_, _internal_metadata_),
       -1);
   ShapeUpdateInfo__descriptor_ = file->message_type(4);
-  static const int ShapeUpdateInfo__offsets_[2] = {
+  static const int ShapeUpdateInfo__offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ShapeUpdateInfo_, changedshapes_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ShapeUpdateInfo_, newshapes_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ShapeUpdateInfo_, delshapes_),
   };
   ShapeUpdateInfo__reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -130,10 +131,9 @@ void protobuf_AssignDesc_messages_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ShapeUpdateInfo_, _internal_metadata_),
       -1);
   Shape__descriptor_ = file->message_type(5);
-  static const int Shape__offsets_[4] = {
+  static const int Shape__offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Shape_, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Shape_, vertices_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Shape_, indices_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Shape_, transform_),
   };
   Shape__reflection_ =
@@ -207,14 +207,15 @@ void protobuf_AddDesc_messages_2eproto() {
     ".Communication.Transform.Vector3_\",\n\027Ide"
     "ntificationResponse_\022\021\n\trobotType\030\001 \002(\t\""
     "\031\n\006Error_\022\017\n\007message\030\001 \002(\t\"+\n\016CustomMess"
-    "age_\022\013\n\003key\030\001 \002(\t\022\014\n\004data\030\002 \001(\t\"|\n\020Shape"
-    "UpdateInfo_\0225\n\rchangedShapes\030\001 \003(\0132\036.Com"
-    "munication.Messages.Shape_\0221\n\tnewShapes\030"
-    "\002 \003(\0132\036.Communication.Messages.Shape_\"\222\001"
-    "\n\006Shape_\022\n\n\002id\030\001 \002(\005\0223\n\010vertices\030\002 \003(\0132!"
-    ".Communication.Transform.Vector3_\022\017\n\007ind"
-    "ices\030\003 \003(\r\0226\n\ttransform\030\004 \001(\0132#.Communic"
-    "ation.Transform.Transform_", 586);
+    "age_\022\013\n\003key\030\001 \002(\t\022\014\n\004data\030\002 \001(\t\"\257\001\n\020Shap"
+    "eUpdateInfo_\0225\n\rchangedShapes\030\001 \003(\0132\036.Co"
+    "mmunication.Messages.Shape_\0221\n\tnewShapes"
+    "\030\002 \003(\0132\036.Communication.Messages.Shape_\0221"
+    "\n\tdelShapes\030\003 \003(\0132\036.Communication.Messag"
+    "es.Shape_\"\201\001\n\006Shape_\022\n\n\002id\030\001 \002(\005\0223\n\010vert"
+    "ices\030\002 \003(\0132!.Communication.Transform.Vec"
+    "tor3_\0226\n\ttransform\030\003 \001(\0132#.Communication"
+    ".Transform.Transform_", 621);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "messages.proto", &protobuf_RegisterTypes);
   SetVelocity_::default_instance_ = new SetVelocity_();
@@ -1711,6 +1712,7 @@ void CustomMessage_::clear_data() {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int ShapeUpdateInfo_::kChangedShapesFieldNumber;
 const int ShapeUpdateInfo_::kNewShapesFieldNumber;
+const int ShapeUpdateInfo_::kDelShapesFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 ShapeUpdateInfo_::ShapeUpdateInfo_()
@@ -1774,6 +1776,7 @@ void ShapeUpdateInfo_::Clear() {
 // @@protoc_insertion_point(message_clear_start:Communication.Messages.ShapeUpdateInfo_)
   changedshapes_.Clear();
   newshapes_.Clear();
+  delshapes_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   if (_internal_metadata_.have_unknown_fields()) {
     mutable_unknown_fields()->Clear();
@@ -1817,6 +1820,22 @@ bool ShapeUpdateInfo_::MergePartialFromCodedStream(
           goto handle_unusual;
         }
         if (input->ExpectTag(18)) goto parse_loop_newShapes;
+        if (input->ExpectTag(26)) goto parse_loop_delShapes;
+        input->UnsafeDecrementRecursionDepth();
+        break;
+      }
+
+      // repeated .Communication.Messages.Shape_ delShapes = 3;
+      case 3: {
+        if (tag == 26) {
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_delShapes:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_delshapes()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_loop_delShapes;
         input->UnsafeDecrementRecursionDepth();
         if (input->ExpectAtEnd()) goto success;
         break;
@@ -1859,6 +1878,12 @@ void ShapeUpdateInfo_::SerializeWithCachedSizes(
       2, this->newshapes(i), output);
   }
 
+  // repeated .Communication.Messages.Shape_ delShapes = 3;
+  for (unsigned int i = 0, n = this->delshapes_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->delshapes(i), output);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -1882,6 +1907,13 @@ void ShapeUpdateInfo_::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
         2, this->newshapes(i), false, target);
+  }
+
+  // repeated .Communication.Messages.Shape_ delShapes = 3;
+  for (unsigned int i = 0, n = this->delshapes_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        3, this->delshapes(i), false, target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -1910,6 +1942,14 @@ int ShapeUpdateInfo_::ByteSize() const {
     total_size +=
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         this->newshapes(i));
+  }
+
+  // repeated .Communication.Messages.Shape_ delShapes = 3;
+  total_size += 1 * this->delshapes_size();
+  for (int i = 0; i < this->delshapes_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->delshapes(i));
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -1947,6 +1987,7 @@ void ShapeUpdateInfo_::MergeFrom(const ShapeUpdateInfo_& from) {
   }
   changedshapes_.MergeFrom(from.changedshapes_);
   newshapes_.MergeFrom(from.newshapes_);
+  delshapes_.MergeFrom(from.delshapes_);
   if (from._internal_metadata_.have_unknown_fields()) {
     mutable_unknown_fields()->MergeFrom(from.unknown_fields());
   }
@@ -1970,6 +2011,7 @@ bool ShapeUpdateInfo_::IsInitialized() const {
 
   if (!::google::protobuf::internal::AllAreInitialized(this->changedshapes())) return false;
   if (!::google::protobuf::internal::AllAreInitialized(this->newshapes())) return false;
+  if (!::google::protobuf::internal::AllAreInitialized(this->delshapes())) return false;
   return true;
 }
 
@@ -1980,6 +2022,7 @@ void ShapeUpdateInfo_::Swap(ShapeUpdateInfo_* other) {
 void ShapeUpdateInfo_::InternalSwap(ShapeUpdateInfo_* other) {
   changedshapes_.UnsafeArenaSwap(&other->changedshapes_);
   newshapes_.UnsafeArenaSwap(&other->newshapes_);
+  delshapes_.UnsafeArenaSwap(&other->delshapes_);
   std::swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
@@ -2056,6 +2099,36 @@ ShapeUpdateInfo_::newshapes() const {
   return newshapes_;
 }
 
+// repeated .Communication.Messages.Shape_ delShapes = 3;
+int ShapeUpdateInfo_::delshapes_size() const {
+  return delshapes_.size();
+}
+void ShapeUpdateInfo_::clear_delshapes() {
+  delshapes_.Clear();
+}
+const ::Communication::Messages::Shape_& ShapeUpdateInfo_::delshapes(int index) const {
+  // @@protoc_insertion_point(field_get:Communication.Messages.ShapeUpdateInfo_.delShapes)
+  return delshapes_.Get(index);
+}
+::Communication::Messages::Shape_* ShapeUpdateInfo_::mutable_delshapes(int index) {
+  // @@protoc_insertion_point(field_mutable:Communication.Messages.ShapeUpdateInfo_.delShapes)
+  return delshapes_.Mutable(index);
+}
+::Communication::Messages::Shape_* ShapeUpdateInfo_::add_delshapes() {
+  // @@protoc_insertion_point(field_add:Communication.Messages.ShapeUpdateInfo_.delShapes)
+  return delshapes_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape_ >*
+ShapeUpdateInfo_::mutable_delshapes() {
+  // @@protoc_insertion_point(field_mutable_list:Communication.Messages.ShapeUpdateInfo_.delShapes)
+  return &delshapes_;
+}
+const ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape_ >&
+ShapeUpdateInfo_::delshapes() const {
+  // @@protoc_insertion_point(field_list:Communication.Messages.ShapeUpdateInfo_.delShapes)
+  return delshapes_;
+}
+
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
@@ -2063,7 +2136,6 @@ ShapeUpdateInfo_::newshapes() const {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Shape_::kIdFieldNumber;
 const int Shape_::kVerticesFieldNumber;
-const int Shape_::kIndicesFieldNumber;
 const int Shape_::kTransformFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -2130,14 +2202,13 @@ Shape_* Shape_::New(::google::protobuf::Arena* arena) const {
 
 void Shape_::Clear() {
 // @@protoc_insertion_point(message_clear_start:Communication.Messages.Shape_)
-  if (_has_bits_[0 / 32] & 9u) {
+  if (_has_bits_[0 / 32] & 5u) {
     id_ = 0;
     if (has_transform()) {
       if (transform_ != NULL) transform_->::Communication::Transform::Transform_::Clear();
     }
   }
   vertices_.Clear();
-  indices_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   if (_internal_metadata_.have_unknown_fields()) {
     mutable_unknown_fields()->Clear();
@@ -2181,32 +2252,13 @@ bool Shape_::MergePartialFromCodedStream(
         }
         if (input->ExpectTag(18)) goto parse_loop_vertices;
         input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectTag(24)) goto parse_indices;
+        if (input->ExpectTag(26)) goto parse_transform;
         break;
       }
 
-      // repeated uint32 indices = 3;
+      // optional .Communication.Transform.Transform_ transform = 3;
       case 3: {
-        if (tag == 24) {
-         parse_indices:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 1, 24, input, this->mutable_indices())));
-        } else if (tag == 26) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, this->mutable_indices())));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(24)) goto parse_indices;
-        if (input->ExpectTag(34)) goto parse_transform;
-        break;
-      }
-
-      // optional .Communication.Transform.Transform_ transform = 4;
-      case 4: {
-        if (tag == 34) {
+        if (tag == 26) {
          parse_transform:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_transform()));
@@ -2253,16 +2305,10 @@ void Shape_::SerializeWithCachedSizes(
       2, this->vertices(i), output);
   }
 
-  // repeated uint32 indices = 3;
-  for (int i = 0; i < this->indices_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(
-      3, this->indices(i), output);
-  }
-
-  // optional .Communication.Transform.Transform_ transform = 4;
+  // optional .Communication.Transform.Transform_ transform = 3;
   if (has_transform()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      4, *this->transform_, output);
+      3, *this->transform_, output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -2288,17 +2334,11 @@ void Shape_::SerializeWithCachedSizes(
         2, this->vertices(i), false, target);
   }
 
-  // repeated uint32 indices = 3;
-  for (int i = 0; i < this->indices_size(); i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteUInt32ToArray(3, this->indices(i), target);
-  }
-
-  // optional .Communication.Transform.Transform_ transform = 4;
+  // optional .Communication.Transform.Transform_ transform = 3;
   if (has_transform()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
-        4, *this->transform_, false, target);
+        3, *this->transform_, false, target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -2319,7 +2359,7 @@ int Shape_::ByteSize() const {
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->id());
   }
-  // optional .Communication.Transform.Transform_ transform = 4;
+  // optional .Communication.Transform.Transform_ transform = 3;
   if (has_transform()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -2332,16 +2372,6 @@ int Shape_::ByteSize() const {
     total_size +=
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         this->vertices(i));
-  }
-
-  // repeated uint32 indices = 3;
-  {
-    int data_size = 0;
-    for (int i = 0; i < this->indices_size(); i++) {
-      data_size += ::google::protobuf::internal::WireFormatLite::
-        UInt32Size(this->indices(i));
-    }
-    total_size += 1 * this->indices_size() + data_size;
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -2378,7 +2408,6 @@ void Shape_::MergeFrom(const Shape_& from) {
     ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
   }
   vertices_.MergeFrom(from.vertices_);
-  indices_.MergeFrom(from.indices_);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_id()) {
       set_id(from.id());
@@ -2423,7 +2452,6 @@ void Shape_::Swap(Shape_* other) {
 void Shape_::InternalSwap(Shape_* other) {
   std::swap(id_, other->id_);
   vertices_.UnsafeArenaSwap(&other->vertices_);
-  indices_.UnsafeArenaSwap(&other->indices_);
   std::swap(transform_, other->transform_);
   std::swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
@@ -2495,45 +2523,15 @@ Shape_::vertices() const {
   return vertices_;
 }
 
-// repeated uint32 indices = 3;
-int Shape_::indices_size() const {
-  return indices_.size();
-}
-void Shape_::clear_indices() {
-  indices_.Clear();
-}
- ::google::protobuf::uint32 Shape_::indices(int index) const {
-  // @@protoc_insertion_point(field_get:Communication.Messages.Shape_.indices)
-  return indices_.Get(index);
-}
- void Shape_::set_indices(int index, ::google::protobuf::uint32 value) {
-  indices_.Set(index, value);
-  // @@protoc_insertion_point(field_set:Communication.Messages.Shape_.indices)
-}
- void Shape_::add_indices(::google::protobuf::uint32 value) {
-  indices_.Add(value);
-  // @@protoc_insertion_point(field_add:Communication.Messages.Shape_.indices)
-}
- const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
-Shape_::indices() const {
-  // @@protoc_insertion_point(field_list:Communication.Messages.Shape_.indices)
-  return indices_;
-}
- ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
-Shape_::mutable_indices() {
-  // @@protoc_insertion_point(field_mutable_list:Communication.Messages.Shape_.indices)
-  return &indices_;
-}
-
-// optional .Communication.Transform.Transform_ transform = 4;
+// optional .Communication.Transform.Transform_ transform = 3;
 bool Shape_::has_transform() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
+  return (_has_bits_[0] & 0x00000004u) != 0;
 }
 void Shape_::set_has_transform() {
-  _has_bits_[0] |= 0x00000008u;
+  _has_bits_[0] |= 0x00000004u;
 }
 void Shape_::clear_has_transform() {
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 void Shape_::clear_transform() {
   if (transform_ != NULL) transform_->::Communication::Transform::Transform_::Clear();

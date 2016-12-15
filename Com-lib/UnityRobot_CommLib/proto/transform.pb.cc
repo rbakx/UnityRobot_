@@ -25,9 +25,6 @@ namespace {
 const ::google::protobuf::Descriptor* Vector3__descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   Vector3__reflection_ = NULL;
-const ::google::protobuf::Descriptor* Quaternion__descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  Quaternion__reflection_ = NULL;
 const ::google::protobuf::Descriptor* Transform__descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   Transform__reflection_ = NULL;
@@ -59,25 +56,7 @@ void protobuf_AssignDesc_transform_2eproto() {
       sizeof(Vector3_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Vector3_, _internal_metadata_),
       -1);
-  Quaternion__descriptor_ = file->message_type(1);
-  static const int Quaternion__offsets_[4] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Quaternion_, x_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Quaternion_, y_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Quaternion_, z_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Quaternion_, w_),
-  };
-  Quaternion__reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      Quaternion__descriptor_,
-      Quaternion_::default_instance_,
-      Quaternion__offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Quaternion_, _has_bits_[0]),
-      -1,
-      -1,
-      sizeof(Quaternion_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Quaternion_, _internal_metadata_),
-      -1);
-  Transform__descriptor_ = file->message_type(2);
+  Transform__descriptor_ = file->message_type(1);
   static const int Transform__offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Transform_, position_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Transform_, rotation_),
@@ -109,8 +88,6 @@ void protobuf_RegisterTypes(const ::std::string&) {
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       Vector3__descriptor_, &Vector3_::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      Quaternion__descriptor_, &Quaternion_::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       Transform__descriptor_, &Transform_::default_instance());
 }
 
@@ -119,8 +96,6 @@ void protobuf_RegisterTypes(const ::std::string&) {
 void protobuf_ShutdownFile_transform_2eproto() {
   delete Vector3_::default_instance_;
   delete Vector3__reflection_;
-  delete Quaternion_::default_instance_;
-  delete Quaternion__reflection_;
   delete Transform_::default_instance_;
   delete Transform__reflection_;
 }
@@ -135,18 +110,15 @@ void protobuf_AddDesc_transform_2eproto() {
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\017transform.proto\022\027Communication.Transfo"
     "rm\"+\n\010Vector3_\022\t\n\001x\030\001 \002(\002\022\t\n\001y\030\002 \002(\002\022\t\n\001"
-    "z\030\003 \002(\002\"9\n\013Quaternion_\022\t\n\001x\030\001 \002(\002\022\t\n\001y\030\002"
-    " \002(\002\022\t\n\001z\030\003 \002(\002\022\t\n\001w\030\004 \002(\002\"y\n\nTransform_"
-    "\0223\n\010position\030\001 \002(\0132!.Communication.Trans"
-    "form.Vector3_\0226\n\010rotation\030\002 \002(\0132$.Commun"
-    "ication.Transform.Quaternion_", 269);
+    "z\030\003 \002(\002\"v\n\nTransform_\0223\n\010position\030\001 \002(\0132"
+    "!.Communication.Transform.Vector3_\0223\n\010ro"
+    "tation\030\002 \001(\0132!.Communication.Transform.V"
+    "ector3_", 207);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "transform.proto", &protobuf_RegisterTypes);
   Vector3_::default_instance_ = new Vector3_();
-  Quaternion_::default_instance_ = new Quaternion_();
   Transform_::default_instance_ = new Transform_();
   Vector3_::default_instance_->InitAsDefaultInstance();
-  Quaternion_::default_instance_->InitAsDefaultInstance();
   Transform_::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_transform_2eproto);
 }
@@ -591,499 +563,6 @@ void Vector3_::clear_z() {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int Quaternion_::kXFieldNumber;
-const int Quaternion_::kYFieldNumber;
-const int Quaternion_::kZFieldNumber;
-const int Quaternion_::kWFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-Quaternion_::Quaternion_()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:Communication.Transform.Quaternion_)
-}
-
-void Quaternion_::InitAsDefaultInstance() {
-}
-
-Quaternion_::Quaternion_(const Quaternion_& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:Communication.Transform.Quaternion_)
-}
-
-void Quaternion_::SharedCtor() {
-  _cached_size_ = 0;
-  x_ = 0;
-  y_ = 0;
-  z_ = 0;
-  w_ = 0;
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-Quaternion_::~Quaternion_() {
-  // @@protoc_insertion_point(destructor:Communication.Transform.Quaternion_)
-  SharedDtor();
-}
-
-void Quaternion_::SharedDtor() {
-  if (this != default_instance_) {
-  }
-}
-
-void Quaternion_::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* Quaternion_::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return Quaternion__descriptor_;
-}
-
-const Quaternion_& Quaternion_::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_transform_2eproto();
-  return *default_instance_;
-}
-
-Quaternion_* Quaternion_::default_instance_ = NULL;
-
-Quaternion_* Quaternion_::New(::google::protobuf::Arena* arena) const {
-  Quaternion_* n = new Quaternion_;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void Quaternion_::Clear() {
-// @@protoc_insertion_point(message_clear_start:Communication.Transform.Quaternion_)
-#if defined(__clang__)
-#define ZR_HELPER_(f) \
-  _Pragma("clang diagnostic push") \
-  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
-  __builtin_offsetof(Quaternion_, f) \
-  _Pragma("clang diagnostic pop")
-#else
-#define ZR_HELPER_(f) reinterpret_cast<char*>(\
-  &reinterpret_cast<Quaternion_*>(16)->f)
-#endif
-
-#define ZR_(first, last) do {\
-  ::memset(&(first), 0,\
-           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
-} while (0)
-
-  ZR_(x_, w_);
-
-#undef ZR_HELPER_
-#undef ZR_
-
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  if (_internal_metadata_.have_unknown_fields()) {
-    mutable_unknown_fields()->Clear();
-  }
-}
-
-bool Quaternion_::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:Communication.Transform.Quaternion_)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required float x = 1;
-      case 1: {
-        if (tag == 13) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
-                 input, &x_)));
-          set_has_x();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(21)) goto parse_y;
-        break;
-      }
-
-      // required float y = 2;
-      case 2: {
-        if (tag == 21) {
-         parse_y:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
-                 input, &y_)));
-          set_has_y();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(29)) goto parse_z;
-        break;
-      }
-
-      // required float z = 3;
-      case 3: {
-        if (tag == 29) {
-         parse_z:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
-                 input, &z_)));
-          set_has_z();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(37)) goto parse_w;
-        break;
-      }
-
-      // required float w = 4;
-      case 4: {
-        if (tag == 37) {
-         parse_w:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
-                 input, &w_)));
-          set_has_w();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:Communication.Transform.Quaternion_)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:Communication.Transform.Quaternion_)
-  return false;
-#undef DO_
-}
-
-void Quaternion_::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:Communication.Transform.Quaternion_)
-  // required float x = 1;
-  if (has_x()) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(1, this->x(), output);
-  }
-
-  // required float y = 2;
-  if (has_y()) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(2, this->y(), output);
-  }
-
-  // required float z = 3;
-  if (has_z()) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(3, this->z(), output);
-  }
-
-  // required float w = 4;
-  if (has_w()) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(4, this->w(), output);
-  }
-
-  if (_internal_metadata_.have_unknown_fields()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
-  }
-  // @@protoc_insertion_point(serialize_end:Communication.Transform.Quaternion_)
-}
-
-::google::protobuf::uint8* Quaternion_::InternalSerializeWithCachedSizesToArray(
-    bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:Communication.Transform.Quaternion_)
-  // required float x = 1;
-  if (has_x()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(1, this->x(), target);
-  }
-
-  // required float y = 2;
-  if (has_y()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(2, this->y(), target);
-  }
-
-  // required float z = 3;
-  if (has_z()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(3, this->z(), target);
-  }
-
-  // required float w = 4;
-  if (has_w()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(4, this->w(), target);
-  }
-
-  if (_internal_metadata_.have_unknown_fields()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:Communication.Transform.Quaternion_)
-  return target;
-}
-
-int Quaternion_::RequiredFieldsByteSizeFallback() const {
-// @@protoc_insertion_point(required_fields_byte_size_fallback_start:Communication.Transform.Quaternion_)
-  int total_size = 0;
-
-  if (has_x()) {
-    // required float x = 1;
-    total_size += 1 + 4;
-  }
-
-  if (has_y()) {
-    // required float y = 2;
-    total_size += 1 + 4;
-  }
-
-  if (has_z()) {
-    // required float z = 3;
-    total_size += 1 + 4;
-  }
-
-  if (has_w()) {
-    // required float w = 4;
-    total_size += 1 + 4;
-  }
-
-  return total_size;
-}
-int Quaternion_::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:Communication.Transform.Quaternion_)
-  int total_size = 0;
-
-  if (((_has_bits_[0] & 0x0000000f) ^ 0x0000000f) == 0) {  // All required fields are present.
-    // required float x = 1;
-    total_size += 1 + 4;
-
-    // required float y = 2;
-    total_size += 1 + 4;
-
-    // required float z = 3;
-    total_size += 1 + 4;
-
-    // required float w = 4;
-    total_size += 1 + 4;
-
-  } else {
-    total_size += RequiredFieldsByteSizeFallback();
-  }
-  if (_internal_metadata_.have_unknown_fields()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void Quaternion_::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:Communication.Transform.Quaternion_)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) {
-    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
-  }
-  const Quaternion_* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const Quaternion_>(
-          &from);
-  if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:Communication.Transform.Quaternion_)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:Communication.Transform.Quaternion_)
-    MergeFrom(*source);
-  }
-}
-
-void Quaternion_::MergeFrom(const Quaternion_& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:Communication.Transform.Quaternion_)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) {
-    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
-  }
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_x()) {
-      set_x(from.x());
-    }
-    if (from.has_y()) {
-      set_y(from.y());
-    }
-    if (from.has_z()) {
-      set_z(from.z());
-    }
-    if (from.has_w()) {
-      set_w(from.w());
-    }
-  }
-  if (from._internal_metadata_.have_unknown_fields()) {
-    mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-  }
-}
-
-void Quaternion_::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:Communication.Transform.Quaternion_)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void Quaternion_::CopyFrom(const Quaternion_& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Communication.Transform.Quaternion_)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool Quaternion_::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
-
-  return true;
-}
-
-void Quaternion_::Swap(Quaternion_* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void Quaternion_::InternalSwap(Quaternion_* other) {
-  std::swap(x_, other->x_);
-  std::swap(y_, other->y_);
-  std::swap(z_, other->z_);
-  std::swap(w_, other->w_);
-  std::swap(_has_bits_[0], other->_has_bits_[0]);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata Quaternion_::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = Quaternion__descriptor_;
-  metadata.reflection = Quaternion__reflection_;
-  return metadata;
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// Quaternion_
-
-// required float x = 1;
-bool Quaternion_::has_x() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-void Quaternion_::set_has_x() {
-  _has_bits_[0] |= 0x00000001u;
-}
-void Quaternion_::clear_has_x() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-void Quaternion_::clear_x() {
-  x_ = 0;
-  clear_has_x();
-}
- float Quaternion_::x() const {
-  // @@protoc_insertion_point(field_get:Communication.Transform.Quaternion_.x)
-  return x_;
-}
- void Quaternion_::set_x(float value) {
-  set_has_x();
-  x_ = value;
-  // @@protoc_insertion_point(field_set:Communication.Transform.Quaternion_.x)
-}
-
-// required float y = 2;
-bool Quaternion_::has_y() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-void Quaternion_::set_has_y() {
-  _has_bits_[0] |= 0x00000002u;
-}
-void Quaternion_::clear_has_y() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-void Quaternion_::clear_y() {
-  y_ = 0;
-  clear_has_y();
-}
- float Quaternion_::y() const {
-  // @@protoc_insertion_point(field_get:Communication.Transform.Quaternion_.y)
-  return y_;
-}
- void Quaternion_::set_y(float value) {
-  set_has_y();
-  y_ = value;
-  // @@protoc_insertion_point(field_set:Communication.Transform.Quaternion_.y)
-}
-
-// required float z = 3;
-bool Quaternion_::has_z() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-void Quaternion_::set_has_z() {
-  _has_bits_[0] |= 0x00000004u;
-}
-void Quaternion_::clear_has_z() {
-  _has_bits_[0] &= ~0x00000004u;
-}
-void Quaternion_::clear_z() {
-  z_ = 0;
-  clear_has_z();
-}
- float Quaternion_::z() const {
-  // @@protoc_insertion_point(field_get:Communication.Transform.Quaternion_.z)
-  return z_;
-}
- void Quaternion_::set_z(float value) {
-  set_has_z();
-  z_ = value;
-  // @@protoc_insertion_point(field_set:Communication.Transform.Quaternion_.z)
-}
-
-// required float w = 4;
-bool Quaternion_::has_w() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
-}
-void Quaternion_::set_has_w() {
-  _has_bits_[0] |= 0x00000008u;
-}
-void Quaternion_::clear_has_w() {
-  _has_bits_[0] &= ~0x00000008u;
-}
-void Quaternion_::clear_w() {
-  w_ = 0;
-  clear_has_w();
-}
- float Quaternion_::w() const {
-  // @@protoc_insertion_point(field_get:Communication.Transform.Quaternion_.w)
-  return w_;
-}
- void Quaternion_::set_w(float value) {
-  set_has_w();
-  w_ = value;
-  // @@protoc_insertion_point(field_set:Communication.Transform.Quaternion_.w)
-}
-
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Transform_::kPositionFieldNumber;
 const int Transform_::kRotationFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -1096,7 +575,7 @@ Transform_::Transform_()
 
 void Transform_::InitAsDefaultInstance() {
   position_ = const_cast< ::Communication::Transform::Vector3_*>(&::Communication::Transform::Vector3_::default_instance());
-  rotation_ = const_cast< ::Communication::Transform::Quaternion_*>(&::Communication::Transform::Quaternion_::default_instance());
+  rotation_ = const_cast< ::Communication::Transform::Vector3_*>(&::Communication::Transform::Vector3_::default_instance());
 }
 
 Transform_::Transform_(const Transform_& from)
@@ -1158,7 +637,7 @@ void Transform_::Clear() {
       if (position_ != NULL) position_->::Communication::Transform::Vector3_::Clear();
     }
     if (has_rotation()) {
-      if (rotation_ != NULL) rotation_->::Communication::Transform::Quaternion_::Clear();
+      if (rotation_ != NULL) rotation_->::Communication::Transform::Vector3_::Clear();
     }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -1189,7 +668,7 @@ bool Transform_::MergePartialFromCodedStream(
         break;
       }
 
-      // required .Communication.Transform.Quaternion_ rotation = 2;
+      // optional .Communication.Transform.Vector3_ rotation = 2;
       case 2: {
         if (tag == 18) {
          parse_rotation:
@@ -1233,7 +712,7 @@ void Transform_::SerializeWithCachedSizes(
       1, *this->position_, output);
   }
 
-  // required .Communication.Transform.Quaternion_ rotation = 2;
+  // optional .Communication.Transform.Vector3_ rotation = 2;
   if (has_rotation()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, *this->rotation_, output);
@@ -1257,7 +736,7 @@ void Transform_::SerializeWithCachedSizes(
         1, *this->position_, false, target);
   }
 
-  // required .Communication.Transform.Quaternion_ rotation = 2;
+  // optional .Communication.Transform.Vector3_ rotation = 2;
   if (has_rotation()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
@@ -1272,44 +751,23 @@ void Transform_::SerializeWithCachedSizes(
   return target;
 }
 
-int Transform_::RequiredFieldsByteSizeFallback() const {
-// @@protoc_insertion_point(required_fields_byte_size_fallback_start:Communication.Transform.Transform_)
-  int total_size = 0;
-
-  if (has_position()) {
-    // required .Communication.Transform.Vector3_ position = 1;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->position_);
-  }
-
-  if (has_rotation()) {
-    // required .Communication.Transform.Quaternion_ rotation = 2;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->rotation_);
-  }
-
-  return total_size;
-}
 int Transform_::ByteSize() const {
 // @@protoc_insertion_point(message_byte_size_start:Communication.Transform.Transform_)
   int total_size = 0;
 
-  if (((_has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
-    // required .Communication.Transform.Vector3_ position = 1;
+  // required .Communication.Transform.Vector3_ position = 1;
+  if (has_position()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->position_);
-
-    // required .Communication.Transform.Quaternion_ rotation = 2;
+  }
+  // optional .Communication.Transform.Vector3_ rotation = 2;
+  if (has_rotation()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->rotation_);
-
-  } else {
-    total_size += RequiredFieldsByteSizeFallback();
   }
+
   if (_internal_metadata_.have_unknown_fields()) {
     total_size +=
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
@@ -1348,7 +806,7 @@ void Transform_::MergeFrom(const Transform_& from) {
       mutable_position()->::Communication::Transform::Vector3_::MergeFrom(from.position());
     }
     if (from.has_rotation()) {
-      mutable_rotation()->::Communication::Transform::Quaternion_::MergeFrom(from.rotation());
+      mutable_rotation()->::Communication::Transform::Vector3_::MergeFrom(from.rotation());
     }
   }
   if (from._internal_metadata_.have_unknown_fields()) {
@@ -1371,7 +829,7 @@ void Transform_::CopyFrom(const Transform_& from) {
 }
 
 bool Transform_::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
 
   if (has_position()) {
     if (!this->position_->IsInitialized()) return false;
@@ -1449,7 +907,7 @@ void Transform_::set_allocated_position(::Communication::Transform::Vector3_* po
   // @@protoc_insertion_point(field_set_allocated:Communication.Transform.Transform_.position)
 }
 
-// required .Communication.Transform.Quaternion_ rotation = 2;
+// optional .Communication.Transform.Vector3_ rotation = 2;
 bool Transform_::has_rotation() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -1460,29 +918,29 @@ void Transform_::clear_has_rotation() {
   _has_bits_[0] &= ~0x00000002u;
 }
 void Transform_::clear_rotation() {
-  if (rotation_ != NULL) rotation_->::Communication::Transform::Quaternion_::Clear();
+  if (rotation_ != NULL) rotation_->::Communication::Transform::Vector3_::Clear();
   clear_has_rotation();
 }
-const ::Communication::Transform::Quaternion_& Transform_::rotation() const {
+const ::Communication::Transform::Vector3_& Transform_::rotation() const {
   // @@protoc_insertion_point(field_get:Communication.Transform.Transform_.rotation)
   return rotation_ != NULL ? *rotation_ : *default_instance_->rotation_;
 }
-::Communication::Transform::Quaternion_* Transform_::mutable_rotation() {
+::Communication::Transform::Vector3_* Transform_::mutable_rotation() {
   set_has_rotation();
   if (rotation_ == NULL) {
-    rotation_ = new ::Communication::Transform::Quaternion_;
+    rotation_ = new ::Communication::Transform::Vector3_;
   }
   // @@protoc_insertion_point(field_mutable:Communication.Transform.Transform_.rotation)
   return rotation_;
 }
-::Communication::Transform::Quaternion_* Transform_::release_rotation() {
+::Communication::Transform::Vector3_* Transform_::release_rotation() {
   // @@protoc_insertion_point(field_release:Communication.Transform.Transform_.rotation)
   clear_has_rotation();
-  ::Communication::Transform::Quaternion_* temp = rotation_;
+  ::Communication::Transform::Vector3_* temp = rotation_;
   rotation_ = NULL;
   return temp;
 }
-void Transform_::set_allocated_rotation(::Communication::Transform::Quaternion_* rotation) {
+void Transform_::set_allocated_rotation(::Communication::Transform::Vector3_* rotation) {
   delete rotation_;
   rotation_ = rotation;
   if (rotation) {

@@ -555,6 +555,18 @@ class ShapeUpdateInfo_ : public ::google::protobuf::Message /* @@protoc_insertio
   const ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape_ >&
       newshapes() const;
 
+  // repeated .Communication.Messages.Shape_ delShapes = 3;
+  int delshapes_size() const;
+  void clear_delshapes();
+  static const int kDelShapesFieldNumber = 3;
+  const ::Communication::Messages::Shape_& delshapes(int index) const;
+  ::Communication::Messages::Shape_* mutable_delshapes(int index);
+  ::Communication::Messages::Shape_* add_delshapes();
+  ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape_ >*
+      mutable_delshapes();
+  const ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape_ >&
+      delshapes() const;
+
   // @@protoc_insertion_point(class_scope:Communication.Messages.ShapeUpdateInfo_)
  private:
 
@@ -563,6 +575,7 @@ class ShapeUpdateInfo_ : public ::google::protobuf::Message /* @@protoc_insertio
   mutable int _cached_size_;
   ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape_ > changedshapes_;
   ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape_ > newshapes_;
+  ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape_ > delshapes_;
   friend void  protobuf_AddDesc_messages_2eproto();
   friend void protobuf_AssignDesc_messages_2eproto();
   friend void protobuf_ShutdownFile_messages_2eproto();
@@ -659,22 +672,10 @@ class Shape_ : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
   const ::google::protobuf::RepeatedPtrField< ::Communication::Transform::Vector3_ >&
       vertices() const;
 
-  // repeated uint32 indices = 3;
-  int indices_size() const;
-  void clear_indices();
-  static const int kIndicesFieldNumber = 3;
-  ::google::protobuf::uint32 indices(int index) const;
-  void set_indices(int index, ::google::protobuf::uint32 value);
-  void add_indices(::google::protobuf::uint32 value);
-  const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
-      indices() const;
-  ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
-      mutable_indices();
-
-  // optional .Communication.Transform.Transform_ transform = 4;
+  // optional .Communication.Transform.Transform_ transform = 3;
   bool has_transform() const;
   void clear_transform();
-  static const int kTransformFieldNumber = 4;
+  static const int kTransformFieldNumber = 3;
   const ::Communication::Transform::Transform_& transform() const;
   ::Communication::Transform::Transform_* mutable_transform();
   ::Communication::Transform::Transform_* release_transform();
@@ -691,7 +692,6 @@ class Shape_ : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
   ::google::protobuf::RepeatedPtrField< ::Communication::Transform::Vector3_ > vertices_;
-  ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > indices_;
   ::Communication::Transform::Transform_* transform_;
   ::google::protobuf::int32 id_;
   friend void  protobuf_AddDesc_messages_2eproto();
@@ -1089,6 +1089,36 @@ ShapeUpdateInfo_::newshapes() const {
   return newshapes_;
 }
 
+// repeated .Communication.Messages.Shape_ delShapes = 3;
+inline int ShapeUpdateInfo_::delshapes_size() const {
+  return delshapes_.size();
+}
+inline void ShapeUpdateInfo_::clear_delshapes() {
+  delshapes_.Clear();
+}
+inline const ::Communication::Messages::Shape_& ShapeUpdateInfo_::delshapes(int index) const {
+  // @@protoc_insertion_point(field_get:Communication.Messages.ShapeUpdateInfo_.delShapes)
+  return delshapes_.Get(index);
+}
+inline ::Communication::Messages::Shape_* ShapeUpdateInfo_::mutable_delshapes(int index) {
+  // @@protoc_insertion_point(field_mutable:Communication.Messages.ShapeUpdateInfo_.delShapes)
+  return delshapes_.Mutable(index);
+}
+inline ::Communication::Messages::Shape_* ShapeUpdateInfo_::add_delshapes() {
+  // @@protoc_insertion_point(field_add:Communication.Messages.ShapeUpdateInfo_.delShapes)
+  return delshapes_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape_ >*
+ShapeUpdateInfo_::mutable_delshapes() {
+  // @@protoc_insertion_point(field_mutable_list:Communication.Messages.ShapeUpdateInfo_.delShapes)
+  return &delshapes_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::Communication::Messages::Shape_ >&
+ShapeUpdateInfo_::delshapes() const {
+  // @@protoc_insertion_point(field_list:Communication.Messages.ShapeUpdateInfo_.delShapes)
+  return delshapes_;
+}
+
 // -------------------------------------------------------------------
 
 // Shape_
@@ -1147,45 +1177,15 @@ Shape_::vertices() const {
   return vertices_;
 }
 
-// repeated uint32 indices = 3;
-inline int Shape_::indices_size() const {
-  return indices_.size();
-}
-inline void Shape_::clear_indices() {
-  indices_.Clear();
-}
-inline ::google::protobuf::uint32 Shape_::indices(int index) const {
-  // @@protoc_insertion_point(field_get:Communication.Messages.Shape_.indices)
-  return indices_.Get(index);
-}
-inline void Shape_::set_indices(int index, ::google::protobuf::uint32 value) {
-  indices_.Set(index, value);
-  // @@protoc_insertion_point(field_set:Communication.Messages.Shape_.indices)
-}
-inline void Shape_::add_indices(::google::protobuf::uint32 value) {
-  indices_.Add(value);
-  // @@protoc_insertion_point(field_add:Communication.Messages.Shape_.indices)
-}
-inline const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
-Shape_::indices() const {
-  // @@protoc_insertion_point(field_list:Communication.Messages.Shape_.indices)
-  return indices_;
-}
-inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
-Shape_::mutable_indices() {
-  // @@protoc_insertion_point(field_mutable_list:Communication.Messages.Shape_.indices)
-  return &indices_;
-}
-
-// optional .Communication.Transform.Transform_ transform = 4;
+// optional .Communication.Transform.Transform_ transform = 3;
 inline bool Shape_::has_transform() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
+  return (_has_bits_[0] & 0x00000004u) != 0;
 }
 inline void Shape_::set_has_transform() {
-  _has_bits_[0] |= 0x00000008u;
+  _has_bits_[0] |= 0x00000004u;
 }
 inline void Shape_::clear_has_transform() {
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline void Shape_::clear_transform() {
   if (transform_ != NULL) transform_->::Communication::Transform::Transform_::Clear();

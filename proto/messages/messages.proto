@@ -28,13 +28,15 @@ message CustomMessage_ {
 message ShapeUpdateInfo_ {
 	repeated Shape_ changedShapes = 1;
 	repeated Shape_ newShapes = 2;
+	repeated Shape_ delShapes = 3;
 }
 
 message Shape_ {
 	required int32 id = 1;
+
 	repeated Transform.Vector3_ vertices = 2;
-	repeated uint32 indices = 3;
+	// repeated uint32 indices = 3;
 
 	// We might not need this in the end
-	optional Transform.Transform_ transform = 4;
+	optional Transform.Transform_ transform = 3;
 }
