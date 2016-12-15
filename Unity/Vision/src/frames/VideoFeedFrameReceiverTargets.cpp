@@ -8,6 +8,14 @@ using namespace frames;
 VideoFeedFrameReceiverTargets::VideoFeedFrameReceiverTargets() noexcept : _targets(vector<VideoFeedFrameReceiver*>())
 {}
 
+VideoFeedFrameReceiverTargets::~VideoFeedFrameReceiverTargets() noexcept
+{
+	for(auto target :_targets)
+	{
+		delete target;
+	}
+}
+
 bool VideoFeedFrameReceiverTargets::isReceiverPresent(const VideoFeedFrameReceiver * const target) const noexcept
 {
 	return std::find(_targets.begin(), _targets.end(), target) != _targets.end();
@@ -21,6 +29,7 @@ void VideoFeedFrameReceiverTargets::OnIncomingFrame(const Mat& frame) noexcept
 		videoFeedFrameReceiver->OnIncomingFrame(frame);
 	}
 }
+
 
 void VideoFeedFrameReceiverTargets::add(VideoFeedFrameReceiver * const target) noexcept
 {
@@ -42,9 +51,8 @@ void VideoFeedFrameReceiverTargets::add(const vector<VideoFeedFrameReceiver*>& t
 	}
 }
 
-void VideoFeedFrameReceiverTargets::remove(const VideoFeedFrameReceiver * const target)
+void VideoFeedFrameReceiverTargets::remove(const VideoFeedFrameReceiver * const target) noexcept
 {
-	lock_guard<mutex> frame_guard(_lock);
 	_targets.erase(std::remove(_targets.begin(), _targets.end(), target), _targets.end());
 }
 
