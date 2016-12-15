@@ -88,6 +88,7 @@ void processCommandLineArguments(int argc, char* argv[])
 		//Stops all detectors and remove the displayer
 		receivers.remove(detectors);
 		receivers.remove(&display);
+
 		display.Stop();
 	}
 	else if(strcmp(argv[1], "calibrate") == 0)

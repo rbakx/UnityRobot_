@@ -16,8 +16,6 @@ namespace framereaders
 			const std::string _WINDOW_NAME;
 			const int _WINDOW_WIDTH, _WINDOW_HEIGHT;
 			cv::Mat _frame;
-			std::mutex _lock;
-			bool _newFrame;
 
 			void run();
 
@@ -26,8 +24,7 @@ namespace framereaders
 								int windowWidth = 640,
 								int windowHeight = 350);
 
-			VideoFrameDisplayer(const VideoFrameDisplayer&);
-			virtual ~VideoFrameDisplayer();
+			~VideoFrameDisplayer();
 
 			void OnIncomingFrame(const cv::Mat &frame) noexcept;
 	};

@@ -6,10 +6,10 @@ using namespace framereaders;
 
 void VideoFrameDisplayer::run()
 {
-	if(_newFrame)
+	if(_hasNewFrame)
 	{
 		lock_guard<mutex> frame_guard(_lock);
-		_newFrame = false;
+		_hasNewFrame = false;
 
 		if(_frame.empty())
 			return;
@@ -31,14 +31,6 @@ VideoFrameDisplayer::VideoFrameDisplayer(const string& windowName,
 	resizeWindow(_WINDOW_NAME, _WINDOW_WIDTH, _WINDOW_HEIGHT);
 }
 
-VideoFrameDisplayer::VideoFrameDisplayer(const VideoFrameDisplayer& copy)
-	: _WINDOW_NAME(copy._WINDOW_NAME),
-	  _WINDOW_WIDTH(copy._WINDOW_WIDTH),
-	  _WINDOW_HEIGHT(copy._WINDOW_HEIGHT),
-	  _frame(copy._frame),
-	  _newFrame(copy._newFrame)
-{}
-
 VideoFrameDisplayer::~VideoFrameDisplayer()
 {
 	destroyWindow(_WINDOW_NAME);
@@ -48,5 +40,5 @@ void VideoFrameDisplayer::OnIncomingFrame(const Mat& frame) noexcept
 {
 	lock_guard<mutex> frame_guard(_lock);
 	_frame = frame.clone();
-	_newFrame = true;
+	_hasNewFrame = true;
 }

@@ -4,16 +4,19 @@
 #pragma once
 
 #include <thread>
+#include <atomic>
 
 class Runnable
 {
-private:
-	bool _running;
-	std::thread _t;
-	virtual void run() = 0;
+	private:
+		std::atomic<bool> _running;
+		std::thread _t;
 
-public:
-	Runnable();
-	void Start();
-	void Stop();
+		virtual void run() = 0;
+
+	public:
+		Runnable();
+		virtual ~Runnable();
+		void Start();
+		void Stop();
 };

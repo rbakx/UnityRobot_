@@ -5,36 +5,46 @@ using namespace cv;
 using namespace std;
 using namespace robotmapping;
 
-void Detector::processImage()
+void Detector::run()
 {
-    Mat queryDescriptor;
+	if(_hasNewFrame)
+	{
+		lock_guard<mutex> frame_guard(_lock);
+		_hasNewFrame = false;
 
-    vector<KeyPoint> keypoints;
-    _orb->detect(_currentFrame, keypoints);
-	_orb->compute(_currentFrame, keypoints, queryDescriptor);
+		if(_bufferFrame.empty())
+			return;
 
-    vector<DMatch> matches;
-    _matcher->match(queryDescriptor, _trainDescriptor, matches);
+		Mat queryDescriptor;
 
-    DMatch *bestMatch = nullptr;
-    for(auto &match : matches)
-    {
-        if(bestMatch == nullptr)
-            bestMatch = &match;
-        else if(match.distance < bestMatch->distance)
-            bestMatch = &match;
-    }
+		vector<KeyPoint> keypoints;
+		_orb->detect(_currentFrame, keypoints);
+		_orb->compute(_currentFrame, keypoints, queryDescriptor);
 
-    //TODO: Label the movement blobs instead of just drawing circles
-    Mat result = _currentFrame.clone();
-//    for(auto &match : matches)
-//    {
-//        circle(result, keypoints[match.imgIdx].pt, 10, Scalar(0, 255, 0), 10);
-//    }
+		vector<DMatch> matches;
+		_matcher->match(queryDescriptor, _trainDescriptor, matches);
 
-    circle(result, keypoints[bestMatch->queryIdx].pt, 10, Scalar(0, 255, 0), 10);
+		DMatch *bestMatch = nullptr;
+		for (auto &match : matches)
+		{
+			if(bestMatch == nullptr)
+				bestMatch = &match;
+			else if(match.distance < bestMatch->distance)
+				bestMatch = &match;
+		}
 
-	imshow("Result " + _sampleName, result);
+		//TODO: Label the movement blobs instead of just drawing circles
+		Mat result = _currentFrame.clone();
+		//    for(auto &match : matches)
+		//    {
+		//        circle(result, keypoints[match.imgIdx].pt, 10, Scalar(0, 255, 0), 10);
+		//    }
+
+		circle(result, keypoints[bestMatch->queryIdx].pt, 10, Scalar(0, 255, 0), 10);
+
+		imshow("Result " + _sampleName, result);
+		waitKey(1);
+	}
 }
 
 Detector::Detector(const string& sampleName)
@@ -70,6 +80,12 @@ Detector::Detector(const string& sampleName)
     _matcher = new cv::BFMatcher(cv::NORM_HAMMING, true);
 }
 
+Detector::~Detector()
+{
+	//TODO: Check if EVERYTHING is deleted
+	Stop();
+}
+
 vector<frames::VideoFeedFrameReceiver*> Detector::createReceiversFromSettings()
 {
 	vector<string> sampleNames = settings->getGeneralProperties().sampleNames;
@@ -94,11 +110,7 @@ vector<Robot> Detector::getRobots() const noexcept
 
 void Detector::OnIncomingFrame(const Mat& frame) noexcept
 {
-    _bufferFrame = _currentFrame.clone();
-    _currentFrame = frame.clone();
-
-    if(_bufferFrame.empty())
-        return;
-
-    processImage();
+	lock_guard<mutex> frame_guard(_lock);
+	_bufferFrame = _currentFrame.clone();
+	_currentFrame = frame.clone();
 }

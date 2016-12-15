@@ -34,6 +34,6 @@ namespace frames
 		public:
 		
 			VideoFeedFrameSender(VideoFeedFrameReceiver* target);
-			~VideoFeedFrameSender();
+			virtual ~VideoFeedFrameSender();
 	};
 }

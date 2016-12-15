@@ -3,12 +3,14 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/core/types.hpp>
 #include <memory>
+#include <mutex>
 #include "../../Robot.h"
 #include "../../frames/VideoFeedFrameReceiver.hpp"
+#include "../../Runnable.hpp"
 
 namespace robotmapping
 {
-	class Detector : public frames::VideoFeedFrameReceiver
+	class Detector : public frames::VideoFeedFrameReceiver, public Runnable
 	{
 		private:
 			const std::string _sampleName;
@@ -23,14 +25,14 @@ namespace robotmapping
 
 			std::vector<Robot> _robots;
 
-			void processImage();
+			void run();
 
 		public:
 			Detector(const std::string& sampleName);
+			virtual ~Detector();
+
 			static std::vector<frames::VideoFeedFrameReceiver*> createReceiversFromSettings();
-
 			std::vector<Robot> getRobots() const noexcept;
-
 			void OnIncomingFrame(const cv::Mat& frame) noexcept;
 	};
 }
