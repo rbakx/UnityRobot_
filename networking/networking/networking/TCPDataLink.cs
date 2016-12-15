@@ -17,7 +17,7 @@ namespace Networking
 
 		private IDataStreamReceiver _receiver;
 
-		private bool disposed = false;
+		private bool _disposed = false;
 
 		public TCPDataLink (TcpClient client)
 		{
@@ -37,10 +37,11 @@ namespace Networking
 		}
 
         ~TCPDataLink()
-            { Dispose(); }
+        {
+            Dispose();
+        }
 
-
-        public void SetReceiver (IDataStreamReceiver receiver)
+		public void SetReceiver (IDataStreamReceiver receiver)
 		{
 			if (receiver == null)
 			{
@@ -88,7 +89,7 @@ namespace Networking
 			List<byte> buffer = new List<byte> ();
 			byte[] bytebuffer = new byte[1];
 
-			while (datalink.Connected ())
+			while (!datalink._disposed && datalink.Connected ())
 			{
 				if (datalink._stream.DataAvailable)
 				{
@@ -108,6 +109,7 @@ namespace Networking
 				}
                 else
                 {
+                    // Don't waste cpu time when no data is available
                     Thread.Sleep(1);
                 }
 			}
@@ -115,9 +117,9 @@ namespace Networking
 
 		public void Dispose ()
 		{
-			if (!disposed)
+			if (!_disposed)
 			{
-				disposed = true;
+				_disposed = true;
 
 				_reading = false;
 

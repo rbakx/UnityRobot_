@@ -62,7 +62,7 @@ namespace CommunicationTests
             Vector3 linear = new Vector3(1.1f, 2.2f, 3.3f);
             Vector3 angular = new Vector3(4.4f, 5.5f, 6.6f);
 
-            SetVelocity_ result = MessageBuilder.CreateSetVelocity_(linear, angular);
+            SetVelocity_ result = UnityMessageBuilder.CreateSetVelocity_(linear, angular);
 
             Assert.AreEqual(result.linearVelocity.ToUnityVector(), linear);
             Assert.AreEqual(result.angularVelocity.ToUnityVector(), angular);
@@ -74,17 +74,17 @@ namespace CommunicationTests
             Vector3 linear = new Vector3(1.1f, 2.2f, 3.3f);
             Vector3 angular = new Vector3(4.4f, 5.5f, 6.6f);
 
-            SetVelocity_ result = MessageBuilder.CreateSetVelocity_(null, null);
+            SetVelocity_ result = UnityMessageBuilder.CreateSetVelocity_(null, null);
 
             Assert.IsNull(result.linearVelocity);
             Assert.IsNull(result.angularVelocity);
 
-            result = MessageBuilder.CreateSetVelocity_(linear, null);
+            result = UnityMessageBuilder.CreateSetVelocity_(linear, null);
 
             Assert.AreEqual(result.linearVelocity.ToUnityVector(), linear);
             Assert.IsNull(result.angularVelocity);
 
-            result = MessageBuilder.CreateSetVelocity_(null, angular);
+            result = UnityMessageBuilder.CreateSetVelocity_(null, angular);
 
             Assert.IsNull(result.linearVelocity);
             Assert.AreEqual(result.angularVelocity.ToUnityVector(), angular);
@@ -97,7 +97,7 @@ namespace CommunicationTests
             float y = 2.2f;
             float z = 3.3f;
 
-            Vector3_ result = MessageBuilder.CreateVector3_(x, y, z);
+            Vector3_ result = MessageBuilder.CreateVector(x, y, z);
 
             Assert.AreEqual(result.x, x);
             Assert.AreEqual(result.y, y);
@@ -109,7 +109,7 @@ namespace CommunicationTests
         {
             Vector3 vec = new Vector3(1.1f, 2.2f, 3.3f);
 
-            Vector3_ result = MessageBuilder.CreateVector3_(vec);
+            Vector3_ result = UnityMessageBuilder.CreateVector(vec);
 
             Assert.AreEqual(result.x, vec.x);
             Assert.AreEqual(result.y, vec.y);
@@ -132,7 +132,7 @@ namespace CommunicationTests
             indices.Add(0);
             indices.Add(2);
 
-            Shape_ result = MessageBuilder.CreateShape_(id, vecs, indices);
+            Shape_ result = UnityMessageBuilder.CreateShape_(id, vecs, indices);
 
             Assert.AreEqual(result.id, id);
 
@@ -190,10 +190,10 @@ namespace CommunicationTests
             indices.Add(1);
             indices.Add(2);
 
-            Shape_ shape1 = MessageBuilder.CreateShape_(1, vert1, indices);
-            Shape_ shape2 = MessageBuilder.CreateShape_(2, vert2, indices);
-            Shape_ shape3 = MessageBuilder.CreateShape_(3, vert3, indices);
-            Shape_ shape4 = MessageBuilder.CreateShape_(4, vert3, indices);
+            Shape_ shape1 = UnityMessageBuilder.CreateShape_(1, vert1, indices);
+            Shape_ shape2 = UnityMessageBuilder.CreateShape_(2, vert2, indices);
+            Shape_ shape3 = UnityMessageBuilder.CreateShape_(3, vert3, indices);
+            Shape_ shape4 = UnityMessageBuilder.CreateShape_(4, vert3, indices);
 
             List<Shape_> changedShapes = new List<Shape_>();
             List<Shape_> newShapes = new List<Shape_>();
@@ -356,10 +356,10 @@ namespace CommunicationTests
             indices.Add(1);
             indices.Add(2);
 
-            Shape_ shape1 = MessageBuilder.CreateShape_(1, vert1, indices);
-            Shape_ shape2 = MessageBuilder.CreateShape_(2, vert2, indices);
-            Shape_ shape3 = MessageBuilder.CreateShape_(3, vert3, indices);
-            Shape_ shape4 = MessageBuilder.CreateShape_(4, vert3, indices);
+            Shape_ shape1 = UnityMessageBuilder.CreateShape_(1, vert1, indices);
+            Shape_ shape2 = UnityMessageBuilder.CreateShape_(2, vert2, indices);
+            Shape_ shape3 = UnityMessageBuilder.CreateShape_(3, vert3, indices);
+            Shape_ shape4 = UnityMessageBuilder.CreateShape_(4, vert3, indices);
 
             List<Shape_> changedShapes = new List<Shape_>();
             List<Shape_> newShapes = new List<Shape_>();

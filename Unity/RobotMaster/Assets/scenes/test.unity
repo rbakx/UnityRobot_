@@ -4007,6 +4007,7 @@ MonoBehaviour:
   selectingDestination: 0
   RobotFound: 0
   SelectedUnit: {fileID: 0}
+  SelectedPanel: {fileID: 0}
   UIControl: {fileID: 262718678}
   unitLayer:
     serializedVersion: 2
