@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Assertions.Comparers;
+using UnityEngine.UI;
 
 
 //script for handling individual commands
@@ -7,9 +9,46 @@ public class ManualMoveCommander : MonoBehaviour
 {
     [SerializeField]
     private GameObject myRobot;
+
+    public GameObject DestinationLabel;
+
+    public GameObject RobotTypelabel;
+
     private Robot robotScript;
 
     public UnitSelecter USelecter;
+
+    public Vector3 Destination;
+
+    public void SetDestination(Vector3 point)
+    {
+        DestinationLabel.GetComponent<Text>().text = "Destination: " + point.ToString();
+        Destination = point;
+    }
+
+    void Update()
+    {
+        const float _robot_forward_speed = 10.0F;
+
+        Vector3 targetDir = Destination - myRobot.transform.position;
+
+        float distance = Vector3.Distance(myRobot.transform.position, Destination);
+
+        if (distance > 50.5F)
+        {
+           // Debug.Log("distance: " + distance);
+
+            targetDir.y = 0.0F;
+
+            float step = .1f*Time.deltaTime;
+
+            myRobot.transform.position += myRobot.transform.forward*Time.smoothDeltaTime* _robot_forward_speed;
+
+            Vector3 newDir = Vector3.RotateTowards(transform.up, targetDir, Mathf.Infinity, 0.0F);
+            Debug.DrawRay(transform.position, newDir, Color.red);
+            myRobot.transform.rotation = Quaternion.Lerp(myRobot.transform.rotation, Quaternion.LookRotation(newDir), 0.2f);
+        }
+    }
 
     public void SetRobot(GameObject robot)
     {
@@ -31,7 +70,8 @@ public class ManualMoveCommander : MonoBehaviour
     void Start()
     {
         USelecter = GameObject.Find("UnitControl").GetComponent<UnitSelecter>();
-	}
+        RobotTypelabel.GetComponent<Text>().text = "Robottype: " + robotScript.GetRobotType();
+    }
 	
     public Robot GetRobotScript()
     {
@@ -63,6 +103,8 @@ public class ManualMoveCommander : MonoBehaviour
             //select destination by raycast
             if (USelecter != null)
             {
+                USelecter.SelectedUnit = myRobot;
+                USelecter.SelectedPanel = this.gameObject;
                 Debug.Log("Select Destination");
                 USelecter.DestinationSelected = false;
                 USelecter.selectingDestination = true;

@@ -785,7 +785,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114000014236271260}
-        m_MethodName: Move
+        m_MethodName: DestinationBtnPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -809,6 +809,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myRobot: {fileID: 0}
+  DestinationLabel: {fileID: 1000012760066354}
+  RobotTypelabel: {fileID: 1000012661801716}
+  USelecter: {fileID: 0}
+  Destination: {x: 0, y: 0, z: 0}
 --- !u!222 &222000010071587524
 CanvasRenderer:
   m_ObjectHideFlags: 1

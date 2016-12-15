@@ -172,7 +172,9 @@ public class UIController : MonoBehaviour
 
                 //set selectingRobot flag to true;
                 MinionControl.transform.GetComponent<UnitSelecter>().selectingRobot = true;
-                
+                MinionControl.transform.GetComponent<UnitSelecter>().RobotSelected = false;
+                MinionControl.transform.GetComponent<UnitSelecter>().selectingDestination = false;
+
                 StartCoroutine(SelectingTarget());
             }
 

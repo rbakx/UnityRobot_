@@ -5,6 +5,7 @@ using Communication;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using Communication.Messages;
 
 public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkSubscriber
 {
@@ -39,8 +40,11 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
     */
     static private uint robotIdentityID = 0;
 
+    private bool continueRegistrationRoutine;
+
     void OnDestroy()
     {
+        continueRegistrationRoutine = false;
 
         if (listener != null)
         {
@@ -53,6 +57,7 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
 
     void Start()
     {
+        continueRegistrationRoutine = true;
         wasHosting = false;
 
         if (RobotRefModel_Default == null || RobotRefModel_Default.GetComponent<Robot>() == null)
@@ -104,7 +109,7 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
         When started, the robotregisterer will start listening on public string value HostAddress and short HostPort.
         If Host is false, the listener is stopped if active.
     */
-    IEnumerator hostingCheck()
+   private IEnumerator hostingCheck()
     {
         while(true)
         {
@@ -186,21 +191,23 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
             /*
               First wait for the other identification messages to be processed to prevent race conditions
             */
-            _ev.WaitOne();
-            _ev.Reset();
+            if (_ev.WaitOne(10000))
+            {
+                _ev.Reset();
 
-            _connection = connection;
-            _newMessage = newMessage;
-            _continueRegistration = true;
+                _connection = connection;
+                _newMessage = newMessage;
+                _continueRegistration = true;
 
-            _ev.WaitOne();
+                _ev.WaitOne(1000);
+            }
         }
             
     }
 
-    IEnumerator handleRegistrations()
+    private IEnumerator handleRegistrations()
     {
-        while(listener != null)
+        while(continueRegistrationRoutine)
         {
             if(_continueRegistration)
             {
@@ -214,10 +221,11 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
                 _ev.Set();
 
                 //TODO: Replace nao with the variable from the message that indicates the type
+               // Debug.Log("newMessage: " + newMessage.identificationResponse);
                 string robotType = newMessage.identificationResponse.robotType.ToLower();
 
                 //Get the robot object which contains a Robot component with predefined shape data (this is a reference object)
-                GameObject robotPrefab = null;// GameObject.Find("models/robots/robot_prefab_" + robotType);
+                GameObject robotPrefab = null;
 
                 switch (robotType)
                 {
@@ -303,7 +311,7 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
         }
     }
 
-    Communicator GetCommunicatorFromDataLink(IDataLink dataLink)
+    private Communicator GetCommunicatorFromDataLink(IDataLink dataLink)
     {
         Communicator result = null;
 
@@ -318,4 +326,41 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
 
             return result;
     }
+
+    public void AddDummyBot()
+    {
+        Debug.Log("Spoofing prereqs...");
+        
+        ProtoBufPresentation pp = new ProtoBufPresentation();
+        DummyReceiver dummyReceiver = new DummyReceiver();
+
+        pp.SetReceiver(dummyReceiver);
+
+        DummyDataLink datalink = new DummyDataLink(pp);
+
+        Communicator com = new Communicator(datalink, pp);
+
+        //create message, set response
+
+        MessageTarget_ target = MessageTarget_.Robot;
+        MessageType_ type = MessageType_.CustomMessage;
+
+        Message DummyMessage = MessageBuilder.CreateMessage(target, type);
+        DummyMessage.SetIdentificationResponse("dummyBot");
+
+        /*
+              First wait for the other identification messages to be processed to prevent race conditions
+            */
+        if (_ev.WaitOne(10000))
+        {
+            _ev.Reset();
+
+            _connection = com;
+            _newMessage = DummyMessage;
+            _continueRegistration = true;
+
+            _ev.WaitOne(1000);
+        }
+    }
+
 }

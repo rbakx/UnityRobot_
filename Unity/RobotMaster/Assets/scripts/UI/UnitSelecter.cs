@@ -15,6 +15,7 @@ public class UnitSelecter : MonoBehaviour
     public bool RobotFound = false;
 
     public GameObject SelectedUnit;
+    public GameObject SelectedPanel;
 
     public UIController UIControl;
 
@@ -33,11 +34,12 @@ public class UnitSelecter : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && selectingRobot)
         {
+            Debug.Log("Looking for Robots");
             LookforTarget();
         }
         if (Input.GetMouseButtonDown(0) && selectingDestination)
         {
-            Debug.Log(SelectedUnit);
+            Debug.Log("Selected Unit:" + SelectedUnit);
             DestinationSelecter(SelectedUnit);
         }
 
@@ -56,7 +58,6 @@ public class UnitSelecter : MonoBehaviour
     public GameObject LookforTarget()
     {
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //Vector3 direction = this.transform.TransformDirection(Vector3.forward);
         if (!RobotSelected)
         {
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, unitLayer) && hit.transform.tag == "Unit")
@@ -90,28 +91,28 @@ public class UnitSelecter : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, terrainLayer))
             {
                 Vector3 point = hit.point;
-                Debug.Log("World point " + point);
                 if (unit.gameObject.GetComponent<Robot>() != null)
                 {
                     unit.gameObject.GetComponent<Robot>().SetDestination(point);
-                    Debug.Log("We gaan weer golven!!");
+                    Debug.Log("Destination Selected: " + point);
+                    SelectedPanel.GetComponent<ManualMoveCommander>().SetDestination(point);
                     DestinationSelected = true;
                     selectingDestination = false;
                 }
                 else
                 {
-                    Debug.Log("IS NO ROBOOOT!!");
+                    Debug.Log("Could not select destination, the object youre trying to move is no robot");
                 }
                 
                 if (unit.gameObject.GetComponent<Robot>() && DestinationSelected)
                 {
                     unit.GetComponent<RobotSelect>().isSelected = false;
-                    Debug.Log("Deselect Robot");
+                    Debug.Log("Deselecting Robot");
                     RobotSelected = false;
                 }
                 else
                 {
-                    Debug.Log("IS NOT SELECTABLE");
+                    Debug.Log("Object is not selectable");
                 }
             }
 

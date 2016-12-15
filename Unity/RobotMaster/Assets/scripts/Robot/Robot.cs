@@ -16,6 +16,8 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
     public RecognisedShape shape;
     private Communicator _communicator;
 
+    public bool isVirtual = false;
+
     void Awake()
     {
         // TODO: Robots should be initialized somewhere else, initialise dummy objects
@@ -24,6 +26,8 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
         Communicator c = new Communicator(dl, pp);
         shape = null;
 
+
+        Debug.Log("Making new communicator: " + dl + " protopresentation: " + pp);
         _communicator = c;
     }
 
@@ -34,32 +38,25 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
             //rotate towards goal
             transform.Rotate(_rotationVelocity * Time.deltaTime);
 
-            transform.position = Vector3.MoveTowards(transform.position, _destination, 2f * Time.deltaTime);
-            //transform.position = transform.position;
-            Debug.Log("hans is een steen");
+            transform.position = Vector3.MoveTowards(transform.position, _destination, 50f * Time.deltaTime);
         }
 
-        //transform.Rotate(_rotationVelocity * Time.deltaTime);
-        //transform.Translate(_velocity * Time.deltaTime);
-
     }
-
-<<<<<<< HEAD
+    
     public void SetDestination(Vector3 dest)
     {
         _destination = dest;
-    }
 
-    public Vector3 GetDestination()
-    {
-        return _destination;
-=======
         transform.Rotate(_rotationVelocity * Time.deltaTime);
 
         _velocity = transform.TransformVector(_velocity);
 
         transform.Translate(_velocity * Time.deltaTime);
->>>>>>> 10e0e505a8ce5fc10d18dfd56ed15bc831ea6512
+    }
+
+    public Vector3 GetDestination()
+    {
+        return _destination;
     }
 
     public void Init(Communicator communicator, uint id, string name = "", string type = "")
@@ -145,7 +142,12 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
 
     public bool SendCommand(Message message)
     {
+        Debug.Log("Message: " + message);
+        Debug.Log("Communicator: " + _communicator);
+        Debug.Log(_communicator);
+
         bool result = _communicator.SendCommand(message);
+        Debug.Log("Result: " + result);
 
         if (result == false)
         {
