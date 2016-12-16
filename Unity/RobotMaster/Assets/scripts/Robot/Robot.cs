@@ -167,7 +167,9 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
         switch (newMessage.messageType)
         {
             case MessageType_.IdentificationResponse:
-                Debug.Log("Identification for robot " + _name + ": " + newMessage.identificationResponse.robotType);
+                // First identification should be handled in the register,
+                // other identifications are ignored for now.
+                Debug.Log("(Re?)Identification for robot " + _name + ": " + newMessage.identificationResponse.robotType);
                 break;
 
             case MessageType_.LogError:
