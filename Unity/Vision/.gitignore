@@ -1,8 +1,12 @@
 # Build specific
 build
+
 resources/*
 !resources/README.md
 !resources/config.yml
+
+samples/*
+!samples/README.md
 
 # Prerequisites
 *.d
