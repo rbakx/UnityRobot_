@@ -14,6 +14,9 @@
 #include "src/framereaders/robotmapping/Calibrator.hpp"
 #include "src/framereaders/robotmapping/Detector.hpp"
 
+#include <thread>
+#include <X11/Xlib.h>
+
 
 using namespace std;
 using namespace frames;
@@ -32,6 +35,8 @@ VideoFeedFrameReceiverTargets receivers;
 
 int main(int argc, char* argv[])
 {
+	XInitThreads(); //Qt needs to know we will be using a multi-threaded environment.
+
 	settings = Settings::read();
 
 	processCommandLineArguments(argc, argv);
@@ -75,76 +80,76 @@ void processCommandLineArguments(int argc, char* argv[])
 	if(strcmp(argv[1], "start") == 0)
 	{
 		//Starts all detectors
-		vector<VideoFeedFrameReceiver*> detectors = Detector::createReceiversFromSettings();
+		vector<shared_ptr<VideoFeedFrameReceiver>> detectors = Detector::createAndStartDetectorsFromSettings();
 		receivers.add(detectors);
 
-		VideoFrameDisplayer display;
-		receivers.add(&display);
-		display.Start();
+		unique_ptr<VideoFrameDisplayer> display_ptr = make_unique<VideoFrameDisplayer>();
+		display_ptr->Start();
+
+		shared_ptr<VideoFeedFrameReceiver> display(display_ptr.release());
+		receivers.add(display);
 
 		cout << "Press enter to stop detecting" << endl;
 		cin.ignore(1);
 
 		//Stops all detectors and remove the displayer
 		receivers.remove(detectors);
-		receivers.remove(&display);
-
-		display.Stop();
+		receivers.remove(display);
 	}
 	else if(strcmp(argv[1], "calibrate") == 0)
 	{
-		Calibrator calibrator;
-		receivers.add(&calibrator);
-
-		VideoFrameDisplayer displayer;
-		receivers.add(&displayer);
-
-		cout << "Press enter to start calibrating" << endl;
-		cin.ignore(1);
-		calibrator.Start();
-
-		cout << "Press enter to stop calibrating" << endl;
-		cin.ignore(1);
-		calibrator.Stop();
-
-		string filePath = "";
-		cout << "Please provide a file name where you want to store the calibration results:" << endl;
-		getline(cin, filePath);
-
-		if(filePath.length() > 0)
-		{
-			filePath.append(".yml");
-
-			//TODO: Find way to read status of writing
-			/*if(calibrator.writeToFile(filePath))
-			{
-				callibration_incomplete = true;
-			}*/
-
-			calibrator.WriteToFile(filePath);
-		}
-
-		receivers.remove(&calibrator);
-		receivers.remove(&displayer);
+//		Calibrator calibrator;
+//		receivers.add(&calibrator);
+//
+//		VideoFrameDisplayer displayer;
+//		receivers.add(&displayer);
+//
+//		cout << "Press enter to start calibrating" << endl;
+//		cin.ignore(1);
+//		calibrator.Start();
+//
+//		cout << "Press enter to stop calibrating" << endl;
+//		cin.ignore(1);
+//		calibrator.Stop();
+//
+//		string filePath = "";
+//		cout << "Please provide a file name where you want to store the calibration results:" << endl;
+//		getline(cin, filePath);
+//
+//		if(filePath.length() > 0)
+//		{
+//			filePath.append(".yml");
+//
+//			//TODO: Find way to read status of writing
+//			/*if(calibrator.writeToFile(filePath))
+//			{
+//				callibration_incomplete = true;
+//			}*/
+//
+//			calibrator.WriteToFile(filePath);
+//		}
+//
+//		receivers.remove(&calibrator);
+//		receivers.remove(&displayer);
 	}
 	else if(strcmp(argv[1], "record") == 0)
 	{
-		VideoFrameSaver videosaver;
-		receivers.add(&videosaver);
-
-		string fileName = "";
-		cout << "Please provide a file name where you want to store recording:" << endl;
-		getline(cin, fileName);
-		fileName += ".avi";
-
-
-		cout << "Press enter to start recording" << endl;
-		cin.ignore(1);
-		videosaver.StartSaving(fileName);
-
-		cout << "Press enter to stop recording" << endl;
-		cin.ignore(1);
-		videosaver.StopSaving();
+//		VideoFrameSaver videosaver;
+//		receivers.add(&videosaver);
+//
+//		string fileName = "";
+//		cout << "Please provide a file name where you want to store recording:" << endl;
+//		getline(cin, fileName);
+//		fileName += ".avi";
+//
+//
+//		cout << "Press enter to start recording" << endl;
+//		cin.ignore(1);
+//		videosaver.StartSaving(fileName);
+//
+//		cout << "Press enter to stop recording" << endl;
+//		cin.ignore(1);
+//		videosaver.StopSaving();
 		
 		/*
 			POST: Start the video recorder and save after recording

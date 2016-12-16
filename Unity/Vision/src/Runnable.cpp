@@ -12,13 +12,13 @@ Runnable::~Runnable()
 {
 	if(_running)
 	{
-		
+		std::cerr << "Runnable::Stop() was not called before Runnable's destructor" << std::endl;
+		Stop();
 	}
 }
 
 void Runnable::Start()
 {
-
 	_t = std::thread([this](std::atomic<bool>& running) {
 		running = true;
 
@@ -34,5 +34,9 @@ void Runnable::Start()
 void Runnable::Stop()
 {
 	_running = false;
-	_t.join();
+
+	if(_t.joinable())
+	{
+		_t.join();
+	}
 }

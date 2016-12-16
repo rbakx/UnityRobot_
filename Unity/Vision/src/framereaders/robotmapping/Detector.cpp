@@ -1,5 +1,6 @@
 #include "Detector.hpp"
 #include "../../Settings.h"
+#include <string>
 
 using namespace cv;
 using namespace std;
@@ -86,14 +87,16 @@ Detector::~Detector()
 	Stop();
 }
 
-vector<frames::VideoFeedFrameReceiver*> Detector::createReceiversFromSettings()
+vector<shared_ptr<frames::VideoFeedFrameReceiver>> Detector::createAndStartDetectorsFromSettings()
 {
 	vector<string> sampleNames = settings->getGeneralProperties().sampleNames;
-	vector<frames::VideoFeedFrameReceiver*> detectors;
+	vector<shared_ptr<frames::VideoFeedFrameReceiver>> detectors;
 
 	for(const string& sampleName : sampleNames)
 	{
-		detectors.emplace_back(new Detector(sampleName));
+		shared_ptr<Detector> detector = make_shared<Detector>(sampleName);
+		detector->Start();
+		detectors.emplace_back(detector);
 	}
 
 	return detectors;
@@ -113,4 +116,5 @@ void Detector::OnIncomingFrame(const Mat& frame) noexcept
 	lock_guard<mutex> frame_guard(_lock);
 	_bufferFrame = _currentFrame.clone();
 	_currentFrame = frame.clone();
+	_hasNewFrame = true;
 }

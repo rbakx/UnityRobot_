@@ -29,9 +29,9 @@ namespace robotmapping
 
 		public:
 			Detector(const std::string& sampleName);
-			virtual ~Detector();
+			~Detector();
 
-			static std::vector<frames::VideoFeedFrameReceiver*> createReceiversFromSettings();
+			static std::vector<std::shared_ptr<frames::VideoFeedFrameReceiver>> createAndStartDetectorsFromSettings();
 			std::vector<Robot> getRobots() const noexcept;
 			void OnIncomingFrame(const cv::Mat& frame) noexcept;
 	};

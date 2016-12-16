@@ -34,6 +34,7 @@ VideoFrameDisplayer::VideoFrameDisplayer(const string& windowName,
 VideoFrameDisplayer::~VideoFrameDisplayer()
 {
 	destroyWindow(_WINDOW_NAME);
+	Stop();
 }
 
 void VideoFrameDisplayer::OnIncomingFrame(const Mat& frame) noexcept

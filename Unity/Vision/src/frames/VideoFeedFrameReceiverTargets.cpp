@@ -1,22 +1,17 @@
 #include "VideoFeedFrameReceiverTargets.hpp"
-#include <mutex>
 
 using namespace std;
 using namespace cv;
 using namespace frames;
 
-VideoFeedFrameReceiverTargets::VideoFeedFrameReceiverTargets() noexcept : _targets(vector<VideoFeedFrameReceiver*>())
+VideoFeedFrameReceiverTargets::VideoFeedFrameReceiverTargets() noexcept
+		: _targets(vector<shared_ptr<VideoFeedFrameReceiver>>())
 {}
 
 VideoFeedFrameReceiverTargets::~VideoFeedFrameReceiverTargets() noexcept
-{
-	for(auto target :_targets)
-	{
-		delete target;
-	}
-}
+{}
 
-bool VideoFeedFrameReceiverTargets::isReceiverPresent(const VideoFeedFrameReceiver * const target) const noexcept
+bool VideoFeedFrameReceiverTargets::isReceiverPresent(const shared_ptr<VideoFeedFrameReceiver> target) const noexcept
 {
 	return std::find(_targets.begin(), _targets.end(), target) != _targets.end();
 }
@@ -24,14 +19,14 @@ bool VideoFeedFrameReceiverTargets::isReceiverPresent(const VideoFeedFrameReceiv
 void VideoFeedFrameReceiverTargets::OnIncomingFrame(const Mat& frame) noexcept
 {
 	lock_guard<mutex> frame_guard(_lock);
-	for(VideoFeedFrameReceiver * const videoFeedFrameReceiver : _targets)
+	for(auto videoFeedFrameReceiver : _targets)
 	{
 		videoFeedFrameReceiver->OnIncomingFrame(frame);
 	}
 }
 
 
-void VideoFeedFrameReceiverTargets::add(VideoFeedFrameReceiver * const target) noexcept
+void VideoFeedFrameReceiverTargets::add(shared_ptr<VideoFeedFrameReceiver> target) noexcept
 {
 	if(isReceiverPresent(target))
 	{
@@ -43,23 +38,23 @@ void VideoFeedFrameReceiverTargets::add(VideoFeedFrameReceiver * const target) n
 	_targets.push_back(target);
 }
 
-void VideoFeedFrameReceiverTargets::add(const vector<VideoFeedFrameReceiver*>& targets) noexcept
+void VideoFeedFrameReceiverTargets::add(vector<shared_ptr<VideoFeedFrameReceiver>>& targets) noexcept
 {
 	for(auto target : targets)
 	{
-		add(target);
+		this->add(target);
 	}
 }
 
-void VideoFeedFrameReceiverTargets::remove(const VideoFeedFrameReceiver * const target) noexcept
+void VideoFeedFrameReceiverTargets::remove(const shared_ptr<VideoFeedFrameReceiver> target) noexcept
 {
 	_targets.erase(std::remove(_targets.begin(), _targets.end(), target), _targets.end());
 }
 
-void VideoFeedFrameReceiverTargets::remove(const vector<VideoFeedFrameReceiver*>& targets) noexcept
+void VideoFeedFrameReceiverTargets::remove(const vector<shared_ptr<VideoFeedFrameReceiver>>& targets) noexcept
 {
 	for(auto target : targets)
 	{
-		remove(target);
+		this->remove(target);
 	}
 }
