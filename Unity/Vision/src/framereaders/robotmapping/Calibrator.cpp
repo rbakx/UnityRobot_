@@ -1,3 +1,6 @@
+#include <iostream>
+#include <stdexcept>
+
 #include "Calibrator.hpp"
 #include "../../Settings.h"
 
@@ -49,12 +52,20 @@ void Calibrator::WriteToFile(const string& fileName)
 {
 	_orb->detect(_currentFrame, _keypoints, _ROImask);
 	_orb->compute(_currentFrame, _keypoints, _descriptors);
-
+	
+	
 	string fileLocation = settings->getFilePath() + "samples/" + fileName;
+	std::cout << "Writing to configurations file: " << fileLocation << std::endl;
     FileStorage fs(fileLocation, FileStorage::WRITE);
 
+	if(!fs.isOpened())
+	{
+		throw runtime_error("[Calibrator] Couldn't write to file; Target directory may not exist or insuffient rights");
+	}
+	
     write(fs, "Descriptors", _descriptors);
     write(fs, "Keypoints", _keypoints);
+	
     write(fs, "Sample", Mat(_currentFrame.clone(), boundingRect(_ROImask)));
 
     fs.release();

@@ -1,16 +1,16 @@
-#ifdef __linux__
+#if defined(__linux__) && defined(USE_USB_LIBRARIES)
 	#include <sys/stat.h>
 	#include "libusb-1.0/libusb.h"
 #endif
 
 #include <stdexcept>
 
-#ifdef _WIN32
+#if defined(_WIN32)
 	#pragma warning(push)
 	#pragma warning(disable: 4200)
 	#include "libuvc/libuvc.h"
 	#pragma warning(pop)
-#else
+#elseif defined(USE_USB_LIBRARIES)
 	#include "libuvc/libuvc.h"
 #endif
 
@@ -74,6 +74,7 @@ CameraFeedSender::~CameraFeedSender()
 
 void CameraFeedSender::disableAutoFocus()
 {
+	#if defined(USE_USB_LIBRARIES)
 	/*
 		PRE:
 		UVC is a library used to find a usb video device, to disable change autofocus.
@@ -119,6 +120,10 @@ void CameraFeedSender::disableAutoFocus()
 	/* Close the UVC context. This closes and cleans up any existing device handles,
 	* and it closes the libusb context if one was not provided. */
 	uvc_exit(ctx);
+	
+	#else
+		std::cout << "Autofocus method disabled due to libusb libraries missing" << std::endl;
+	#endif
 }
 
 bool CameraFeedSender::FeedReading() noexcept

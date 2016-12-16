@@ -79,6 +79,9 @@ Settings* Settings::read()
 	string configFileLocation = settingsObj->filePath + "config.yml";
 	cout << "Reading config file at " << configFileLocation << endl;
 	FileStorage fs(configFileLocation, FileStorage::READ);
+	
+	if(!fs.isOpened())
+		throw runtime_error("Settings file appears to be missing : " + configFileLocation);
 
 	FileNode settingsNode = fs["Settings"];
 	FileNode generalNode = settingsNode["General"];
