@@ -77,8 +77,16 @@ namespace Communication
       get { return _shapeUpdateInfo; }
       set { _shapeUpdateInfo = value; }
     }
+    private float _rotationResponse = default(float);
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"rotationResponse", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float rotationResponse
+    {
+      get { return _rotationResponse; }
+      set { _rotationResponse = value; }
+    }
     private string _stringData = "";
-    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"stringData", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"stringData", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
     public string stringData
     {
@@ -129,8 +137,14 @@ namespace Communication
       [global::ProtoBuf.ProtoEnum(Name=@"ShapeUpdate", Value=6)]
       ShapeUpdate = 6,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"Disconnect", Value=7)]
-      Disconnect = 7
+      [global::ProtoBuf.ProtoEnum(Name=@"RotationRequest", Value=7)]
+      RotationRequest = 7,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"RotationResponse", Value=8)]
+      RotationResponse = 8,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"Disconnect", Value=9)]
+      Disconnect = 9
     }
   
 }

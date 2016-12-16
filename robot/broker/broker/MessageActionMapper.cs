@@ -29,6 +29,10 @@ namespace broker
                     _robot.VelocitySet(newMessage.robotVelocity.linearVelocity, newMessage.robotVelocity.angularVelocity);
                     break;
 
+                case MessageType_.RotationRequest:
+                    _robot.OnRotationRequest();
+                    break;
+
                 // Used to make the robot show some kind of signal.
                 case MessageType_.Indicate:
                     _robot.Indicate();

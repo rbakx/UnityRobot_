@@ -82,7 +82,7 @@ namespace ev3_broker
         private short _tcpPort;
         private TCPDataLink _tcpDataLink;
         private Semaphore _receiveSem;
-        
+
         private bool _disposed = false;
 
         public string SerialNumber { get { return _serialNumber; } }
@@ -271,10 +271,21 @@ namespace ev3_broker
             {
                 return result == 1;
             }
-            else
+
+            throw new Exception("Received message not a bool");
+        }
+
+        public float ReceiveFloat(string mailBox, int timeout = -1)
+        {
+            string received = ReceiveString(mailBox, timeout);
+
+            float result;
+            if (float.TryParse(received, out result))
             {
-                throw new Exception("Received message not a bool");
+                return result;
             }
+
+            throw new Exception("Received message is not a float");
         }
 
         private IPEndPoint ListenForSingleUdpBroadcast(int timeout = -1)

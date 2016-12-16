@@ -47,6 +47,12 @@ namespace ev3_broker
             }
         }
 
+        public float GetRotation()
+        {
+            _ev3Connection.SendMessage("STATUS", "get_orientation");
+            return _ev3Connection.ReceiveFloat("ORIENTATION");
+        }
+
         public new void Dispose()
         {
             base.Dispose();

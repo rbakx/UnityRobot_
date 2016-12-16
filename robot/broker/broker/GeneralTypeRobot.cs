@@ -59,6 +59,18 @@ namespace broker
             _communicator.SendCommand(message);
         }
 
+        public void OnRotationRequest()
+        {
+            float rotation = GetRotation();
+
+            Message response = MessageBuilder.CreateMessage(
+                MessageTarget_.Unity, MessageType_.RotationResponse);
+
+            response.SetRotationResponse(rotation);
+
+            _communicator.SendCommand(response);
+        }
+
         public void Disconnect()
         {
             Message message = MessageBuilder.CreateMessage(
@@ -69,6 +81,7 @@ namespace broker
 
         public abstract void Indicate();
         public abstract void VelocitySet(Communication.Transform.Vector3_ linear, Communication.Transform.Vector3_ angular);
+        public abstract float GetRotation();
 
         public void Dispose()
         {

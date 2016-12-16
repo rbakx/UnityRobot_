@@ -267,5 +267,20 @@ namespace Communication
 
             message.shapeUpdateInfo = CreateShapeUpdateInfo_(changedShapes, newShapes);
         }
+
+        public static void SetRotationResponse(this Message message, float rotation)
+        {
+            if (message == null)
+            {
+                throw new ArgumentNullException("message");
+            }
+
+            if (message.messageType != MessageType_.RotationResponse)
+            {
+                throw new InvalidOperationException("Message is not a rotation response");
+            }
+
+            message.rotationResponse = rotation;
+        }
     }
 }
