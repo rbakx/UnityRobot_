@@ -143,13 +143,13 @@ public class UIController : MonoBehaviour
 
                 //add button functions
                 addBtnFunctions(manualPanel);
-                Debug.Log("Selected robot: ");
-                Debug.Log(SelectedRobot);
+          //      Debug.Log("Selected robot: ");
+          //      Debug.Log(SelectedRobot);
                 ManualMoveCommander commander = manualPanel.GetComponent<ManualMoveCommander>();
 
                 commander.SetRobot(SelectedRobot.gameObject);
-                Debug.Log("set robot: ");
-                Debug.Log(commander.GetRobot());
+            //    Debug.Log("set robot: ");
+             //   Debug.Log(commander.GetRobot());
 
                 //return the panels to their original states
                 for (int i = 0; i < panels.Count; i++)
@@ -191,7 +191,7 @@ public class UIController : MonoBehaviour
                 return true;
             }
         }
-        Debug.Log("No, This is Patrick");
+   //     Debug.Log("No, This is Patrick");
         return false;
     }
 

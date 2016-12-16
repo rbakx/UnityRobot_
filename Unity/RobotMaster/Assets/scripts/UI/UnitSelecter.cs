@@ -34,12 +34,12 @@ public class UnitSelecter : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && selectingRobot)
         {
-            Debug.Log("Looking for Robots");
+          //  Debug.Log("Looking for Robots");
             LookforTarget();
         }
         if (Input.GetMouseButtonDown(0) && selectingDestination)
         {
-            Debug.Log("Selected Unit:" + SelectedUnit);
+           // Debug.Log("Selected Unit:" + SelectedUnit);
             DestinationSelecter(SelectedUnit);
         }
 
@@ -72,7 +72,7 @@ public class UnitSelecter : MonoBehaviour
             }
 
         }
-        Debug.DrawRay(ray.origin, ray.direction, Color.black);
+       // Debug.DrawRay(ray.origin, ray.direction, Color.black);
         return null;
     }
 
@@ -83,7 +83,6 @@ public class UnitSelecter : MonoBehaviour
 
     public void DestinationSelecter(GameObject unit)
     {
-        Debug.Log(DestinationSelected);
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if (!DestinationSelected)
@@ -94,7 +93,7 @@ public class UnitSelecter : MonoBehaviour
                 if (unit.gameObject.GetComponent<Robot>() != null)
                 {
                     unit.gameObject.GetComponent<Robot>().SetDestination(point);
-                    Debug.Log("Destination Selected: " + point);
+                    //Debug.Log("Destination Selected: " + point);
                     SelectedPanel.GetComponent<ManualMoveCommander>().SetDestination(point);
                     DestinationSelected = true;
                     selectingDestination = false;
@@ -107,7 +106,7 @@ public class UnitSelecter : MonoBehaviour
                 if (unit.gameObject.GetComponent<Robot>() && DestinationSelected)
                 {
                     unit.GetComponent<RobotSelect>().isSelected = false;
-                    Debug.Log("Deselecting Robot");
+                   // Debug.Log("Deselecting Robot");
                     RobotSelected = false;
                 }
                 else

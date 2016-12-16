@@ -24,12 +24,14 @@ public class ManualMoveCommander : MonoBehaviour
     {
         DestinationLabel.GetComponent<Text>().text = "Destination: " + point.ToString();
         Destination = point;
+        
+        myRobot.GetComponent<Robot>().SetDestination(point);
     }
 
     void Update()
     {
-        const float _robot_forward_speed = 10.0F;
-
+        //const float _robot_forward_speed = 30.0F;
+        const float _robot_forward_speed = 0.0F;
         Vector3 targetDir = Destination - myRobot.transform.position;
 
         float distance = Vector3.Distance(myRobot.transform.position, Destination);
@@ -39,8 +41,6 @@ public class ManualMoveCommander : MonoBehaviour
            // Debug.Log("distance: " + distance);
 
             targetDir.y = 0.0F;
-
-            float step = .1f*Time.deltaTime;
 
             myRobot.transform.position += myRobot.transform.forward*Time.smoothDeltaTime* _robot_forward_speed;
 
@@ -99,13 +99,13 @@ public class ManualMoveCommander : MonoBehaviour
     {
         if (myRobot != null)
         {
-            Debug.Log("MyRobot: " + myRobot.GetComponent<Robot>().GetRobotName());
+        //    Debug.Log("MyRobot: " + myRobot.GetComponent<Robot>().GetRobotName());
             //select destination by raycast
             if (USelecter != null)
             {
                 USelecter.SelectedUnit = myRobot;
                 USelecter.SelectedPanel = this.gameObject;
-                Debug.Log("Select Destination");
+             //   Debug.Log("Select Destination");
                 USelecter.DestinationSelected = false;
                 USelecter.selectingDestination = true;
             }

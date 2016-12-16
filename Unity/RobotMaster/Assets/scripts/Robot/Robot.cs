@@ -32,7 +32,7 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
         _rotationSem = new Semaphore(0, 1);
 
 
-        Debug.Log("Making new communicator: " + dl + " protopresentation: " + pp);
+        //Debug.Log("Making new communicator: " + dl + " protopresentation: " + pp);
         _communicator = c;
     }
 
@@ -52,11 +52,96 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
     {
         _destination = dest;
 
-        transform.Rotate(_rotationVelocity * Time.deltaTime);
+        CalcAngleToDestination();
+        //Send RotateCommand
 
-        _velocity = transform.TransformVector(_velocity);
 
-        transform.Translate(_velocity * Time.deltaTime);
+        CalcDistanceToDestination();
+        //Send MoveCommand
+    }
+
+    //Calculates the angle between the robot and its destination
+    public double CalcAngleToDestination()
+    {
+        float myRot = GetRotation();
+
+        if (myRot > 180)
+        {
+            myRot -= 360;
+        }
+        if (myRot == -180)
+        {
+            myRot = 0;
+        }
+
+        Debug.Log("Curr Rot: " + myRot);
+        double Angle = 0;
+        float Q;
+
+        Vector3 dydx = _destination - transform.position;
+
+        float theta = Mathf.Atan2(dydx.z,dydx.x) * Mathf.Rad2Deg;
+
+        //step 1: look for quardrant angle, find rotation till q
+        if (_destination.x > transform.position.x && _destination.z > transform.position.z)
+        {
+            //quadrant 1
+         //   Debug.Log("Quadrant 1");
+            Q = 90 - theta;
+        }
+        else if (_destination.x < transform.position.x && _destination.z > transform.position.z)
+        {
+            //quadrant 2
+          //  Debug.Log("Quadrant 2");
+            Q = (-90 + theta) *-1;
+        }
+        else if (_destination.x < transform.position.x && _destination.z < transform.position.z)
+        {
+            //quadrant 3
+           // Debug.Log("Quadrant 3");
+            Q = -270 - theta;
+            if (Q == -180)
+            {
+                Q = 180;
+            }
+        }
+        else
+        {
+            //quadrant 4
+          //  Debug.Log("Quadrant 4");
+            Q = 90 - theta;
+        }
+
+        Debug.Log("Q: " + Q);
+
+        Angle = Q - myRot;
+        
+        Angle = Angle % 360;
+        
+        Debug.Log("Angle Before Recalc: " + Angle);
+        if (Angle > 180)
+        {
+            Angle -= 360;
+        }
+        if (Angle < -180)
+        {
+            Angle += 360;
+        }
+        Debug.Log("AngleToDestination: " + Angle);
+        return Angle;
+    }
+
+    //Calculates the distance between robot and destination
+    public double CalcDistanceToDestination()
+    {
+        double Dist;
+
+        Vector3 distV3 = _destination - transform.position;
+
+        Dist = Mathf.Sqrt(Mathf.Pow(distV3.z,2) + Mathf.Pow(distV3.x,2));
+
+      //  Debug.Log("DistanceToDestination: " + Dist);
+        return Dist;
     }
 
     public Vector3 GetDestination()
@@ -147,24 +232,30 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
 
     public float GetRotation()
     {
-        Message message = MessageBuilder.CreateMessage(MessageTarget_.Robot,
-            MessageType_.RotationRequest);
 
-        SendCommand(message);
+        //if (_communicator.GetDataLink().Connected())
+        //{
+        //    Message message = MessageBuilder.CreateMessage(MessageTarget_.Robot,
+        //        MessageType_.RotationRequest);
 
-        _rotationSem.WaitOne();
+        //    SendCommand(message);
 
-        return _rotation;
+        //    _rotationSem.WaitOne();
+
+        //    return _rotation;
+        //}
+
+        return transform.eulerAngles.y;
     }
 
     public bool SendCommand(Message message)
     {
-        Debug.Log("Message: " + message);
-        Debug.Log("Communicator: " + _communicator);
-        Debug.Log(_communicator);
+       // Debug.Log("Message: " + message);
+       // Debug.Log("Communicator: " + _communicator);
+       // Debug.Log(_communicator);
 
         bool result = _communicator.SendCommand(message);
-        Debug.Log("Result: " + result);
+        //Debug.Log("Result: " + result);
 
         if (result == false)
         {

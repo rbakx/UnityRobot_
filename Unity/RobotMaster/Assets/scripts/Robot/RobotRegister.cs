@@ -55,6 +55,11 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
         }
     }
 
+    void Awake()
+    {
+        _ev = new ManualResetEvent(false);
+    }
+
     void Start()
     {
         continueRegistrationRoutine = true;
@@ -70,7 +75,7 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
             throw new Exception("Nao model object reference to a prefab with robot script!");
         }
 
-        if(RobotRefModel_NXT == null || RobotRefModel_NXT.GetComponent<Robot>() == null)
+        if (RobotRefModel_NXT == null || RobotRefModel_NXT.GetComponent<Robot>() == null)
         {
             throw new Exception("NXT model object reference to a prefab with robot script!");
         }
@@ -109,16 +114,16 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
         When started, the robotregisterer will start listening on public string value HostAddress and short HostPort.
         If Host is false, the listener is stopped if active.
     */
-   private IEnumerator hostingCheck()
+    private IEnumerator hostingCheck()
     {
-        while(true)
+        while (true)
         {
-            if(wasHosting != Host)
+            if (wasHosting != Host)
             {
                 if (Host)
                 {
                     Host = StartHosting(HostAddress, HostPort);
-                    if(Host)
+                    if (Host)
                     {
                         Debug.Log("Hosting started on " + HostAddress + ":" + HostPort);
                     }
@@ -140,7 +145,7 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
     {
         Host = listener.Start(hostAddress, port);
 
-        if(Host)
+        if (Host)
         {
             HostAddress = hostAddress;
             HostPort = port;
@@ -174,7 +179,7 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
     public void IncomingMessage(Message newMessage, IDataLink dataLink)
     {
 
-        Debug.Log("[RobotRegister] incoming message!");
+        // Debug.Log("[RobotRegister] incoming message!");
 
         /*
             Check if dataLink is a client connected through this listener
@@ -202,16 +207,16 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
                 _ev.WaitOne(1000);
             }
         }
-            
+
     }
 
     private IEnumerator handleRegistrations()
     {
-        while(continueRegistrationRoutine)
+        while (continueRegistrationRoutine)
         {
-            if(_continueRegistration)
+            if (_continueRegistration)
             {
-                Debug.Log("Handling new registration request on main thread");
+                // Debug.Log("Handling new registration request on main thread");
 
                 _continueRegistration = false;
 
@@ -221,7 +226,7 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
                 _ev.Set();
 
                 //TODO: Replace nao with the variable from the message that indicates the type
-               // Debug.Log("newMessage: " + newMessage.identificationResponse);
+                // Debug.Log("newMessage: " + newMessage.identificationResponse);
                 string robotType = newMessage.identificationResponse.robotType.ToLower();
 
                 //Get the robot object which contains a Robot component with predefined shape data (this is a reference object)
@@ -230,27 +235,27 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
                 switch (robotType)
                 {
                     case "nao":
-                    {
-                        robotPrefab = RobotRefModel_Nao;
-                        break;
-                    }
+                        {
+                            robotPrefab = RobotRefModel_Nao;
+                            break;
+                        }
 
                     case "nxt":
-                    {
-                        robotPrefab = RobotRefModel_NXT;
-                        break;
-                    }
+                        {
+                            robotPrefab = RobotRefModel_NXT;
+                            break;
+                        }
 
                     default:
-                    {
-                        robotType = "default";
-                        robotPrefab = RobotRefModel_Default;
-                        break;
-                    }
+                        {
+                            robotType = "default";
+                            robotPrefab = RobotRefModel_Default;
+                            break;
+                        }
                 }
 
                 // Clone the reference object
-                GameObject robotGameObject = (GameObject)GameObject.Instantiate(robotPrefab, robotPrefab.transform.position, Quaternion.identity, robotObjectContainer.transform);           
+                GameObject robotGameObject = (GameObject)GameObject.Instantiate(robotPrefab, robotPrefab.transform.position, Quaternion.identity, robotObjectContainer.transform);
 
                 // Check if the object actually has the oh-so-important robot component
                 Robot robot = robotGameObject.GetComponent<Robot>();
@@ -266,7 +271,7 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
 
                 robotList.Add(robot);
 
-                robot.Indicate();        
+                robot.Indicate();
 
                 //Accept connection not as a general client but as a robot
                 communicators.Remove(connection);
@@ -299,7 +304,7 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
 
         Thread.Sleep(1);
 
-        if(!communicator.SendCommand(id_request))
+        if (!communicator.SendCommand(id_request))
         {
             Debug.LogError("[RobotRegister] Sending identity request command fails, how could this happen!?");
             // Actually, it could happen if the connection is immediately closed after making it.
@@ -317,20 +322,20 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
 
         foreach (Communicator i in communicators)
         {
-            if(i.GetDataLink() == dataLink)
+            if (i.GetDataLink() == dataLink)
             {
                 result = i;
                 break;
             }
         }
 
-            return result;
+        return result;
     }
 
     public void AddDummyBot()
     {
-        Debug.Log("Spoofing prereqs...");
-        
+        // Debug.Log("Spoofing prereqs...");
+
         ProtoBufPresentation pp = new ProtoBufPresentation();
         DummyReceiver dummyReceiver = new DummyReceiver();
 
