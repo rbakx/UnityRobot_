@@ -28,7 +28,7 @@ endif()
 
 option(USE_USB_LIBS "Enables the definitions and library linkage to libuvc" ON)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
 
 # check for polluted source tree
 if(EXISTS ${CMAKE_SOURCE_DIR}/CMakeCache.txt OR
@@ -45,7 +45,7 @@ if(${srcdir} STREQUAL ${bindir})
 message(FATAL_ERROR "In-source builds are forbidden!\nPlease remove the file and folder and build out-of-source.")
 endif()
 
-#file(COPY config.yml DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+
 
 project(Vision)
 
@@ -56,8 +56,8 @@ find_package( OpenCV REQUIRED )
 set(USB_LIBS "")
 
 if(USE_USB_LIBS)
-
-	list(append USB_LIBS uvc usb-1.0)
+	message("Using USB libraries")
+	list(APPEND USB_LIBS uvc usb-1.0)
 
 	add_definitions(-DUSE_USB_LIBRARIES)
 	find_package( libuvc REQUIRED )

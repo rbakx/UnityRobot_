@@ -10,7 +10,7 @@
 	#pragma warning(disable: 4200)
 	#include "libuvc/libuvc.h"
 	#pragma warning(pop)
-#elseif defined(USE_USB_LIBRARIES)
+#elif defined(USE_USB_LIBRARIES)
 	#include "libuvc/libuvc.h"
 #endif
 
