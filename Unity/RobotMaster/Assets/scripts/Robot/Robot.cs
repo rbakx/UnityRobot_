@@ -178,6 +178,12 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
                 Debug.Log("Custom event for robot " + _name + ": (" +
                     newMessage.customMessage.key + ", " + newMessage.customMessage.data + ")");
                 break;
+
+            case MessageType_.Disconnect:
+                Debug.Log("Robot disconnecting");
+                _communicator.Dispose();
+               break;
+
         }
     }
 
