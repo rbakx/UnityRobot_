@@ -59,6 +59,14 @@ namespace broker
             _communicator.SendCommand(message);
         }
 
+        public void Disconnect()
+        {
+            Message message = MessageBuilder.CreateMessage(
+                MessageTarget_.Unity, MessageType_.Disconnect);
+
+            _communicator.SendCommand(message);
+        }
+
         public abstract void Indicate();
         public abstract void VelocitySet(Communication.Transform.Vector3_ linear, Communication.Transform.Vector3_ angular);
 

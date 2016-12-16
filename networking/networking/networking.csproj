@@ -43,6 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="communication\generated\message.proto.cs" />
+    <Compile Include="communication\generated\messages.proto.cs" />
+    <Compile Include="communication\generated\transform.proto.cs" />
     <Compile Include="communication\MessageBuilder.cs" />
     <Compile Include="networking\Communicator.cs" />
     <Compile Include="networking\IDataLink.cs" />
@@ -54,14 +57,12 @@
     <Compile Include="networking\IPresentationProtocol.cs" />
     <Compile Include="networking\IPresentationProtocolSerializer.cs" />
     <Compile Include="networking\LocalDataLink.cs" />
-    <Compile Include="communication\message.proto.cs" />
-    <Compile Include="communication\messages.proto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="networking\ProtoBufPresentation.cs" />
     <Compile Include="networking\TCPDataLink.cs" />
     <Compile Include="networking\TCPDataLinkListener.cs" />
-    <Compile Include="communication\transform.proto.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

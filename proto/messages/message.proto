@@ -50,6 +50,11 @@ enum MessageType_ {
 	// Vision -> Unity
 	// A notification from vision with all new and changed shapes.
 	ShapeUpdate = 6;
+
+	// Robot -> Unity
+	// Send by a robot when disconnecting
+	Disconnect = 7;
+
 }
 
 message Message {
@@ -67,7 +72,6 @@ message Message {
 
 	// Vision -> Unity
 	optional Messages.ShapeUpdateInfo_ shapeUpdateInfo = 8;
-
-
+	
 	optional string stringData = 9;
 }

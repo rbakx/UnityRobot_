@@ -127,7 +127,10 @@ namespace Communication
       CustomMessage = 5,
             
       [global::ProtoBuf.ProtoEnum(Name=@"ShapeUpdate", Value=6)]
-      ShapeUpdate = 6
+      ShapeUpdate = 6,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"Disconnect", Value=7)]
+      Disconnect = 7
     }
   
 }

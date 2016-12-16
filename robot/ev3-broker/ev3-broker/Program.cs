@@ -14,6 +14,8 @@ namespace ev3_broker
         {
             private List<EV3Robot> _robots;
 
+            public List<EV3Robot> robots {  get { return _robots; } }
+
             public Receiver()
             {
                 _robots = new List<EV3Robot>();
@@ -41,8 +43,15 @@ namespace ev3_broker
                 IPAddress.Parse("192.168.0.101"), 1234);
             listener.StartListening();
 
-            Console.WriteLine("Press enter to quit");
+            Console.WriteLine("Listener started, press enter to quit");
             Console.ReadLine();
+
+
+            foreach (EV3Robot robot in receiver.robots)
+            {
+                robot.Disconnect();
+            }
+
             listener.StopListening();
             receiver.Dispose();
             Console.WriteLine("Exiting program.");

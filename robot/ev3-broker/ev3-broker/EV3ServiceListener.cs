@@ -127,7 +127,6 @@ namespace ev3_broker
 
                     Ev3Connection con = new Ev3Connection("EV3Wifi", dl);
 
-
                     Communicator communicator = null;
 
                     if (Tools.ConnectToUnity(out communicator, _unityIP.ToString(), _unityPort,
