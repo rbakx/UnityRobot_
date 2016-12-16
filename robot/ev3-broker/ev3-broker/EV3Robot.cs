@@ -47,7 +47,7 @@ namespace ev3_broker
             }
         }
 
-        public float GetRotation()
+        public override float GetRotation()
         {
             _ev3Connection.SendMessage("STATUS", "get_orientation");
             return _ev3Connection.ReceiveFloat("ORIENTATION");
