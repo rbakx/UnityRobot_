@@ -1,5 +1,6 @@
 ﻿using Communication;
 using Networking;
+using System.Threading;
 using UnityEngine;
 
 public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
@@ -11,6 +12,9 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
     private Vector3 _rotationVelocity;
 
     private bool _moving;
+
+    private float _rotation;
+    private Semaphore _rotationSem = null;
 
     public RecognisedShape shape;
     private Communicator _communicator;
@@ -24,6 +28,8 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
         LocalDataLink dl = new LocalDataLink();
         Communicator c = new Communicator(dl, pp);
         shape = null;
+
+        _rotationSem = new Semaphore(0, 1);
 
 
         Debug.Log("Making new communicator: " + dl + " protopresentation: " + pp);
@@ -139,6 +145,18 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
         SendCommand(indicateMessage);
     }
 
+    public float GetRotation()
+    {
+        Message message = MessageBuilder.CreateMessage(MessageTarget_.Robot,
+            MessageType_.RotationRequest);
+
+        SendCommand(message);
+
+        _rotationSem.WaitOne();
+
+        return _rotation;
+    }
+
     public bool SendCommand(Message message)
     {
         Debug.Log("Message: " + message);
@@ -185,6 +203,12 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
                 Debug.Log("Robot disconnecting");
                 _communicator.Dispose();
                break;
+
+
+            case MessageType_.RotationResponse:
+                _rotation = newMessage.rotationResponse;
+                _rotationSem.Release();
+                break;
 
         }
     }
