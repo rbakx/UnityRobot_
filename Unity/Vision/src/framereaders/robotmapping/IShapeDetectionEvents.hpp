@@ -1,6 +1,6 @@
 #pragma once
 
-#include "RecognisedShape.hpp"
+#include "Shape.hpp"
 
 namespace robotmapping
 {
@@ -15,6 +15,6 @@ namespace robotmapping
 			virtual void SignalNewFrame(const ShapeDetectorBase& detector) noexcept = 0;
 			virtual void SignalEndFrame(const ShapeDetectorBase& detector) noexcept = 0;
 			
-			virtual void ShapeDetected(const ShapeDetectorBase& detector, RecognisedShape& shape) noexcept = 0;
-	}
+			virtual void ShapeDetected(const ShapeDetectorBase& detector, Shape& shape) noexcept = 0;
+	};
 }

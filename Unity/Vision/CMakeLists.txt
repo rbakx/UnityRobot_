@@ -70,8 +70,6 @@ include_directories(SYSTEM ${LIBUSB1_INCLUDE_DIRS})
 
 set (SOURCE_FILES	main.cpp
 					src/Robot.h
-					src/framereaders/robotmapping/Detector.cpp
-					src/framereaders/robotmapping/Detector.hpp
 					src/framereaders/robotmapping/Calibrator.cpp src/framereaders/robotmapping/Calibrator.hpp
 					src/Settings.cpp src/Settings.h
 					src/Runnable.cpp src/Runnable.hpp
@@ -82,6 +80,17 @@ set (SOURCE_FILES	main.cpp
 					src/framereaders/VideoFrameSaver.cpp src/framereaders/VideoFrameSaver.hpp
 					src/framefeeders/MediaFeedSender.cpp src/framefeeders/MediaFeedSender.hpp src/framereaders/VideoFrameDisplayer.cpp src/framereaders/VideoFrameDisplayer.hpp
 					src/framereaders/VideoFrameDisplayer.cpp src/framereaders/VideoFrameDisplayer.hpp
+					
+					src/framereaders/FrameMoveThreadHelper.cpp src/framereaders/FrameMoveThreadHelper.hpp
+					src/framereaders/robotmapping/IShapeDetectionEvents.hpp
+					src/framereaders/robotmapping/IWorldMappingEventSubscriber.hpp
+					
+					src/framereaders/robotmapping/Shape.cpp src/framereaders/robotmapping/Shape.hpp
+					
+					src/framereaders/robotmapping/ObjectDetector.cpp src/framereaders/robotmapping/ObjectDetector.hpp
+					src/framereaders/robotmapping/ShapeDetectorBase.cpp src/framereaders/robotmapping/ShapeDetectorBase.hpp
+					src/framereaders/robotmapping/ShapesTracker.cpp src/framereaders/robotmapping/ShapesTracker.hpp
+					
 		)
 
 add_executable(Vision ${SOURCE_FILES})

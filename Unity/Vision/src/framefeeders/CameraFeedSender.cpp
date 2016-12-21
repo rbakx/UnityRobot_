@@ -137,6 +137,11 @@ bool CameraFeedSender::FeedReading() noexcept
 	}
 
 	this_thread::sleep_for(chrono::nanoseconds(_fps_capture_frame_delay_ns));
+	
+	/*
+		Manditory waitKey so any receiving frames can also execute openCV functions
+	*/
+	waitKey(1);
 
 	return true;
 }

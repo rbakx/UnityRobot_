@@ -5,16 +5,18 @@
 
 namespace robotmapping
 {
-	class ShapesTracker
+	class ShapesTracker : public IShapeDetectionEvents
 	{
-		virtual ~ShapesTracker();
-		
-		void Add(ShapeDetectorBase* detector) noexcept;
-		void Remove(ShapeDetectorBase* detector) noexcept;
+		private:
 			
-		void SignalNewFrame(const ShapeDetectorBase& detector) noexcept;
-		void SignalEndFrame(const ShapeDetectorBase& detector) noexcept;
+			void SignalNewFrame(const ShapeDetectorBase& detector) noexcept;
+			void SignalEndFrame(const ShapeDetectorBase& detector) noexcept;
+			
+			void ShapeDetected(const ShapeDetectorBase& detector, Shape& shape) noexcept;
 		
-		void ShapeDetected(const ShapeDetectorBase& detector, RecognisedShape& shape) noexcept;
-	}
+		public:
+		
+			ShapesTracker();
+			virtual ~ShapesTracker();
+	};
 }

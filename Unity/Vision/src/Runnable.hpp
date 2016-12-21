@@ -15,8 +15,10 @@ class Runnable
 		virtual void run() = 0;
 
 	public:
-		Runnable();
+		Runnable() noexcept;
 		virtual ~Runnable();
-		void Start();
-		void Stop();
+		void Start() noexcept;
+		void Stop() noexcept;
+		
+		bool IsRunning() noexcept;
 };

@@ -5,14 +5,20 @@
 #include <thread>
 #include <condition_variable>
 #include <opencv2/core/mat.hpp>
+
 #include "../frames/VideoFeedFrameReceiver.hpp"
 #include "../Runnable.hpp"
+
+#include "FrameMoveThreadHelper.hpp"
 
 namespace framereaders
 {
 	class VideoFrameDisplayer : public frames::VideoFeedFrameReceiver, public Runnable
 	{
 		private:
+		
+			robotmapping::FrameMoveThreadHelper _frame_move_helper;
+		
 			const std::string _WINDOW_NAME;
 			const int _WINDOW_WIDTH, _WINDOW_HEIGHT;
 			cv::Mat _frame;

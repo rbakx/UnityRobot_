@@ -4,6 +4,11 @@
 #include <iostream> /* For ofstream */
 #include <fstream>  /* For ofstream */
 
+#include <memory>
+
+#include <thread>
+#include <X11/Xlib.h>
+
 #include "src/framefeeders/CameraFeedSender.hpp"
 #include "src/framefeeders/MediaFeedSender.hpp"
 
@@ -12,10 +17,10 @@
 #include "src/framereaders/VideoFrameSaver.hpp"
 #include "src/framereaders/VideoFrameDisplayer.hpp"
 #include "src/framereaders/robotmapping/Calibrator.hpp"
-#include "src/framereaders/robotmapping/Detector.hpp"
 
-#include <thread>
-#include <X11/Xlib.h>
+#include "src/framereaders/robotmapping/ShapeDetectorBase.hpp"
+
+#include "src/framereaders/robotmapping/ShapesTracker.hpp"
 
 
 using namespace std;
@@ -28,10 +33,12 @@ void processCommandLineArguments(int argc, char* argv[]);
 void printHelp(const string& executablePath);
 void configure();
 
-CameraFeedSender* videofeeder = nullptr;
-MediaFeedSender* mediafeeder = nullptr;
+unique_ptr<CameraFeedSender> videofeeder;
+unique_ptr<MediaFeedSender> mediafeeder;
+
 VideoFeedFrameReceiverTargets receivers;
 
+ShapesTracker tracker;
 
 int main(int argc, char* argv[])
 {
@@ -40,18 +47,18 @@ int main(int argc, char* argv[])
 	settings = Settings::read();
 
 	processCommandLineArguments(argc, argv);
-
-	delete videofeeder;
-	delete mediafeeder;
+	
+	videofeeder = nullptr;
+	mediafeeder = nullptr;
 
 	return 0;
 }
 
 void processCommandLineArguments(int argc, char* argv[])
 {
-	if(argc == 1)
-	{
-		printHelp(argv[0]); //argv[0] contains the relative path from prompt (command line) to executable
+	if(argc <= 1)
+	{	
+		printHelp((argc > 0) ? argv[0] : "[unknown executable path]"); //argv[0] contains the relative path from prompt (command line) to executable
 		return;
 
 		/*
@@ -59,9 +66,13 @@ void processCommandLineArguments(int argc, char* argv[])
 		 */
 	}
 
+	/*
+		PRE: the third argument, argv[2] is reserved for filenames for commands. If set, a mediafeeder is always instantiated.
+		The program assumes if there is not a third argument, the camera is going to be used
+	*/
 	if(argc >= 3)
 	{
-		mediafeeder = new MediaFeedSender(&receivers, argv[2]);
+		mediafeeder = make_unique<MediaFeedSender>(&receivers, argv[2]);
 
 		/*
 		 *  POST: If argument + file path is provided, we will load the file path as a media file feed.
@@ -69,7 +80,7 @@ void processCommandLineArguments(int argc, char* argv[])
 	}
 	else
 	{
-		videofeeder = new CameraFeedSender(&receivers);
+		videofeeder = make_unique<CameraFeedSender>(&receivers);
 
 		/*
 		 *	POST: If only an argument such as 'start' is supplied through command line,
@@ -79,81 +90,98 @@ void processCommandLineArguments(int argc, char* argv[])
 
 	if(strcmp(argv[1], "start") == 0)
 	{
-		//Starts all detectors
-		vector<shared_ptr<VideoFeedFrameReceiver>> detectors = Detector::createAndStartDetectorsFromSettings();
-		receivers.add(detectors);
-
-		unique_ptr<VideoFrameDisplayer> display_ptr = make_unique<VideoFrameDisplayer>();
-		display_ptr->Start();
-
-		shared_ptr<VideoFeedFrameReceiver> display(display_ptr.release());
-		receivers.add(display);
+		// Scope for display an detectors
+		{
+			shared_ptr<VideoFrameDisplayer> display = make_shared<VideoFrameDisplayer>();
+			receivers.add(display);
+			
+			vector<shared_ptr<VideoFeedFrameReceiver>> detectors = ShapeDetectorBase::createAndStartDetectorsFromSettings(tracker);
+			receivers.add(detectors);
+		}
 
 		cout << "Press enter to stop detecting" << endl;
 		cin.ignore(1);
-
-		//Stops all detectors and remove the displayer
-		receivers.remove(detectors);
-		receivers.remove(display);
+		
+		// Deletes all shared_pointers from receivers.
+		receivers.removeAll();
 	}
 	else if(strcmp(argv[1], "calibrate") == 0)
 	{
-//		Calibrator calibrator;
-//		receivers.add(&calibrator);
-//
-//		VideoFrameDisplayer displayer;
-//		receivers.add(&displayer);
-//
-//		cout << "Press enter to start calibrating" << endl;
-//		cin.ignore(1);
-//		calibrator.Start();
-//
-//		cout << "Press enter to stop calibrating" << endl;
-//		cin.ignore(1);
-//		calibrator.Stop();
-//
-//		string filePath = "";
-//		cout << "Please provide a file name where you want to store the calibration results:" << endl;
-//		getline(cin, filePath);
-//
-//		if(filePath.length() > 0)
-//		{
-//			filePath.append(".yml");
-//
-//			//TODO: Find way to read status of writing
-//			/*if(calibrator.writeToFile(filePath))
-//			{
-//				callibration_incomplete = true;
-//			}*/
-//
-//			calibrator.WriteToFile(filePath);
-//		}
-//
-//		receivers.remove(&calibrator);
-//		receivers.remove(&displayer);
+		//Scope for display
+		{
+			shared_ptr<VideoFrameDisplayer> display = make_shared<VideoFrameDisplayer>();
+			receivers.add(display);
+		}
+		
+		//scope for calibrator pointer
+		{
+			shared_ptr<Calibrator> calibrator = make_shared<Calibrator>();			
+			receivers.add(calibrator);
+
+			cout << "Press enter to start calibrating" << endl;
+			cin.ignore(1);
+
+			cout << "Press enter to stop calibrating" << endl;
+			cin.ignore(1);
+			calibrator->Stop();
+
+			string filePath = "";
+			
+			while(filePath.length() <= 0)
+			{
+				cout << "Please provide a file name for storing callibration results:" << endl;
+				getline(cin, filePath);
+			}
+			
+			filePath.append(".yml");
+
+			//TODO: Find way to read status of writing
+			/*if(calibrator.writeToFile(filePath))
+			{
+				callibration_incomplete = true;
+			}*/
+
+			calibrator->WriteToFile(filePath);
+		}
+
+		// Deletes all shared_pointers from receivers.
+		receivers.removeAll();
 	}
 	else if(strcmp(argv[1], "record") == 0)
 	{
-//		VideoFrameSaver videosaver;
-//		receivers.add(&videosaver);
-//
-//		string fileName = "";
-//		cout << "Please provide a file name where you want to store recording:" << endl;
-//		getline(cin, fileName);
-//		fileName += ".avi";
-//
-//
-//		cout << "Press enter to start recording" << endl;
-//		cin.ignore(1);
-//		videosaver.StartSaving(fileName);
-//
-//		cout << "Press enter to stop recording" << endl;
-//		cin.ignore(1);
-//		videosaver.StopSaving();
+		//Scope of videosaver
+		{
+			shared_ptr<VideoFrameSaver> videosaver = make_shared<VideoFrameSaver>();
+			receivers.add(videosaver);
+
+			string fileName = "";
+			
+			while(fileName.length() <= 0)
+			{
+				cout << "Please provide a file name where you want to store recording:" << endl;
+				getline(cin, fileName);
+			}
+			
+			fileName.append(".avi");
+
+
+			cout << "Press enter to start recording" << endl;
+			cin.ignore(1);
+			
+			videosaver->StartSaving(fileName);
+
+			cout << "Press enter to stop recording" << endl;
+			cin.ignore(1);
+			
+			videosaver->StopSaving();
+			
+		}
 		
 		/*
 			POST: Start the video recorder and save after recording
 		*/
+		
+		receivers.removeAll();
 	}
 	else if(strcmp(argv[1], "configure") == 0)
 	{
@@ -177,7 +205,7 @@ void printHelp(const string& executablePath)
     cout << "  record     		Writes camera output to an .avi file with autofocus disabled, useful to create sample data." << endl;
     cout << "  calibrate  		Extracts features and stores them to a binary file to be used in the main program." << endl; //TODO: Better description
     cout << "  configure  		Will write a file to /etc/udev/rules.d/ in order to obtain write access to the webcam." << endl;
-    cout << "  help       		Shows this list." << endl;
+    cout << "  [no arguments]	Shows this list." << endl;
 }
 
 void configure()
@@ -187,7 +215,7 @@ void configure()
     #ifdef __linux__
         if(getuid())
 		{
-            cout << "You must run this command as a root user as we need to write to /etc/udev/rules.d/" << endl;
+            cerr << "You must run this command as a root user as we need to write to /etc/udev/rules.d/" << endl;
             return;
         }
 

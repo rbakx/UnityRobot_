@@ -19,10 +19,19 @@ void VideoFeedFrameSender::signalObjectsSetup() noexcept
 	stopFeederReaderThread();
 
 	_threadContinueRunning = true;
-	_framesFeederThread = new thread([=]() {
+	
+	// Call waitKey once, so all configuration and window initialising can happen
+	waitKey(1);
+	
+	_framesFeederThread = new thread([=]()
+	{
 		while (this->_threadContinueRunning)
 		{
 			this->FeedReading();
+			/*
+				Manditory waitKey so any receiving frames can also execute openCV functions
+			*/
+			waitKey(1);
 		}
 	});
 }
