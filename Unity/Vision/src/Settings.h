@@ -5,11 +5,13 @@
 
 struct GeneralProperties
 {
+	std::string ip;
 	int port;
 	std::vector<std::string> sampleNames;
 
 	GeneralProperties() : port(-1), sampleNames({}) {}
-	GeneralProperties(int port, std::vector<std::string> sampleNames) : port(port), sampleNames(sampleNames) {}
+	GeneralProperties(std::string ip, int port, std::vector<std::string> sampleNames)
+			: ip(ip), port(port), sampleNames(sampleNames) {}
 };
 
 struct DeviceProperties

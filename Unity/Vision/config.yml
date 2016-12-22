@@ -1,6 +1,7 @@
 %YAML:1.0
 Settings:
    General:
+      ip: "145.93.116.163"
       port: 1234                #Port for the socket connection to Unity3D
       sampleNames: ["EV3"]      #Enter the file names of the samples you want to feed into the detector, stored in /samples/
    Device:

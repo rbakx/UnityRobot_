@@ -101,7 +101,7 @@ Settings* Settings::read()
 		sampleNames.push_back(node);
 	}
 
-	settingsObj->gp = GeneralProperties(generalNode["port"], sampleNames);
+	settingsObj->gp = GeneralProperties(generalNode["ip"], generalNode["port"], sampleNames);
 	settingsObj->dp = DeviceProperties(deviceNode["number"], deviceNode["pid"], deviceNode["vid"]);
 
 	FileNode autofocusNode = recordingNode["autofocus"];

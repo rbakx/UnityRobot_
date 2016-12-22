@@ -46,8 +46,10 @@ int main(int argc, char* argv[])
 
 	settings = Settings::read();
 
+	cout << "Connection should be made to Unity on IP: " << settings->getGeneralProperties().ip << endl;
+
 	processCommandLineArguments(argc, argv);
-	
+
 	videofeeder = nullptr;
 	mediafeeder = nullptr;
 
