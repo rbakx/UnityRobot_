@@ -66,8 +66,6 @@ int main(int argc, char** argv)
 		MsgBuilder::addChangedShape(toSend, 7, MsgBuilder::createVec3(0, 4, 3));
 		MsgBuilder::addDelShape(toSend, 5);
 
-		std::cout << "size is: " << toSend.mutable_shapeupdateinfo()->mutable_newshapes()[0].begin()->vertices_size();
-
 		std::cout << "Send result: " << std::boolalpha << comm.sendCommand(toSend) << '\n';
 
 		_receiver->lock.lock();
