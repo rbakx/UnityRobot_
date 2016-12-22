@@ -55,6 +55,16 @@ const std::vector<Shape::coordinate_type>& Shape::GetShapeDataReference()
 	return _shape_data;
 }
 
+unsigned long Shape::GetTrackerId() const noexcept
+{
+	return _tracking_id;
+}
+
+void Shape::SetTrackerId(unsigned long trackerId) noexcept
+{
+	_tracking_id = trackerId;
+}
+
 string Shape::ToString() noexcept
 {
 	stringstream s;
@@ -62,4 +72,9 @@ string Shape::ToString() noexcept
 	s << "center: [" << _center.x << ", " << _center.y << "]";
 	
 	return s.str();  
+}
+
+bool robotmapping::operator==(const Shape& s, const unsigned long tracker_id)
+{
+	return s.GetTrackerId() == tracker_id;
 }

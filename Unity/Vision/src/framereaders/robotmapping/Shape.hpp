@@ -54,5 +54,10 @@ namespace robotmapping
 			const std::vector<coordinate_type>& GetShapeDataReference();
 			
 			std::string ToString() noexcept;
+			
+			unsigned long GetTrackerId() const noexcept;
+			void SetTrackerId(unsigned long new_id) noexcept;
 	};
+	
+	bool operator==(const Shape& s, const unsigned long tracker_id);
 }
