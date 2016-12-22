@@ -26,7 +26,7 @@ namespace broker
 
                 // Used to changed the linear and/or angular velocity of a robot.
                 case MessageType_.VelocityChange:
-                    _robot.VelocitySet(newMessage.robotVelocity.linearVelocity, newMessage.robotVelocity.angularVelocity);
+                    _robot.VelocitySet(newMessage.robotVelocity);
                     break;
 
                 case MessageType_.RotationRequest:

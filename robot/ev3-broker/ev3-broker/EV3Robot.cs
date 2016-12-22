@@ -1,4 +1,5 @@
 ﻿using broker;
+using Communication.Messages;
 using Communication.Transform;
 using Networking;
 using System;
@@ -34,16 +35,16 @@ namespace ev3_broker
             _ev3Connection.SendMessage("INDICATE", " ");
         }
 
-        public override void VelocitySet(Vector3_ linear, Vector3_ angular)
+        public override void VelocitySet(SetVelocity_ velocity)
         {
-            if (linear != null)
+            if (velocity.linearVelocity != null)
             {
-                _ev3Connection.SendMessage("LVEL", linear.x);
+                _ev3Connection.SendMessage("LVEL", velocity.linearVelocity.x);
             }
 
-            if (angular != null)
+            if (velocity.angularVelocity != null)
             {
-                _ev3Connection.SendMessage("AVEL", angular.z);
+                _ev3Connection.SendMessage("AVEL", velocity.angularVelocity.z);
             }
         }
 

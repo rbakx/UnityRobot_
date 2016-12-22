@@ -40,7 +40,7 @@ namespace ev3_broker
 
            Receiver receiver = new Receiver();
             EV3ServiceListener listener = new EV3ServiceListener(receiver,
-                IPAddress.Parse("192.168.0.101"), 1234);
+                IPAddress.Parse("192.168.1.100"), 1234);
             listener.StartListening();
 
             Console.WriteLine("Listener started, press enter to quit");

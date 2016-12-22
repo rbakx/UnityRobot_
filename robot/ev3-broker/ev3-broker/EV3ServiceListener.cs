@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using broker;
-using System.Net.Sockets;
-using System.Net;
-using System.Text.RegularExpressions;
+﻿using broker;
 using Networking;
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace ev3_broker
 {
@@ -105,8 +104,8 @@ namespace ev3_broker
                 {
                     serialNumber = match.Groups[1].Value;
                 }
-
-                if (!_connectedSerials.Contains(serialNumber))
+                /* serialNumber != null && */
+                if ( !_connectedSerials.Contains(serialNumber))
                 {
                     match = portRegex.Match(msgStr);
                     if (match.Success)

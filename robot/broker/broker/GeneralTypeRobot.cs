@@ -1,4 +1,5 @@
 ﻿using Communication;
+using Communication.Messages;
 using Networking;
 using System;
 
@@ -80,7 +81,7 @@ namespace broker
         }
 
         public abstract void Indicate();
-        public abstract void VelocitySet(Communication.Transform.Vector3_ linear, Communication.Transform.Vector3_ angular);
+        public abstract void VelocitySet(SetVelocity_ velocity);
         public abstract float GetRotation();
 
         public void Dispose()
