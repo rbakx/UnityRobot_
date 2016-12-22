@@ -179,8 +179,7 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
     public void IncomingMessage(Message newMessage, IDataLink dataLink)
     {
 
-        // Debug.Log("[RobotRegister] incoming message!");
-
+        Debug.Log("[RobotRegister] incoming message: " + newMessage.messageType.ToString());
         /*
             Check if dataLink is a client connected through this listener
         */
@@ -206,8 +205,7 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
 
                 _ev.WaitOne(1000);
             }
-        }
-
+        } 
     }
 
     private IEnumerator handleRegistrations()
@@ -228,6 +226,7 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
                 //TODO: Replace nao with the variable from the message that indicates the type
                 // Debug.Log("newMessage: " + newMessage.identificationResponse);
                 string robotType = newMessage.identificationResponse.robotType.ToLower();
+                Debug.LogFormat("Robot type: {0}", robotType);
 
                 //Get the robot object which contains a Robot component with predefined shape data (this is a reference object)
                 GameObject robotPrefab = null;
@@ -255,7 +254,7 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
                 }
 
                 // Clone the reference object
-                GameObject robotGameObject = (GameObject)GameObject.Instantiate(robotPrefab, robotPrefab.transform.position, Quaternion.identity, robotObjectContainer.transform);
+                GameObject robotGameObject = (GameObject)Instantiate(robotPrefab, robotPrefab.transform.position, Quaternion.identity, robotObjectContainer.transform);
 
                 // Check if the object actually has the oh-so-important robot component
                 Robot robot = robotGameObject.GetComponent<Robot>();
@@ -270,6 +269,8 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
                 robot.Init(connection, ++robotIdentityID, "Unknown harry", robotType);
 
                 robotList.Add(robot);
+                robot.Communicator.GetPresentationProtocol().SetReceiver(robot);
+                robot.Communicator.GetDataLink().SetReceiver(robot.Communicator.GetPresentationProtocol());
 
                 robot.Indicate();
 

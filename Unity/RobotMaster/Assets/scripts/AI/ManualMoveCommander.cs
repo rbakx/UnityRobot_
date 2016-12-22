@@ -28,10 +28,17 @@ public class ManualMoveCommander : MonoBehaviour
         myRobot.GetComponent<Robot>().SetDestination(point);
     }
 
-    void Update()
+    void LateUpdate()
     {
-        //const float _robot_forward_speed = 30.0F;
-        const float _robot_forward_speed = 0.0F;
+        const float _robot_forward_speed = 30.0F;
+        // const float _robot_forward_speed = 0.0F;
+        
+        if (myRobot == null)
+        {
+            Destroy(this);
+            return;
+        }
+
         Vector3 targetDir = Destination - myRobot.transform.position;
 
         float distance = Vector3.Distance(myRobot.transform.position, Destination);

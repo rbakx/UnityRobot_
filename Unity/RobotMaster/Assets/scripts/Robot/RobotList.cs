@@ -13,9 +13,9 @@ public class RobotList : MonoBehaviour
         _robots = new List<Robot>();
     }
 
-    void start()
+    void Start()
     {
-
+        StartCoroutine(CheckIfStillConnected());
     }
 
     void OnDestroy()
@@ -30,13 +30,14 @@ public class RobotList : MonoBehaviour
             for(int i = (_robots.Count-1); i >=0 ;i--)
             {
                 Robot r = _robots[i];
+                
 
                 if(!r.IsConnected())
                 {
                     _robots.RemoveAt(i);
 
-                    GameObject.Destroy(r.gameObject, 1.0F);
                     Debug.Log("[RobotList]: robot got disconnected! " + r.name + " [" + r.GetRobotType() + "]");
+                    r.Alive = false;
                 }
             }
 

@@ -21,6 +21,10 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
 
     public bool isVirtual = false;
 
+    public Communicator Communicator { get { return _communicator; } }
+
+    public bool Alive { get; set; } 
+
     void Awake()
     {
         // TODO: Robots should be initialized somewhere else, initialise dummy objects
@@ -31,9 +35,9 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
 
         _rotationSem = new Semaphore(0, 1);
 
-
-        //Debug.Log("Making new communicator: " + dl + " protopresentation: " + pp);
         _communicator = c;
+
+        Alive = true;
     }
 
     void Update()
@@ -46,18 +50,27 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
             transform.position = Vector3.MoveTowards(transform.position, _destination, 50f * Time.deltaTime);
         }
 
+        if (!Alive)
+        {
+            Destroy(this.gameObject);
+        }
+
     }
     
     public void SetDestination(Vector3 dest)
     {
         _destination = dest;
 
+        Message message = MessageBuilder.CreateMessage(MessageTarget_.Robot, MessageType_.VelocityChange);
+
         CalcAngleToDestination();
         //Send RotateCommand
 
-
-        CalcDistanceToDestination();
+        double distance = CalcDistanceToDestination();
         //Send MoveCommand
+
+        message.SetVelocity(new Vector3((float)distance, 0, 0), null);
+        SendCommand(message);
     }
 
     //Calculates the angle between the robot and its destination
@@ -250,12 +263,7 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
 
     public bool SendCommand(Message message)
     {
-       // Debug.Log("Message: " + message);
-       // Debug.Log("Communicator: " + _communicator);
-       // Debug.Log(_communicator);
-
         bool result = _communicator.SendCommand(message);
-        //Debug.Log("Result: " + result);
 
         if (result == false)
         {
