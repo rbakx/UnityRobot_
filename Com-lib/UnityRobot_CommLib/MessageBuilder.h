@@ -1,38 +1,49 @@
 #pragma once
+#include <array>
+
 #include "proto/message.pb.h"
+#include <IPresentationProtocol.hpp>
 
 namespace Networking
 {
 
 class MessageBuilder
 {
+using Msg = Communication::Message;
+using Vec3 = Communication::Transform::Vector3_;
+using Shape = Communication::Messages::Shape_;
+using array3 = std::array<float, 3>;
 
 public:
-	static Communication::Message create(Communication::MessageType_ type, Communication::MessageTarget_ tgt, int32_t id);
+	static Msg create(Communication::MessageType_ type, Communication::MessageTarget_ tgt, int32_t id);
 
-	static void addStringData(Communication::Message& msg, const std::string& str);
+	static void addStringData(Msg& msg, const std::string& str);
 	//robot-Unity
-	static void addIdentificationRes(Communication::Message& msg, const std::string& str);
-	static void addErrorLog(Communication::Message& msg, const std::string& str);
-	static void addCustomMsg(Communication::Message& msg, const std::string& key, const std::string& data = "");
+	static void addIdentificationRes(Msg& msg, const std::string& str);
+	static void addErrorLog(Msg& msg, const std::string& str);
+	static void addCustomMsg(Msg& msg, const std::string& key, const std::string& data = "");
 	//ShapeUpdate
-	static void addShapeUpdateInfo(Communication::Message& msg);
-	static void addChangedShape(Communication::Message& msg, int32_t id, std::initializer_list<Communication::Transform::Vector3_> vertices);
-	static void addChangedShape(Communication::Message& msg, int32_t id, std::initializer_list<std::array<float, 3>> vertices);
-	static void addNewShape(Communication::Message& msg, int32_t id, std::initializer_list<Communication::Transform::Vector3_> vertices);
-	static void addNewShape(Communication::Message& msg, int32_t id, std::initializer_list<std::array<float, 3>> vertices);
+	static void addShapeUpdateInfo(Msg& msg);
+	static void addChangedShape(Msg& msg, int32_t id, Vec3 center, Vec3 rotation = createVec3(array3{0, 0, 0}));
+	static void addNewShape(Msg& msg, int32_t id, std::initializer_list<Vec3> vertices);
+	static void addNewShape(Msg& msg, int32_t id, std::initializer_list<array3> vertices);
+	static void addDelShape(Msg& msg, int32_t id);
 	//Velocity
-	static void setVelocity(Communication::Message& msg, std::array<float, 3> linear, std::array<float, 3> angular);
-	static void setLinVelocity(Communication::Message& msg, std::array<float, 3> linear);
-	static void setAngVelocity(Communication::Message& msg, std::array<float, 3> angular);
-private:
-	static void addShape(Communication::Messages::Shape_* sh, int32_t id, std::initializer_list<Communication::Transform::Vector3_> vertices);
-	static void addShape(Communication::Messages::Shape_* sh, int32_t id, std::initializer_list<std::array<float, 3>> vertices);
+	static void setVelocity(Msg& msg, array3 linear, array3 angular);
+	static void setLinVelocity(Msg& msg, array3 linear);
+	static void setAngVelocity(Msg& msg, array3 angular);
 
-	static void addVerticesToShape(Communication::Messages::Shape_* shape, const Communication::Transform::Vector3_& vec);
-	static void addVerticesToShape(Communication::Messages::Shape_* shape, std::array<float, 3> values);
-	static void setVec3(Communication::Transform::Vector3_* vel, std::array<float, 3> values);
-	static Communication::Transform::Vector3_ createVec3(std::array<float, 3> vertices);
+	static Vec3 createVec3(float x, float y, float z);
+	static Vec3 createVec3(array3 vertices);
+private:
+	static void addVerticesToShape(Shape* sh, int32_t id, std::initializer_list<Vec3> vertices);
+	static void addVerticesToShape(Shape* sh, int32_t id, std::initializer_list<array3> vertices);
+
+	static void addTransformToShape(Shape* sh, int32_t id, Vec3 center, Vec3 rotation = createVec3(array3{ 0, 0, 0 }));
+
+	static void addVerticesToShape(Shape* shape, const Vec3& vec);
+	static void addVerticesToShape(Shape* shape, array3 values);
+	static void setVec3(Vec3* vel, array3 values);
 };
 
 }

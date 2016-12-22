@@ -48,7 +48,6 @@ int main(int argc, char** argv)
 	std::string address = argc > 2 ?  argv[1] : "145.93.44.232";
 	std::string port = argc > 2 ? argv[2] : "1234";
 
-	
 	TCPSocketDataLink link(address, port, std::unique_ptr<IDataStreamReceiver>(std::make_unique<ProtobufPresentation>()));
 
 	auto _receiver = static_cast<ProtobufPresentation*>(link.getReceiver());
@@ -62,8 +61,12 @@ int main(int argc, char** argv)
 
 		Msg toSend = MsgBuilder::create(Communication::MessageType_::IdentificationResponse, Communication::MessageTarget_::Unity, 13);
 		MsgBuilder::addStringData(toSend, "stupid robot");
-		MsgBuilder::addChangedShape(toSend, 3, { { 5.0, 5.5, 1.0 }, {1.0, 1.5, 1.5} });
-		MsgBuilder::addChangedShape(toSend, 5, { {-5.0, -5.5, -1.0} });
+		MsgBuilder::addNewShape(toSend, 3, { { 5.0, 5.5, 1.0 }, {1.0, 1.5, 1.5} });
+		MsgBuilder::addNewShape(toSend, 5, { {-5.0, -5.5, -1.0} });
+		MsgBuilder::addChangedShape(toSend, 7, MsgBuilder::createVec3(0, 4, 3));
+		MsgBuilder::addDelShape(toSend, 5);
+
+		std::cout << "size is: " << toSend.mutable_shapeupdateinfo()->mutable_newshapes()[0].begin()->vertices_size();
 
 		std::cout << "Send result: " << std::boolalpha << comm.sendCommand(toSend) << '\n';
 
