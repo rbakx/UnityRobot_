@@ -22,6 +22,8 @@
 
 #include "src/framereaders/robotmapping/ShapesTracker.hpp"
 
+#include "src/framereaders/robotmapping/MappingSubscriberConsolePrinter.hpp"
+
 
 using namespace std;
 using namespace frames;
@@ -38,7 +40,7 @@ unique_ptr<MediaFeedSender> mediafeeder;
 
 VideoFeedFrameReceiverTargets receivers;
 
-ShapesTracker tracker;
+unique_ptr<ShapesTracker> tracker;
 
 int main(int argc, char* argv[])
 {
@@ -92,12 +94,16 @@ void processCommandLineArguments(int argc, char* argv[])
 
 	if(strcmp(argv[1], "start") == 0)
 	{
+		MappingSubscriberConsolePrinter printer;
+		
+		tracker = make_unique<ShapesTracker>(&printer);
+		
 		// Scope for display an detectors
 		{
 			shared_ptr<VideoFrameDisplayer> display = make_shared<VideoFrameDisplayer>();
 			receivers.add(display);
 			
-			vector<shared_ptr<VideoFeedFrameReceiver>> detectors = ShapeDetectorBase::createAndStartDetectorsFromSettings(tracker);
+			vector<shared_ptr<VideoFeedFrameReceiver>> detectors = ShapeDetectorBase::createAndStartDetectorsFromSettings(*tracker);
 			receivers.add(detectors);
 		}
 

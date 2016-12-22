@@ -85,11 +85,14 @@ set (SOURCE_FILES	main.cpp
 					src/framereaders/robotmapping/IShapeDetectionEvents.hpp
 					src/framereaders/robotmapping/IWorldMappingEventSubscriber.hpp
 					
+					
 					src/framereaders/robotmapping/Shape.cpp src/framereaders/robotmapping/Shape.hpp
 					
 					src/framereaders/robotmapping/ObjectDetector.cpp src/framereaders/robotmapping/ObjectDetector.hpp
 					src/framereaders/robotmapping/ShapeDetectorBase.cpp src/framereaders/robotmapping/ShapeDetectorBase.hpp
 					src/framereaders/robotmapping/ShapesTracker.cpp src/framereaders/robotmapping/ShapesTracker.hpp
+					
+					src/framereaders/robotmapping/MappingSubscriberConsolePrinter.cpp src/framereaders/robotmapping/MappingSubscriberConsolePrinter.hpp
 					
 		)
 

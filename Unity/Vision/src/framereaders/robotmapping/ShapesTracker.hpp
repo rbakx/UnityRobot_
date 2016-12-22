@@ -8,6 +8,8 @@
 
 namespace robotmapping
 {
+	class IWorldMappingEventSubscriber;
+	
 	class ShapesTracker : public IShapeDetectionEvents
 	{
 		private:
@@ -20,11 +22,13 @@ namespace robotmapping
 			std::vector<Shape> _tracked_shapes;
 			std::vector<Shape> _new_frame_shapes;
 			
-			std::atomic<unsigned long> tracker_id_top;
+			IWorldMappingEventSubscriber* _subscriber;
+			
+			std::atomic<unsigned long> _tracker_id_top;
 		
 		public:
 		
-			ShapesTracker();
+			ShapesTracker(IWorldMappingEventSubscriber* subscriber);
 			virtual ~ShapesTracker();
 	};
 }
