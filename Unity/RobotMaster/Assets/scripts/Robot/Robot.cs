@@ -1,5 +1,6 @@
 ﻿using Communication;
 using Networking;
+using System.Collections;
 using System.Threading;
 using UnityEngine;
 
@@ -63,14 +64,30 @@ public class Robot : MonoBehaviour, IMessageSender, IMessageReceiver
 
         Message message = MessageBuilder.CreateMessage(MessageTarget_.Robot, MessageType_.VelocityChange);
 
-        CalcAngleToDestination();
+        double rot = CalcAngleToDestination();
         //Send RotateCommand
 
         double distance = CalcDistanceToDestination();
         //Send MoveCommand
 
-        message.SetVelocity(new Vector3((float)distance, 0, 0), null);
-        SendCommand(message);
+        StartCoroutine(_SetDestination(distance, rot));
+    }
+
+    private IEnumerator _SetDestination(double distance, double rot)
+    {
+        Message distMessage = MessageBuilder.CreateMessage(MessageTarget_.Robot, MessageType_.VelocityChange);
+        distMessage.SetVelocity(new Vector3((float)distance, 0, 0), null);
+
+        Message rotMessage = MessageBuilder.CreateMessage(MessageTarget_.Robot, MessageType_.VelocityChange);
+        rotMessage.SetVelocity(null, new Vector3(0, 0, (float)rot));
+
+        SendCommand(rotMessage);
+
+        Thread.Sleep(2000);
+
+        SendCommand(distMessage);
+
+        yield return null;
     }
 
     //Calculates the angle between the robot and its destination

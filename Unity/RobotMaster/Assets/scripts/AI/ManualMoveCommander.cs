@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.Assertions.Comparers;
 using UnityEngine.UI;
 
 
@@ -83,16 +81,6 @@ public class ManualMoveCommander : MonoBehaviour
     public Robot GetRobotScript()
     {
         return robotScript;
-    }
-
-    public void Move()
-    {
-        Move(50.0F);
-    }
-
-    public void Move(float x = 0.0F, float y = 0.0F, float z = 0.0F)
-    {
-        robotScript.SetLinearVelocity(new Vector3(x, y, z));
     }
 
     public void CancelMove()

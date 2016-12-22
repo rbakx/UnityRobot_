@@ -92,8 +92,6 @@ public class UnitSelecter : MonoBehaviour
                 Vector3 point = hit.point;
                 if (unit.gameObject.GetComponent<Robot>() != null)
                 {
-                    unit.gameObject.GetComponent<Robot>().SetDestination(point);
-                    //Debug.Log("Destination Selected: " + point);
                     SelectedPanel.GetComponent<ManualMoveCommander>().SetDestination(point);
                     DestinationSelected = true;
                     selectingDestination = false;
