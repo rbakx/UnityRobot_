@@ -1,4 +1,5 @@
 #include "Settings.h"
+#include <iostream>
 
 //For getting the executable directory
 #ifdef _WIN32
@@ -8,7 +9,6 @@
 #elif __linux__
 	#include <linux/limits.h>
 	#include <unistd.h>
-#include <iostream>
 #include <opencv2/core/types_c.h>
 
 #endif
