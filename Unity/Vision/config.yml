@@ -2,7 +2,7 @@
 Settings:
    General:
       ip: "145.93.116.163"
-      port: 1234                #Port for the socket connection to Unity3D
+      port: "1234"
       sampleNames: ["EV3"]      #Enter the file names of the samples you want to feed into the detector, stored in /samples/
    Device:
       number: 1                 #The camera number, laptops have their integrated webcam at index 0. Therefore the first external webcam will be at index 1.
