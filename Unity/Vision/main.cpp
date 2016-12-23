@@ -52,8 +52,11 @@ int main(int argc, char* argv[])
 
 	processCommandLineArguments(argc, argv);
 
-	videofeeder = nullptr;
-	mediafeeder = nullptr;
+	receivers.removeAll();
+
+	videofeeder.reset(nullptr);
+	mediafeeder.reset(nullptr);
+	tracker.reset(nullptr);
 
 	return 0;
 }
