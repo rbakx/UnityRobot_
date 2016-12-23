@@ -2,7 +2,7 @@
 This library is used in Unity and the robot brokers for communication.
 
 ## Dependencies
-  - Google protocol buffers (generated C# code). Check the [readme][protocolbuffers] before compiling the networking library.
+  - Google protocol buffers (generated C# code). Check the [readme][protocolbuffers] before using/compiling the networking library.
  
 ## Usage
 When the networking library needs to be referenced from a regular C# (Visual Studio) project, a reference can be added to this project:
