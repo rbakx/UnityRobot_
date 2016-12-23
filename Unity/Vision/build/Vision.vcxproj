@@ -1,0 +1,669 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{35383F68-C07D-3547-84AF-59F3BEC92CC1}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>Vision</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\build\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vision.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vision</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vision</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\build\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vision.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vision</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vision</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\build\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Vision.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Vision</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Vision</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.exe</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\build\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Vision.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Vision</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Vision</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.exe</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\libuvc-0.0.5\build\include;C:\libusb-1.0.19.7\include;C:\libuvc-0.0.5\include;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\commlib\protobuf;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\commlib;C:\opencv-3.1.0\build;C:\opencv-3.1.0\include;C:\opencv-3.1.0\include\opencv;C:\opencv-3.1.0\modules\core\include;C:\opencv-3.1.0\modules\flann\include;C:\opencv-3.1.0\modules\imgproc\include;C:\opencv-3.1.0\modules\ml\include;C:\opencv-3.1.0\modules\photo\include;C:\opencv-3.1.0\modules\video\include;C:\opencv-3.1.0\modules\imgcodecs\include;C:\opencv-3.1.0\modules\shape\include;C:\opencv-3.1.0\modules\videoio\include;C:\opencv-3.1.0\modules\highgui\include;C:\opencv-3.1.0\modules\objdetect\include;C:\opencv-3.1.0\modules\superres\include;C:\opencv-3.1.0\modules\ts\include;C:\opencv-3.1.0\modules\features2d\include;C:\opencv-3.1.0\modules\calib3d\include;C:\opencv-3.1.0\modules\stitching\include;C:\opencv-3.1.0\modules\videostab\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <CppLanguageStandard>c++1y</CppLanguageStandard>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;USE_USB_LIBRARIES;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <TreatWarningAsError>false</TreatWarningAsError>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;USE_USB_LIBRARIES;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\opencv-3.1.0\build;C:\opencv-3.1.0\include;C:\opencv-3.1.0\include\opencv;C:\opencv-3.1.0\modules\core\include;C:\opencv-3.1.0\modules\flann\include;C:\opencv-3.1.0\modules\imgproc\include;C:\opencv-3.1.0\modules\ml\include;C:\opencv-3.1.0\modules\photo\include;C:\opencv-3.1.0\modules\video\include;C:\opencv-3.1.0\modules\imgcodecs\include;C:\opencv-3.1.0\modules\shape\include;C:\opencv-3.1.0\modules\videoio\include;C:\opencv-3.1.0\modules\highgui\include;C:\opencv-3.1.0\modules\objdetect\include;C:\opencv-3.1.0\modules\superres\include;C:\opencv-3.1.0\modules\ts\include;C:\opencv-3.1.0\modules\features2d\include;C:\opencv-3.1.0\modules\calib3d\include;C:\opencv-3.1.0\modules\stitching\include;C:\opencv-3.1.0\modules\videostab\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\opencv-3.1.0\build;C:\opencv-3.1.0\include;C:\opencv-3.1.0\include\opencv;C:\opencv-3.1.0\modules\core\include;C:\opencv-3.1.0\modules\flann\include;C:\opencv-3.1.0\modules\imgproc\include;C:\opencv-3.1.0\modules\ml\include;C:\opencv-3.1.0\modules\photo\include;C:\opencv-3.1.0\modules\video\include;C:\opencv-3.1.0\modules\imgcodecs\include;C:\opencv-3.1.0\modules\shape\include;C:\opencv-3.1.0\modules\videoio\include;C:\opencv-3.1.0\modules\highgui\include;C:\opencv-3.1.0\modules\objdetect\include;C:\opencv-3.1.0\modules\superres\include;C:\opencv-3.1.0\modules\ts\include;C:\opencv-3.1.0\modules\features2d\include;C:\opencv-3.1.0\modules\calib3d\include;C:\opencv-3.1.0\modules\stitching\include;C:\opencv-3.1.0\modules\videostab\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;uvc.lib;libusb-1.0.lib;opencv_videostab310d.lib;opencv_superres310d.lib;opencv_stitching310d.lib;opencv_shape310d.lib;opencv_photo310d.lib;opencv_objdetect310d.lib;opencv_calib3d310d.lib;opencv_features2d310d.lib;opencv_ml310d.lib;opencv_highgui310d.lib;opencv_videoio310d.lib;opencv_imgcodecs310d.lib;opencv_flann310d.lib;opencv_video310d.lib;opencv_imgproc310d.lib;opencv_core310d.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\libusb-1.0.19.7\MS64\static;$(OPENCV_DIR)\lib\Debug\;C:\libuvc-0.0.5\build;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>Debug</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/build/Debug/Vision.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/build/build/Debug/Vision.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\libuvc-0.0.5\build\include;C:\libusb-1.0.19.7\include;C:\libuvc-0.0.5\include;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\commlib\protobuf;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\commlib\asio1.10.6\include;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\commlib;C:\opencv-3.1.0\build;C:\opencv-3.1.0\include;C:\opencv-3.1.0\include\opencv;C:\opencv-3.1.0\modules\core\include;C:\opencv-3.1.0\modules\flann\include;C:\opencv-3.1.0\modules\imgproc\include;C:\opencv-3.1.0\modules\ml\include;C:\opencv-3.1.0\modules\photo\include;C:\opencv-3.1.0\modules\video\include;C:\opencv-3.1.0\modules\imgcodecs\include;C:\opencv-3.1.0\modules\shape\include;C:\opencv-3.1.0\modules\videoio\include;C:\opencv-3.1.0\modules\highgui\include;C:\opencv-3.1.0\modules\objdetect\include;C:\opencv-3.1.0\modules\superres\include;C:\opencv-3.1.0\modules\ts\include;C:\opencv-3.1.0\modules\features2d\include;C:\opencv-3.1.0\modules\calib3d\include;C:\opencv-3.1.0\modules\stitching\include;C:\opencv-3.1.0\modules\videostab\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <CppLanguageStandard>c++1y</CppLanguageStandard>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;USE_USB_LIBRARIES;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <AdditionalOptions>-D_WIN32_WINNT=0x0501 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;USE_USB_LIBRARIES;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\opencv-3.1.0\build;C:\opencv-3.1.0\include;C:\opencv-3.1.0\include\opencv;C:\opencv-3.1.0\modules\core\include;C:\opencv-3.1.0\modules\flann\include;C:\opencv-3.1.0\modules\imgproc\include;C:\opencv-3.1.0\modules\ml\include;C:\opencv-3.1.0\modules\photo\include;C:\opencv-3.1.0\modules\video\include;C:\opencv-3.1.0\modules\imgcodecs\include;C:\opencv-3.1.0\modules\shape\include;C:\opencv-3.1.0\modules\videoio\include;C:\opencv-3.1.0\modules\highgui\include;C:\opencv-3.1.0\modules\objdetect\include;C:\opencv-3.1.0\modules\superres\include;C:\opencv-3.1.0\modules\ts\include;C:\opencv-3.1.0\modules\features2d\include;C:\opencv-3.1.0\modules\calib3d\include;C:\opencv-3.1.0\modules\stitching\include;C:\opencv-3.1.0\modules\videostab\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\opencv-3.1.0\build;C:\opencv-3.1.0\include;C:\opencv-3.1.0\include\opencv;C:\opencv-3.1.0\modules\core\include;C:\opencv-3.1.0\modules\flann\include;C:\opencv-3.1.0\modules\imgproc\include;C:\opencv-3.1.0\modules\ml\include;C:\opencv-3.1.0\modules\photo\include;C:\opencv-3.1.0\modules\video\include;C:\opencv-3.1.0\modules\imgcodecs\include;C:\opencv-3.1.0\modules\shape\include;C:\opencv-3.1.0\modules\videoio\include;C:\opencv-3.1.0\modules\highgui\include;C:\opencv-3.1.0\modules\objdetect\include;C:\opencv-3.1.0\modules\superres\include;C:\opencv-3.1.0\modules\ts\include;C:\opencv-3.1.0\modules\features2d\include;C:\opencv-3.1.0\modules\calib3d\include;C:\opencv-3.1.0\modules\stitching\include;C:\opencv-3.1.0\modules\videostab\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;uvc.lib;libusb-1.0_x64.lib;libprotobufd.lib;UnityRobot_CommLib.lib;opencv_videostab310d.lib;opencv_superres310d.lib;opencv_stitching310d.lib;opencv_shape310d.lib;opencv_photo310d.lib;opencv_objdetect310d.lib;opencv_calib3d310d.lib;opencv_features2d310d.lib;opencv_ml310d.lib;opencv_highgui310d.lib;opencv_videoio310d.lib;opencv_imgcodecs310d.lib;opencv_flann310d.lib;opencv_video310d.lib;opencv_imgproc310d.lib;opencv_core310d.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\libusb-1.0.19.7\MS64\static;$(OPENCV_DIR)\lib\Debug\;C:\libuvc-0.0.5\build;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>Debug</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/build/Debug/Vision.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/build/build/Debug/Vision.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions> -Werror %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\opencv-3.1.0\build;C:\opencv-3.1.0\include;C:\opencv-3.1.0\include\opencv;C:\opencv-3.1.0\modules\core\include;C:\opencv-3.1.0\modules\flann\include;C:\opencv-3.1.0\modules\imgproc\include;C:\opencv-3.1.0\modules\ml\include;C:\opencv-3.1.0\modules\photo\include;C:\opencv-3.1.0\modules\video\include;C:\opencv-3.1.0\modules\imgcodecs\include;C:\opencv-3.1.0\modules\shape\include;C:\opencv-3.1.0\modules\videoio\include;C:\opencv-3.1.0\modules\highgui\include;C:\opencv-3.1.0\modules\objdetect\include;C:\opencv-3.1.0\modules\superres\include;C:\opencv-3.1.0\modules\ts\include;C:\opencv-3.1.0\modules\features2d\include;C:\opencv-3.1.0\modules\calib3d\include;C:\opencv-3.1.0\modules\stitching\include;C:\opencv-3.1.0\modules\videostab\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <CppLanguageStandard>c++1y</CppLanguageStandard>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;USE_USB_LIBRARIES;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;USE_USB_LIBRARIES;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\opencv-3.1.0\build;C:\opencv-3.1.0\include;C:\opencv-3.1.0\include\opencv;C:\opencv-3.1.0\modules\core\include;C:\opencv-3.1.0\modules\flann\include;C:\opencv-3.1.0\modules\imgproc\include;C:\opencv-3.1.0\modules\ml\include;C:\opencv-3.1.0\modules\photo\include;C:\opencv-3.1.0\modules\video\include;C:\opencv-3.1.0\modules\imgcodecs\include;C:\opencv-3.1.0\modules\shape\include;C:\opencv-3.1.0\modules\videoio\include;C:\opencv-3.1.0\modules\highgui\include;C:\opencv-3.1.0\modules\objdetect\include;C:\opencv-3.1.0\modules\superres\include;C:\opencv-3.1.0\modules\ts\include;C:\opencv-3.1.0\modules\features2d\include;C:\opencv-3.1.0\modules\calib3d\include;C:\opencv-3.1.0\modules\stitching\include;C:\opencv-3.1.0\modules\videostab\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\opencv-3.1.0\build;C:\opencv-3.1.0\include;C:\opencv-3.1.0\include\opencv;C:\opencv-3.1.0\modules\core\include;C:\opencv-3.1.0\modules\flann\include;C:\opencv-3.1.0\modules\imgproc\include;C:\opencv-3.1.0\modules\ml\include;C:\opencv-3.1.0\modules\photo\include;C:\opencv-3.1.0\modules\video\include;C:\opencv-3.1.0\modules\imgcodecs\include;C:\opencv-3.1.0\modules\shape\include;C:\opencv-3.1.0\modules\videoio\include;C:\opencv-3.1.0\modules\highgui\include;C:\opencv-3.1.0\modules\objdetect\include;C:\opencv-3.1.0\modules\superres\include;C:\opencv-3.1.0\modules\ts\include;C:\opencv-3.1.0\modules\features2d\include;C:\opencv-3.1.0\modules\calib3d\include;C:\opencv-3.1.0\modules\stitching\include;C:\opencv-3.1.0\modules\videostab\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;C:\opencv-3.1.0\build\lib\libopencv_videostab310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_superres310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_stitching310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_shape310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_photo310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_objdetect310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_calib3d310.dll.a;uvc.lib;usb-1.0.lib;rt.lib;pthread.lib;X11.lib;C:\opencv-3.1.0\build\lib\libopencv_features2d310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_ml310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_highgui310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_videoio310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_imgcodecs310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_flann310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_video310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_imgproc310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_core310.dll.a</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>No</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/build/Release/Vision.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/build/build/Release/Vision.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalOptions> -Werror %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\opencv-3.1.0\build;C:\opencv-3.1.0\include;C:\opencv-3.1.0\include\opencv;C:\opencv-3.1.0\modules\core\include;C:\opencv-3.1.0\modules\flann\include;C:\opencv-3.1.0\modules\imgproc\include;C:\opencv-3.1.0\modules\ml\include;C:\opencv-3.1.0\modules\photo\include;C:\opencv-3.1.0\modules\video\include;C:\opencv-3.1.0\modules\imgcodecs\include;C:\opencv-3.1.0\modules\shape\include;C:\opencv-3.1.0\modules\videoio\include;C:\opencv-3.1.0\modules\highgui\include;C:\opencv-3.1.0\modules\objdetect\include;C:\opencv-3.1.0\modules\superres\include;C:\opencv-3.1.0\modules\ts\include;C:\opencv-3.1.0\modules\features2d\include;C:\opencv-3.1.0\modules\calib3d\include;C:\opencv-3.1.0\modules\stitching\include;C:\opencv-3.1.0\modules\videostab\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <CppLanguageStandard>c++1y</CppLanguageStandard>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;USE_USB_LIBRARIES;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;USE_USB_LIBRARIES;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\opencv-3.1.0\build;C:\opencv-3.1.0\include;C:\opencv-3.1.0\include\opencv;C:\opencv-3.1.0\modules\core\include;C:\opencv-3.1.0\modules\flann\include;C:\opencv-3.1.0\modules\imgproc\include;C:\opencv-3.1.0\modules\ml\include;C:\opencv-3.1.0\modules\photo\include;C:\opencv-3.1.0\modules\video\include;C:\opencv-3.1.0\modules\imgcodecs\include;C:\opencv-3.1.0\modules\shape\include;C:\opencv-3.1.0\modules\videoio\include;C:\opencv-3.1.0\modules\highgui\include;C:\opencv-3.1.0\modules\objdetect\include;C:\opencv-3.1.0\modules\superres\include;C:\opencv-3.1.0\modules\ts\include;C:\opencv-3.1.0\modules\features2d\include;C:\opencv-3.1.0\modules\calib3d\include;C:\opencv-3.1.0\modules\stitching\include;C:\opencv-3.1.0\modules\videostab\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\opencv-3.1.0\build;C:\opencv-3.1.0\include;C:\opencv-3.1.0\include\opencv;C:\opencv-3.1.0\modules\core\include;C:\opencv-3.1.0\modules\flann\include;C:\opencv-3.1.0\modules\imgproc\include;C:\opencv-3.1.0\modules\ml\include;C:\opencv-3.1.0\modules\photo\include;C:\opencv-3.1.0\modules\video\include;C:\opencv-3.1.0\modules\imgcodecs\include;C:\opencv-3.1.0\modules\shape\include;C:\opencv-3.1.0\modules\videoio\include;C:\opencv-3.1.0\modules\highgui\include;C:\opencv-3.1.0\modules\objdetect\include;C:\opencv-3.1.0\modules\superres\include;C:\opencv-3.1.0\modules\ts\include;C:\opencv-3.1.0\modules\features2d\include;C:\opencv-3.1.0\modules\calib3d\include;C:\opencv-3.1.0\modules\stitching\include;C:\opencv-3.1.0\modules\videostab\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;C:\opencv-3.1.0\build\lib\libopencv_videostab310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_superres310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_stitching310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_shape310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_photo310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_objdetect310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_calib3d310.dll.a;uvc.lib;usb-1.0.lib;rt.lib;pthread.lib;X11.lib;C:\opencv-3.1.0\build\lib\libopencv_features2d310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_ml310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_highgui310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_videoio310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_imgcodecs310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_flann310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_video310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_imgproc310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_core310.dll.a</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>No</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/build/Release/Vision.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/build/build/Release/Vision.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <ClCompile>
+      <AdditionalOptions> -Werror %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\opencv-3.1.0\build;C:\opencv-3.1.0\include;C:\opencv-3.1.0\include\opencv;C:\opencv-3.1.0\modules\core\include;C:\opencv-3.1.0\modules\flann\include;C:\opencv-3.1.0\modules\imgproc\include;C:\opencv-3.1.0\modules\ml\include;C:\opencv-3.1.0\modules\photo\include;C:\opencv-3.1.0\modules\video\include;C:\opencv-3.1.0\modules\imgcodecs\include;C:\opencv-3.1.0\modules\shape\include;C:\opencv-3.1.0\modules\videoio\include;C:\opencv-3.1.0\modules\highgui\include;C:\opencv-3.1.0\modules\objdetect\include;C:\opencv-3.1.0\modules\superres\include;C:\opencv-3.1.0\modules\ts\include;C:\opencv-3.1.0\modules\features2d\include;C:\opencv-3.1.0\modules\calib3d\include;C:\opencv-3.1.0\modules\stitching\include;C:\opencv-3.1.0\modules\videostab\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <CppLanguageStandard>c++1y</CppLanguageStandard>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;USE_USB_LIBRARIES;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;USE_USB_LIBRARIES;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\opencv-3.1.0\build;C:\opencv-3.1.0\include;C:\opencv-3.1.0\include\opencv;C:\opencv-3.1.0\modules\core\include;C:\opencv-3.1.0\modules\flann\include;C:\opencv-3.1.0\modules\imgproc\include;C:\opencv-3.1.0\modules\ml\include;C:\opencv-3.1.0\modules\photo\include;C:\opencv-3.1.0\modules\video\include;C:\opencv-3.1.0\modules\imgcodecs\include;C:\opencv-3.1.0\modules\shape\include;C:\opencv-3.1.0\modules\videoio\include;C:\opencv-3.1.0\modules\highgui\include;C:\opencv-3.1.0\modules\objdetect\include;C:\opencv-3.1.0\modules\superres\include;C:\opencv-3.1.0\modules\ts\include;C:\opencv-3.1.0\modules\features2d\include;C:\opencv-3.1.0\modules\calib3d\include;C:\opencv-3.1.0\modules\stitching\include;C:\opencv-3.1.0\modules\videostab\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\opencv-3.1.0\build;C:\opencv-3.1.0\include;C:\opencv-3.1.0\include\opencv;C:\opencv-3.1.0\modules\core\include;C:\opencv-3.1.0\modules\flann\include;C:\opencv-3.1.0\modules\imgproc\include;C:\opencv-3.1.0\modules\ml\include;C:\opencv-3.1.0\modules\photo\include;C:\opencv-3.1.0\modules\video\include;C:\opencv-3.1.0\modules\imgcodecs\include;C:\opencv-3.1.0\modules\shape\include;C:\opencv-3.1.0\modules\videoio\include;C:\opencv-3.1.0\modules\highgui\include;C:\opencv-3.1.0\modules\objdetect\include;C:\opencv-3.1.0\modules\superres\include;C:\opencv-3.1.0\modules\ts\include;C:\opencv-3.1.0\modules\features2d\include;C:\opencv-3.1.0\modules\calib3d\include;C:\opencv-3.1.0\modules\stitching\include;C:\opencv-3.1.0\modules\videostab\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;C:\opencv-3.1.0\build\lib\libopencv_videostab310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_superres310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_stitching310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_shape310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_photo310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_objdetect310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_calib3d310.dll.a;uvc.lib;usb-1.0.lib;rt.lib;pthread.lib;X11.lib;C:\opencv-3.1.0\build\lib\libopencv_features2d310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_ml310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_highgui310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_videoio310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_imgcodecs310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_flann310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_video310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_imgproc310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_core310.dll.a</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>No</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/build/MinSizeRel/Vision.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/build/build/MinSizeRel/Vision.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalOptions> -Werror %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\opencv-3.1.0\build;C:\opencv-3.1.0\include;C:\opencv-3.1.0\include\opencv;C:\opencv-3.1.0\modules\core\include;C:\opencv-3.1.0\modules\flann\include;C:\opencv-3.1.0\modules\imgproc\include;C:\opencv-3.1.0\modules\ml\include;C:\opencv-3.1.0\modules\photo\include;C:\opencv-3.1.0\modules\video\include;C:\opencv-3.1.0\modules\imgcodecs\include;C:\opencv-3.1.0\modules\shape\include;C:\opencv-3.1.0\modules\videoio\include;C:\opencv-3.1.0\modules\highgui\include;C:\opencv-3.1.0\modules\objdetect\include;C:\opencv-3.1.0\modules\superres\include;C:\opencv-3.1.0\modules\ts\include;C:\opencv-3.1.0\modules\features2d\include;C:\opencv-3.1.0\modules\calib3d\include;C:\opencv-3.1.0\modules\stitching\include;C:\opencv-3.1.0\modules\videostab\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <CppLanguageStandard>c++1y</CppLanguageStandard>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;USE_USB_LIBRARIES;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;USE_USB_LIBRARIES;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\opencv-3.1.0\build;C:\opencv-3.1.0\include;C:\opencv-3.1.0\include\opencv;C:\opencv-3.1.0\modules\core\include;C:\opencv-3.1.0\modules\flann\include;C:\opencv-3.1.0\modules\imgproc\include;C:\opencv-3.1.0\modules\ml\include;C:\opencv-3.1.0\modules\photo\include;C:\opencv-3.1.0\modules\video\include;C:\opencv-3.1.0\modules\imgcodecs\include;C:\opencv-3.1.0\modules\shape\include;C:\opencv-3.1.0\modules\videoio\include;C:\opencv-3.1.0\modules\highgui\include;C:\opencv-3.1.0\modules\objdetect\include;C:\opencv-3.1.0\modules\superres\include;C:\opencv-3.1.0\modules\ts\include;C:\opencv-3.1.0\modules\features2d\include;C:\opencv-3.1.0\modules\calib3d\include;C:\opencv-3.1.0\modules\stitching\include;C:\opencv-3.1.0\modules\videostab\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\opencv-3.1.0\build;C:\opencv-3.1.0\include;C:\opencv-3.1.0\include\opencv;C:\opencv-3.1.0\modules\core\include;C:\opencv-3.1.0\modules\flann\include;C:\opencv-3.1.0\modules\imgproc\include;C:\opencv-3.1.0\modules\ml\include;C:\opencv-3.1.0\modules\photo\include;C:\opencv-3.1.0\modules\video\include;C:\opencv-3.1.0\modules\imgcodecs\include;C:\opencv-3.1.0\modules\shape\include;C:\opencv-3.1.0\modules\videoio\include;C:\opencv-3.1.0\modules\highgui\include;C:\opencv-3.1.0\modules\objdetect\include;C:\opencv-3.1.0\modules\superres\include;C:\opencv-3.1.0\modules\ts\include;C:\opencv-3.1.0\modules\features2d\include;C:\opencv-3.1.0\modules\calib3d\include;C:\opencv-3.1.0\modules\stitching\include;C:\opencv-3.1.0\modules\videostab\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;C:\opencv-3.1.0\build\lib\libopencv_videostab310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_superres310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_stitching310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_shape310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_photo310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_objdetect310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_calib3d310.dll.a;uvc.lib;usb-1.0.lib;rt.lib;pthread.lib;X11.lib;C:\opencv-3.1.0\build\lib\libopencv_features2d310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_ml310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_highgui310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_videoio310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_imgcodecs310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_flann310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_video310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_imgproc310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_core310.dll.a</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>No</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/build/MinSizeRel/Vision.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/build/build/MinSizeRel/Vision.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <ClCompile>
+      <AdditionalOptions> -Werror %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\opencv-3.1.0\build;C:\opencv-3.1.0\include;C:\opencv-3.1.0\include\opencv;C:\opencv-3.1.0\modules\core\include;C:\opencv-3.1.0\modules\flann\include;C:\opencv-3.1.0\modules\imgproc\include;C:\opencv-3.1.0\modules\ml\include;C:\opencv-3.1.0\modules\photo\include;C:\opencv-3.1.0\modules\video\include;C:\opencv-3.1.0\modules\imgcodecs\include;C:\opencv-3.1.0\modules\shape\include;C:\opencv-3.1.0\modules\videoio\include;C:\opencv-3.1.0\modules\highgui\include;C:\opencv-3.1.0\modules\objdetect\include;C:\opencv-3.1.0\modules\superres\include;C:\opencv-3.1.0\modules\ts\include;C:\opencv-3.1.0\modules\features2d\include;C:\opencv-3.1.0\modules\calib3d\include;C:\opencv-3.1.0\modules\stitching\include;C:\opencv-3.1.0\modules\videostab\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <CppLanguageStandard>c++1y</CppLanguageStandard>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;USE_USB_LIBRARIES;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;USE_USB_LIBRARIES;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\opencv-3.1.0\build;C:\opencv-3.1.0\include;C:\opencv-3.1.0\include\opencv;C:\opencv-3.1.0\modules\core\include;C:\opencv-3.1.0\modules\flann\include;C:\opencv-3.1.0\modules\imgproc\include;C:\opencv-3.1.0\modules\ml\include;C:\opencv-3.1.0\modules\photo\include;C:\opencv-3.1.0\modules\video\include;C:\opencv-3.1.0\modules\imgcodecs\include;C:\opencv-3.1.0\modules\shape\include;C:\opencv-3.1.0\modules\videoio\include;C:\opencv-3.1.0\modules\highgui\include;C:\opencv-3.1.0\modules\objdetect\include;C:\opencv-3.1.0\modules\superres\include;C:\opencv-3.1.0\modules\ts\include;C:\opencv-3.1.0\modules\features2d\include;C:\opencv-3.1.0\modules\calib3d\include;C:\opencv-3.1.0\modules\stitching\include;C:\opencv-3.1.0\modules\videostab\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\opencv-3.1.0\build;C:\opencv-3.1.0\include;C:\opencv-3.1.0\include\opencv;C:\opencv-3.1.0\modules\core\include;C:\opencv-3.1.0\modules\flann\include;C:\opencv-3.1.0\modules\imgproc\include;C:\opencv-3.1.0\modules\ml\include;C:\opencv-3.1.0\modules\photo\include;C:\opencv-3.1.0\modules\video\include;C:\opencv-3.1.0\modules\imgcodecs\include;C:\opencv-3.1.0\modules\shape\include;C:\opencv-3.1.0\modules\videoio\include;C:\opencv-3.1.0\modules\highgui\include;C:\opencv-3.1.0\modules\objdetect\include;C:\opencv-3.1.0\modules\superres\include;C:\opencv-3.1.0\modules\ts\include;C:\opencv-3.1.0\modules\features2d\include;C:\opencv-3.1.0\modules\calib3d\include;C:\opencv-3.1.0\modules\stitching\include;C:\opencv-3.1.0\modules\videostab\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;C:\opencv-3.1.0\build\lib\libopencv_videostab310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_superres310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_stitching310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_shape310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_photo310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_objdetect310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_calib3d310.dll.a;uvc.lib;usb-1.0.lib;rt.lib;pthread.lib;X11.lib;C:\opencv-3.1.0\build\lib\libopencv_features2d310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_ml310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_highgui310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_videoio310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_imgcodecs310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_flann310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_video310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_imgproc310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_core310.dll.a</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>Debug</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/build/RelWithDebInfo/Vision.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/build/build/RelWithDebInfo/Vision.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalOptions> -Werror %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\opencv-3.1.0\build;C:\opencv-3.1.0\include;C:\opencv-3.1.0\include\opencv;C:\opencv-3.1.0\modules\core\include;C:\opencv-3.1.0\modules\flann\include;C:\opencv-3.1.0\modules\imgproc\include;C:\opencv-3.1.0\modules\ml\include;C:\opencv-3.1.0\modules\photo\include;C:\opencv-3.1.0\modules\video\include;C:\opencv-3.1.0\modules\imgcodecs\include;C:\opencv-3.1.0\modules\shape\include;C:\opencv-3.1.0\modules\videoio\include;C:\opencv-3.1.0\modules\highgui\include;C:\opencv-3.1.0\modules\objdetect\include;C:\opencv-3.1.0\modules\superres\include;C:\opencv-3.1.0\modules\ts\include;C:\opencv-3.1.0\modules\features2d\include;C:\opencv-3.1.0\modules\calib3d\include;C:\opencv-3.1.0\modules\stitching\include;C:\opencv-3.1.0\modules\videostab\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <CppLanguageStandard>c++1y</CppLanguageStandard>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;USE_USB_LIBRARIES;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;USE_USB_LIBRARIES;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\opencv-3.1.0\build;C:\opencv-3.1.0\include;C:\opencv-3.1.0\include\opencv;C:\opencv-3.1.0\modules\core\include;C:\opencv-3.1.0\modules\flann\include;C:\opencv-3.1.0\modules\imgproc\include;C:\opencv-3.1.0\modules\ml\include;C:\opencv-3.1.0\modules\photo\include;C:\opencv-3.1.0\modules\video\include;C:\opencv-3.1.0\modules\imgcodecs\include;C:\opencv-3.1.0\modules\shape\include;C:\opencv-3.1.0\modules\videoio\include;C:\opencv-3.1.0\modules\highgui\include;C:\opencv-3.1.0\modules\objdetect\include;C:\opencv-3.1.0\modules\superres\include;C:\opencv-3.1.0\modules\ts\include;C:\opencv-3.1.0\modules\features2d\include;C:\opencv-3.1.0\modules\calib3d\include;C:\opencv-3.1.0\modules\stitching\include;C:\opencv-3.1.0\modules\videostab\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\opencv-3.1.0\build;C:\opencv-3.1.0\include;C:\opencv-3.1.0\include\opencv;C:\opencv-3.1.0\modules\core\include;C:\opencv-3.1.0\modules\flann\include;C:\opencv-3.1.0\modules\imgproc\include;C:\opencv-3.1.0\modules\ml\include;C:\opencv-3.1.0\modules\photo\include;C:\opencv-3.1.0\modules\video\include;C:\opencv-3.1.0\modules\imgcodecs\include;C:\opencv-3.1.0\modules\shape\include;C:\opencv-3.1.0\modules\videoio\include;C:\opencv-3.1.0\modules\highgui\include;C:\opencv-3.1.0\modules\objdetect\include;C:\opencv-3.1.0\modules\superres\include;C:\opencv-3.1.0\modules\ts\include;C:\opencv-3.1.0\modules\features2d\include;C:\opencv-3.1.0\modules\calib3d\include;C:\opencv-3.1.0\modules\stitching\include;C:\opencv-3.1.0\modules\videostab\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;C:\opencv-3.1.0\build\lib\libopencv_videostab310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_superres310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_stitching310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_shape310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_photo310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_objdetect310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_calib3d310.dll.a;uvc.lib;usb-1.0.lib;rt.lib;pthread.lib;X11.lib;C:\opencv-3.1.0\build\lib\libopencv_features2d310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_ml310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_highgui310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_videoio310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_imgcodecs310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_flann310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_video310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_imgproc310.dll.a;C:\opencv-3.1.0\build\lib\libopencv_core310.dll.a</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>Debug</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/build/RelWithDebInfo/Vision.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/build/build/RelWithDebInfo/Vision.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version>
+      </Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -HC:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision -BC:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/build --check-stamp-file C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -HC:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision -BC:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/build --check-stamp-file C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/CMakeLists.txt;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\CMakeLists.txt;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeSystem.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeCCompiler.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeCXXCompiler.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeRCCompiler.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;C:\opencv-3.1.0\build\OpenCVConfig-version.cmake;C:\opencv-3.1.0\build\OpenCVConfig.cmake;C:\opencv-3.1.0\build\OpenCVModules.cmake;C:\libuvc-0.0.5\build\CMakeFiles\libuvcConfig.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/CMakeLists.txt;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\CMakeLists.txt;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeSystem.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeCCompiler.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeCXXCompiler.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeRCCompiler.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;C:\opencv-3.1.0\build\OpenCVConfig-version.cmake;C:\opencv-3.1.0\build\OpenCVConfig.cmake;C:\opencv-3.1.0\build\OpenCVModules.cmake;C:\libuvc-0.0.5\build\CMakeFiles\libuvcConfig.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -HC:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision -BC:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/build --check-stamp-file C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -HC:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision -BC:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/build --check-stamp-file C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/CMakeLists.txt;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\CMakeLists.txt;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeSystem.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeCCompiler.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeCXXCompiler.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeRCCompiler.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;C:\opencv-3.1.0\build\OpenCVConfig-version.cmake;C:\opencv-3.1.0\build\OpenCVConfig.cmake;C:\opencv-3.1.0\build\OpenCVModules.cmake;C:\libuvc-0.0.5\build\CMakeFiles\libuvcConfig.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/CMakeLists.txt;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\CMakeLists.txt;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeSystem.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeCCompiler.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeCXXCompiler.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeRCCompiler.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;C:\opencv-3.1.0\build\OpenCVConfig-version.cmake;C:\opencv-3.1.0\build\OpenCVConfig.cmake;C:\opencv-3.1.0\build\OpenCVModules.cmake;C:\libuvc-0.0.5\build\CMakeFiles\libuvcConfig.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -HC:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision -BC:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/build --check-stamp-file C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -HC:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision -BC:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/build --check-stamp-file C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/CMakeLists.txt;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\CMakeLists.txt;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeSystem.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeCCompiler.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeCXXCompiler.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeRCCompiler.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;C:\opencv-3.1.0\build\OpenCVConfig-version.cmake;C:\opencv-3.1.0\build\OpenCVConfig.cmake;C:\opencv-3.1.0\build\OpenCVModules.cmake;C:\libuvc-0.0.5\build\CMakeFiles\libuvcConfig.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/CMakeLists.txt;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\CMakeLists.txt;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeSystem.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeCCompiler.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeCXXCompiler.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeRCCompiler.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;C:\opencv-3.1.0\build\OpenCVConfig-version.cmake;C:\opencv-3.1.0\build\OpenCVConfig.cmake;C:\opencv-3.1.0\build\OpenCVModules.cmake;C:\libuvc-0.0.5\build\CMakeFiles\libuvcConfig.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -HC:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision -BC:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/build --check-stamp-file C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -HC:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision -BC:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/build --check-stamp-file C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/CMakeLists.txt;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\CMakeLists.txt;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeSystem.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeCCompiler.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeCXXCompiler.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeRCCompiler.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;C:\opencv-3.1.0\build\OpenCVConfig-version.cmake;C:\opencv-3.1.0\build\OpenCVConfig.cmake;C:\opencv-3.1.0\build\OpenCVModules.cmake;C:\libuvc-0.0.5\build\CMakeFiles\libuvcConfig.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/CMakeLists.txt;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\CMakeLists.txt;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeSystem.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeCCompiler.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeCXXCompiler.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\3.6.2\CMakeRCCompiler.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.6\Modules\CMakeCommonLanguageInclude.cmake;C:\opencv-3.1.0\build\OpenCVConfig-version.cmake;C:\opencv-3.1.0\build\OpenCVConfig.cmake;C:\opencv-3.1.0\build\OpenCVModules.cmake;C:\libuvc-0.0.5\build\CMakeFiles\libuvcConfig.cmake;C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\Robot.h" />
+    <ClInclude Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framereaders\robotmapping\Calibrator.hpp" />
+    <ClInclude Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\Settings.h" />
+    <ClInclude Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\Runnable.hpp" />
+    <ClInclude Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framefeeders\CameraFeedSender.hpp" />
+    <ClInclude Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\frames\VideoFeedFrameReceiver.hpp" />
+    <ClInclude Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\frames\VideoFeedFrameReceiverTargets.hpp" />
+    <ClInclude Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\frames\VideoFeedFrameSender.hpp" />
+    <ClInclude Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framereaders\VideoFrameSaver.hpp" />
+    <ClInclude Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framefeeders\MediaFeedSender.hpp" />
+    <ClInclude Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framereaders\VideoFrameDisplayer.hpp" />
+    <ClInclude Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framereaders\FrameMoveThreadHelper.hpp" />
+    <ClInclude Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framereaders\robotmapping\IShapeDetectionEvents.hpp" />
+    <ClInclude Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framereaders\robotmapping\IWorldMappingEventSubscriber.hpp" />
+    <ClInclude Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framereaders\robotmapping\Shape.hpp" />
+    <ClInclude Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framereaders\robotmapping\ObjectDetector.hpp" />
+    <ClInclude Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framereaders\robotmapping\ShapeDetectorBase.hpp" />
+    <ClInclude Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framereaders\robotmapping\ShapesTracker.hpp" />
+    <ClInclude Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framereaders\robotmapping\MappingSubscriberConsolePrinter.hpp" />
+    <ClCompile Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\main.cpp" />
+    <ClCompile Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framereaders\robotmapping\Calibrator.cpp" />
+    <ClCompile Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\Settings.cpp" />
+    <ClCompile Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\Runnable.cpp" />
+    <ClCompile Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framefeeders\CameraFeedSender.cpp" />
+    <ClCompile Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\frames\VideoFeedFrameReceiverTargets.cpp" />
+    <ClCompile Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\frames\VideoFeedFrameSender.cpp" />
+    <ClCompile Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framereaders\VideoFrameSaver.cpp" />
+    <ClCompile Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framefeeders\MediaFeedSender.cpp" />
+    <ClCompile Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framereaders\VideoFrameDisplayer.cpp" />
+    <ClCompile Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framereaders\FrameMoveThreadHelper.cpp" />
+    <ClCompile Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framereaders\robotmapping\Shape.cpp" />
+    <ClCompile Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framereaders\robotmapping\ObjectDetector.cpp" />
+    <ClCompile Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framereaders\robotmapping\ShapeDetectorBase.cpp" />
+    <ClCompile Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framereaders\robotmapping\ShapesTracker.cpp" />
+    <ClCompile Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framereaders\robotmapping\MappingSubscriberConsolePrinter.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:/Users/Phoenix/Documents/Minor/Proj/RepoVision/UnityRobot/Unity/Vision/build/ZERO_CHECK.vcxproj">
+      <Project>B75863D1-EBED-3FD5-95AF-48B9605ECBAB</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,9 +1,14 @@
 # Build specific
-build
-
+build/*
 resources/*
 !resources/README.md
 !resources/config.yml
+#winbuild exclusions
+!build/Vision.sln
+!build/Vision.vcxproj
+!build/ZERO_CHECK.vcxproj
+!build/ALL_BUILD.vcxproj
+!build/.gitignore
 
 samples/*
 !samples/README.md

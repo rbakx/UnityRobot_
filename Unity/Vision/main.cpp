@@ -1,13 +1,14 @@
 #ifdef __linux__
 	#include <unistd.h> /* For getuid() */
+	#include <X11/Xlib.h>
 #endif
 #include <iostream> /* For ofstream */
-#include <fstream>  /* For ofstream */
+//#include <fstream>  /* For ofstream */
 
 #include <memory>
 
 #include <thread>
-#include <X11/Xlib.h>
+
 
 #include "src/framefeeders/CameraFeedSender.hpp"
 #include "src/framefeeders/MediaFeedSender.hpp"
@@ -24,12 +25,23 @@
 
 #include "src/framereaders/robotmapping/MappingSubscriberConsolePrinter.hpp"
 
+#include <communicator.h>
+#include <IDataStreamReceiver.hpp>
+#include <IPresentationProtocol.hpp>
+#include <ProtobufPresentation.h>
+#include "src/commlib/MessageBuilder.h"
+#include "src/commlib/RobotLogger.h"
+#include "src/commlib/communicator.h"
+#include <array>
+
 
 using namespace std;
 using namespace frames;
 using namespace framefeeders;
 using namespace framereaders;
 using namespace robotmapping;
+using namespace UnityRobot;
+using namespace Networking;
 
 void processCommandLineArguments(int argc, char* argv[]);
 void printHelp(const string& executablePath);
@@ -39,15 +51,42 @@ unique_ptr<CameraFeedSender> videofeeder;
 unique_ptr<MediaFeedSender> mediafeeder;
 
 VideoFeedFrameReceiverTargets receivers;
-
 unique_ptr<ShapesTracker> tracker;
 
+//TODO remove this
+using Msg = Communication::Message;
+using MsgBuilder = MessageBuilder;
+using Comm = Communicator;
+unique_ptr<TCPSocketDataLink> con;
+unique_ptr<Comm> communi;
+void setupUnityConnection(const std::string& addr, const std::string& port)
+{
+	con = make_unique<UnityRobot::TCPSocketDataLink>(addr, port, std::unique_ptr<IDataStreamReceiver>(std::make_unique<ProtobufPresentation>()));
+	con->Connect();
+	communi = make_unique<Comm>(*(static_cast<ProtobufPresentation*>(con->getReceiver())), *con);
+
+	if (con->Connected())
+	{
+		Msg toSend = MsgBuilder::create(Communication::MessageType_::IdentificationResponse, Communication::MessageTarget_::Unity, 13);
+		MsgBuilder::addStringData(toSend, "stupid robot");
+		MsgBuilder::addNewShape(toSend, 3, { { 5.0, 5.5, 1.0 },{ 1.0, 1.5, 1.5 } });
+		MsgBuilder::addNewShape(toSend, 5, { { -5.0, -5.5, -1.0 } });
+		MsgBuilder::addChangedShape(toSend, 7, MsgBuilder::createVec3(0, 4, 3));
+		MsgBuilder::addDelShape(toSend, 5);
+
+		std::cout << "Send result: " << std::boolalpha << communi->sendCommand(toSend) << '\n';
+	}
+}
+//TODO remove above
 int main(int argc, char* argv[])
 {
+#ifdef __linux__
 	XInitThreads(); //Qt needs to know we will be using a multi-threaded environment.
-
+#endif
 	settings = Settings::read();
-
+	std::string address("145.93.44.124");
+	std::string port("1234");
+	setupUnityConnection(address, port);
 	cout << "Connection should be made to Unity on IP: " << settings->getGeneralProperties().ip << endl;
 
 	processCommandLineArguments(argc, argv);
@@ -80,7 +119,7 @@ void processCommandLineArguments(int argc, char* argv[])
 	if(argc >= 3)
 	{
 		mediafeeder = make_unique<MediaFeedSender>(&receivers, argv[2]);
-
+		
 		/*
 		 *  POST: If argument + file path is provided, we will load the file path as a media file feed.
 		 */

@@ -1,0 +1,61 @@
+# Build specific
+build/*
+win32/*
+x64/*
+resources/*
+!resources/README.md
+!resources/config.yml
+
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+*.suo
+*.db
+*.opendb
+*.pdb
+
+# Debug stuff
+*.log
+*.tlog
+*.lastbuildstate
+*.ilk
+*.cache
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+
+# CMake specific
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Makefile
+cmake_install.cmake
+install_manifest.txt
+CTestTestfile.cmake
