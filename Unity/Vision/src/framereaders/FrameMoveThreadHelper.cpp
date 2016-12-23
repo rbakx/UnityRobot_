@@ -30,7 +30,7 @@ cv::Mat FrameMoveThreadHelper::AcceptFrame() noexcept
 {
 	std::lock_guard<std::mutex> frame_guard(_lock);
 
-	return std::move(_frame);		
+	return std::move(_frame);
 }
 
 void FrameMoveThreadHelper::Release() noexcept
