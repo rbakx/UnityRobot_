@@ -13,12 +13,13 @@ namespace robotmapping
 	class ObjectDetector : public ShapeDetectorBase, public Runnable
 	{
 		private:
-		
-			FrameMoveThreadHelper _frame_move_helper;
-		
+			static const int NUMBER_OF_FEATURES = 200;
+			static const int MINIMUM_BLOB_AREA = 40; //Area of the detected blobs in pixels
+
 			const std::string _sampleName;
 
-			cv::Mat _bufferFrame, _currentFrame;
+			FrameMoveThreadHelper _bufferFrameMoveHelper, _currentFrameMoveHelper;
+
 			cv::Ptr<cv::ORB> _orb;
 			cv::Ptr<cv::DescriptorMatcher> _matcher;
 
@@ -26,7 +27,8 @@ namespace robotmapping
 			std::vector<cv::KeyPoint> _trainKeypoints;
 			
 			cv::Mat _trainSample;
-		
+
+			static std::vector<cv::RotatedRect> detectMovement(const cv::Mat& bufferFrame, const cv::Mat& currentFrame);
 			void run();
 		
 		public:

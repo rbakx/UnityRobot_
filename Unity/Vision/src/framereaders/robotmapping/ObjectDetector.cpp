@@ -54,27 +54,68 @@ ObjectDetector::~ObjectDetector()
 	Stop();
 }
 
+
+vector<RotatedRect> ObjectDetector::detectMovement(const Mat& bufferFrame, const Mat& currentFrame)
+{
+	vector<RotatedRect> movingBlobs;
+
+	Mat grayBuffer, grayCurrent, filteredImage;
+	cvtColor(bufferFrame, grayBuffer, CV_BGR2GRAY);
+	cvtColor(currentFrame, grayCurrent, CV_BGR2GRAY);
+
+	absdiff(grayBuffer, grayCurrent, filteredImage);
+	threshold(filteredImage, filteredImage, 10, 255, CV_THRESH_BINARY);
+
+	medianBlur(filteredImage, filteredImage, 5);
+
+	vector<vector<Point>> contours;
+
+	if(countNonZero(filteredImage) < 1) //Check if there is something moving, otherwise boundingRect will throw an exception
+		return movingBlobs; //Return empty vector<RotatedRect>
+
+
+	Mat closedBlobs;
+	cv::Mat structuringElement = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(40, 40));
+	cv::morphologyEx(filteredImage, closedBlobs, cv::MORPH_CLOSE, structuringElement); //TODO: Check what happens when multiple blobs are found
+
+	findContours(closedBlobs, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE);
+	//findContours(filteredImage, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE);
+
+
+	//Removes all contours that are smaller than MINIMUM_BLOB_AREA pixels in area.
+	//Converts them to a RotatedRect and puts them in 'movingBlobs'
+	for(const auto& contour : contours)
+	{
+		RotatedRect rect = minAreaRect(contour);
+
+		if(rect.size.area() > MINIMUM_BLOB_AREA)
+		{
+			movingBlobs.push_back(rect);
+		}
+	}
+
+	return movingBlobs;
+}
+
 void ObjectDetector::run()
 {	
-	if(_frame_move_helper.HasFrame())
+	if(_bufferFrameMoveHelper.HasFrame() && _currentFrameMoveHelper.HasFrame())
 	{
-		Mat current_frame = _frame_move_helper.AcceptFrame();
-		
+		Mat bufferFrame = _bufferFrameMoveHelper.AcceptFrame();
+		Mat currentFrame = _currentFrameMoveHelper.AcceptFrame();
+
 		_receiver->SignalNewFrame(*this);
 
-		Mat queryDescriptor;
 
+
+		Mat queryDescriptor;
 		vector<KeyPoint> keypoints(200);
-		
-		/*
-		    ORB is a very intensive process!
-			Can take about 10% on a i7-6700HQ
-		*/
-		_orb->detect(current_frame, keypoints);
-		_orb->compute(current_frame, keypoints, queryDescriptor);
+
+		_orb->detect(currentFrame, keypoints);
+		_orb->compute(currentFrame, keypoints, queryDescriptor);
 
 		vector<DMatch> matches;
-		_matcher->match(queryDescriptor, _trainDescriptor, matches);
+		_matcher->match(queryDescriptor, _trainDescriptor, matches); //TODO: Check KNNMatcher vs. BFMatcher
 
 		DMatch *bestMatch = nullptr;
 		for (auto &match : matches)
@@ -84,10 +125,33 @@ void ObjectDetector::run()
 			else if(match.distance < bestMatch->distance)
 				bestMatch = &match;
 		}
-		
+
+
+
+		Point2f* mostLikelyFeaturePoint = &keypoints[bestMatch->queryIdx].pt;
+
+		Mat result = currentFrame.clone();
+		circle(result, *mostLikelyFeaturePoint, 3, Scalar(0, 0, 255), 6);
+
+
+		vector<RotatedRect> contours = detectMovement(bufferFrame, currentFrame);
+		for(const auto& contour : contours)
+		{
+			//rectangle(result, rect, Scalar(0, 255, 0, 2));
+			Point2f rect_points[4]; contour.points(rect_points);
+			for(int j = 0; j < 4; j++)
+			{
+				line(result, rect_points[j], rect_points[(j + 1) % 4], Scalar(0, 255, 0), 3, 8);
+			}
+
+			circle(result, contour.center, 3, Scalar(0, 255, 0), 5);
+		}
+
+		imshow("#result", result);
+
 		//todo: A SHAPE IS RECOGNISED
 		Shape shape(_sampleName);
-		shape.SetCenter(keypoints[bestMatch->queryIdx].pt);
+		shape.SetCenter(*mostLikelyFeaturePoint);
 		_receiver->ShapeDetected(*this, shape);
 		
 
@@ -102,13 +166,7 @@ void ObjectDetector::run()
 		//circle(result, keypoints[bestMatch->queryIdx].pt, 10, Scalar(0, 255, 0), 10);
 
 		//imshow("Result " + _sampleName, result);
-		
-		
-		/*
-			waitKey(1) - no need for a waitKey here, as the supplier of the frames already has a waiting mechanism;
-			Without multi-threading support enabled, this call was mandatory
-		*/
-		
+
 		_receiver->SignalEndFrame(*this);
 	}
 	else
@@ -120,5 +178,6 @@ void ObjectDetector::run()
 
 void ObjectDetector::OnIncomingFrame(const Mat& frame) noexcept
 {
-	_frame_move_helper.SetNewFrame(frame);
+	_bufferFrameMoveHelper.SetNewFrame(_currentFrameMoveHelper.GetCurrentFrameReference());
+	_currentFrameMoveHelper.SetNewFrame(frame);
 }
