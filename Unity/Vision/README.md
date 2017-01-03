@@ -85,8 +85,12 @@ It takes a while (approximately around 15 minutes) to execute the cmake command.
   mingw32-make
 ```
 When it is finally done, do not forget to append `c:\opencv\sources\bin` to your system's [PATH variable](windows_path_var)!
+Appending this path will allow cmake to find the package that is build on default, representing opencv as a cmake package.
 
-// Part about making the source into a cmake package
+You can now build the openCV project files by navigating to the directory of this readme, navigate to './build' and enter command
+```bash
+  cmake ../ -DUSE_USB_LIBS=OFF
+```
 
 Lastly, we need to install libuvc for using camera reliably. Note that libuvc and libusb are not required, but highly recommended. To install libuvc, its dependencies need to be installed first. The main dependency, libusb, needs to be build and installed first.
 
