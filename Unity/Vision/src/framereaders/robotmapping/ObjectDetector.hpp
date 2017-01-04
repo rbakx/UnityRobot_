@@ -28,6 +28,8 @@ namespace robotmapping
 			
 			cv::Mat _trainSample;
 
+			static void drawRotatedRect(cv::Mat& image, const cv::RotatedRect& rect);
+			static cv::Mat getROIFromRotRect(const cv::Mat& image, const cv::RotatedRect& rect);
 			static std::vector<cv::RotatedRect> detectMovement(const cv::Mat& bufferFrame, const cv::Mat& currentFrame);
 			void run();
 		

@@ -54,6 +54,40 @@ ObjectDetector::~ObjectDetector()
 	Stop();
 }
 
+static void ObjectDetector::drawRotatedRect(cv::Mat& image, const cv::RotatedRect& rect)
+{
+	Point2f rect_points[4]; rect.points(rect_points);
+	for(int j = 0; j < 4; j++)
+	{
+		line(image, rect_points[j], rect_points[(j + 1) % 4], Scalar(0, 255, 0), 3, 8);
+	}
+}
+
+cv::Mat ObjectDetector::getROIFromRotRect(const cv::Mat& image, const cv::RotatedRect& rect)
+{
+	Mat M, rotated, cropped;
+
+	// get angle and size from the bounding box
+	float angle = rect.angle;
+
+	Size rect_size = rect.size;
+	// thanks to http://felix.abecassis.me/2011/10/opencv-rotation-deskewing/
+	if (rect.angle < -45.) {
+		angle += 90.0;
+		swap(rect_size.width, rect_size.height);
+	}
+
+
+	M = getRotationMatrix2D(rect.center, angle, 1.0);
+
+	// perform the affine transformation
+	warpAffine(image, rotated, M, image.size(), INTER_CUBIC);
+
+	// crop the resulting image
+	getRectSubPix(rotated, rect_size, rect.center, cropped);
+
+	return cropped;
+}
 
 vector<RotatedRect> ObjectDetector::detectMovement(const Mat& bufferFrame, const Mat& currentFrame)
 {
@@ -107,52 +141,36 @@ void ObjectDetector::run()
 		_receiver->SignalNewFrame(*this);
 
 
-
-		Mat queryDescriptor;
-		vector<KeyPoint> keypoints(200);
-
-		_orb->detect(currentFrame, keypoints);
-		_orb->compute(currentFrame, keypoints, queryDescriptor);
-
-		vector<DMatch> matches;
-		_matcher->match(queryDescriptor, _trainDescriptor, matches); //TODO: Check KNNMatcher vs. BFMatcher
-
-		DMatch *bestMatch = nullptr;
-		for (auto &match : matches)
-		{
-			if(bestMatch == nullptr)
-				bestMatch = &match;
-			else if(match.distance < bestMatch->distance)
-				bestMatch = &match;
-		}
-
-
-
-		Point2f* mostLikelyFeaturePoint = &keypoints[bestMatch->queryIdx].pt;
-
 		Mat result = currentFrame.clone();
-		circle(result, *mostLikelyFeaturePoint, 3, Scalar(0, 0, 255), 6);
 
-
-		vector<RotatedRect> contours = detectMovement(bufferFrame, currentFrame);
-		for(const auto& contour : contours)
+		vector<RotatedRect> boundaries = detectMovement(bufferFrame, currentFrame);
+		for(const auto& boundary : boundaries)
 		{
-			//rectangle(result, rect, Scalar(0, 255, 0, 2));
-			Point2f rect_points[4]; contour.points(rect_points);
-			for(int j = 0; j < 4; j++)
-			{
-				line(result, rect_points[j], rect_points[(j + 1) % 4], Scalar(0, 255, 0), 3, 8);
-			}
+			drawRotatedRect(result, boundary);
 
-			circle(result, contour.center, 3, Scalar(0, 255, 0), 5);
+			circle(result, boundary.center, 3, Scalar(0, 255, 0), 5);
+			
+
+//			Mat ROI = getROIFromRotRect(currentFrame, boundary);
+//
+//			Mat queryDescriptor;
+//			vector<KeyPoint> keypoints(20);
+//
+//			_orb->detect(ROI, keypoints);
+//			_orb->compute(ROI, keypoints, queryDescriptor);
+//
+//			vector<DMatch> matches;
+//			_matcher->match(queryDescriptor, _trainDescriptor, matches); //TODO: Check KNNMatcher vs. BFMatcher
+
+
+			//todo: A SHAPE IS RECOGNISED
+			Shape shape(_sampleName);
+			shape.SetCenter(boundary.center);
+			_receiver->ShapeDetected(*this, shape);
 		}
 
 		imshow("#result", result);
 
-		//todo: A SHAPE IS RECOGNISED
-		Shape shape(_sampleName);
-		shape.SetCenter(*mostLikelyFeaturePoint);
-		_receiver->ShapeDetected(*this, shape);
 		
 
 		//=========== Debug purposes
