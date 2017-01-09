@@ -153,6 +153,14 @@ Before we installing, please make sure your list of packages of all repositories
 ```bash
 sudo apt-get update
 ```
+```bash
+[required for building from source]
+sudo apt-get install build-essential
+sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+
+[easy way out]
+sudo apt-get install libopencv-dev
+```
 
 Lastly, we need to install libuvc for using camera reliably. However, we need to install its dependencies first. The main dependency is libusb, which needs to be install and build. In order to do that, we first have to make sure we have libudev installed:
 ```bash
