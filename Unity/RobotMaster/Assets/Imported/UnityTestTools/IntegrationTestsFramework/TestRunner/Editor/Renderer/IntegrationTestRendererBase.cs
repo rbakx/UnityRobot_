@@ -16,7 +16,7 @@ namespace UnityTest
         private static readonly GUIContent k_GUIRunSelected = new GUIContent("Run Selected");
         private static readonly GUIContent k_GUIRun = new GUIContent("Run");
         private static readonly GUIContent k_GUIDelete = new GUIContent("Delete");
-        private static readonly GUIContent k_GUIDeleteSelected = new GUIContent("Delete RobotSelected");
+        private static readonly GUIContent k_GUIDeleteSelected = new GUIContent("Delete selected");
 
         protected static GUIContent s_GUITimeoutIcon = new GUIContent(Icons.StopwatchImg, "Timeout");
 
