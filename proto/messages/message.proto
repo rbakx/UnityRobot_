@@ -1,8 +1,82 @@
 syntax = "proto2";
 
+import "messages/messages.proto";
+
 package Communication;
 
+// Target or "direction" of a message
+enum MessageTarget_ {
+	Robot = 0;  // Unity -> Robot
+	Unity = 1;  // Robot -> Unity || Vision -> Unity
+	Vision = 2; // ? -> Vision (This will probably not be needed)
+}
+
+// This type/enum is used to identify  the type and therefore 
+// contents of a message. 
+//
+// 	For example: when the MessageType is set to VelocityChange, 
+//	the receiver expects the robotVelocity member to be filled in.
+// 
+//  Some message types don't need any data, like the 
+// 	IdentificationRequest type. These types do not have a 
+//	corresponding member.
+enum MessageType_ {
+	// Unity -> Robot
+
+	// When Unity detects a new robot a request for identification will be send.
+	IdentificationRequest = 0; 
+
+	// Used to changed the linear and/or angular velocity of a robot.
+	VelocityChange = 1;
+
+	// Used to make the robot show some kind of signal.
+	Indicate = 2;
+
+
+	// Robot -> Unity
+
+	// A robot's response to a Identification Request message. The response 
+	// contains information about the new robot.
+	IdentificationResponse = 3;
+
+	// Send an error message from a robot to Unity. The error will be shown
+	// in the Unity editor.
+	LogError = 4;
+
+	// Message type for custom messages/events. This can be used to interact
+	// with robot specific functions.
+	CustomMessage = 5; // This might be two ways
+
+	// Vision -> Unity
+	// A notification from vision with all new and changed shapes.
+	ShapeUpdate = 6;
+
+	RotationRequest = 7;
+	RotationResponse = 8;
+
+	// Robot -> Unity
+	// Send by a robot when disconnecting
+	Disconnect = 9;
+
+}
+
 message Message {
-	optional int32 target = 1;
-	optional string data = 2;
+	required int32 id = 1;
+	required MessageTarget_ messageTarget = 2;
+	required MessageType_ messageType = 3;
+
+	// Unity -> Robot
+	optional Messages.SetVelocity_ robotVelocity = 4;
+
+	// Robot -> Unity
+	optional Messages.IdentificationResponse_ identificationResponse = 5;
+	optional Messages.Error_ error = 6;
+	optional Messages.CustomMessage_ customMessage = 7;
+
+	// Vision -> Unity
+	optional Messages.ShapeUpdateInfo_ shapeUpdateInfo = 8;
+
+	optional float rotationResponse = 9;
+	
+	optional string stringData = 10;
 }

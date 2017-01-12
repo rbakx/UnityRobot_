@@ -1,0 +1,8 @@
+On Windows: 
+Open the PythonToCS.sln and compile the library.
+Copy the bin/x86/Debug/nao_broker.dll to PythonHost
+run python script PythonHost/main.py [Nao-ip] [port] I.E. Python main.py 192.168.0.100 9559
+PS: Add an xbox 360 controller
+
+On Linux:
+Not yet supported

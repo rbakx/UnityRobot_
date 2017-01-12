@@ -1,0 +1,14 @@
+%YAML:1.0
+Settings:
+   General:
+      port: 1234                #Port for the socket connection to Unity3D
+      sampleName: sample.yml    #Cannot be a path as far as I know
+   Device:
+      number: 1                 #The camera number, laptops have their integrated webcam at index 0. Therefore the first externel webcam will be at index 1.
+      vid: 0x046d               #For the Logitech C930e
+      pid: 0x0843               #For the Logitech C930e
+   Recording:
+      width: 1920
+      height: 1080
+      fps: 24
+      autofocus: 0              #Disable autofocus, otherwise might introduce artifacts. Some webcams do not support this, if so: turn autofocus to 1.
