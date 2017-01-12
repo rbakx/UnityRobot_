@@ -54,6 +54,7 @@ TCPSocketDataLink::TCPSocketDataLink(std::string address, std::string port, std:
 
 TCPSocketDataLink::~TCPSocketDataLink()
 {
+	LogInfo(std::string("Closing connection on " + m_AdrressStr + ":" + m_SocketStr));
 	m_Socket.close();
 
 	if (m_TCPReaderThread.joinable())
@@ -86,8 +87,7 @@ void TCPSocketDataLink::StartReading()
 	asio::error_code ec;
 
 	std::vector<char> socketBuffer(128);
-
-	while (ec != asio::error::eof)
+	while (ec != asio::error::eof && m_Socket.is_open())
 	{
 		size_t buffersize = m_Socket.read_some(asio::buffer(socketBuffer, 128), ec);
 
