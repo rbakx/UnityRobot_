@@ -26,6 +26,8 @@ namespace NetworkingTests
 
             Assert.True(com.SendCommand(sendMessage));
 
+            // No need to wait; a dummy data link is used so sending command is followed up with incomingmessage
+
             Assert.NotNull(receiver.incomingMessage);
 
             Assert.AreEqual(receiver.incomingMessage.id, sendMessage.id);

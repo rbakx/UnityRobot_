@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class CameraDrag : MonoBehaviour
 {
     private bool rotatable;
 
+    public GameObject CameraButton;
     public GameObject staticCam;
     public GameObject dragCam;
 
@@ -85,12 +87,14 @@ public class CameraDrag : MonoBehaviour
             staticCam.SetActive(true);
             dragCam.SetActive(false);
             rotatable = false;
+            CameraButton.GetComponentInChildren<Text>().text = "Top-down Mode";
         }
         else
         {
             dragCam.SetActive(true);
             staticCam.SetActive(false);
             rotatable = true;
+            CameraButton.GetComponentInChildren<Text>().text = "Pespective Mode";
         }
     }
 }

@@ -4,9 +4,17 @@ using Networking;
 using Communication;
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using Communication.Messages;
 
 public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkSubscriber
 {
+    public GameObject RobotRefModel_Default;
+    public GameObject RobotRefModel_Nao;
+    public GameObject RobotRefModel_NXT;
+
+    public GameObject robotObjectContainer;
+
     public RobotList robotList;
     private ShapesUpdater _shapesUpdater;
 
@@ -20,20 +28,84 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
 
     private bool wasHosting;
 
+    private Message _newMessage;
+    private Communicator _connection;
+    private bool _continueRegistration;
+
+    private ManualResetEvent _ev;
+
     /*
         robotIdentityID contains the highest unused unique ID of a robot.
         This method ensures the robot will get a unique id.
     */
     static private uint robotIdentityID = 0;
 
-    void start()
+    private bool continueRegistrationRoutine;
+
+    void OnDestroy()
     {
+        continueRegistrationRoutine = false;
+
+        if (listener != null)
+        {
+            StopHosting();
+
+            listener.Dispose();
+            listener = null;
+        }
+    }
+
+    void Awake()
+    {
+        _ev = new ManualResetEvent(false);
+    }
+
+    void Start()
+    {
+        continueRegistrationRoutine = true;
         wasHosting = false;
+
+        if (RobotRefModel_Default == null || RobotRefModel_Default.GetComponent<Robot>() == null)
+        {
+            throw new Exception("Default model object must reference to a prefab with robot script!");
+        }
+
+        if (RobotRefModel_Nao == null || RobotRefModel_Nao.GetComponent<Robot>() == null)
+        {
+            throw new Exception("Nao model object reference to a prefab with robot script!");
+        }
+
+        if (RobotRefModel_NXT == null || RobotRefModel_NXT.GetComponent<Robot>() == null)
+        {
+            throw new Exception("NXT model object reference to a prefab with robot script!");
+        }
 
         communicators = new List<Communicator>();
         listener = new TCPDataLinkListener<ProtoBufPresentation>(this);
+        _ev = new ManualResetEvent(true);
 
         StartCoroutine("hostingCheck");
+        StartCoroutine("handleRegistrations");
+    }
+
+    IEnumerator CheckIfStillConnected()
+    {
+        while (true)
+        {
+            for (int i = (communicators.Count - 1); i >= 0; i--)
+            {
+                Communicator r = communicators[i];
+
+                if (!r.GetDataLink().Connected())
+                {
+                    communicators.RemoveAt(i);
+
+                    Debug.Log("[communicators]: connection lost");
+                }
+            }
+
+            yield return new WaitForSeconds(0.5F);
+        }
     }
 
     /*
@@ -42,19 +114,24 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
         When started, the robotregisterer will start listening on public string value HostAddress and short HostPort.
         If Host is false, the listener is stopped if active.
     */
-    IEnumerator hostingCheck()
+    private IEnumerator hostingCheck()
     {
-        while(true)
+        while (true)
         {
-            if(wasHosting != Host)
+            if (wasHosting != Host)
             {
-                if(Host)
+                if (Host)
                 {
-                    StartHosting(HostAddress, HostPort);
+                    Host = StartHosting(HostAddress, HostPort);
+                    if (Host)
+                    {
+                        Debug.Log("Hosting started on " + HostAddress + ":" + HostPort);
+                    }
                 }
                 else
                 {
                     StopHosting();
+                    Debug.Log("Hosting stopped");
                 }
 
                 wasHosting = Host;
@@ -68,14 +145,14 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
     {
         Host = listener.Start(hostAddress, port);
 
-        if(Host)
+        if (Host)
         {
             HostAddress = hostAddress;
             HostPort = port;
         }
         else
         {
-            Debug.Log("Tried to start host but hosting failed for given arguments HostAddress:HostPort, namely " + HostPort + ":" + HostPort);
+            Debug.LogError("Tried to start host but hosting failed for given arguments HostAddress:HostPort, namely " + hostAddress + ":" + port);
         }
 
         return Host;
@@ -85,6 +162,13 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
     {
         listener.Stop();
         Host = false;
+
+        foreach (Communicator i in communicators)
+        {
+            i.GetDataLink().Dispose();
+        }
+
+        communicators.Clear();
     }
 
     /*
@@ -94,52 +178,112 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
     */
     public void IncomingMessage(Message newMessage, IDataLink dataLink)
     {
+
+        Debug.Log("[RobotRegister] incoming message: " + newMessage.messageType.ToString());
         /*
             Check if dataLink is a client connected through this listener
         */
+
         Communicator connection = GetCommunicatorFromDataLink(dataLink);
 
         if (connection == null)//datalink is not a client from this listener
             return;
 
         //TODO: is identification message and message is that of a robot
-        if(true)
+        if (true)
         {
-            //TODO: Replace nao with the variable from the message that indicates the type
-            string robotType = "nao".ToLower();
-
-            //Get the robot object which contains a Robot component with predefined shape data (this is a reference object)
-            GameObject robotPrefab = GameObject.Find("robot_prefab_" + robotType);
-
             /*
-               If dynamic reference object does not exist, use default
+              First wait for the other identification messages to be processed to prevent race conditions
             */
-            if(robotPrefab == null)
+            if (_ev.WaitOne(10000))
             {
-                robotPrefab = GameObject.Find("robot_prefab_default");
+                _ev.Reset();
+
+                _connection = connection;
+                _newMessage = newMessage;
+                _continueRegistration = true;
+
+                _ev.WaitOne(1000);
             }
+        } 
+    }
 
-            // Clone the reference object
-            GameObject robotGameObject = (GameObject)GameObject.Instantiate(robotPrefab, robotPrefab.transform);
-
-            // Check if the object actually has the oh-so-important robot component
-            Robot robot = robotGameObject.GetComponent<Robot>();
-
-            // An idiot removed the component from the prefab or had gone to another dimension
-            if(robot == null)
+    private IEnumerator handleRegistrations()
+    {
+        while (continueRegistrationRoutine)
+        {
+            if (_continueRegistration)
             {
-                throw new ArgumentNullException("Expected gameObject to contain a robot component: robot_prefab_" + robotType);
+                // Debug.Log("Handling new registration request on main thread");
+
+                _continueRegistration = false;
+
+                Communicator connection = _connection;
+                Message newMessage = _newMessage;
+
+                _ev.Set();
+
+                //TODO: Replace nao with the variable from the message that indicates the type
+                // Debug.Log("newMessage: " + newMessage.identificationResponse);
+                string robotType = newMessage.identificationResponse.robotType.ToLower();
+                Debug.LogFormat("Robot type: {0}", robotType);
+
+                //Get the robot object which contains a Robot component with predefined shape data (this is a reference object)
+                GameObject robotPrefab = null;
+
+                switch (robotType)
+                {
+                    case "nao":
+                        {
+                            robotPrefab = RobotRefModel_Nao;
+                            break;
+                        }
+
+                    case "nxt":
+                        {
+                            robotPrefab = RobotRefModel_NXT;
+                            break;
+                        }
+
+                    default:
+                        {
+                            robotType = "default";
+                            robotPrefab = RobotRefModel_Default;
+                            break;
+                        }
+                }
+
+                // Clone the reference object
+                GameObject robotGameObject = (GameObject)Instantiate(robotPrefab, robotPrefab.transform.position, Quaternion.identity, robotObjectContainer.transform);
+
+                // Check if the object actually has the oh-so-important robot component
+                Robot robot = robotGameObject.GetComponent<Robot>();
+
+                // An idiot removed the component from the prefab or had gone to another dimension
+                if (robot == null)
+                {
+                    throw new ArgumentNullException("Expected gameObject to contain a robot component: robot_prefab_" + robotType);
+                }
+
+                // Reset and (re-)initialise the robot script
+                robot.Init(connection, ++robotIdentityID, "Unknown harry", robotType);
+
+                robotList.Add(robot);
+                robot.Communicator.GetPresentationProtocol().SetReceiver(robot);
+                robot.Communicator.GetDataLink().SetReceiver(robot.Communicator.GetPresentationProtocol());
+
+                robot.Indicate();
+
+                //Accept connection not as a general client but as a robot
+                communicators.Remove(connection);
             }
-
-            // Reset and (re-)initialise the robot script
-            robot.Init(connection, ++robotIdentityID, "I, Roboto", robotType);
-
-            robotList.Add(robot);
-
-            //Accept connection not as a general client but as a robot
-            communicators.Remove(connection);
+            else
+            {
+                yield return new WaitForSeconds(0.01F);
+            }
         }
-            
+
+        yield return null;
     }
 
     /*
@@ -147,6 +291,8 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
     */
     public void IncomingNewDataLink(IDataLink dataLink, IPresentationProtocol usedProtocol)
     {
+        Debug.Log("[RobotRegister] incoming new connection!");
+
         // Change the receiver of the incoming messages for given client (connection) to this class.
         // The information is used to check the identity of the connection.
         usedProtocol.SetReceiver(this);
@@ -156,8 +302,10 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
 
         // Ask for identification of the connection; might be a robot!
         Message id_request = MessageBuilder.CreateMessage(MessageTarget_.Robot, MessageType_.IdentificationRequest);
-        
-        if(!communicator.SendCommand(id_request))
+
+        Thread.Sleep(1);
+
+        if (!communicator.SendCommand(id_request))
         {
             Debug.LogError("[RobotRegister] Sending identity request command fails, how could this happen!?");
             // Actually, it could happen if the connection is immediately closed after making it.
@@ -169,19 +317,56 @@ public class RobotRegister : MonoBehaviour, IMessageReceiver, IIncomingDataLinkS
         }
     }
 
-    Communicator GetCommunicatorFromDataLink(IDataLink dataLink)
+    private Communicator GetCommunicatorFromDataLink(IDataLink dataLink)
     {
         Communicator result = null;
 
         foreach (Communicator i in communicators)
         {
-            if(i.GetDataLink() == dataLink)
+            if (i.GetDataLink() == dataLink)
             {
                 result = i;
                 break;
             }
         }
 
-            return result;
+        return result;
     }
+
+    public void AddDummyBot()
+    {
+        // Debug.Log("Spoofing prereqs...");
+
+        ProtoBufPresentation pp = new ProtoBufPresentation();
+        DummyReceiver dummyReceiver = new DummyReceiver();
+
+        pp.SetReceiver(dummyReceiver);
+
+        DummyDataLink datalink = new DummyDataLink(pp);
+
+        Communicator com = new Communicator(datalink, pp);
+
+        //create message, set response
+
+        MessageTarget_ target = MessageTarget_.Robot;
+        MessageType_ type = MessageType_.CustomMessage;
+
+        Message DummyMessage = MessageBuilder.CreateMessage(target, type);
+        DummyMessage.SetIdentificationResponse("dummyBot");
+
+        /*
+              First wait for the other identification messages to be processed to prevent race conditions
+            */
+        if (_ev.WaitOne(10000))
+        {
+            _ev.Reset();
+
+            _connection = com;
+            _newMessage = DummyMessage;
+            _continueRegistration = true;
+
+            _ev.WaitOne(1000);
+        }
+    }
+
 }

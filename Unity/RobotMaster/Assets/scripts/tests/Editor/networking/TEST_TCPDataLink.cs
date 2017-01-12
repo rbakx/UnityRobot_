@@ -49,7 +49,9 @@ namespace NetworkingTests
 
             clientSender.GetStream().Write(receiver.expectedResult, 0, receiver.expectedResult.Length);
 
-            while (!receiver.receivedData) { Thread.Sleep(1); }
+            int fail_escape = 5000;
+
+            while (!receiver.receivedData && fail_escape > 0) { Thread.Sleep(1); fail_escape--; }
 
             Assert.IsFalse(receiver.failed, "Expected result is different from actual result");
 
@@ -59,7 +61,9 @@ namespace NetworkingTests
 
             clientSender.GetStream().Write(receiver.expectedResult, 0, receiver.expectedResult.Length);
 
-            while (!receiver.receivedData) { Thread.Sleep(1); }
+            fail_escape = 5000;
+
+            while (!receiver.receivedData && fail_escape > 0) { Thread.Sleep(1); fail_escape--; }
 
             Assert.IsFalse(receiver.failed, "Expected result is different from actual result");
 
