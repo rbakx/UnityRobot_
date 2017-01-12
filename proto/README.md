@@ -20,11 +20,23 @@ protogen -i:input.proto -o:output.cs
 Now output.cs can be used inside a C# project.
 The `generate_for_unity.bat` script can also be used. This script will automatically generate the C# code inside the [networking] project.
 
-## C++ Code
-### C++ Setup
-### Compiling to C++ code
-
 [protobuf-net]: https://github.com/mgravell/protobuf-net
 [protobuf-net binary release]: https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/protobuf-net/protobuf-net%20r668.zip
 [tutorial]: http://www.computerhope.com/issues/ch000549.htm
 [networking]: ../networking/README.md
+
+## C++ Code
+
+### C++ Setup
+Install the protoc compiler: [protobuf install instructions]
+
+### Compiling to C++ code
+When the protoc tool is installed it can be used to generate c++ code from .proto files:
+```
+protoc --cpp_out=gen src/foo.proto src/bar/baz.proto
+```
+
+Gen is the output directory for the generated code, followed by all the proto files which you want to generate code for.
+
+[protobuf install instructions]: https://github.com/google/protobuf
+
