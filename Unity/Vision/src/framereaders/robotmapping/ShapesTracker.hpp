@@ -13,6 +13,8 @@ namespace robotmapping
 	class ShapesTracker : public IShapeDetectionEvents
 	{
 		private:
+			const double _TOLERANCE = 65.0;
+
 			std::vector<Shape> _tracked_shapes;
 			std::vector<Shape> _new_frame_shapes;
 

@@ -27,15 +27,9 @@ void ShapesTracker::SignalNewFrame(const ShapeDetectorBase& detector) noexcept
 }
 
 void ShapesTracker::SignalEndFrame(const ShapeDetectorBase& detector) noexcept
-{	
-	vector<Shape>::size_type cf_s = _new_frame_shapes.size();
-	vector<Shape>::size_type pf_s = _tracked_shapes.size();
-
+{
 	//std::cout << "[ShapesTracker] FRAME d END " << cf_s << ", " << pf_s << std::endl;
-	
-	double distance = 0.0;
-	double tollerance = 65.0;
-	
+
 	bool matched = false;
 	
 	std::vector<bool> matched_tracks(_tracked_shapes.size());
@@ -51,10 +45,10 @@ void ShapesTracker::SignalEndFrame(const ShapeDetectorBase& detector) noexcept
 		for (std::vector<Shape>::reverse_iterator rev_prev_it = _tracked_shapes.rbegin() ; rev_prev_it != _tracked_shapes.rend(); ++rev_prev_it)
 		{
 			center_previous = rev_prev_it->Center();
+
+			double distance = sqrt(pow(center_previous.x - center_new.x, 2.0F) + pow(center_previous.y - center_new.y, 2.0F));
 			
-			distance = sqrt(pow(center_previous.x - center_new.x, 2.0F) + pow(center_previous.y - center_new.y, 2.0F));
-			
-			if(distance < tollerance)
+			if(distance < _TOLERANCE)
 			{
 				rev_prev_it->SetCenter(center_new);
 				
@@ -62,7 +56,7 @@ void ShapesTracker::SignalEndFrame(const ShapeDetectorBase& detector) noexcept
 				
 				_subscriber->OnMove(*this, *rev_prev_it);
 	
-				*(matched_tracks.begin() + (rev_new_it - _new_frame_shapes.rbegin())) = true;			
+				*(matched_tracks.begin() + (rev_new_it - _new_frame_shapes.rbegin())) = true;
 				break;
 			}
 		}
