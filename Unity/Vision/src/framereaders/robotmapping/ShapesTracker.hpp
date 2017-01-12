@@ -13,21 +13,20 @@ namespace robotmapping
 	class ShapesTracker : public IShapeDetectionEvents
 	{
 		private:
-			
-			void SignalNewFrame(const ShapeDetectorBase& detector) noexcept;
-			void SignalEndFrame(const ShapeDetectorBase& detector) noexcept;
-			
-			void ShapeDetected(const ShapeDetectorBase& detector, Shape& shape) noexcept;
-
 			std::vector<Shape> _tracked_shapes;
 			std::vector<Shape> _new_frame_shapes;
-			
+
 			IWorldMappingEventSubscriber* _subscriber;
-			
+
 			std::atomic<unsigned long> _tracker_id_top;
+
+			
+			virtual void SignalNewFrame(const ShapeDetectorBase& detector) noexcept;
+			virtual void SignalEndFrame(const ShapeDetectorBase& detector) noexcept;
+			
+			virtual void ShapeDetected(const ShapeDetectorBase& detector, Shape& shape) noexcept;
 		
-		public:
-		
+	public:
 			ShapesTracker(IWorldMappingEventSubscriber* subscriber);
 			virtual ~ShapesTracker();
 	};
