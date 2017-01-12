@@ -170,6 +170,7 @@ void processCommandLineArguments(int argc, char* argv[])
 
 			cout << "Press enter to start calibrating" << endl;
 			cin.ignore(1);
+			calibrator->Start();
 
 			cout << "Press enter to stop calibrating" << endl;
 			cin.ignore(1);
