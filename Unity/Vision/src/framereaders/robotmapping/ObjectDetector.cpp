@@ -54,7 +54,7 @@ ObjectDetector::~ObjectDetector()
 	Stop();
 }
 
-static void ObjectDetector::drawRotatedRect(cv::Mat& image, const cv::RotatedRect& rect)
+void ObjectDetector::drawRotatedRect(cv::Mat& image, const cv::RotatedRect& rect)
 {
 	Point2f rect_points[4]; rect.points(rect_points);
 	for(int j = 0; j < 4; j++)
@@ -62,7 +62,6 @@ static void ObjectDetector::drawRotatedRect(cv::Mat& image, const cv::RotatedRec
 		line(image, rect_points[j], rect_points[(j + 1) % 4], Scalar(0, 255, 0), 3, 8);
 	}
 }
-
 cv::Mat ObjectDetector::getROIFromRotRect(const cv::Mat& image, const cv::RotatedRect& rect)
 {
 	Mat M, rotated, cropped;
@@ -149,19 +148,20 @@ void ObjectDetector::run()
 			drawRotatedRect(result, boundary);
 
 			circle(result, boundary.center, 3, Scalar(0, 255, 0), 5);
+
+
+			Mat ROI = getROIFromRotRect(currentFrame, boundary);
+
+			Mat queryDescriptor;
+			vector<KeyPoint> keypoints(20);
+
+			_orb->detect(ROI, keypoints);
+			_orb->compute(ROI, keypoints, queryDescriptor);
+
+			vector<DMatch> matches;
+			_matcher->match(queryDescriptor, _trainDescriptor, matches); //TODO: Check KNNMatcher vs. BFMatcher
+
 			
-
-//			Mat ROI = getROIFromRotRect(currentFrame, boundary);
-//
-//			Mat queryDescriptor;
-//			vector<KeyPoint> keypoints(20);
-//
-//			_orb->detect(ROI, keypoints);
-//			_orb->compute(ROI, keypoints, queryDescriptor);
-//
-//			vector<DMatch> matches;
-//			_matcher->match(queryDescriptor, _trainDescriptor, matches); //TODO: Check KNNMatcher vs. BFMatcher
-
 
 			//todo: A SHAPE IS RECOGNISED
 			Shape shape(_sampleName);
