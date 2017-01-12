@@ -45,7 +45,7 @@ int main(int argc, char** argv)
 	RobotLogger::init();
 	GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-	std::string address = argc > 2 ?  argv[1] : "145.93.44.124";
+	std::string address = argc > 2 ?  argv[1] : "145.93.45.74";
 	std::string port = argc > 2 ? argv[2] : "1234";
 
 	TCPSocketDataLink link(address, port, std::unique_ptr<IDataStreamReceiver>(std::make_unique<ProtobufPresentation>()));
@@ -67,14 +67,13 @@ int main(int argc, char** argv)
 		MsgBuilder::addDelShape(toSend, 5);
 
 		std::cout << "Send result: " << std::boolalpha << comm.sendCommand(toSend) << '\n';
-
 		_receiver->lock.lock();
 
 		if(_receiver->lock.try_lock_for(std::chrono::milliseconds(4000)))
 		{
 			if(_receiver->receivedData.size())
 			{
-				LogInfo(std::string("received " + std::to_string(_receiver->receivedData.size()) + " bytes"));
+				LogInfo("received " + std::to_string(_receiver->receivedData.size()) + " bytes");
 				std::vector<char> result;
 				int a = 0;
 				std::copy(_receiver->receivedData.begin(), _receiver->receivedData.end(), std::back_inserter(result));
