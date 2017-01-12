@@ -1,47 +1,56 @@
-﻿using UnityEngine;
-using System.Collections;
-using UnityEditorInternal;
+﻿using System;
+using UnityEngine;
 
-[RequireComponent(typeof(MeshFilter))]
-public class RecognisedShape : MonoBehaviour
+public class RecognisedShape
 {
-    public float maxWidth;
-    public float maxHeight;
+    private Mesh _mesh;
+    private Vector3 _position;
+    private Quaternion _rotation;
 
-    public RecognisedShape(ShapeData picture)
+    public Mesh Mesh
     {
-        MeshFilter _mr = GetComponent<MeshFilter>();
-        if (_mr == null) { throw new MissingComponentException("cannot find mesh renderer");}
-        _mr.mesh = picture._mesh;
+        get { return _mesh; }
+        set
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException("Mesh");
+            }
+            _mesh = value;
+        }
     }
 
-    public Quaternion GetAxisRotation()
+    public Vector3 Position
     {
-        return this.transform.rotation;
+        get { return _position; }
+        set { _position = value; }
     }
 
-    public Vector3 GetPosition()
+    public Quaternion Rotation
     {
-        return this.transform.position;
+        get { return _rotation; }
+        set { _rotation = value; }
     }
 
-    public float GetMaxWidth()
+    public float MaxWidth { get { return _mesh.bounds.max.x; } }
+
+    public float MaxHeight { get { return _mesh.bounds.max.y; } }
+
+    public RecognisedShape(Mesh mesh, Vector3 position, Quaternion rotation)
     {
-        return maxWidth;
+        if (mesh == null)
+        {
+            throw new ArgumentException("mesh");
+        }
+
+        _mesh = mesh;
+        _position = position;
+        _rotation = rotation;
     }
 
-    public float GetMaxHeight()
+    public RecognisedShape(Mesh mesh) :
+        this(mesh, Vector3.zero, Quaternion.identity)
     {
-        return maxHeight;
-    }
 
-    public void SetPosition(Vector3 pos)
-    {
-        this.transform.position = pos;
-    }
-
-    public void SetAxisRotation(Quaternion rot)
-    {
-        this.transform.rotation = rot;
     }
 }

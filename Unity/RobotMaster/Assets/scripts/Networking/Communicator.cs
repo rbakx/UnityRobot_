@@ -24,6 +24,16 @@ namespace Networking
             _datalink = dataLink;
         }
 
+        public IDataLink GetDataLink()
+        {
+            return _datalink;
+        }
+
+        public IPresentationProtocol GetPresentationProtocol()
+        {
+            return _pp;
+        }
+
         public bool SendCommand(Message message)
         {
             bool success = false;

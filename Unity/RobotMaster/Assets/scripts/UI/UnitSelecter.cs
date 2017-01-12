@@ -29,7 +29,7 @@ public class UnitSelecter : MonoBehaviour
         {
             selected = false;
             SelectedUnit.GetComponent<RobotSelect>().isSelected = false;
-            if (SelectedUnit.GetComponent<Robot>().GetMoving())
+            if (SelectedUnit.GetComponent<Robot>().IsMoving())
             {
                 MoveUnit(SelectedUnit, SelectedUnit.gameObject.transform.position);
             }
@@ -40,7 +40,7 @@ public class UnitSelecter : MonoBehaviour
     void LookforTarget()
     {
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Vector3 direction = this.transform.TransformDirection(Vector3.forward);
+        //Vector3 direction = this.transform.TransformDirection(Vector3.forward);
         if (!selected)
         {
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, unitLayer) && hit.transform.tag == "Unit")
@@ -69,6 +69,6 @@ public class UnitSelecter : MonoBehaviour
 
     void MoveUnit(GameObject unit, Vector3 p)
     {
-        unit.gameObject.GetComponent<Robot>().MoveMe(p);
+        unit.gameObject.GetComponent<Robot>().SetLinearVelocity(p);
     }
 }
