@@ -27,54 +27,48 @@ void ShapesTracker::SignalNewFrame(const ShapeDetectorBase& detector) noexcept
 }
 
 void ShapesTracker::SignalEndFrame(const ShapeDetectorBase& detector) noexcept
-{	
-	vector<Shape>::size_type cf_s = _new_frame_shapes.size();
-	vector<Shape>::size_type pf_s = _tracked_shapes.size();
-
+{
 	//std::cout << "[ShapesTracker] FRAME d END " << cf_s << ", " << pf_s << std::endl;
-	
-	double distance = 0.0;
-	double tollerance = 65.0;
-	
+
 	bool matched = false;
 	
 	std::vector<bool> matched_tracks(_tracked_shapes.size());
 	
 	Shape::coordinate_type center_previous;
 	Shape::coordinate_type center_new;
-	
-	for (std::vector<Shape>::reverse_iterator rev_new_it = _new_frame_shapes.rbegin() ; rev_new_it != _new_frame_shapes.rend(); ++rev_new_it)
+
+	for(auto new_it = _new_frame_shapes.begin(); new_it != _new_frame_shapes.end(); ++new_it)
 	{
-		center_new = rev_new_it->Center();
+		center_new = std::move(new_it->Center());
 		matched = false;
 		
-		for (std::vector<Shape>::reverse_iterator rev_prev_it = _tracked_shapes.rbegin() ; rev_prev_it != _tracked_shapes.rend(); ++rev_prev_it)
+		for(auto prev_it = _tracked_shapes.begin(); prev_it != _tracked_shapes.end(); ++prev_it)
 		{
-			center_previous = rev_prev_it->Center();
+			center_previous = std::move(prev_it->Center());
+
+			double distance = sqrt(pow(center_previous.x - center_new.x, 2.0F) + pow(center_previous.y - center_new.y, 2.0F));
 			
-			distance = sqrt(pow(center_previous.x - center_new.x, 2.0F) + pow(center_previous.y - center_new.y, 2.0F));
-			
-			if(distance < tollerance)
+			if(distance < _TOLERANCE)
 			{
-				rev_prev_it->SetCenter(center_new);
+				prev_it->SetCenter(center_new);
 				
 				matched = true;
 				
-				_subscriber->OnMove(*this, *rev_prev_it);
+				_subscriber->OnMove(*this, *prev_it);
 	
-				*(matched_tracks.begin() + (rev_new_it - _new_frame_shapes.rbegin())) = true;			
+				*(matched_tracks.begin() + (new_it - _new_frame_shapes.begin())) = true;
 				break;
 			}
 		}
 		
 		if(!matched)
 		{
-			rev_new_it->SetTrackerId(++_tracker_id_top);
-			_tracked_shapes.push_back(*rev_new_it);
+			new_it->SetTrackerId(++_tracker_id_top);
+			_tracked_shapes.push_back(*new_it);
 			
-			*(matched_tracks.begin() + (rev_new_it - _new_frame_shapes.rbegin())) = true;
+			*(matched_tracks.begin() + (new_it - _new_frame_shapes.begin())) = true;
 			
-			_subscriber->OnRecognise(*this, *rev_new_it);
+			_subscriber->OnRecognise(*this, *new_it);
 		}
 	}
 	

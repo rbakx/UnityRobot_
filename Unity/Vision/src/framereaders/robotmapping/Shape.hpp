@@ -29,7 +29,7 @@ namespace robotmapping
 			Shape(const Shape& copy) noexcept;
 			Shape(std::string main_property = UNKNOWN_PROPERTY, unsigned long tracking_id = 0) noexcept;
 			
-			coordinate_type Center() noexcept;
+			coordinate_type Center() const noexcept;
 			
 			void SetAngles(rotation_angles_type euler_angles) noexcept;
 			
@@ -45,15 +45,15 @@ namespace robotmapping
 			/*
 				Return a copy of the current shape data.
 			*/
-			std::vector<coordinate_type> GetShapeData() noexcept;
+			std::vector<coordinate_type> GetShapeData() const noexcept;
 			
 			/*
 				Returns a reference instead of a copy of the current shape data.
 				A reference could go out of scope when Shape does, but is much more efficient for calculations.
 			*/
-			const std::vector<coordinate_type>& GetShapeDataReference();
+			const std::vector<coordinate_type>& GetShapeDataReference() const;
 			
-			std::string ToString() noexcept;
+			std::string ToString() const noexcept;
 			
 			unsigned long GetTrackerId() const noexcept;
 			void SetTrackerId(unsigned long new_id) noexcept;
