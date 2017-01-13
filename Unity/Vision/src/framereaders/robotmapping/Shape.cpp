@@ -45,12 +45,12 @@ void Shape::SetShapeData(std::vector<Shape::coordinate_type> vertices_data)
 	_shape_data = std::move(vertices_data);
 }
 
-std::vector<Shape::coordinate_type> Shape::GetShapeData() noexcept
+std::vector<Shape::coordinate_type> Shape::GetShapeData() const noexcept
 {
 	return _shape_data;
 }
 
-const std::vector<Shape::coordinate_type>& Shape::GetShapeDataReference()
+const std::vector<Shape::coordinate_type>& Shape::GetShapeDataReference() const
 {
 	return _shape_data;
 }
@@ -65,7 +65,7 @@ void Shape::SetTrackerId(unsigned long trackerId) noexcept
 	_tracking_id = trackerId;
 }
 
-string Shape::ToString() noexcept
+string Shape::ToString() const noexcept
 {
 	stringstream s;
 	
