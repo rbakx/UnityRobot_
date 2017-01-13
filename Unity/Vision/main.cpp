@@ -3,7 +3,7 @@
 	#include <X11/Xlib.h>
 #endif
 #include <iostream> /* For ofstream */
-//#include <fstream>  /* For ofstream */
+#include <fstream>  /* For ofstream */
 
 #include <memory>
 
@@ -56,46 +56,85 @@ unique_ptr<ShapesTracker> tracker;
 //TODO remove this
 using Msg = Communication::Message;
 using MsgBuilder = MessageBuilder;
-using Comm = Communicator;
 unique_ptr<TCPSocketDataLink> con;
-unique_ptr<Comm> communi;
-void setupUnityConnection(const std::string& addr, const std::string& port)
+unique_ptr<Communicator> communicator;
+void sendDummyData()
+{
+	Msg toSend = MsgBuilder::create(Communication::MessageType_::IdentificationResponse, Communication::MessageTarget_::Unity, 13);
+	MsgBuilder::addStringData(toSend, "stupid robot");
+	MsgBuilder::addNewShape(toSend, 3, { { 5.0, 5.5, 1.0 },{ 1.0, 1.5, 1.5 } });
+	MsgBuilder::addNewShape(toSend, 5, { { -5.0, -5.5, -1.0 } });
+	MsgBuilder::addChangedShape(toSend, 7, MsgBuilder::createVec3(0, 4, 3));
+	MsgBuilder::addDelShape(toSend, 5);
+
+	std::cout << "Send result: " << std::boolalpha << communicator->sendCommand(toSend) << '\n';
+}
+void sendDummyData2()
+{
+	Msg toSend2 = MsgBuilder::create(Communication::MessageType_::IdentificationResponse, Communication::MessageTarget_::Unity, 14);
+	MsgBuilder::addStringData(toSend2, "stupid robot again");
+	MsgBuilder::addNewShape(toSend2, 8, { { 4.0, 5.5, 1.0 },{ 1.0, 1.5, 1.5 } });
+	MsgBuilder::addNewShape(toSend2, 5, { { -4.0, -5.5, -1.0 } });
+	MsgBuilder::addChangedShape(toSend2, 2, MsgBuilder::createVec3(5, 4, 3));
+	MsgBuilder::addDelShape(toSend2, 7);
+
+	std::cout << "Send result: " << std::boolalpha << communicator->sendCommand(toSend2) << '\n';
+}
+//TODO remove above
+bool initTcpConnection(const std::string& addr, const std::string& port)
 {
 	con = make_unique<UnityRobot::TCPSocketDataLink>(addr, port, std::unique_ptr<IDataStreamReceiver>(std::make_unique<ProtobufPresentation>()));
 	con->Connect();
-	communi = make_unique<Comm>(*(static_cast<ProtobufPresentation*>(con->getReceiver())), *con);
 
 	if (con->Connected())
 	{
-		Msg toSend = MsgBuilder::create(Communication::MessageType_::IdentificationResponse, Communication::MessageTarget_::Unity, 13);
-		MsgBuilder::addStringData(toSend, "stupid robot");
-		MsgBuilder::addNewShape(toSend, 3, { { 5.0, 5.5, 1.0 },{ 1.0, 1.5, 1.5 } });
-		MsgBuilder::addNewShape(toSend, 5, { { -5.0, -5.5, -1.0 } });
-		MsgBuilder::addChangedShape(toSend, 7, MsgBuilder::createVec3(0, 4, 3));
-		MsgBuilder::addDelShape(toSend, 5);
-
-		std::cout << "Send result: " << std::boolalpha << communi->sendCommand(toSend) << '\n';
+		communicator = make_unique<Communicator>(*(static_cast<ProtobufPresentation*>(con->getReceiver())), *con);
+		sendDummyData();
+		LogInfo("Communicator successfully set up on IP " + addr + ":" + port);
 	}
+	else
+		LogCritError("Communicator failed to set up on IP " + addr + ":" + port);
+
+	return con->Connected();
 }
-//TODO remove above
+
+void closeTcpConnection()
+{
+	//to not rely on destruction order of the logger (TcpSocketDatalink has logging on the destructor)
+	this_thread::sleep_for(std::chrono::milliseconds(25)); //wait in case a message is on its way
+	communicator.reset(nullptr);
+	con.reset(nullptr);
+}
+
 int main(int argc, char* argv[])
 {
 #ifdef __linux__
 	XInitThreads(); //Qt needs to know we will be using a multi-threaded environment.
 #endif
-	settings = Settings::read();
-	std::string address("145.93.44.124");
+	RobotLogger::init();
+
+	//GOOGLE_PROTOBUF_VERIFY_VERSION;
+	//settings = Settings::read();
+	std::string address("145.93.45.8");
 	std::string port("1234");
-	setupUnityConnection(address, port);
-	cout << "Connection should be made to Unity on IP: " << settings->getGeneralProperties().ip << endl;
+	initTcpConnection(address, port);
+	//this_thread::sleep_for(std::chrono::milliseconds(16));
+	sendDummyData2();
+	sendDummyData2();
+	sendDummyData2();
+	
+	
+	//if(!initTcpConnection(settings->getGeneralProperties().ip, settings->getGeneralProperties().port))
+	//	cout << "Connection could not be made to Unity on IP: " << settings->getGeneralProperties().ip
+	//		<< ":" << settings->getGeneralProperties().port << endl;
 
-	processCommandLineArguments(argc, argv);
+	//processCommandLineArguments(argc, argv);
 
-	receivers.removeAll();
-
+	//receivers.removeAll();
 	videofeeder.reset(nullptr);
 	mediafeeder.reset(nullptr);
 	tracker.reset(nullptr);
+	closeTcpConnection();
 
 	return 0;
 }
