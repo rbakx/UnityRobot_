@@ -128,7 +128,7 @@ bool TCPSocketDataLink::SendData(const std::vector<char>& data) noexcept
 
 	if (!result)
 	{
-		//LOG THIS SHIT
+		LogError("Failed to send data through TCPSocketDatalink");
 	}
 
 	return result;

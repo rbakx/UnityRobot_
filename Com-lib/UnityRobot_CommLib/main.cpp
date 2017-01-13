@@ -45,7 +45,7 @@ int main(int argc, char** argv)
 	RobotLogger::init();
 	GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-	std::string address = argc > 2 ?  argv[1] : "145.93.45.74";
+	std::string address = argc > 2 ?  argv[1] : "145.93.45.8";
 	std::string port = argc > 2 ? argv[2] : "1234";
 
 	TCPSocketDataLink link(address, port, std::unique_ptr<IDataStreamReceiver>(std::make_unique<ProtobufPresentation>()));
