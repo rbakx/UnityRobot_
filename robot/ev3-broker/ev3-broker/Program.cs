@@ -37,10 +37,36 @@ namespace ev3_broker
         }
         static void Main(string[] args)
         {
+            bool validAddress = true;
+
+            IPAddress address = null;
+            ushort port = 0;
+
+            if (args.Length >= 2)
+            {
+                if (!IPAddress.TryParse(args[0], out address))
+                {
+                    validAddress = false;
+                }
+                if (!ushort.TryParse(args[1], out port))
+                {
+                    validAddress = false;
+                }
+            }
+            else
+            {
+                validAddress = false;
+            }
+
+            if (!validAddress)
+            {
+                address = IPAddress.Parse("192.168.1.100");
+                port = 1234;
+            }
 
            Receiver receiver = new Receiver();
             EV3ServiceListener listener = new EV3ServiceListener(receiver,
-                IPAddress.Parse("192.168.1.100"), 1234);
+               address, port);
             listener.StartListening();
 
             Console.WriteLine("Listener started, press enter to quit");
