@@ -29,7 +29,7 @@ namespace robotmapping
 			Shape(const Shape& copy) noexcept;
 			Shape(std::string main_property = UNKNOWN_PROPERTY, unsigned long tracking_id = 0) noexcept;
 			
-			coordinate_type Center() noexcept;
+			coordinate_type Center() const noexcept;
 			
 			void SetAngles(rotation_angles_type euler_angles) noexcept;
 			

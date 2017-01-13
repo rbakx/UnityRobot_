@@ -30,7 +30,7 @@ void Shape::SetAngles(Shape::rotation_angles_type euler_angles) noexcept
 	_euler_angles = std::move(euler_angles);
 }
 
-Shape::coordinate_type Shape::Center() noexcept
+Shape::coordinate_type Shape::Center() const noexcept
 {
 	return _center;
 }
