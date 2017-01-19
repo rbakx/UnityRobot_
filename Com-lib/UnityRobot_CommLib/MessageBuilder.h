@@ -25,6 +25,7 @@ public:
 	//ShapeUpdate
 	static void addShapeUpdateInfo(Msg& msg);
 	static void addChangedShape(Msg& msg, int32_t id, Vec3 center, Vec3 rotation = createVec3(array3{0, 0, 0}));
+	static void addChangedShape(Msg& msg, int32_t id, std::vector<array3> vertices);
 	static void addNewShape(Msg& msg, int32_t id, std::initializer_list<Vec3> vertices);
 	static void addNewShape(Msg& msg, int32_t id, std::vector<array3> vertices);
 	static void addNewShape(Msg& msg, int32_t id, std::initializer_list<array3> vertices);

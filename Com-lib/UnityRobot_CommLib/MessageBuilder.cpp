@@ -65,6 +65,13 @@ void MessageBuilder::addChangedShape(Msg& msg, int32_t id, Vec3 center, Vec3 rot
 	addTransformToShape(shapeUpdate->add_changedshapes(), id ,center, rotation);
 }
 
+void MessageBuilder::addChangedShape(Msg& msg, int32_t id, std::vector<array3> vertices)
+{
+	auto shapeUpdate = msg.mutable_shapeupdateinfo();
+	addVerticesToShape(shapeUpdate->add_changedshapes(), id, vertices);
+}
+
+
 void MessageBuilder::addNewShape(Msg& msg, int32_t id, std::initializer_list<Vec3> vertices)
 {
 	auto shapeUpdate = msg.mutable_shapeupdateinfo();
