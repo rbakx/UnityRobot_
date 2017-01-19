@@ -35,6 +35,11 @@ Shape::coordinate_type Shape::Center() const noexcept
 	return _center;
 }
 
+Shape::rotation_angles_type Shape::Orientation() const noexcept
+{
+	return _euler_angles;
+}
+	
 void Shape::SetCenter(coordinate_type center_point) noexcept
 {
 	_center = std::move(center_point);
@@ -55,12 +60,12 @@ const std::vector<Shape::coordinate_type>& Shape::GetShapeDataReference() const
 	return _shape_data;
 }
 
-unsigned long Shape::GetTrackerId() const noexcept
+unsigned long Shape::GetTrackingId() const noexcept
 {
 	return _tracking_id;
 }
 
-void Shape::SetTrackerId(unsigned long trackerId) noexcept
+void Shape::SetTrackingId(unsigned long trackerId) noexcept
 {
 	_tracking_id = trackerId;
 }
@@ -76,5 +81,5 @@ string Shape::ToString() const noexcept
 
 bool robotmapping::operator==(const Shape& s, const unsigned long tracker_id)
 {
-	return s.GetTrackerId() == tracker_id;
+	return s.GetTrackingId() == tracker_id;
 }

@@ -63,7 +63,7 @@ void ShapesTracker::SignalEndFrame(const ShapeDetectorBase& detector) noexcept
 		
 		if(!matched)
 		{
-			new_it->SetTrackerId(++_tracker_id_top);
+			new_it->SetTrackingId(++_tracker_id_top);
 			_tracked_shapes.push_back(*new_it);
 			
 			*(matched_tracks.begin() + (new_it - _new_frame_shapes.begin())) = true;

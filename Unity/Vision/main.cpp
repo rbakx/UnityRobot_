@@ -115,7 +115,7 @@ int main(int argc, char* argv[])
 
 	//GOOGLE_PROTOBUF_VERIFY_VERSION;
 	//settings = Settings::read();
-	std::string address("145.93.45.8");
+	std::string address("145.93.44.202");
 	std::string port("1234");
 	initTcpConnection(address, port);
 	//this_thread::sleep_for(std::chrono::milliseconds(16));
