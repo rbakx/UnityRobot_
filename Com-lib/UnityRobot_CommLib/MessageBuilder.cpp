@@ -59,19 +59,25 @@ void MessageBuilder::addShapeUpdateInfo(Msg& msg)
 	//is that even useful? Who knows!
 }
 
-	void MessageBuilder::addChangedShape(Msg& msg, int32_t id, Vec3 center, Vec3 rotation)
+void MessageBuilder::addChangedShape(Msg& msg, int32_t id, Vec3 center, Vec3 rotation)
 {
 	auto shapeUpdate = msg.mutable_shapeupdateinfo();
 	addTransformToShape(shapeUpdate->add_changedshapes(), id ,center, rotation);
 }
 
-	void MessageBuilder::addNewShape(Msg& msg, int32_t id, std::initializer_list<Vec3> vertices)
+void MessageBuilder::addNewShape(Msg& msg, int32_t id, std::initializer_list<Vec3> vertices)
 {
 	auto shapeUpdate = msg.mutable_shapeupdateinfo();
 	addVerticesToShape(shapeUpdate->add_newshapes(), id, vertices);
 }
 
-	void MessageBuilder::addNewShape(Msg& msg, int32_t id, std::initializer_list<array3> vertices)
+void MessageBuilder::addNewShape(Msg& msg, int32_t id, std::vector<array3> vertices)
+{
+	auto shapeUpdate = msg.mutable_shapeupdateinfo();
+	addVerticesToShape(shapeUpdate->add_newshapes(), id, vertices);
+}
+
+void MessageBuilder::addNewShape(Msg& msg, int32_t id, std::initializer_list<array3> vertices)
 {
 	auto shapeUpdate = msg.mutable_shapeupdateinfo();
 	addVerticesToShape(shapeUpdate->add_newshapes(), id, vertices);
@@ -105,6 +111,14 @@ void MessageBuilder::addVerticesToShape(Shape* sh, int32_t id, std::initializer_
 
 	for (const auto& v : vertices)
 		addVerticesToShape(sh, v);
+}
+
+void MessageBuilder::addVerticesToShape(Shape* sh, int32_t id, std::vector<array3> vertices)
+{
+	sh->set_id(id);
+
+	for (const auto& v : vertices)
+		addVerticesToShape(sh, {v[0], v[1], v[2]});
 }
 
 void MessageBuilder::addVerticesToShape(Shape* sh, int32_t id, std::initializer_list<Vec3> vertices)
