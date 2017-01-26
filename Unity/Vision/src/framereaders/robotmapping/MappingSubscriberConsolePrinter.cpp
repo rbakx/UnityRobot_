@@ -4,37 +4,37 @@
 
 using namespace robotmapping;
 
-void MappingSubscriberConsolePrinter::OnRecognise(const ShapesTracker& tracker, Shape& shape) noexcept
+void MappingSubscriberConsolePrinter::OnRecognise(const IShapeTrackers& tracker, Shape& shape) noexcept
 {
 	std::cout << "[ShapesTracker] NEW MATCH: (" << shape.GetTrackerId() << ") " << shape.ToString() << std::endl;
 }
 
-void MappingSubscriberConsolePrinter::OnLost(const ShapesTracker& tracker, Shape& shape) noexcept
+void MappingSubscriberConsolePrinter::OnLost(const IShapeTrackers& tracker, Shape& shape) noexcept
 {
 	std::cout << "[ShapesTracker] I LOST IT, BRO! (" << shape.GetTrackerId() << ") " << shape.ToString() << std::endl;
 }
 
-void MappingSubscriberConsolePrinter::OnMove(const ShapesTracker& tracker, Shape& shape) noexcept
+void MappingSubscriberConsolePrinter::OnMove(const IShapeTrackers& tracker, Shape& shape) noexcept
 {
 	std::cout << "[ShapesTracker] POSITION UPDATE: (" << shape.GetTrackerId() << ") " << shape.ToString() << std::endl;
 }
 
-void MappingSubscriberConsolePrinter::OnVerticesChanged(const ShapesTracker& tracker, Shape& shape) noexcept
+void MappingSubscriberConsolePrinter::OnVerticesChanged(const IShapeTrackers& tracker, Shape& shape) noexcept
 {
 	
 }
 
-void MappingSubscriberConsolePrinter::SignalNewFrame(const ShapesTracker& tracker) noexcept
+void MappingSubscriberConsolePrinter::SignalNewFrame(const IShapeTrackers& tracker) noexcept
 {
 	
 }
 
-void MappingSubscriberConsolePrinter::SignalEndFrame(const ShapesTracker& tracker) noexcept
+void MappingSubscriberConsolePrinter::SignalEndFrame(const IShapeTrackers& tracker) noexcept
 {
 	
 }
 
-void MappingSubscriberConsolePrinter::ShapeDetected(const ShapesTracker& tracker, Shape& shape) noexcept
+void MappingSubscriberConsolePrinter::ShapeDetected(const IShapeTrackers& tracker, Shape& shape) noexcept
 {
 	
 }

@@ -166,6 +166,7 @@ void ObjectDetector::run()
 			//todo: A SHAPE IS RECOGNISED
 			Shape shape(_sampleName);
 			shape.SetCenter(boundary.center);
+
 			_receiver->ShapeDetected(*this, shape);
 		}
 

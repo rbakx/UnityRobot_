@@ -3,7 +3,7 @@
 	#include <X11/Xlib.h>
 #endif
 #include <iostream> /* For ofstream */
-//#include <fstream>  /* For ofstream */
+#include <fstream>  /* For ofstream */
 
 #include <memory>
 
@@ -21,14 +21,15 @@
 
 #include "src/framereaders/robotmapping/ShapeDetectorBase.hpp"
 
-#include "src/framereaders/robotmapping/ShapesTracker.hpp"
+#include "src/framereaders/robotmapping/ShapeTrackers.hpp"
 
 #include "src/framereaders/robotmapping/MappingSubscriberConsolePrinter.hpp"
+#include "src/framereaders/robotmapping/KalmanShapeTracker.hpp"
 
-#include <communicator.h>
-#include <IDataStreamReceiver.hpp>
-#include <IPresentationProtocol.hpp>
-#include <ProtobufPresentation.h>
+#include "src/commlib/communicator.h"
+#include "src/commlib/IDataStreamReceiver.hpp"
+#include "src/commlib/IPresentationProtocol.hpp"
+#include "src/commlib/ProtobufPresentation.h"
 #include "src/commlib/MessageBuilder.h"
 #include "src/commlib/RobotLogger.h"
 #include "src/commlib/communicator.h"
@@ -51,7 +52,7 @@ unique_ptr<CameraFeedSender> videofeeder;
 unique_ptr<MediaFeedSender> mediafeeder;
 
 VideoFeedFrameReceiverTargets receivers;
-unique_ptr<ShapesTracker> tracker;
+unique_ptr< ShapeTrackers<KalmanShapeTracker> > tracker;
 
 //TODO remove this
 using Msg = Communication::Message;
@@ -126,7 +127,7 @@ void processCommandLineArguments(int argc, char* argv[])
 	}
 	else
 	{
-		videofeeder = make_unique<CameraFeedSender>(&receivers);
+		videofeeder = make_unique<CameraFeedSender>(&receivers); //TODO: Fix that this isn't called when option is 'help'
 
 		/*
 		 *	POST: If only an argument such as 'start' is supplied through command line,
@@ -138,7 +139,7 @@ void processCommandLineArguments(int argc, char* argv[])
 	{
 		MappingSubscriberConsolePrinter printer;
 		
-		tracker = make_unique<ShapesTracker>(&printer);
+		tracker = unique_ptr< ShapeTrackers<KalmanShapeTracker> >(new ShapeTrackers<KalmanShapeTracker>(&printer));
 		
 		// Scope for display an detectors
 		{

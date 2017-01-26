@@ -69,6 +69,9 @@ endif()
 include_directories(SYSTEM ${LIBUSB1_INCLUDE_DIRS})
 
 set (SOURCE_FILES	main.cpp
+
+					src/commlib/
+
 					src/Robot.h
 					src/framereaders/robotmapping/Calibrator.cpp src/framereaders/robotmapping/Calibrator.hpp
 					src/Settings.cpp src/Settings.h
@@ -90,7 +93,10 @@ set (SOURCE_FILES	main.cpp
 					
 					src/framereaders/robotmapping/ObjectDetector.cpp src/framereaders/robotmapping/ObjectDetector.hpp
 					src/framereaders/robotmapping/ShapeDetectorBase.cpp src/framereaders/robotmapping/ShapeDetectorBase.hpp
-					src/framereaders/robotmapping/ShapesTracker.cpp src/framereaders/robotmapping/ShapesTracker.hpp
+
+					src/framereaders/robotmapping/IShapeTrackers.hpp
+					src/framereaders/robotmapping/ShapeTrackers.hpp
+					src/framereaders/robotmapping/KalmanShapeTracker.cpp src/framereaders/robotmapping/KalmanShapeTracker.hpp
 					
 					src/framereaders/robotmapping/MappingSubscriberConsolePrinter.cpp src/framereaders/robotmapping/MappingSubscriberConsolePrinter.hpp
 					
