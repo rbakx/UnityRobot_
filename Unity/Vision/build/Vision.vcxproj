@@ -622,6 +622,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\MessageHandler.h" />
     <ClInclude Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\Robot.h" />
     <ClInclude Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framereaders\robotmapping\Calibrator.hpp" />
     <ClInclude Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\Settings.h" />
@@ -641,6 +642,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framereaders\robotmapping\ShapeDetectorBase.hpp" />
     <ClInclude Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framereaders\robotmapping\ShapesTracker.hpp" />
     <ClInclude Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framereaders\robotmapping\MappingSubscriberConsolePrinter.hpp" />
+    <ClCompile Include="..\src\MessageHandler.cpp" />
     <ClCompile Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\main.cpp" />
     <ClCompile Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\framereaders\robotmapping\Calibrator.cpp" />
     <ClCompile Include="C:\Users\Phoenix\Documents\Minor\Proj\RepoVision\UnityRobot\Unity\Vision\src\Settings.cpp" />

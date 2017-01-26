@@ -30,6 +30,7 @@ namespace robotmapping
 			Shape(std::string main_property = UNKNOWN_PROPERTY, unsigned long tracking_id = 0) noexcept;
 			
 			coordinate_type Center() const noexcept;
+			rotation_angles_type Orientation() const noexcept;
 			
 			void SetAngles(rotation_angles_type euler_angles) noexcept;
 			
@@ -55,8 +56,8 @@ namespace robotmapping
 			
 			std::string ToString() const noexcept;
 			
-			unsigned long GetTrackerId() const noexcept;
-			void SetTrackerId(unsigned long new_id) noexcept;
+			unsigned long GetTrackingId() const noexcept;
+			void SetTrackingId(unsigned long new_id) noexcept;
 	};
 	
 	bool operator==(const Shape& s, const unsigned long tracker_id);

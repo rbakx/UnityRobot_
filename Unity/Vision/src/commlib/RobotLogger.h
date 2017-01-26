@@ -8,7 +8,7 @@
 do\
 {\
 	std::stringstream strss;\
-	strss << "\t" << logText << "\n\t_FILE: " << __FILE__ << "\n\t_LINE: " << __LINE__;\
+	strss << "\t" << std::string(logText) << "\n\t_FILE: " << __FILE__ << "\n\t_LINE: " << __LINE__;\
 	UnityRobot::RobotLogger::get()->info(strss.str());\
 }while (false);
 
@@ -16,7 +16,7 @@ do\
 do\
 {\
 	std::stringstream strss;\
-	strss << "\t" << logText << "\n\t_FILE: " << __FILE__ << "\n\t_LINE: " << __LINE__;\
+	strss << "\t" << std::string(logText) << "\n\t_FILE: " << __FILE__ << "\n\t_LINE: " << __LINE__;\
 	UnityRobot::RobotLogger::get()->error(strss.str());\
 }while (false);
 
@@ -24,7 +24,7 @@ do\
 do\
 {\
 	std::stringstream strss;\
-	strss << "\t" << logText << "\n\t_FILE: " << __FILE__ << "\n\t_LINE: " << __LINE__;\
+	strss << "\t" << std::string(logText) << "\n\t_FILE: " << __FILE__ << "\n\t_LINE: " << __LINE__;\
 	UnityRobot::RobotLogger::get()->warn(strss.str());\
 }while (false);
 
@@ -32,7 +32,7 @@ do\
 do\
 {\
 	std::stringstream strss;\
-	strss << "\t" << logText << "\n\t_FILE: " << __FILE__ << "\n\t_LINE: " << __LINE__;\
+	strss << "\t" << std::string(logText) << "\n\t_FILE: " << __FILE__ << "\n\t_LINE: " << __LINE__;\
 	UnityRobot::RobotLogger::get()->debug(strss.str());\
 }while (false);
 
@@ -40,7 +40,7 @@ do\
 do\
 {\
 	std::stringstream strss;\
-	strss << "\t" << logText << "\n\t_FILE: " << __FILE__ << "\n\t_LINE: " << __LINE__;\
+	strss << "\t" << std::string(logText) << "\n\t_FILE: " << __FILE__ << "\n\t_LINE: " << __LINE__;\
 	UnityRobot::RobotLogger::get()->critical(strss.str());\
 }while (false);
 

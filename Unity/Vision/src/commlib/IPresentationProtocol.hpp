@@ -3,7 +3,7 @@
 #include <vector>
 #include <stdint.h>
 
-#include "message.pb.h"
+#include "protobuf/message.pb.h"
 #include "IDataStreamReceiver.hpp"
 
 namespace Networking {

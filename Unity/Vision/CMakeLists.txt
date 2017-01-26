@@ -66,11 +66,9 @@ endif()
 
 #find_package(PkgConfig REQUIRED)
 #pkg_search_module(LIBUSB1 REQUIRED libusb-1.0)
-include_directories(SYSTEM ${LIBUSB1_INCLUDE_DIRS})
+include_directories(SYSTEM ${LIBUSB1_INCLUDE_DIRS} src/commlib/)
 
 set (SOURCE_FILES	main.cpp
-
-					src/commlib/
 
 					src/Robot.h
 					src/framereaders/robotmapping/Calibrator.cpp src/framereaders/robotmapping/Calibrator.hpp
@@ -103,7 +101,15 @@ set (SOURCE_FILES	main.cpp
 		)
 
 add_executable(Vision ${SOURCE_FILES})
-target_link_libraries( Vision ${OpenCV_LIBS} ${USB_LIBS} rt pthread X11)
+target_link_libraries(Vision
+		${OpenCV_LIBS}
+		${USB_LIBS}
+		${PROTOBUF_LIBRARY}
+		${CMAKE_SOURCE_DIR}/src/libComLib.a
+		rt
+		pthread
+		X11
+	)
 
 macro(COPY_RESOURCES_ON_TARGET_BUILD _target _sourceDirectory _outputDirectory)
     # Scan through resource folder for updated files and copy if none existing or changed

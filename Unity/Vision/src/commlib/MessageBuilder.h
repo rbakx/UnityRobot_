@@ -2,7 +2,7 @@
 #include <array>
 
 #include "protobuf/message.pb.h"
-#include <IPresentationProtocol.hpp>
+#include "IPresentationProtocol.hpp"
 
 namespace Networking
 {
@@ -25,7 +25,9 @@ public:
 	//ShapeUpdate
 	static void addShapeUpdateInfo(Msg& msg);
 	static void addChangedShape(Msg& msg, int32_t id, Vec3 center, Vec3 rotation = createVec3(array3{0, 0, 0}));
+	static void addChangedShape(Msg& msg, int32_t id, std::vector<array3> vertices);
 	static void addNewShape(Msg& msg, int32_t id, std::initializer_list<Vec3> vertices);
+	static void addNewShape(Msg& msg, int32_t id, std::vector<array3> vertices);
 	static void addNewShape(Msg& msg, int32_t id, std::initializer_list<array3> vertices);
 	static void addDelShape(Msg& msg, int32_t id);
 	//Velocity
@@ -37,6 +39,7 @@ public:
 	static Vec3 createVec3(array3 vertices);
 private:
 	static void addVerticesToShape(Shape* sh, int32_t id, std::initializer_list<Vec3> vertices);
+	static void addVerticesToShape(Shape* sh, int32_t id, std::vector<array3> vertices);
 	static void addVerticesToShape(Shape* sh, int32_t id, std::initializer_list<array3> vertices);
 
 	static void addTransformToShape(Shape* sh, int32_t id, Vec3 center, Vec3 rotation = createVec3(array3{ 0, 0, 0 }));

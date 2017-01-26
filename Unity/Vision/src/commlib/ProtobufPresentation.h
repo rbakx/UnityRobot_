@@ -1,8 +1,8 @@
 #pragma once
 #include <mutex>
 
-#include <TCPSocketDataLink.hpp>
-#include <IPresentationProtocol.hpp>
+#include "TCPSocketDataLink.hpp"
+#include "IPresentationProtocol.hpp"
 
 class ProtobufPresentation : public Networking::IPresentationProtocol
 {
