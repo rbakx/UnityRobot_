@@ -32,11 +32,7 @@ VecArray3 cvPointsToVecArray3(std::vector<Shape::coordinate_type> v)
 }
 }
 
-MessageHandler::MessageHandler() noexcept : m_msgId(0), m_communicator(nullptr)
-{
-}
-
-MessageHandler::MessageHandler(UnityRobot::Communicator* comm) noexcept : m_msgId(0), m_communicator(comm)
+MessageHandler::MessageHandler(std::unique_ptr<UnityRobot::Communicator> comm) noexcept : m_msgId(0), m_communicator(std::move(comm))
 {
 }
 
@@ -67,17 +63,10 @@ void MessageHandler::ShapeDetected(const ShapesTracker& , Shape& ) noexcept
 void MessageHandler::SignalNewFrame(const ShapesTracker& ) noexcept
 {
 	//m_toSend.Clear();
-	m_toSend = MsgBuilder::create(Communication::MessageType_::ShapeUpdate, Communication::MessageTarget_::Unity, m_msgId++);
+	m_toSend = MsgBuilder::create(Communication::MessageType_::ShapeUpdate, Communication::MessageTarget_::Unity, ++m_msgId);
 }
 
 void MessageHandler::SignalEndFrame(const ShapesTracker& ) noexcept
 {
 	m_communicator->sendCommand(m_toSend);
 }
-
-void MessageHandler::setCommunicator(UnityRobot::Communicator* comm) noexcept
-{
-	m_communicator = comm;
-}
-
-

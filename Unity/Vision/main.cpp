@@ -32,6 +32,7 @@
 #include "src/commlib/MessageBuilder.h"
 #include "src/commlib/RobotLogger.h"
 #include "src/commlib/communicator.h"
+#include "src/MessageHandler.h"
 #include <array>
 
 
@@ -80,6 +81,19 @@ void sendDummyData2()
 
 	std::cout << "Send result: " << std::boolalpha << communicator->sendCommand(toSend2) << '\n';
 }
+
+void sendDummyData2(Communicator& com)
+{
+	Msg toSend2 = MsgBuilder::create(Communication::MessageType_::IdentificationResponse, Communication::MessageTarget_::Unity, 14);
+	MsgBuilder::addStringData(toSend2, "stupid robot again");
+	MsgBuilder::addNewShape(toSend2, 8, { { 4.0, 5.5, 1.0 },{ 1.0, 1.5, 1.5 } });
+	MsgBuilder::addNewShape(toSend2, 5, { { -4.0, -5.5, -1.0 } });
+	MsgBuilder::addChangedShape(toSend2, 2, MsgBuilder::createVec3(5, 4, 3));
+	MsgBuilder::addDelShape(toSend2, 7);
+
+	std::cout << "Send result: " << std::boolalpha << com.sendCommand(toSend2) << '\n';
+}
+
 //TODO remove above
 bool initTcpConnection(const std::string& addr, const std::string& port)
 {
@@ -115,13 +129,12 @@ int main(int argc, char* argv[])
 
 	//GOOGLE_PROTOBUF_VERIFY_VERSION;
 	//settings = Settings::read();
-	std::string address("145.93.44.202");
+	std::string address("145.93.44.194");
 	std::string port("1234");
 	initTcpConnection(address, port);
-	//this_thread::sleep_for(std::chrono::milliseconds(16));
-	sendDummyData2();
-	sendDummyData2();
-	sendDummyData2();
+	MessageHandler msgHandler(std::move(communicator));
+	//sendDummyData2();
+	//sendDummyData2();
 	
 	
 	//if(!initTcpConnection(settings->getGeneralProperties().ip, settings->getGeneralProperties().port))

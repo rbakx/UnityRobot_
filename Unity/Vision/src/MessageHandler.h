@@ -11,8 +11,7 @@ namespace UnityRobot
 class MessageHandler : public robotmapping::IWorldMappingEventSubscriber
 {
 public:
-	MessageHandler() noexcept;
-	explicit MessageHandler(UnityRobot::Communicator* comm) noexcept;
+	explicit MessageHandler(std::unique_ptr<UnityRobot::Communicator> comm) noexcept;
 
 	void OnRecognise(const ShapesTracker& tracker, Shape& shape) noexcept override;
 	void OnLost(const ShapesTracker& tracker, Shape& shape) noexcept override;
@@ -22,10 +21,8 @@ public:
 	void SignalNewFrame(const ShapesTracker& tracker) noexcept override;
 	void SignalEndFrame(const ShapesTracker& tracker) noexcept override;
 	void ShapeDetected(const ShapesTracker& tracker, Shape& shape) noexcept override;
-
-	void setCommunicator(UnityRobot::Communicator* comm) noexcept;
 private:
 	int m_msgId;
 	Communication::Message m_toSend;
-	UnityRobot::Communicator* m_communicator;
+	const std::unique_ptr<UnityRobot::Communicator> m_communicator;
 };
