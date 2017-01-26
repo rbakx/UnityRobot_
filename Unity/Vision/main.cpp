@@ -1,9 +1,16 @@
 #ifdef __linux__
-	#include <unistd.h> /* For getuid() */
+	#include <unistd.h>		/* For getuid() */
 	#include <X11/Xlib.h>
+	#undef Status			/* This undefines a marco named Status in Xlib as this name will also be used in Protobuf
+ 							 * for a struct. Without this, we will get an compilation error.
+ 							 * Source: https://anonscm.debian.org/cgit/debian-science/packages/gazebo.git/commit/?id=d033bbf3218580638e35b8df13565099a5c7c8db
+ 							 *
+ 							 * Thank us later, xoxo George and Rutger.
+ 							 */
+	#undef False
 #endif
-#include <iostream> /* For ofstream */
-#include <fstream>  /* For ofstream */
+#include <iostream>			/* For ofstream */
+#include <fstream>			/* For ofstream */
 
 #include <memory>
 
