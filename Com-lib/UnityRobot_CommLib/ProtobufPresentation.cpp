@@ -11,8 +11,7 @@ void ProtobufPresentation::IncomingData(const std::vector<char>& data, Networkin
 
 void ProtobufPresentation::IncomingMessage(const Communication::Message& newMessage, Networking::IDataLink* dlink)
 {
-	//TBAdded
-	throw std::exception("Not yet implemented");
+	//TODO
 }
 
 std::vector<char> ProtobufPresentation::MessageToBinaryData(const Communication::Message& message) const noexcept

@@ -9,6 +9,7 @@ using namespace Networking;
 #include <iostream>
 #include <string>
 #include <mutex>
+#include <memory>
 #include "RobotLogger.h"
 #include "message.pb.h"
 #include "MessageBuilder.h"
