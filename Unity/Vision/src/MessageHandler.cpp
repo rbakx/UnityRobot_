@@ -36,37 +36,37 @@ MessageHandler::MessageHandler(std::unique_ptr<UnityRobot::Communicator> comm) n
 {
 }
 
-void MessageHandler::OnRecognise(const ShapesTracker& , Shape& shape) noexcept
+void MessageHandler::OnRecognise(const IShapeTrackers& , Shape& shape) noexcept
 {
 	MsgBuilder::addNewShape(m_toSend, shape.GetTrackingId(), cvPointsToVecArray3(shape.GetShapeData()));
 }
 
-void MessageHandler::OnLost(const ShapesTracker& , Shape& shape) noexcept
+void MessageHandler::OnLost(const IShapeTrackers& , Shape& shape) noexcept
 {
 	MsgBuilder::addDelShape(m_toSend, shape.GetTrackingId());
 }
 
-void MessageHandler::OnMove(const ShapesTracker& , Shape& shape) noexcept
+void MessageHandler::OnMove(const IShapeTrackers& , Shape& shape) noexcept
 {
 	MsgBuilder::addChangedShape(m_toSend, shape.GetTrackingId(), cvPointToVec3(shape.Center()), cvPointToVec3(shape.Orientation()));
 }
 
-void MessageHandler::OnVerticesChanged(const ShapesTracker& , Shape& shape) noexcept
+void MessageHandler::OnVerticesChanged(const IShapeTrackers& , Shape& shape) noexcept
 {
 	MsgBuilder::addChangedShape(m_toSend, shape.GetTrackingId(), cvPointsToVecArray3(shape.GetShapeData()));
 }
 
-void MessageHandler::ShapeDetected(const ShapesTracker& , Shape& ) noexcept
+void MessageHandler::ShapeDetected(const IShapeTrackers& , Shape& ) noexcept
 {
 }
 
-void MessageHandler::SignalNewFrame(const ShapesTracker& ) noexcept
+void MessageHandler::SignalNewFrame(const IShapeTrackers& ) noexcept
 {
 	//m_toSend.Clear();
 	m_toSend = MsgBuilder::create(Communication::MessageType_::ShapeUpdate, Communication::MessageTarget_::Unity, ++m_msgId);
 }
 
-void MessageHandler::SignalEndFrame(const ShapesTracker& ) noexcept
+void MessageHandler::SignalEndFrame(const IShapeTrackers& ) noexcept
 {
 	m_communicator->sendCommand(m_toSend);
 }

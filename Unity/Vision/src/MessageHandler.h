@@ -1,6 +1,7 @@
 #pragma once
 #include "framereaders/robotmapping/IWorldMappingEventSubscriber.hpp"
 #include <MessageBuilder.h>
+#include <memory>
 
 using namespace robotmapping;
 namespace UnityRobot 
