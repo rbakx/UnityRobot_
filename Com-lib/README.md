@@ -63,7 +63,7 @@ We will now install Asio:
 
 1.  Download the Asio archive
 2.  Extract it anywhere you want
-3.  Run `./configure` in this folder
+3.  Run `./configure --without-boost` in this folder
 4.  Now run `make` and afterwards run `sudo make install`
 
 Next, we will install Protocol Buffers:
