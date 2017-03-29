@@ -74,8 +74,7 @@ Next, we will install Protocol Buffers:
 4.  Run `./configure` in this folder
 5.  Go into the `src` folder
 5.  Run `make` and afterwards run `sudo make install`
-
-Finally, run `sudo ldconfig` to refresh shared library cache.
+7. Finally, run `sudo ldconfig` to refresh shared library cache.
 
 ## Running
 The most important thing when starting to use this library, is to make sure you pass your IP address as parameter to your built executable. **Note:** This cannot be your local IP address (localhost, 127.0.0.1), but should be your external IP address!
