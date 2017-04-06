@@ -4,6 +4,7 @@ add_library (Networking
                 IMessageReceiver.hpp
                 IMessageSender.hpp
                 IPresentationProtocol.hpp
+				IPresentationProtocolSerializer.hpp
             )
 
 set_target_properties(Networking PROPERTIES LINKER_LANGUAGE CXX)

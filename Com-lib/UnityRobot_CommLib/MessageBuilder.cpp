@@ -1,4 +1,4 @@
-#include "MessageBuilder.h"
+#include "MessageBuilder.hpp"
 #include <algorithm>
 
 namespace

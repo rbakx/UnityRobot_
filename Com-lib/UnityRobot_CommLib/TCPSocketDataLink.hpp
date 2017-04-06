@@ -1,19 +1,19 @@
 #pragma once
 
-#define ASIO_STANDALONE
-#define ASIO_HAS_STD_CHRONO
-#define ASIO_HAS_STD_ADDRESSOF
-#define ASIO_HAS_STD_ARRAY
-#define ASIO_HAS_CSTDINT
-#define ASIO_HAS_STD_SHARED_PTR
-#define ASIO_HAS_STD_TYPE_TRAITS
+// #define ASIO_STANDALONE
+// #define ASIO_HAS_STD_CHRONO
+// #define ASIO_HAS_STD_ADDRESSOF
+// #define ASIO_HAS_STD_ARRAY
+// #define ASIO_HAS_CSTDINT
+// #define ASIO_HAS_STD_SHARED_PTR
+// #define ASIO_HAS_STD_TYPE_TRAITS
 
 #include <thread>
 #include <memory>
 
-#include <asio.hpp>
-#include <asio/io_service.hpp>
-#include <asio/ip/tcp.hpp>
+#include <boost/asio.hpp>
+#include <boost/asio/io_service.hpp>
+#include <boost/asio/ip/tcp.hpp>
 
 #include "IDataLink.hpp"
 #include "IDataStreamReceiver.hpp"
@@ -38,19 +38,19 @@ public:
 private:
 
 	void StartReading();
-	void ReadCallback(const asio::error_code& error, std::size_t bytes_transferred);
+	void ReadCallback(const boost::system::error_code& error, std::size_t bytes_transferred);
 
 	std::thread m_TCPReaderThread;
 
 	std::string m_AdrressStr;
 	std::string m_SocketStr;
 
-	asio::ip::tcp::socket m_Socket;
-	asio::ip::tcp::resolver m_Resolver;
+	boost::asio::ip::tcp::socket m_Socket;
+	boost::asio::ip::tcp::resolver m_Resolver;
 
 	std::unique_ptr<Networking::IDataStreamReceiver> m_receiver;
 
-	static asio::io_service _Service;
+	static boost::asio::io_service _Service;
 };
 
 }

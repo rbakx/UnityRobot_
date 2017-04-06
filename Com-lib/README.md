@@ -14,7 +14,8 @@ This README is built-up in the following way:
 #### Requirements
 - MSVC or CMake
 - [Google Test 1.8.0](https://github.com/google/googletest/archive/release-1.8.0.zip)
-- [Asio (non-boost) 1.10.6](https://sourceforge.net/projects/asio/files/asio/1.10.6%20%28Stable%29/asio-1.10.6.zip/download)
+- [Asio (non-boost) 1.10.6+](https://sourceforge.net/projects/asio/files/asio/1.10.6%20%28Stable%29/asio-1.10.6.zip/download)
+- [Boost Asio 1.40.2+](http://www.boost.org/users/download/)
 - [Protocol Buffers 3.0.2](https://github.com/google/protobuf/releases/download/v3.0.2/protobuf-cpp-3.0.2.zip)
 
 #### Walkthrough
@@ -32,11 +33,12 @@ To install the Google Test Framework, follow these steps:
 5.  Set Configuration to "Debug"
 6.  Build Solution
 
-We will now install Asio:
+We will now install Boost Asio:
+Note: non-boost asio is also possible; the only differences are in namespaces and error_code code space
 
-1.  Download the Asio archive
+1.  Download the (Boost) Asio archive
 2.  Extract it in, for example, `C:\asio`
-3.  Now [create the user environment variable](http://www.computerhope.com/issues/ch000549.htm) `ASIO_DIR` and point it to the `C:\asio\include` folder
+3.  Now [create the user environment variable](http://www.computerhope.com/issues/ch000549.htm) `ASIO_DIR` or `BOOST_DIR` and point it to the `C:\asio\include` folder
 
 Lastly, we will install Protocol Buffers:
 

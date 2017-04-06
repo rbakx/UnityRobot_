@@ -44,11 +44,12 @@ add_subdirectory(proto)
 add_subdirectory(spdlog)
 add_subdirectory(src/Networking)
 
-set(SOURCE_FILES    communicator.cpp communicator.h
-                    ProtobufPresentation.cpp ProtobufPresentation.h
-                    MessageBuilder.cpp MessageBuilder.h
-                    RobotLogger.cpp RobotLogger.h
-                    TCPSocketDataLink.cpp TCPSocketDataLink.hpp
+set(SOURCE_FILES    
+					TCPSocketDataLink.cpp TCPSocketDataLink.hpp
+					Communicator.cpp Communicator.hpp
+                    ProtobufPresentation.cpp ProtobufPresentation.hpp
+                    MessageBuilder.cpp MessageBuilder.hpp
+                    RobotLogger.cpp RobotLogger.h                   
                     LogFileCreator.cpp LogFileCreator.h
    )
 

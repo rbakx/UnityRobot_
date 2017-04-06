@@ -1,22 +1,22 @@
 #pragma once
 
-#include <vector>
-#include <stdint.h>
-
-#include "message.pb.h"
 #include "IDataStreamReceiver.hpp"
+#include "IMessageReceiver.hpp"
 
-namespace Networking {
+#include "IPresentationProtocolSerializer.hpp"
 
-class IPresentationProtocol : public IDataStreamReceiver
+namespace Networking
 {
-	public:
+	class IPresentationProtocol : public IPresentationProtocolSerializer, public IDataStreamReceiver
+	{
+		public:
 
-		virtual ~IPresentationProtocol(){ };
+			virtual ~IPresentationProtocol(){ };
 
-		virtual std::vector<char> MessageToBinaryData(const Communication::Message& messsage) const noexcept = 0;
-		virtual Communication::Message BinaryDataToMessage(const std::vector<char>& data, int32_t& countedProcessedBytes) const = 0;
-		virtual void IncomingMessage(const Communication::Message& newMessage, IDataLink* dlink) = 0;
-};
-
+			virtual void SetReceiver(IMessageReceiver* receiver) = 0;
+			virtual void IncomingData(const std::vector<char>& data, Networking::IDataLink* datalink) = 0;
+			
+			virtual std::vector<char> MessageToBinaryData(const Communication::Message& message) const noexcept = 0;
+			virtual Communication::Message BinaryDataToMessage(const std::vector<char>& data, int32_t& countedProcessedBytes) const = 0;
+	};
 }

@@ -1,12 +1,11 @@
 #include "TCPSocketDataLink.hpp"
 
 #include <stdexcept>
-#include <asio/io_service.hpp>
 #include "RobotLogger.h"
 
 namespace UnityRobot {
 
-asio::io_service TCPSocketDataLink::_Service;
+boost::asio::io_service TCPSocketDataLink::_Service;
 
 TCPSocketDataLink::TCPSocketDataLink(std::string address, std::string port, std::unique_ptr<Networking::IDataStreamReceiver>& receiver)
 	: m_TCPReaderThread(std::thread()), m_AdrressStr(std::move(address)), m_SocketStr(std::move(port)),
@@ -65,7 +64,7 @@ void TCPSocketDataLink::Connect()
 {
 	try
 	{
-		asio::connect(m_Socket, m_Resolver.resolve({ m_AdrressStr, m_SocketStr }));
+		boost::asio::connect(m_Socket, m_Resolver.resolve({ m_AdrressStr, m_SocketStr }));
 
 		if (Connected())
 		{
@@ -84,12 +83,12 @@ void TCPSocketDataLink::Connect()
 
 void TCPSocketDataLink::StartReading()
 {
-	asio::error_code ec;
+	boost::system::error_code ec;
 
 	std::vector<char> socketBuffer(128);
-	while (ec != asio::error::eof && m_Socket.is_open())
+	while (ec != boost::asio::error::eof && m_Socket.is_open())
 	{
-		size_t buffersize = m_Socket.read_some(asio::buffer(socketBuffer, 128), ec);
+		size_t buffersize = m_Socket.read_some(boost::asio::buffer(socketBuffer, 128), ec);
 
 		if (buffersize > 0)
 		{
@@ -102,7 +101,7 @@ void TCPSocketDataLink::StartReading()
 	m_Socket.close();
 }
 
-void TCPSocketDataLink::ReadCallback(const asio::error_code& error, size_t bytes_transferred)
+void TCPSocketDataLink::ReadCallback(const boost::system::error_code& error, size_t bytes_transferred)
 {
 	if(error)
 	{
@@ -124,7 +123,7 @@ bool TCPSocketDataLink::SendData(const std::string& data) noexcept
 
 bool TCPSocketDataLink::SendData(const std::vector<char>& data) noexcept
 {
-	bool result = ( asio::write(m_Socket, asio::buffer(data.data(), data.size())) == data.size() );
+	bool result = ( boost::asio::write(m_Socket, boost::asio::buffer(data.data(), data.size())) == data.size() );
 
 	if (!result)
 	{

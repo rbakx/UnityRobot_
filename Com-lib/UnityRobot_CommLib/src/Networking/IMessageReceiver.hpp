@@ -1,6 +1,7 @@
 #pragma once
 
-#include <Message.h>
+#include <message.pb.h>
+#include <IDataLink.hpp>
 
 namespace Networking {
 
@@ -10,7 +11,7 @@ class IMessageReceiver
 
 		virtual ~IMessageReceiver(){ };
 
-		virtual void IncomingMessage(const Message& newMessage, IDataLink* dlink) = 0;
+		virtual void IncomingMessage(const Communication::Message& newMessage, Networking::IDataLink* dlink) = 0;
 };
 
 }
